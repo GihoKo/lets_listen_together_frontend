@@ -41,7 +41,9 @@ module.exports = {
       template: 'index.html',
     }),
     new CleanWebpackPlugin.CleanWebpackPlugin(),
-    new Dotenv(),
+    new Dotenv({
+      path: './.env.local', // .env.local 파일을 명시적으로 지정
+    }),
   ],
   devServer: {
     hot: true,
