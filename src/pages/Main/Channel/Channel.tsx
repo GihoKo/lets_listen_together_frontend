@@ -23,10 +23,12 @@ export default function Channel() {
   const [musicList, setMusicList] = useState<Music[]>([]);
   const [currentMusic, setCurrentMusic] = useState<Music | null>(null);
 
-  const getMusicList = async (channelId: string | undefined) => {
+  const getMusicList = async () => {
     try {
-      const response = await axios.get(`http://localhost:8080/api/channels/${channelId}/musics`);
-      setMusicList(response.data);
+      await axios.get(`http://localhost:8080/api/channels/${channelId}/musics`).then((response) => {
+        setMusicList(response.data);
+        setCurrentMusic(response.data[0]);
+      });
     } catch (e) {
       console.error(e);
     }
@@ -37,14 +39,8 @@ export default function Channel() {
   };
 
   useEffect(() => {
-    getMusicList(channelId);
-    setCurrentMusic(musicList[0]);
+    getMusicList();
   }, [channelId]);
-
-  // 필요한 것
-  // 1. 음악 리스트를 가져온다
-  // 2. 음악을 선택한다
-  // 3. 음악을 재생한다
 
   return (
     <>

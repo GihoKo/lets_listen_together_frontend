@@ -4,7 +4,6 @@ import styled from 'styled-components';
 import { formatTime } from '../../../../utils/formatNumber';
 import { Music } from '../_types/interface';
 import extractYouTubeVideoId from '../../../../utils/extractYouTubeVideoId';
-import { set } from 'react-hook-form';
 
 interface VideoData {
   id: string;
@@ -142,7 +141,6 @@ export default function MusicPlayer({ currentMusic }: MusicPlayerProps) {
         </Positioner>
         <ProgressBar onClick={onProgressBarClick}>
           <ProgressTrack progressValue={progressValue} />
-          <CurrentTImeIndicator progressValue={progressValue} />
         </ProgressBar>
       </TimeBox>
       <YoutubePlayer id='player' />
@@ -238,21 +236,6 @@ const ProgressTrack = styled.div<{
   background-color: #000;
 
   position: absolute;
-`;
-
-const CurrentTImeIndicator = styled.div<{
-  progressValue: number;
-}>`
-  border-radius: 50%;
-  width: 12px;
-  height: 12px;
-
-  background-color: #000;
-
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  left: ${(props) => `${props.progressValue}%`};
 `;
 
 const CurrentTime = styled.div``;
