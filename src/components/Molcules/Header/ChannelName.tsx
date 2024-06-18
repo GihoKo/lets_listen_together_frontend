@@ -10,11 +10,9 @@ export default function ChannelName() {
   const [channelName, setChannelName] = useState<string | undefined>('');
 
   const getChannelName = async () => {
-    console.log(channelId);
     try {
       const response = await axios.get<Channel>(`http://localhost:8080/api/channels/${channelId}`);
       setChannelName(response.data.name);
-      console.log(response.data.name);
     } catch (error) {
       console.error(error);
     }
