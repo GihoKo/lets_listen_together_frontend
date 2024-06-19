@@ -45,6 +45,7 @@ const ChannelImageBox = styled.div`
     width: 100%;
     height: 100%;
     object-fit: cover;
+    cursor: pointer;
   }
 `;
 
@@ -56,4 +57,6 @@ const ChannelName = styled.div<{ $isOpen: boolean }>`
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+
+  cursor: pointer;
 `;

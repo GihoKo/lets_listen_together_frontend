@@ -59,6 +59,7 @@ const Image = styled.img`
   width: 100%;
   height: 120px;
   object-fit: cover;
+  cursor: pointer;
 `;
 
 const UserCount = styled.div`
@@ -75,13 +76,17 @@ const UserCount = styled.div`
   position: absolute;
   top: 18px;
   right: 18px;
+
+  cursor: pointer;
 `;
 
 const Name = styled.div`
   font-size: 16px;
   font-weight: 600;
+  cursor: pointer;
 `;
 
 const Description = styled.div`
   font-size: 16px;
+  cursor: pointer;
 `;

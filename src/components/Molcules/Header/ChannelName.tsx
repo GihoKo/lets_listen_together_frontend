@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { Link, useLocation, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import { Channel } from '../../types/interface';
+import backLeftSvg from '../../../images/svg/back-left.svg';
 
 export default function ChannelName() {
   const { pathname } = useLocation();
@@ -26,7 +27,10 @@ export default function ChannelName() {
     return (
       <Wrapper>
         <GoToMain to='/main'>
-          {'<'} {'My Page'}
+          <SvgWrapper>
+            <img src={backLeftSvg} alt='뒤로가기' />
+          </SvgWrapper>
+          <Title>{'My Page'}</Title>
         </GoToMain>
       </Wrapper>
     );
@@ -36,7 +40,10 @@ export default function ChannelName() {
     return (
       <Wrapper>
         <GoToMain to='/main'>
-          {'<'} {channelName}
+          <SvgWrapper>
+            <img src={backLeftSvg} alt='뒤로가기' />
+          </SvgWrapper>
+          <Title>{channelName}</Title>
         </GoToMain>
       </Wrapper>
     );
@@ -47,7 +54,7 @@ export default function ChannelName() {
 
 const Wrapper = styled.div`
   display: flex;
-  gap: 8px;
+  gap: 16px;
 
   font-size: 20px;
 `;
@@ -57,11 +64,28 @@ const GoToMain = styled(Link)`
 
   display: flex;
   align-items: center;
-  padding: 8px 24px;
+  padding: 8px 12px;
+  gap: 12px;
 
   cursor: pointer;
 
   &:hover {
     background-color: var(--gray-, #eeeeee);
   }
+`;
+
+const SvgWrapper = styled.div`
+  width: 24px;
+  height: 24px;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    cursor: pointer;
+  }
+`;
+
+const Title = styled.div`
+  cursor: pointer;
 `;

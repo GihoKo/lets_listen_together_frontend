@@ -19,4 +19,6 @@ const Tag = styled.div`
   background-color: var(--gray8);
   font-size: 12px;
   color: #333;
+
+  cursor: pointer;
 `;

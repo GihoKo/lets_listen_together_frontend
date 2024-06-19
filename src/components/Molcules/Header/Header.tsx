@@ -7,9 +7,9 @@ export default function Header() {
   return (
     <Wrapper>
       <ChannelName />
-      <UserProfileImageBox to='/main/myPage'>
+      <UserProfileImageLink to='/main/myPage'>
         <UserProfileImage src={profileImage} />
-      </UserProfileImageBox>
+      </UserProfileImageLink>
     </Wrapper>
   );
 }
@@ -26,8 +26,7 @@ const Wrapper = styled.header`
   padding: 0 16px;
 `;
 
-const UserProfileImageBox = styled(Link)`
-  border: 1px solid #000;
+const UserProfileImageLink = styled(Link)`
   border-radius: 50%;
   width: 36px;
   height: 36px;
@@ -43,4 +42,5 @@ const UserProfileImage = styled.img`
   width: 100%;
   height: 100%;
   object-fit: cover;
+  cursor: pointer;
 `;
