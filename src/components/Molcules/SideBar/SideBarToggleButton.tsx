@@ -1,25 +1,39 @@
 import styled from 'styled-components';
 import { SideBarToggleButtonProps } from '../../types/props';
+import SideBarOpenSvg from '../../../images/svg/sidebar-open.svg';
+import SideBarCloseSvg from '../../../images/svg/sidebar-close.svg';
 
-export default function SideBarToggleButton({ onClick }: SideBarToggleButtonProps) {
-  return <Button onClick={onClick}>{'<'}</Button>;
+export default function SideBarToggleButton({ onClick, isOpen }: SideBarToggleButtonProps) {
+  return (
+    <Button onClick={onClick}>
+      <img src={isOpen ? SideBarCloseSvg : SideBarOpenSvg} alt='사이드바 토글 버튼' />
+    </Button>
+  );
 }
 
 const Button = styled.button`
-  border: none;
+  border-radius: 6px;
 
-  width: 18px;
-  height: 18px;
+  width: 32px;
+  height: 32px;
 
   display: flex;
+  flex-shrink: 0;
   align-items: center;
   justify-content: center;
+  padding: 6px;
 
   background-color: white;
-
   cursor: pointer;
 
   &:hover {
-    background-color: #f5f5f5;
+    background-color: var(--gray8);
+  }
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    cursor: pointer;
   }
 `;

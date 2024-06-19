@@ -2,7 +2,7 @@ import Dimmed from './Dimmed';
 import Button from './Main/Button';
 import styled from 'styled-components';
 import { useState } from 'react';
-import { Form, FormField, Input, Label, Title, Description } from './Main/Main.style';
+import { Wrapper, Form, FormField, Input, Label, Title, Description } from './Main/Main.style';
 import useModalStore from '../../../store/useModalStore';
 import axios from 'axios';
 
@@ -29,7 +29,6 @@ export default function CreateChannelModal() {
     e.preventDefault();
     // Call API to create music
     createChannel();
-    console.log('create music');
     closeModal();
     setChannelData({
       name: '',
@@ -112,11 +111,3 @@ export default function CreateChannelModal() {
     </Dimmed>
   );
 }
-
-const Wrapper = styled.div`
-  width: 400px;
-  padding: 32px;
-  background-color: white;
-  border-radius: 16px;
-  box-shadow: 0 0 16px rgba(0, 0, 0, 0.1);
-`;

@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { Channel } from '../../types/interface';
 import { Link } from 'react-router-dom';
 import TagContainer from './../../Molcules/Content/TagContainer';
+import mockImage from '../../../images/dummyImage.png';
 
 interface ChannelItemProps {
   channel: Channel;
@@ -11,8 +12,8 @@ export default function ChannelItem({ channel }: ChannelItemProps) {
   return (
     <Wrapper to={`/main/channel/${channel.id}`}>
       <Positioner>
-        <Image src={channel?.image} alt={channel?.name} />
-        <UserCount>U{channel?.ChannelUsers?.length}</UserCount>
+        <Image src={mockImage} alt={channel?.name} />
+        <UserCount>{channel?.ChannelUsers?.length > 0 ? channel?.ChannelUsers?.length : '0'}</UserCount>
       </Positioner>
       <TagContainer tags={channel?.tags} />
       <Name>{channel?.name}</Name>
@@ -22,7 +23,6 @@ export default function ChannelItem({ channel }: ChannelItemProps) {
 }
 
 const Wrapper = styled(Link)`
-  border: 1px solid black;
   border-radius: 12px;
   width: 100%;
   height: 280px;
@@ -37,6 +37,14 @@ const Wrapper = styled(Link)`
   position: relative;
 
   cursor: pointer;
+  transition:
+    transform 0.2s,
+    box-shadow 0.2s;
+
+  &:hover {
+    transform: translateY(-3%);
+    box-shadow: 0 3px 12px 0 rgba(0, 0, 0, 0.1);
+  }
 `;
 
 const Positioner = styled.div`
@@ -47,27 +55,31 @@ const Positioner = styled.div`
 `;
 
 const Image = styled.img`
-  border: 1px solid black;
   border-radius: 12px;
-  width: 240px;
+  width: 100%;
   height: 120px;
   object-fit: cover;
 `;
 
 const UserCount = styled.div`
-  border: 1px solid black;
-  border-radius: 12px;
-  width: 48px;
-  height: 36px;
+  border-radius: 6px;
+  width: 36px;
+  height: 24px;
 
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 16px;
+  background-color: var(--white);
+
+  position: absolute;
+  top: 18px;
+  right: 18px;
 `;
 
 const Name = styled.div`
-  font-size: 20px;
+  font-size: 16px;
+  font-weight: 600;
 `;
 
 const Description = styled.div`

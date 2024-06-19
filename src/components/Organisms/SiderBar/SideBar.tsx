@@ -19,10 +19,10 @@ export default function SideBar() {
     <Wrapper $isOpen={isOpen}>
       {isModalOpen ? <CreateChannelModal /> : null}
       <Header>
-        <SideBarToggleButton onClick={handleToggleButtonClick} />
+        <SideBarToggleButton onClick={handleToggleButtonClick} isOpen={isOpen} />
         <CreateChannelButton isOpen={isOpen} onClick={handleOpenModal} />
       </Header>
-      <TitleText $isOpen={isOpen}>MyChannel</TitleText>
+      <TitleText $isOpen={isOpen}>채널</TitleText>
       <ChannelContainer isOpen={isOpen} />
     </Wrapper>
   );
@@ -31,11 +31,15 @@ export default function SideBar() {
 const Wrapper = styled.div<{
   $isOpen: boolean;
 }>`
-  border-right: 1px solid black;
-
-  width: ${(props) => (props.$isOpen ? '240px' : '64px')};
+  width: ${(props) => (props.$isOpen ? '240px' : '72px')};
   height: 100vh;
+
   padding: 0 12px;
+  overflow-y: scroll;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 
   transition: width 0.3s;
 `;
@@ -44,17 +48,17 @@ const Header = styled.div`
   height: 56px;
   display: flex;
   justify-content: space-between;
+  align-items: center;
 
   padding: 0 8px;
-
-  margin-top: 18px;
 `;
 
 const TitleText = styled.div<{
   $isOpen: boolean;
 }>`
-  font-size: 24px;
+  font-size: 20px;
   margin: 12px 0;
+  white-space: nowrap;
 
   color: ${(props) => (props.$isOpen ? 'black' : 'transparent')};
 

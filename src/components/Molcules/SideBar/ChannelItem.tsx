@@ -1,12 +1,13 @@
 import styled from 'styled-components';
 import { SideBarChannelItemProps } from '../../types/interface';
 import { Link } from 'react-router-dom';
+import mockImage from '../../../images/dummyImage.png';
 
 export default function ChannelItem({ channel, isOpen }: SideBarChannelItemProps) {
   return (
     <Wrapper to={`/main/channel/${channel.id}`}>
       <ChannelImageBox>
-        <img src={channel.image} />
+        <img src={mockImage} alt='채널 이미지' />
       </ChannelImageBox>
       <ChannelName $isOpen={isOpen}>{channel.name ? channel.name : ''}</ChannelName>
     </Wrapper>
@@ -20,7 +21,7 @@ const Wrapper = styled(Link)`
 
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   gap: 24px;
 
   padding: 8px;
@@ -28,7 +29,7 @@ const Wrapper = styled(Link)`
   cursor: pointer;
 
   &:hover {
-    background-color: #f5f5f5;
+    background-color: var(--gray8);
   }
 `;
 
@@ -36,7 +37,6 @@ const ChannelImageBox = styled.div`
   width: 32px;
   height: 32px;
   border-radius: 50%;
-  border: 1px solid black;
   flex-shrink: 0;
 
   overflow: hidden;
@@ -44,6 +44,7 @@ const ChannelImageBox = styled.div`
   img {
     width: 100%;
     height: 100%;
+    object-fit: cover;
   }
 `;
 

@@ -16,7 +16,7 @@ const Container = styled.div`
 const Tag = styled.div`
   padding: 4px 8px;
   border-radius: 12px;
-  background-color: #f0f0f0;
+  background-color: var(--gray8);
   font-size: 12px;
   color: #333;
 `;

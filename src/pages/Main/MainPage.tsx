@@ -38,6 +38,7 @@ const Right = styled.div`
 const Content = styled.main`
   flex-grow: 1;
   overflow-y: scroll;
+
   &::-webkit-scrollbar {
     display: none;
   }

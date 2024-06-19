@@ -24,35 +24,44 @@ export default function ChannelName() {
 
   if (pathname.includes('myPage')) {
     return (
-      <Positioner>
-        <GoToMain to='/main'>{'<'}</GoToMain>
-        {'My Page'}
-      </Positioner>
+      <Wrapper>
+        <GoToMain to='/main'>
+          {'<'} {'My Page'}
+        </GoToMain>
+      </Wrapper>
     );
   }
 
   if (pathname.includes('channel')) {
     return (
-      <Positioner>
-        <GoToMain to='/main'>{'<'}</GoToMain>
-        {channelName}
-      </Positioner>
+      <Wrapper>
+        <GoToMain to='/main'>
+          {'<'} {channelName}
+        </GoToMain>
+      </Wrapper>
     );
   }
 
-  return <Wrapper>{'Channel List'}</Wrapper>;
+  return <Wrapper>{'채널 목록'}</Wrapper>;
 }
 
 const Wrapper = styled.div`
+  display: flex;
+  gap: 8px;
+
   font-size: 20px;
 `;
 
 const GoToMain = styled(Link)`
+  border-radius: 12px;
+
   display: flex;
   align-items: center;
-`;
+  padding: 8px 24px;
 
-const Positioner = styled.div`
-  display: flex;
-  gap: 8px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: var(--gray-, #eeeeee);
+  }
 `;

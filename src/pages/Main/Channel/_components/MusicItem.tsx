@@ -1,15 +1,41 @@
 import styled from 'styled-components';
 import { MusicItemProps } from '../_types/interface';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
+import extractYouTubeVideoId from '../../../../utils/extractYouTubeVideoId';
 
 export default function MusicItem({ music, selectMusic }: MusicItemProps) {
+  const [musicImageUrl, setMusicImageUrl] = useState<string>();
+
   const handleClick = () => {
     selectMusic(music);
-    console.log('music clicked', music);
   };
+
+  useEffect(() => {
+    if (!music?.url) return;
+
+    const getMusicImageUrl = async () => {
+      try {
+        const response = await axios.get('https://www.googleapis.com/youtube/v3/videos', {
+          params: {
+            part: 'snippet',
+            id: extractYouTubeVideoId(music?.url),
+            key: process.env.REACT_APP_GOOGLE_API_KEY,
+          },
+        });
+        setMusicImageUrl(response.data.items[0].snippet.thumbnails.default.url);
+      } catch (e) {
+        console.error(e);
+      }
+    };
+
+    getMusicImageUrl();
+  }, [music?.url]);
+
   return (
     <Wrapper onClick={handleClick}>
       <ImageBox>
-        <img src={music.url} alt='album' />
+        <img src={musicImageUrl} alt='음악 이미지' />
       </ImageBox>
       <Right>
         <Title>{music.title}</Title>

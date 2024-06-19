@@ -1,20 +1,20 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import ChannelName from './ChannelName';
+import profileImage from '../../../images/dummyImage.png';
 
 export default function Header() {
   return (
     <Wrapper>
       <ChannelName />
       <UserProfileImageBox to='/main/myPage'>
-        <UserProfileImage src={''} />
+        <UserProfileImage src={profileImage} />
       </UserProfileImageBox>
     </Wrapper>
   );
 }
 
 const Wrapper = styled.header`
-  border-bottom: 1px solid #000;
   width: 100%;
   height: 56px;
   flex-shrink: 0;
@@ -42,4 +42,5 @@ const UserProfileImageBox = styled(Link)`
 const UserProfileImage = styled.img`
   width: 100%;
   height: 100%;
+  object-fit: cover;
 `;

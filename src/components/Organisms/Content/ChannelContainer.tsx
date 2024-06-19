@@ -2,14 +2,7 @@ import styled from 'styled-components';
 import ChannelItem from './ChannelItem';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-
-interface Channel {
-  id: string;
-  name: string;
-  description: string;
-  image: string;
-  tags: string[];
-}
+import { Channel } from '../../types/interface';
 
 export default function ChannelContainer() {
   const [channels, setChannels] = useState<Channel[]>([]);
@@ -39,7 +32,7 @@ export default function ChannelContainer() {
 
 const Container = styled.ul`
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(5, 1fr);
   gap: 24px 24px;
 
   padding: 0 24px;

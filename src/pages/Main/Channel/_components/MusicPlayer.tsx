@@ -5,7 +5,7 @@ import { formatTime } from '../../../../utils/formatNumber';
 import { Music } from '../_types/interface';
 import extractYouTubeVideoId from '../../../../utils/extractYouTubeVideoId';
 
-interface VideoData {
+export interface VideoData {
   id: string;
   title: string;
   channelTitle: string;

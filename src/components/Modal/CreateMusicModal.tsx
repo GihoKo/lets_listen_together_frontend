@@ -79,6 +79,7 @@ export default function CreateMusicModal({ channelId }: CreateMusicModalProps) {
               type='text'
             />
           </FormField>
+
           <FormField>
             <Label htmlFor='artist'>Artist</Label>
             <Input
@@ -89,6 +90,7 @@ export default function CreateMusicModal({ channelId }: CreateMusicModalProps) {
               type='text'
             />
           </FormField>
+
           <FormField>
             <Label htmlFor='url'>Music URL</Label>
             <Input

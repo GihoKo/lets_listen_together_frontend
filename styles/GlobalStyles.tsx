@@ -1,10 +1,14 @@
 import { createGlobalStyle } from 'styled-components';
 
 const GlobalStyles = createGlobalStyle`
+  @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css");
+
   *,
   *::after,
   *::before {
+    font-family: 'Pretendard', sans-serif;
     box-sizing: border-box;
+    cursor: default;
   }
 
   html,
@@ -147,6 +151,22 @@ const GlobalStyles = createGlobalStyle`
   a {
     text-decoration: none;
     color: inherit;
+  }
+  
+
+  :root {
+    --black: #000000;
+    --gray1: #121212;
+    --gray2: #333333;
+    --gray3: #555555;
+    --gray4: #777777;
+    --gray5: #999999;
+    --gray6: #BBBBBB;
+    --gray7: #DDDDDD;
+    --gray8: #EEEEEE;
+    --white: #FFFFFF;
+    
+    --gray-button: #626262;
   }
 `;
 
