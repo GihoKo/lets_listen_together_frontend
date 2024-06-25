@@ -21,8 +21,8 @@ export const useUserStore = create(
       clearUser: () => set({ user: null }),
     }),
     {
-      name: 'userStore',
-      getStorage: () => localStorage,
+      name: 'userStore', // 스토리지에 저장할 이름을 지정합니다.
+      getStorage: () => localStorage, // 사용할 storage를 지정합니다.
     },
   ),
 );
