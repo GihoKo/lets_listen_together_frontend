@@ -1,21 +1,13 @@
 import styled from 'styled-components';
 import ChannelItem from './ChannelItem';
-import { Channel, ChannelContainerProps } from '../../types/interface';
-import { useEffect, useState } from 'react';
+import { ChannelContainerProps } from '../../types/interface';
 import useGetAllChannel from '../../../../apis/hooks/useGetAllChannel';
 
 export default function ChannelContainer({ isOpen }: ChannelContainerProps) {
-  const [channelList, setChannelList] = useState<Channel[]>([]);
-
-  const { data, error, isLoading } = useGetAllChannel();
-
-  useEffect(() => {
-    if (data) {
-      setChannelList(data);
-    }
-  }, [data]);
+  const { data: channelList, error, isLoading } = useGetAllChannel();
 
   if (isLoading) return <div>Loading...</div>;
+  if (!channelList) return <div>Channel is empty</div>;
   if (error) return <div>Error</div>;
 
   return (

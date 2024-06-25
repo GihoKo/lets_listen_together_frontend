@@ -1,4 +1,4 @@
-import { defaultInstance } from '../instance';
+import { defaultInstance } from '../instances';
 
 export const getChannelList = async () => {
   try {
