@@ -1,15 +1,18 @@
 import Dimmed from './Dimmed';
 import Button from './Main/Button';
-import styled from 'styled-components';
 import { useState } from 'react';
 import { Wrapper, Form, FormField, Input, Label, Title, Description } from './Main/Main.style';
 import useModalStore from '../../../store/useModalStore';
 import axios from 'axios';
+import { useUserStore } from '../../../store/useUserStore';
 
 export default function CreateChannelModal() {
   const { isOpen, closeModal, modalType } = useModalStore();
 
   if (!isOpen || modalType !== 'CREATE_CHANNEL') return null;
+
+  const { user } = useUserStore();
+  console.log(user);
 
   const [channelData, setChannelData] = useState({
     name: '',
@@ -39,11 +42,13 @@ export default function CreateChannelModal() {
   };
 
   const createChannel = async () => {
+    console.log(user?.id);
     const channel = {
       name: channelData.name,
       tags: [`${channelData.tags}`],
       description: channelData.description,
       image: '',
+      ownerId: user?.id,
     };
     try {
       const response = await axios.post('http://localhost:8080/api/channels', {
