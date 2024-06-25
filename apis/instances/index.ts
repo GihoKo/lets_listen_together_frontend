@@ -1,7 +1,6 @@
 import axios from 'axios';
 
 const baseURL = process.env.API_URL;
-console.log('baseURL : ', baseURL);
 
 // 기본 axios instance
 export const defaultInstance = axios.create({

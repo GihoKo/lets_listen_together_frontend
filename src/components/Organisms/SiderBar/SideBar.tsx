@@ -4,11 +4,10 @@ import CreateChannelButton from '../../Molcules/SideBar/CreateChannelButton';
 import SideBarToggleButton from '../../Molcules/SideBar/SideBarToggleButton';
 import useSideBar from './SideBar.hook';
 import useModalStore from '../../../../store/useModalStore';
-import CreateChannelModal from './../../Modal/CreateChannelModal';
+import CreateChannelModal from '../Modal/CreateChannelModal';
 
 export default function SideBar() {
   const { isOpen, handleToggleButtonClick } = useSideBar();
-
   const { openModal, isOpen: isModalOpen } = useModalStore();
 
   const handleOpenModal = () => {

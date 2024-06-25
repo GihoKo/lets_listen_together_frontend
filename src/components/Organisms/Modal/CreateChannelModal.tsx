@@ -1,10 +1,10 @@
-import Dimmed from './Dimmed';
-import Button from './Main/Button';
+import Dimmed from '../../Atoms/Modal/Dimmed';
+import Button from '../../Atoms/Modal/Button';
 import { useState } from 'react';
-import { Wrapper, Form, FormField, Input, Label, Title, Description } from './Main/Main.style';
-import useModalStore from '../../../store/useModalStore';
+import { Wrapper, Form, FormField, Input, Label, Title, Description } from '../../Atoms/Modal/Main.style';
+import useModalStore from '../../../../store/useModalStore';
 import axios from 'axios';
-import { useUserStore } from '../../../store/useUserStore';
+import { useUserStore } from '../../../../store/useUserStore';
 
 export default function CreateChannelModal() {
   const { isOpen, closeModal, modalType } = useModalStore();

@@ -1,9 +1,9 @@
-import useModalStore from './../../../store/useModalStore';
-import Button from './Main/Button';
+import useModalStore from '../../../../store/useModalStore';
+import Button from '../../Atoms/Modal/Button';
 import { useState } from 'react';
 import axios from 'axios';
-import Dimmed from './Dimmed';
-import { FormField, Input, Label, Wrapper, Form, Title, Description } from './Main/Main.style';
+import Dimmed from '../../Atoms/Modal/Dimmed';
+import { FormField, Input, Label, Wrapper, Form, Title, Description } from '../../Atoms/Modal/Main.style';
 
 interface CreateMusicModalProps {
   channelId: string | undefined;

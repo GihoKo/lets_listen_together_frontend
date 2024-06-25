@@ -4,7 +4,7 @@ import MusicPlayer from './_components/MusicPlayer';
 import MusicList from './_components/MusicList';
 import Chatting from './_components/Chatting';
 import { useParams } from 'react-router-dom';
-import CreateMusicModal from '../../../components/Modal/CreateMusicModal';
+import CreateMusicModal from '../../../components/Organisms/Modal/CreateMusicModal';
 import useModalStore from '../../../../store/useModalStore';
 import { useEffect, useState } from 'react';
 import axios from 'axios';

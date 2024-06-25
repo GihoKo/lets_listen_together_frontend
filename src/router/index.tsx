@@ -6,7 +6,7 @@ import NotFoundPage from '../pages/NotFound/NotFoundPage';
 import MainPage from '../pages/Main/MainPage';
 import Channel from '../pages/Main/Channel/Channel';
 import ChannelContainer from '../components/Organisms/Content/ChannelContainer';
-import MyPage from '../pages/NotFound/MyPage';
+import MyPage from '../pages/MyPage/MyPage';
 
 export default function Router() {
   return (
