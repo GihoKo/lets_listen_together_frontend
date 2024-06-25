@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { getMyChannelList } from '../service/channel';
+import { getMyChannelList } from '../service/user';
 import { Channel } from '../../src/components/types/interface';
 import { UserId } from '../../src/store/useUserStore';
 

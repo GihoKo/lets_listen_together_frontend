@@ -6,6 +6,8 @@ export interface Music {
   channelId: string;
 }
 
+export type MusicRequestData = Omit<Music, 'id'>;
+
 export interface MusicItemProps {
   music: Music;
   selectMusic: (music: Music) => void;

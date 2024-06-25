@@ -48,15 +48,17 @@ export default function CreateMusicModal({ channelId }: CreateMusicModalProps) {
       url: musicData.url,
     };
     try {
-      const response = await axios.post('http://localhost:8080/api/musics', {
-        music,
-      });
-      console.log(response.data);
-      setMusicData({
-        title: '',
-        artist: '',
-        url: '',
-      });
+      await axios
+        .post('http://localhost:8080/api/musics', {
+          music,
+        })
+        .then(() => {
+          setMusicData({
+            title: '',
+            artist: '',
+            url: '',
+          });
+        });
     } catch (error) {
       console.error(error);
     }
