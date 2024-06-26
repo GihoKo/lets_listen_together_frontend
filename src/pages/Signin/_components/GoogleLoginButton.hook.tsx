@@ -12,11 +12,17 @@ export default function useGoogleLoginButton() {
   const handleLogin = async (response: CredentialResponse) => {
     try {
       const { credential } = response;
+      console.log('credential', credential);
 
       if (credential) {
-        const { data } = await axios.post('http://localhost:8080/api/auth/google', {
+        // const { data } = await axios.post('http://localhost:8080/api/auth/google', {
+        //   credential,
+        // });
+
+        const token = await axios.post('http://localhost:8080/api/auth/google/auth', {
           credential,
         });
+        console.log('token', token);
 
         setUser({
           id: data.id,
@@ -32,12 +38,12 @@ export default function useGoogleLoginButton() {
     }
   };
 
-  useEffect(() => {
-    console.log('user', user);
-    if (user) {
-      navigate('/main');
-    }
-  }, [user, navigate]);
+  // useEffect(() => {
+  //   console.log('user', user);
+  //   if (user) {
+  //     navigate('/main');
+  //   }
+  // }, [user, navigate]);
 
   const handleError = () => {
     console.log('로그인 실패');

@@ -1,8 +1,6 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-
-// UserId 타입을 정의
-export type UserId = string | undefined;
+import { UserId } from '../types/user';
 
 interface User {
   id: UserId;

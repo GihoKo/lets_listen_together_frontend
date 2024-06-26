@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { getMyChannelList } from '../service/user';
-import { Channel } from '../../src/components/types/interface';
-import { UserId } from '../../src/store/useUserStore';
+import { Channel } from '../../src/types/channel';
+import { UserId } from '../../src/types/user';
 
 export default function useGetMyChannel(userId: UserId) {
   const queryKey = ['myChannels'];

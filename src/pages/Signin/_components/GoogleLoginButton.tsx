@@ -1,20 +1,22 @@
-import { GoogleLogin, GoogleOAuthProvider } from '@react-oauth/google';
-import useGoogleLoginButton from './GoogleLoginButton.hook';
+import { useGoogleLogin } from '@react-oauth/google';
+import { instanceIncludeToken } from '../../../../apis/instances';
 
 export default function GoogleLoginButton() {
-  const { clientId, handleLogin, handleError } = useGoogleLoginButton();
-
-  return (
-    <>
-      {clientId === undefined ? (
-        'GOOGLE_OAUTH_CLIENT_ID 환경변수가 설정되지 않았습니다.'
-      ) : (
-        <>
-          <GoogleOAuthProvider clientId={clientId}>
-            <GoogleLogin onSuccess={handleLogin} onError={handleError} />
-          </GoogleOAuthProvider>
-        </>
-      )}
-    </>
-  );
+  const login = useGoogleLogin({
+    scope: 'email profile',
+    onSuccess: async ({ code }) => {
+      try {
+        await instanceIncludeToken.post('/auth/google/callback', { code }).then((response) => {
+          console.log(response);
+        });
+      } catch (error) {
+        console.error(error);
+      }
+    },
+    onError: (error) => {
+      console.error(error);
+    },
+    flow: 'auth-code',
+  });
+  return <button onClick={login}>로그인</button>;
 }

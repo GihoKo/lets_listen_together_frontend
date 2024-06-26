@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import ChannelItem from './ChannelItem';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Channel } from '../../types/interface';
+import { Channel } from '../../../types/channel';
 
 export default function ChannelContainer() {
   const [channels, setChannels] = useState<Channel[]>([]);

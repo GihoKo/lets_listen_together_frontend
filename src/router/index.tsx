@@ -7,6 +7,7 @@ import MainPage from '../pages/Main/MainPage';
 import Channel from '../pages/Main/Channel/Channel';
 import ChannelContainer from '../components/Organisms/Content/ChannelContainer';
 import MyPage from '../pages/MyPage/MyPage';
+import Redirect from './Redirect';
 
 export default function Router() {
   return (
