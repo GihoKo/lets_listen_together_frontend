@@ -1,13 +1,30 @@
 import { useGoogleLogin } from '@react-oauth/google';
 import { instanceIncludeToken } from '../../../../apis/instances';
+import { useApplicationAuthTokenStore, useGoogleOAuthTokenStore } from '../../../store/useAuthStore';
+import { useUserStore } from '../../../store/useUserStore';
+import { useNavigate } from 'react-router-dom';
 
 export default function GoogleLoginButton() {
+  const navigate = useNavigate();
+  const { setAccessToken } = useApplicationAuthTokenStore();
+  const { setGoogleOAuthToken } = useGoogleOAuthTokenStore();
+  const { setUser } = useUserStore();
   const login = useGoogleLogin({
     scope: 'email profile',
     onSuccess: async ({ code }) => {
       try {
         await instanceIncludeToken.post('/auth/google/callback', { code }).then((response) => {
-          console.log(response);
+          setAccessToken(response.data.applicationToken.accessToken);
+          setGoogleOAuthToken(response.data.googleToken.googleAccessToken);
+          setUser(response.data.user);
+
+          if (
+            response.data.user &&
+            response.data.applicationToken.accessToken &&
+            response.data.googleToken.googleAccessToken
+          ) {
+            navigate('/main');
+          }
         });
       } catch (error) {
         console.error(error);
