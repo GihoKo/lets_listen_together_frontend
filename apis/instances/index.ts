@@ -19,6 +19,7 @@ export const instanceIncludeToken = axios.create({
   headers: {
     'Content-Type': 'application/json',
   },
+  withCredentials: true,
 });
 
 // request interceptor의 경우 token을 넣을 때 자주 사용한다.
