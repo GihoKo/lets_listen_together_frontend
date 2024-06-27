@@ -18,6 +18,7 @@ export default function GoogleLoginButton() {
           setGoogleOAuthToken(response.data.googleToken.googleAccessToken);
           setUser(response.data.user);
 
+          // refresh token의 경우 백엔드에서 cookie로 보내주기 때문에 따로 저장할 필요가 없다.
           if (
             response.data.user &&
             response.data.applicationToken.accessToken &&
