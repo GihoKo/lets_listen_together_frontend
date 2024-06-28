@@ -1,6 +1,8 @@
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 import { handleAxiosError } from '../../src/utils/handleAxiosError';
 import { handleUnexpectedError } from '../../src/utils/handleUnexpectedError';
+import getAccessToken from '../../src/utils/getAccessToken';
+import { renewTokens } from '../service/auth';
 
 const baseURL = process.env.API_URL;
 
@@ -25,12 +27,14 @@ export const instanceIncludeToken = axios.create({
 // request interceptor의 경우 token을 넣을 때 자주 사용한다.
 instanceIncludeToken.interceptors.request.use(
   (config) => {
-    // 토큰을 가져온다.
-    const token = localStorage.getItem('token');
+    // 토큰을 가져온다. useApplicationAuthTokenStore()는
+    // hook을 사용하는 것이기 때문에 .getState()를 사용한다.
+    const accessToken = getAccessToken();
+    console.log('엑세스 토큰', accessToken);
 
     // 만약 토큰이 존재하는 경우 헤더에 넣어준다.
-    if (token) {
-      config.headers['Authorization'] = `Bearer ${token}`;
+    if (accessToken) {
+      config.headers['authorization'] = `Bearer ${accessToken}`;
     }
     return config;
   },
@@ -52,13 +56,24 @@ instanceIncludeToken.interceptors.response.use(
 
     return response;
   },
-  (error) => {
-    if (axios.isAxiosError(error)) {
-      handleAxiosError(error);
-    } else {
+  async (error: AxiosError) => {
+    if (!axios.isAxiosError(error)) {
       handleUnexpectedError(error);
+      return Promise.reject(error);
     }
 
+    // accessToken 만료시 재발급
+    if (error.response?.status === 401) {
+      const originalRequest = error.config;
+      await renewTokens();
+      const accessToken = getAccessToken();
+      if (accessToken && originalRequest) {
+        originalRequest.headers['authorization'] = `Bearer ${accessToken}`;
+        return instanceIncludeToken(originalRequest);
+      }
+    }
+
+    handleAxiosError(error);
     return Promise.reject(error);
   },
 );

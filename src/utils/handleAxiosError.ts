@@ -3,6 +3,7 @@ import { AxiosError } from 'axios';
 export const handleAxiosError = (error: AxiosError) => {
   // status를 받기보다는 error 객체 자체를 받아서
   // error.response.data.message를 통해서 에러 메시지를 받는 것이 좋을듯.
+  // 콘솔에 에러 메시지를 띄워주기만하는 간단한 에러의 경우 여기서 처리
 
   // 400대 코드
   // 400 Bad Request : 클라이언트 요청 오류
@@ -18,13 +19,6 @@ export const handleAxiosError = (error: AxiosError) => {
   switch (error.response.status) {
     case 400:
       console.error(`클라이언트 요청 오류 : ${error.message}`);
-      break;
-    case 401:
-      console.error(`권한이 없습니다. 로그인이 필요합니다. : ${error.message}`);
-      window.location.href = '/signin';
-      break;
-    case 403:
-      console.error(`권한이 부족합니다. : ${error.message}`);
       break;
     case 404:
       console.error(`리소스가 존재하지 않습니다. : ${error.message}`);

@@ -1,8 +1,11 @@
 import styled from 'styled-components';
 import ChannelItem from './ChannelItem';
-import { ChannelContainerProps } from '../../types/interface';
 import useGetMyChannel from '../../../../apis/hooks/useGetAllChannel';
 import { useUserStore } from '../../../store/useUserStore';
+
+interface ChannelContainerProps {
+  isOpen: boolean;
+}
 
 export default function ChannelContainer({ isOpen }: ChannelContainerProps) {
   const { user } = useUserStore();
