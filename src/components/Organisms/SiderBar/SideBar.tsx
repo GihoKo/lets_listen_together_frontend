@@ -15,25 +15,38 @@ export default function SideBar() {
   };
 
   return (
-    <Wrapper $isOpen={isOpen}>
-      {isModalOpen ? <CreateChannelModal /> : null}
-      <Header>
-        <SideBarToggleButton onClick={handleToggleButtonClick} isOpen={isOpen} />
-        <CreateChannelButton isOpen={isOpen} onClick={handleOpenModal} />
-      </Header>
-      <TitleText $isOpen={isOpen}>채널</TitleText>
-      <ChannelContainer isOpen={isOpen} />
-    </Wrapper>
+    <NavBar>
+      <Wrapper $isOpen={isOpen}>
+        {isModalOpen ? <CreateChannelModal /> : null}
+        <Header>
+          <SideBarToggleButton onClick={handleToggleButtonClick} isOpen={isOpen} />
+          <CreateChannelButton isOpen={isOpen} onClick={handleOpenModal} />
+        </Header>
+        <TitleText $isOpen={isOpen}>Channels</TitleText>
+        <ChannelContainer isOpen={isOpen} />
+      </Wrapper>
+    </NavBar>
   );
 }
+
+const NavBar = styled.nav`
+  height: 800px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-left: 24px;
+`;
 
 const Wrapper = styled.div<{
   $isOpen: boolean;
 }>`
+  border-radius: 12px;
   width: ${(props) => (props.$isOpen ? '240px' : '72px')};
-  height: 100vh;
+  flex-grow: 1;
 
   padding: 0 12px;
+  background-color: var(--grey-grey150);
   overflow-y: scroll;
 
   &::-webkit-scrollbar {
@@ -59,7 +72,7 @@ const TitleText = styled.div<{
   margin: 12px 0;
   white-space: nowrap;
 
-  color: ${(props) => (props.$isOpen ? 'black' : 'transparent')};
+  color: ${(props) => (props.$isOpen ? 'var(--grey-grey600)' : 'transparent')};
 
   cursor: default;
 `;

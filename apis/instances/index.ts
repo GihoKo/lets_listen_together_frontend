@@ -7,7 +7,7 @@ import { renewTokens } from '../service/auth';
 const baseURL = process.env.API_URL;
 
 // 기본 axios instance
-export const defaultInstance = axios.create({
+export const axiosInstance = axios.create({
   baseURL: baseURL,
   timeout: 10000,
   headers: {
@@ -15,7 +15,7 @@ export const defaultInstance = axios.create({
   },
 });
 
-export const instanceIncludeToken = axios.create({
+export const axiosInstanceWithToken = axios.create({
   baseURL: baseURL,
   timeout: 10000,
   headers: {
@@ -25,7 +25,7 @@ export const instanceIncludeToken = axios.create({
 });
 
 // request interceptor의 경우 token을 넣을 때 자주 사용한다.
-instanceIncludeToken.interceptors.request.use(
+axiosInstanceWithToken.interceptors.request.use(
   (config) => {
     // 토큰을 가져온다. useApplicationAuthTokenStore()는
     // hook을 사용하는 것이기 때문에 .getState()를 사용한다.
@@ -43,17 +43,8 @@ instanceIncludeToken.interceptors.request.use(
   },
 );
 
-// response interceptor의 경우
-// 1. 서버로 부터 반환된 응답처리
-// 2. 특정 상태 코드에 따른 작업을 수행
-// 3. 로딩 상태 관리 -> tanstack query를 사용
-// 4. 공통 오류 메시지 처리
-// 5. 특정 상태 코드에 따른 전역 처리
-// 에 사용된다.
-instanceIncludeToken.interceptors.response.use(
+axiosInstanceWithToken.interceptors.response.use(
   (response) => {
-    /** @Think 300대 코드는 어떻게 처리되는가? */
-
     return response;
   },
   async (error: AxiosError) => {
@@ -69,7 +60,7 @@ instanceIncludeToken.interceptors.response.use(
       const accessToken = getAccessToken();
       if (accessToken && originalRequest) {
         originalRequest.headers['authorization'] = `Bearer ${accessToken}`;
-        return instanceIncludeToken(originalRequest);
+        return axiosInstanceWithToken(originalRequest);
       }
     }
 

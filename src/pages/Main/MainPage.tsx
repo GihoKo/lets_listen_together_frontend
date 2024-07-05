@@ -8,7 +8,7 @@ import { useApplicationAuthTokenStore } from '../../store/useAuthStore';
 
 export default function MainPage() {
   const navigate = useNavigate();
-  const { accessToken, setAccessToken } = useApplicationAuthTokenStore();
+  const { setAccessToken } = useApplicationAuthTokenStore();
   const { data, isLoading, isSuccess, isError } = useRenewTokens();
 
   useEffect(() => {
@@ -22,26 +22,20 @@ export default function MainPage() {
   }
 
   if (isError) {
-    // 리프레시 토큰 만료시 로그인 페이지로 이동
     navigate('/signIn');
   }
 
   return (
     <Wrapper>
-      <SideBar />
-      <Right>
-        <Header />
-        <button
-          onClick={() => {
-            console.log('토큰', accessToken);
-          }}
-        >
-          tokem
-        </button>
-        <Content>
-          <Outlet />
-        </Content>
-      </Right>
+      <Header />
+      <Main>
+        <SideBar />
+        <Right>
+          <Content>
+            <Outlet />
+          </Content>
+        </Right>
+      </Main>
     </Wrapper>
   );
 }
@@ -50,8 +44,15 @@ const Wrapper = styled.div`
   height: 100vh;
 
   display: flex;
+  flex-direction: column;
+  background-color: var(--grey-grey100);
 
   position: relative;
+`;
+
+const Main = styled.div`
+  flex-grow: 1;
+  display: flex;
 `;
 
 const Right = styled.div`

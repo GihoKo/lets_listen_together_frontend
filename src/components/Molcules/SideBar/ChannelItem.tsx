@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { SideBarChannelItemProps } from '../../types/interface';
+import { SideBarChannelItemProps } from '../../types/props';
 import { Link } from 'react-router-dom';
 import mockImage from '../../../images/dummyImage.png';
 
@@ -29,7 +29,7 @@ const Wrapper = styled(Link)`
   cursor: pointer;
 
   &:hover {
-    background-color: var(--gray8);
+    background-color: var(--grey-grey250);
   }
 `;
 
@@ -54,6 +54,7 @@ const ChannelName = styled.div<{ $isOpen: boolean }>`
 
   display: ${(props) => (props.$isOpen ? 'block' : 'none')};
   font-size: 16px;
+  color: var(--grey-grey600);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;

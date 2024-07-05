@@ -9,8 +9,8 @@ export interface Music {
 export type MusicRequestData = Omit<Music, 'id'>;
 
 export interface MusicItemProps {
+  index: number;
   music: Music;
-  selectMusic: (music: Music) => void;
 }
 
 export interface ChatMessage {

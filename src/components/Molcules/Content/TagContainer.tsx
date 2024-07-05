@@ -16,9 +16,13 @@ const Container = styled.div`
 const Tag = styled.div`
   padding: 4px 8px;
   border-radius: 12px;
-  background-color: var(--gray8);
+  background-color: var(--grey-grey150);
   font-size: 12px;
-  color: #333;
+  color: var(--grey-grey600);
 
   cursor: pointer;
+
+  &:hover {
+    color: var(--yellow-galaxyYellow);
+  }
 `;

@@ -1,13 +1,6 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-import { UserId } from '../types/user';
-
-interface User {
-  id: UserId;
-  email: string;
-  name: string;
-  picture?: string;
-}
+import { User } from '../types/user';
 
 interface UserStore {
   user: User | null;

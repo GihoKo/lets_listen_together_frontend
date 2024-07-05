@@ -24,11 +24,10 @@ const Button = styled.button<{
   justify-content: center;
   padding: 6px;
 
-  background-color: white;
   cursor: pointer;
 
   &:hover {
-    background-color: var(--gray8);
+    background-color: var(--grey-grey250);
   }
 
   img {

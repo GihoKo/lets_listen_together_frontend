@@ -1,14 +1,20 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import ChannelName from './ChannelName';
-import profileImage from '../../../images/dummyImage.png';
+import logoImg from '../../../images/logo.png';
+import { useUserStore } from '../../../store/useUserStore';
+import defaultProfileImage from '../../../images/dummyImage.png';
 
 export default function Header() {
+  const { user } = useUserStore();
+  const profileImage = user?.profileImage;
+
   return (
     <Wrapper>
-      <ChannelName />
+      <Logo>
+        <img src={logoImg} alt='로고 이미지' />
+      </Logo>
       <UserProfileImageLink to='/main/myPage'>
-        <UserProfileImage src={profileImage} />
+        <UserProfileImage src={profileImage ? profileImage : defaultProfileImage} />
       </UserProfileImageLink>
     </Wrapper>
   );
@@ -16,7 +22,7 @@ export default function Header() {
 
 const Wrapper = styled.header`
   width: 100%;
-  height: 56px;
+  height: 72px;
   flex-shrink: 0;
 
   display: flex;
@@ -26,10 +32,19 @@ const Wrapper = styled.header`
   padding: 0 16px;
 `;
 
+const Logo = styled.div`
+  height: 42px;
+
+  img {
+    width: 100%;
+    height: 100%;
+  }
+`;
+
 const UserProfileImageLink = styled(Link)`
   border-radius: 50%;
-  width: 36px;
-  height: 36px;
+  width: 42px;
+  height: 42px;
 
   display: flex;
   align-items: center;

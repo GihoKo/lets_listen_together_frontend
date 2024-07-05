@@ -4,6 +4,10 @@ import styled from 'styled-components';
 import { formatTime } from '../../../../utils/formatNumber';
 import { Music } from '../_types/interface';
 import extractYouTubeVideoId from '../../../../utils/extractYouTubeVideoId';
+import mediaPlaySvg from '../../../../images/svg/media-play.svg';
+import mediaStopSvg from '../../../../images/svg/media-stop.svg';
+import previosMusicSvg from '../../../../images/svg/previous-music.svg';
+import nextMusicSvg from '../../../../images/svg/next-music.svg';
 
 export interface VideoData {
   id: string;
@@ -14,9 +18,11 @@ export interface VideoData {
 
 interface MusicPlayerProps {
   currentMusic: Music | null;
+  playNextMusic: () => void;
+  playPrevMusic: () => void;
 }
 
-export default function MusicPlayer({ currentMusic }: MusicPlayerProps) {
+export default function MusicPlayer({ currentMusic, playNextMusic, playPrevMusic }: MusicPlayerProps) {
   const [videoData, setVideoData] = useState<VideoData | null>(null);
 
   useEffect(() => {
@@ -28,7 +34,7 @@ export default function MusicPlayer({ currentMusic }: MusicPlayerProps) {
           params: {
             part: 'snippet',
             id: extractYouTubeVideoId(currentMusic?.url),
-            key: process.env.REACT_APP_GOOGLE_API_KEY,
+            key: process.env.GOOGLE_API_KEY,
           },
         });
         setVideoData({
@@ -76,16 +82,21 @@ export default function MusicPlayer({ currentMusic }: MusicPlayerProps) {
     }
 
     if (currentMusic?.url) {
+      console.log('currentMusic?.name', currentMusic?.title);
       initializePlayer();
     }
   }, [currentMusic?.url]);
+
+  const [isPlayerPlaying, setIsPlayerPlaying] = useState<boolean>(false);
 
   const handleTogglePlayButtonClick = () => {
     if (playerRef.current) {
       if (playerRef.current.getPlayerState() === window.YT.PlayerState.PLAYING) {
         playerRef.current.pauseVideo();
+        setIsPlayerPlaying(false);
       } else {
         playerRef.current.playVideo();
+        setIsPlayerPlaying(true);
       }
     }
   };
@@ -124,7 +135,34 @@ export default function MusicPlayer({ currentMusic }: MusicPlayerProps) {
     playerRef.current?.seekTo((clickedPositionX / progressBarWidth) * totalTime, true);
   };
 
-  if (!currentMusic) return null;
+  // 동영상 state 변경 이벤트
+  useEffect(() => {
+    if (!playerRef.current) return;
+
+    const handleVideoEnd = (e: any) => {
+      if (e.data === 0) {
+        playNextMusic();
+      }
+    };
+
+    /**
+     * onStateChange 이벤트
+     * -1(시작되지 않음)
+     *  0(종료됨)
+     *  1(재생 중)
+     *  2(일시중지됨)
+     *  3(버퍼링 중)
+     *  5(동영상 신호)
+     */
+    playerRef.current.addEventListener('onStateChange', handleVideoEnd);
+
+    return () => {
+      if (!playerRef.current) return;
+      playerRef.current.removeEventListener('onStateChange', handleVideoEnd);
+    };
+  }, [currentMusic?.id]);
+
+  if (!currentMusic) return <>유튜브 플레이어를 초기화 중 입니다...</>;
 
   return (
     <Wrapper>
@@ -133,36 +171,48 @@ export default function MusicPlayer({ currentMusic }: MusicPlayerProps) {
       </ImageBox>
       <Title>{currentMusic.title}</Title>
       <Artist>{currentMusic.artist}</Artist>
-      <TogglePlayButton onClick={handleTogglePlayButtonClick}>재생</TogglePlayButton>
       <TimeBox>
-        <Positioner>
+        <TimeBoxPositioner>
           <CurrentTime>{formatTime(currentTime)}</CurrentTime>
           <TotalTime>{formatTime(totalTime)}</TotalTime>
-        </Positioner>
+        </TimeBoxPositioner>
         <ProgressBar onClick={onProgressBarClick}>
           <ProgressTrack progressValue={progressValue} />
         </ProgressBar>
       </TimeBox>
+      <PlayBox>
+        <PreviousMusicButton onClick={playNextMusic}>
+          <img src={previosMusicSvg} alt='이전 곡 버튼 이미지' />
+        </PreviousMusicButton>
+        <TogglePlayButton onClick={handleTogglePlayButtonClick}>
+          <img src={isPlayerPlaying ? mediaPlaySvg : mediaStopSvg} alt='재생/정지 버튼' />
+        </TogglePlayButton>
+        <NextMusicButton onClick={playNextMusic}>
+          <img src={nextMusicSvg} alt='다음 곡 버튼 이미지' />
+        </NextMusicButton>
+      </PlayBox>
       <YoutubePlayer id='player' />
     </Wrapper>
   );
 }
 
 const Wrapper = styled.div`
+  border-radius: 12px;
   width: 100%;
-  height: 100%;
+  max-width: 320px;
+  height: 800px;
 
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 16px;
 
-  padding: 48px 64px;
+  background-color: var(--grey-grey150);
+  padding: 48px 0px;
 `;
 
 const ImageBox = styled.div`
   border: 1px solid #000;
-  border-radius: 50%;
+  border-radius: 24px;
   width: 240px;
   height: 240px;
 
@@ -183,24 +233,13 @@ const ImageBox = styled.div`
 const Title = styled.div`
   margin-top: 16px;
   font-size: 20px;
+  color: var(--grey-grey900);
 `;
 
 const Artist = styled.div`
   margin-top: 8px;
   font-size: 16px;
-`;
-
-const TogglePlayButton = styled.button`
-  width: 120px;
-  height: 48px;
-
-  background-color: #000;
-  color: #fff;
-
-  border: none;
-  border-radius: 8px;
-
-  cursor: pointer;
+  color: var(--grey-grey600);
 `;
 
 const TimeBox = styled.div`
@@ -209,18 +248,23 @@ const TimeBox = styled.div`
   display: flex;
   flex-direction: column;
   gap: 8px;
+
+  color: var(--grey-grey600);
+
+  margin-top: 16px;
 `;
 
-const Positioner = styled.div`
+const TimeBoxPositioner = styled.div`
   display: flex;
   justify-content: space-between;
 `;
 
 const ProgressBar = styled.div`
+  border-radius: 6px;
   width: 100%;
   height: 8px;
 
-  background-color: #ccc;
+  background-color: var(--grey-grey600);
 
   position: relative;
 
@@ -230,17 +274,64 @@ const ProgressBar = styled.div`
 const ProgressTrack = styled.div<{
   progressValue: number;
 }>`
+  border-radius: 6px;
   width: ${(props) => `${props.progressValue}%`};
   height: 100%;
 
-  background-color: #000;
+  background-color: var(--yellow-galaxyYellow);
+  box-shadow: 0 0 40px var(--yellow-galaxyYellow);
 
   position: absolute;
 `;
 
-const CurrentTime = styled.div``;
+const Time = styled.div`
+  font-size: 14px;
+  color: var(--grey-grey600);
+`;
 
-const TotalTime = styled.div``;
+const CurrentTime = styled(Time)``;
+
+const TotalTime = styled(Time)``;
+
+const PlayBox = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 16px;
+
+  margin-top: 32px;
+`;
+
+const PlayButton = styled.button`
+  transition: all 0.3s;
+
+  cursor: pointer;
+
+  &:hover {
+    transform: scale(1.2);
+  }
+
+  img {
+    width: 100%;
+    height: 100%;
+
+    cursor: pointer;
+  }
+`;
+
+const PreviousMusicButton = styled(PlayButton)`
+  width: 40px;
+  height: 40px;
+`;
+
+const TogglePlayButton = styled(PlayButton)`
+  width: 48px;
+  height: 48px;
+`;
+
+const NextMusicButton = styled(PlayButton)`
+  width: 40px;
+  height: 40px;
+`;
 
 const YoutubePlayer = styled.div`
   display: none;

@@ -1,10 +1,10 @@
 import axios from 'axios';
-import { instanceIncludeToken } from '../instances';
+import { axiosInstanceWithToken } from '../instances';
 
 // accessToken 만료시 token들을 재발급
 export const renewTokens = async () => {
   try {
-    const response = await instanceIncludeToken.post('/auth/renewTokens');
+    const response = await axiosInstanceWithToken.post('/auth/renewTokens');
     return response.data;
   } catch (error) {
     if (!axios.isAxiosError(error)) {

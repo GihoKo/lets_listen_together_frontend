@@ -9,6 +9,7 @@ const GlobalStyles = createGlobalStyle`
     font-family: 'Pretendard', sans-serif;
     box-sizing: border-box;
     cursor: default;
+    color: white;
   }
 
   html,
@@ -152,7 +153,6 @@ const GlobalStyles = createGlobalStyle`
     text-decoration: none;
     color: inherit;
   }
-  
 
   :root {
     --black: #000000;
@@ -165,7 +165,30 @@ const GlobalStyles = createGlobalStyle`
     --gray7: #DDDDDD;
     --gray8: #EEEEEE;
     --white: #FFFFFF;
-    
+
+    --grey-grey990: #fcfcfd; 
+    --grey-grey970: #f6f6f9;
+    --grey-grey950: #f1f2f4;
+    --grey-grey940: #eeeff1;
+    --grey-grey920: #e8e9ed;
+    --grey-grey900: #e2e4e9; // text
+    --grey-grey850: #d5d7dc;
+    --grey-grey800: #c7cad1;
+    --grey-grey700: #acb0b9;
+    --grey-grey600: #9196a1; // svg, text, tagColor
+    --grey-grey500: #757b8a;
+    --grey-grey400: #5e636e;
+    --grey-grey350: #525661;
+    --grey-grey300: #464a53;
+    --grey-grey250: #3b3d45;
+    --grey-grey200: #2f3137;
+    --grey-grey180: #2a2c32;
+    --grey-grey150: #232529; // sidebar, tagbackground
+    --grey-grey100: #17191c; // background
+    --grey-grey50: #0c0d0e;
+    --grey-spaceGray400: #51527b;
+    --yellow-galaxyYellow: #f7d000;
+
     --gray-button: #626262;
   }
 `;

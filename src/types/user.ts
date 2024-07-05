@@ -1,8 +1,8 @@
 export interface User {
   id?: string;
   email?: string;
-  name?: string;
-  picture?: string;
+  nickName?: string;
+  profileImage?: string;
 }
 
-export type UserId = string | undefined;
+export type UserId = Pick<User, 'id'>;

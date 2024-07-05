@@ -1,5 +1,5 @@
 import { useGoogleLogin } from '@react-oauth/google';
-import { instanceIncludeToken } from '../../../../apis/instances';
+import { axiosInstanceWithToken } from '../../../../apis/instances';
 import { useApplicationAuthTokenStore, useGoogleOAuthTokenStore } from '../../../store/useAuthStore';
 import { useUserStore } from '../../../store/useUserStore';
 import { useNavigate } from 'react-router-dom';
@@ -13,7 +13,7 @@ export default function GoogleLoginButton() {
     scope: 'email profile',
     onSuccess: async ({ code }) => {
       try {
-        await instanceIncludeToken.post('/auth/google/callback', { code }).then((response) => {
+        await axiosInstanceWithToken.post('/auth/google/callback', { code }).then((response) => {
           setAccessToken(response.data.applicationToken.accessToken);
           setGoogleOAuthToken(response.data.googleToken.googleAccessToken);
           setUser(response.data.user);

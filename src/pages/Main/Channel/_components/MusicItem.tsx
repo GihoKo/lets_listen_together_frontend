@@ -3,12 +3,21 @@ import { MusicItemProps } from '../_types/interface';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import extractYouTubeVideoId from '../../../../utils/extractYouTubeVideoId';
+import mediaPlaySvg from '../../../../images/svg/media-play.svg';
+import editSvg from '../../../../images/svg/edit.svg';
+import useMusicStore from '../../../../../store/useMusicStore';
+import { prefixZeroForNumber } from '../../../../utils/prefixZeroForNumber';
 
-export default function MusicItem({ music, selectMusic }: MusicItemProps) {
+export default function MusicItem({ music, index }: MusicItemProps) {
+  const { setMusic } = useMusicStore();
   const [musicImageUrl, setMusicImageUrl] = useState<string>();
 
-  const handleClick = () => {
-    selectMusic(music);
+  const handlePlayButtonClick = () => {
+    setMusic(music);
+  };
+
+  const handleDetailModalOpenButtonClick = () => {
+    console.log('상세 버튼 클릭됨 ');
   };
 
   useEffect(() => {
@@ -20,7 +29,7 @@ export default function MusicItem({ music, selectMusic }: MusicItemProps) {
           params: {
             part: 'snippet',
             id: extractYouTubeVideoId(music?.url),
-            key: process.env.REACT_APP_GOOGLE_API_KEY,
+            key: process.env.GOOGLE_API_KEY,
           },
         });
         setMusicImageUrl(response.data.items[0].snippet.thumbnails.default.url);
@@ -33,20 +42,28 @@ export default function MusicItem({ music, selectMusic }: MusicItemProps) {
   }, [music?.url]);
 
   return (
-    <Wrapper onClick={handleClick}>
+    <Wrapper>
+      <Number>{prefixZeroForNumber(index + 1)}</Number>
       <ImageBox>
         <img src={musicImageUrl} alt='음악 이미지' />
       </ImageBox>
-      <Right>
+      <Middle>
         <Title>{music.title}</Title>
         <Artist>{music.artist}</Artist>
+      </Middle>
+      <Right>
+        <PlayButton onClick={handlePlayButtonClick}>
+          <img src={mediaPlaySvg} alt='재생 버튼 이미지' />
+        </PlayButton>
+        <DetailButton onClick={handleDetailModalOpenButtonClick}>
+          <img src={editSvg} alt='상세 버튼 이미지' />
+        </DetailButton>
       </Right>
     </Wrapper>
   );
 }
 
 const Wrapper = styled.div`
-  border: 1px solid #000;
   border-radius: 12px;
   min-width: 300px;
   width: 100%;
@@ -54,21 +71,26 @@ const Wrapper = styled.div`
   display: flex;
   gap: 16px;
 
+  background-color: var(--grey-grey200);
   padding: 8px 20px;
+`;
 
-  &:hover {
-    background-color: #f0f0f0;
-  }
+const Number = styled.div`
+  display: flex;
+  align-items: center;
+
+  color: var(--grey-grey600);
+  font-size: 18px;
 `;
 
 const ImageBox = styled.div`
-  border: 1px solid #000;
-  border-radius: 50%;
+  border-radius: 12px;
   flex-shrink: 0;
 
   display: flex;
   justify-content: center;
   align-items: center;
+  overflow: hidden;
 
   width: 60px;
   height: 60px;
@@ -76,21 +98,52 @@ const ImageBox = styled.div`
   img {
     width: 100%;
     height: 100%;
-    border-radius: 50%;
   }
+`;
+
+const Middle = styled.div`
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+`;
+
+const Title = styled.div`
+  color: var(--grey-grey900);
+  font-size: 24px;
+`;
+
+const Artist = styled.div`
+  color: var(--grey-grey600);
+  font-size: 16px;
 `;
 
 const Right = styled.div`
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 4px;
+  align-items: center;
+  gap: 8px;
 `;
 
-const Title = styled.div`
-  font-size: 16px;
+const Button = styled.button`
+  width: 36px;
+  height: 36px;
+
+  transition: all 0.3s;
+
+  cursor: pointer;
+
+  &:hover {
+    transform: scale(1.2);
+  }
+
+  img {
+    width: 100%;
+    height: 100%;
+
+    cursor: pointer;
+  }
 `;
 
-const Artist = styled.div`
-  font-size: 12px;
-`;
+const PlayButton = styled(Button)``;
+
+const DetailButton = styled(Button)``;

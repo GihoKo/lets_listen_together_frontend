@@ -2,13 +2,13 @@ import styled from 'styled-components';
 import MusicContainer from './MusicContainer';
 import useModalStore from '../../../../../store/useModalStore';
 import { Music } from '../_types/interface';
+import addSquareSvg from '../../../../images/svg/add-square.svg';
 
 interface MusicListProps {
   data: Music[];
-  selectMusic: (music: Music) => void;
 }
 
-export default function MusicList({ data, selectMusic }: MusicListProps) {
+export default function MusicList({ data }: MusicListProps) {
   const { openModal } = useModalStore();
 
   const handleOpenModalButtonClick = () => {
@@ -19,15 +19,17 @@ export default function MusicList({ data, selectMusic }: MusicListProps) {
     <Wrapper>
       <Header>
         <Title>Music List</Title>
-        <CreateMusicButton onClick={handleOpenModalButtonClick}>+</CreateMusicButton>
+        <CreateMusicButton onClick={handleOpenModalButtonClick}>
+          <img src={addSquareSvg} alt='음악 생성 버튼 이미지' />
+        </CreateMusicButton>
       </Header>
-      <MusicContainer data={data} selectMusic={selectMusic} />
-      <ScrollUpButton>위로</ScrollUpButton>
+      <MusicContainer data={data} />
     </Wrapper>
   );
 }
 
 const Wrapper = styled.div`
+  border-radius: 12px;
   width: 100%;
   height: 800px;
 
@@ -36,39 +38,40 @@ const Wrapper = styled.div`
   align-items: center;
   gap: 16px;
 
-  padding: 0 64px;
+  background-color: var(--grey-grey150);
+  padding: 16px 32px;
 `;
 
 const Header = styled.div`
-  border-bottom: 1px solid #000;
   width: 100%;
   height: 45px;
 
   display: flex;
   justify-content: space-between;
   align-items: center;
-
-  padding-bottom: 8px;
 `;
 
 const Title = styled.div`
-  font-size: 20px;
+  font-size: 24px;
+  color: var(--grey-grey600);
 `;
 
 const CreateMusicButton = styled.button`
-  border: 1px solid #000;
-  border-radius: 8px;
-  width: 36px;
-  height: 36px;
-
-  cursor: pointer;
-`;
-
-const ScrollUpButton = styled.button`
-  border: 1px solid #000;
-  border-radius: 8px;
   width: 48px;
   height: 48px;
 
+  transition: all 0.3s;
+
   cursor: pointer;
+
+  img {
+    width: 100%;
+    height: 100%;
+
+    cursor: pointer;
+  }
+
+  &:hover {
+    transform: scale(1.2);
+  }
 `;
