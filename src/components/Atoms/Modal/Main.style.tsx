@@ -1,29 +1,42 @@
 import styled from 'styled-components';
 
 export const Wrapper = styled.div`
-  width: 400px;
+  border: 1px solid var(--grey-grey150);
+  width: 560px;
   padding: 32px;
-  background-color: white;
+  background-color: var(--grey-grey100);
   border-radius: 16px;
-  box-shadow: 0 0 16px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 10px var(--grey-grey150);
 
   display: flex;
   flex-direction: column;
   gap: 16px;
 `;
 
+export const Title = styled.div`
+  font-size: 24px;
+  color: var(--grey-grey900);
+`;
+
 export const Label = styled.label`
   font-size: 16px;
   font-weight: 600;
-  color: #333;
+  color: var(--grey-grey600);
 `;
 
 export const Input = styled.input`
-  border: 1px solid #d9d9d9;
   border-radius: 8px;
+  border: none;
   width: 100%;
+  outline: none;
 
-  padding: 8px;
+  padding: 16px;
+  background-color: var(--grey-grey150);
+  font-size: 16px;
+
+  &:focus {
+    border: 1px solid var(--yellow-galaxyYellowDark1);
+  }
 `;
 
 export const Form = styled.form`
@@ -38,13 +51,16 @@ export const FormField = styled.div`
   gap: 8px;
 `;
 
-export const Title = styled.div`
-  font-size: 24px;
-  font-weight: bold;
-`;
-
 export const Description = styled.div`
   font-size: 16px;
-  color: #4f4f4f;
+  color: var(--grey-grey600);
   margin-top: 8px;
+`;
+
+export const ButtonWrapper = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+
+  margin-top: 24px;
 `;

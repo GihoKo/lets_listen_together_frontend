@@ -1,7 +1,16 @@
 import Dimmed from '../../Atoms/Modal/Dimmed';
 import Button from '../../Atoms/Modal/Button';
 import { useState } from 'react';
-import { Wrapper, Form, FormField, Input, Label, Title, Description } from '../../Atoms/Modal/Main.style';
+import {
+  Wrapper,
+  Form,
+  FormField,
+  Input,
+  Label,
+  Title,
+  Description,
+  ButtonWrapper,
+} from '../../Atoms/Modal/Main.style';
 import useModalStore from '../../../../store/useModalStore';
 import axios from 'axios';
 import { useUserStore } from '../../../../store/useUserStore';
@@ -105,12 +114,14 @@ export default function CreateChannelModal() {
               type='text'
             />
           </FormField>
-          <Button variant='confirm' type='submit'>
-            생성
-          </Button>
-          <Button variant='close' type='button' onClick={closeModal}>
-            취소
-          </Button>
+          <ButtonWrapper>
+            <Button variant='confirm' type='submit'>
+              생성
+            </Button>
+            <Button variant='close' type='button' onClick={closeModal}>
+              취소
+            </Button>
+          </ButtonWrapper>
         </Form>
       </Wrapper>
     </Dimmed>

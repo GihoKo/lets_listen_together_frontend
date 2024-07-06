@@ -155,11 +155,6 @@ export default function MusicPlayer({ currentMusic, playNextMusic, playPrevMusic
      *  5(동영상 신호)
      */
     playerRef.current.addEventListener('onStateChange', handleVideoEnd);
-
-    return () => {
-      if (!playerRef.current) return;
-      playerRef.current.removeEventListener('onStateChange', handleVideoEnd);
-    };
   }, [currentMusic?.id]);
 
   if (!currentMusic) return <>유튜브 플레이어를 초기화 중 입니다...</>;

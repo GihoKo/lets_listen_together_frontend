@@ -9,6 +9,7 @@ module.exports = {
   output: {
     filename: 'bundle.js',
     path: path.resolve(__dirname, 'dist'),
+    publicPath: '/',
   },
   module: {
     rules: [
@@ -49,6 +50,9 @@ module.exports = {
     hot: true,
     port: 3000,
     open: true,
-    historyApiFallback: true,
+    historyApiFallback: {
+      rewrites: [{ from: /./, to: '/index.html' }],
+    },
+    static: path.resolve(__dirname, 'dist'), // 추가된 부분
   },
 };

@@ -3,20 +3,22 @@ import { SideBarChannelItemProps } from '../../types/props';
 import { Link } from 'react-router-dom';
 import mockImage from '../../../images/dummyImage.png';
 
-export default function ChannelItem({ channel, isOpen }: SideBarChannelItemProps) {
+export default function ChannelItem({ channel, isOpen, isCurrentChannel }: SideBarChannelItemProps) {
   return (
-    <Wrapper to={`/main/channel/${channel.id}`}>
+    <Wrapper to={`/main/channel/${channel.id}`} $isCurrentChannel={isCurrentChannel}>
       <ChannelImageBox>
         <img src={mockImage} alt='채널 이미지' />
       </ChannelImageBox>
-      <ChannelName $isOpen={isOpen}>{channel.name ? channel.name : ''}</ChannelName>
+      <ChannelName $isOpen={isOpen} $isCurrentChannel={isCurrentChannel}>
+        {channel.name ? channel.name : ''}
+      </ChannelName>
     </Wrapper>
   );
 }
 
-const Wrapper = styled(Link)`
+const Wrapper = styled(Link)<{ $isCurrentChannel: boolean }>`
   box-sizing: border-box;
-  border-radius: 12px;
+  border-radius: 6px;
   height: 40px;
 
   display: flex;
@@ -24,6 +26,8 @@ const Wrapper = styled(Link)`
   justify-content: space-between;
   gap: 24px;
 
+  background-color: ${(props) => (props.$isCurrentChannel ? 'var(--yellow-galaxyYellowDark1)' : 'transparent')};
+  box-shadow: ${(props) => (props.$isCurrentChannel ? '0 0 10px var(--yellow-galaxyYellowDark1)' : 'none')};
   padding: 8px;
 
   cursor: pointer;
@@ -49,12 +53,12 @@ const ChannelImageBox = styled.div`
   }
 `;
 
-const ChannelName = styled.div<{ $isOpen: boolean }>`
+const ChannelName = styled.div<{ $isOpen: boolean; $isCurrentChannel: boolean }>`
   width: 100%;
 
   display: ${(props) => (props.$isOpen ? 'block' : 'none')};
   font-size: 16px;
-  color: var(--grey-grey600);
+  color: ${(props) => (props.$isCurrentChannel ? 'var(--grey-grey900)' : 'var(--grey-grey600)')};
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;

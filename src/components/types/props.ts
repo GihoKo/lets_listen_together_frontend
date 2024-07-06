@@ -8,6 +8,7 @@ export interface SideBarToggleButtonProps {
 export interface SideBarChannelItemProps {
   channel: Channel;
   isOpen: boolean;
+  isCurrentChannel: boolean;
 }
 
 export interface CreateChannelButtonProps {

@@ -3,7 +3,16 @@ import Button from '../../Atoms/Modal/Button';
 import { useState } from 'react';
 import axios from 'axios';
 import Dimmed from '../../Atoms/Modal/Dimmed';
-import { FormField, Input, Label, Wrapper, Form, Title, Description } from '../../Atoms/Modal/Main.style';
+import {
+  FormField,
+  Input,
+  Label,
+  Wrapper,
+  Form,
+  Title,
+  Description,
+  ButtonWrapper,
+} from '../../Atoms/Modal/Main.style';
 
 interface CreateMusicModalProps {
   channelId: string | undefined;
@@ -103,12 +112,14 @@ export default function CreateMusicModal({ channelId }: CreateMusicModalProps) {
               type='text'
             />
           </FormField>
-          <Button variant='confirm' type='submit'>
-            생성
-          </Button>
-          <Button variant='close' type='button' onClick={closeModal}>
-            취소
-          </Button>
+          <ButtonWrapper>
+            <Button variant='confirm' type='submit'>
+              생성
+            </Button>
+            <Button variant='close' type='button' onClick={closeModal}>
+              취소
+            </Button>
+          </ButtonWrapper>
         </Form>
       </Wrapper>
     </Dimmed>

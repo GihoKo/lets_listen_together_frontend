@@ -188,6 +188,12 @@ const GlobalStyles = createGlobalStyle`
     --grey-grey50: #0c0d0e;
     --grey-spaceGray400: #51527b;
     --yellow-galaxyYellow: #f7d000;
+    --yellow-galaxyYellowDark1: #d3b200;
+    --yellow-galaxyYellowDark2: #b09400;
+    --yellow-galaxyYellowDark3: #8d7600;
+    --yellow-galaxyYellowDark4: #695900;
+    --yellow-galaxyYellowDark5: #463b00;
+    --yellow-galaxyYellowDark6: #231d00;
 
     --gray-button: #626262;
   }

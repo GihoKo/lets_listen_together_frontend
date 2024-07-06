@@ -18,14 +18,20 @@ export default function Button({ children, variant, onClick, type }: ButtonProps
 const Wrapper = styled.button<{
   $variant: 'confirm' | 'close';
 }>`
-  width: 100%;
-
-  padding: 16px 0;
   border: none;
-  background-color: ${({ $variant }) => ($variant === 'confirm' ? 'RGB(62,62,62)' : 'RGB(255,255,255)')};
-  color: ${({ $variant }) => ($variant === 'confirm' ? 'RGB(255,255,255)' : 'RGB(62,62,62)')};
+  border-radius: 16px;
+
+  padding: 16px 32px;
+  background-color: ${({ $variant }) =>
+    $variant === 'confirm' ? 'var(--yellow-galaxyYellowDark2)' : 'var(--grey-grey150)'};
+  color: ${({ $variant }) => ($variant === 'confirm' ? 'var(--grey-grey150)' : 'var(--grey-grey900)')};
   font-size: 16px;
   font-weight: bold;
 
   cursor: pointer;
+
+  &:hover {
+    background-color: ${({ $variant }) =>
+      $variant === 'confirm' ? 'var(--yellow-galaxyYellowDark1)' : 'var(--grey-grey250)'};
+  }
 `;
