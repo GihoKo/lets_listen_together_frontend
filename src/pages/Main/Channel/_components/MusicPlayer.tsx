@@ -73,7 +73,18 @@ export default function MusicPlayer({ currentMusic, playNextMusic, playPrevMusic
   };
 
   const onPlayerStateChange = (event: any) => {
-    console.log('onPlayerStateChange', event.data);
+    /**
+     * onStateChange 이벤트
+     * -1(시작되지 않음)
+     *  0(종료됨)
+     *  1(재생 중)
+     *  2(일시중지됨)
+     *  3(버퍼링 중)
+     *  5(동영상 신호)
+     */
+    if (event.data === 0) {
+      playNextMusic();
+    }
   };
 
   useEffect(() => {
@@ -135,28 +146,6 @@ export default function MusicPlayer({ currentMusic, playNextMusic, playPrevMusic
     playerRef.current?.seekTo((clickedPositionX / progressBarWidth) * totalTime, true);
   };
 
-  // 동영상 state 변경 이벤트
-  useEffect(() => {
-    if (!playerRef.current) return;
-
-    const handleVideoEnd = (e: any) => {
-      if (e.data === 0) {
-        playNextMusic();
-      }
-    };
-
-    /**
-     * onStateChange 이벤트
-     * -1(시작되지 않음)
-     *  0(종료됨)
-     *  1(재생 중)
-     *  2(일시중지됨)
-     *  3(버퍼링 중)
-     *  5(동영상 신호)
-     */
-    playerRef.current.addEventListener('onStateChange', handleVideoEnd);
-  }, [currentMusic?.id]);
-
   if (!currentMusic) return <>유튜브 플레이어를 초기화 중 입니다...</>;
 
   return (
@@ -176,7 +165,7 @@ export default function MusicPlayer({ currentMusic, playNextMusic, playPrevMusic
         </ProgressBar>
       </TimeBox>
       <PlayBox>
-        <PreviousMusicButton onClick={playNextMusic}>
+        <PreviousMusicButton onClick={playPrevMusic}>
           <img src={previosMusicSvg} alt='이전 곡 버튼 이미지' />
         </PreviousMusicButton>
         <TogglePlayButton onClick={handleTogglePlayButtonClick}>
@@ -273,8 +262,10 @@ const ProgressTrack = styled.div<{
   width: ${(props) => `${props.progressValue}%`};
   height: 100%;
 
-  background-color: var(--yellow-galaxyYellow);
-  box-shadow: 0 0 40px var(--yellow-galaxyYellow);
+  background-color: var(--mint4);
+  box-shadow:
+    0 0 5px var(--mint5),
+    0 0 10px var(--mint5);
 
   position: absolute;
 `;

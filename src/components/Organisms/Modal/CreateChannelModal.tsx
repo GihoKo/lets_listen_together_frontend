@@ -11,17 +11,17 @@ import {
   Description,
   ButtonWrapper,
 } from '../../Atoms/Modal/Main.style';
-import useModalStore from '../../../../store/useModalStore';
-import axios from 'axios';
-import { useUserStore } from '../../../../store/useUserStore';
+import { useUserStore } from '../../../store/useUserStore';
+import { axiosInstance } from '../../../../apis/instances';
+import useModalStore from '../../../store/useModalStore';
+import { ModalType } from '../../../types/enum';
 
 export default function CreateChannelModal() {
-  const { isOpen, closeModal, modalType } = useModalStore();
+  const { type, closeModal } = useModalStore();
 
-  if (!isOpen || modalType !== 'CREATE_CHANNEL') return null;
+  if (type !== ModalType.CREATE_CHANNEL) return null;
 
   const { user } = useUserStore();
-  console.log(user);
 
   const [channelData, setChannelData] = useState({
     name: '',
@@ -60,7 +60,7 @@ export default function CreateChannelModal() {
       ownerId: user?.id,
     };
     try {
-      const response = await axios.post('http://localhost:8080/api/channels', {
+      const response = await axiosInstance.post('/channels', {
         channel,
       });
       console.log(response.data);

@@ -155,17 +155,6 @@ const GlobalStyles = createGlobalStyle`
   }
 
   :root {
-    --black: #000000;
-    --gray1: #121212;
-    --gray2: #333333;
-    --gray3: #555555;
-    --gray4: #777777;
-    --gray5: #999999;
-    --gray6: #BBBBBB;
-    --gray7: #DDDDDD;
-    --gray8: #EEEEEE;
-    --white: #FFFFFF;
-
     --grey-grey990: #fcfcfd; 
     --grey-grey970: #f6f6f9;
     --grey-grey950: #f1f2f4;
@@ -194,6 +183,17 @@ const GlobalStyles = createGlobalStyle`
     --yellow-galaxyYellowDark4: #695900;
     --yellow-galaxyYellowDark5: #463b00;
     --yellow-galaxyYellowDark6: #231d00;
+
+    --white: #FFFFFF; //white
+    --mint1: #EEFFF3; 
+    --mint2: #DCFEE6; 
+    --mint3: #CAFDD9; 
+    --mint4: #B8FCCC; 
+    --mint5: #A1DDB3; 
+    --mint6: #8ABD99; 
+    --mint7: #5C7E66; 
+    --mint8: #2E3F33; 
+    --black: #000000; 
 
     --gray-button: #626262;
   }

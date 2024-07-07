@@ -1,9 +1,9 @@
-import { instanceIncludeToken } from '../instances';
+import { axiosInstanceWithToken } from '../instances';
 import { Channel } from '../../src/types/channel';
 
 export const getAllchannelList = async () => {
   try {
-    const response = await instanceIncludeToken.get('/channels');
+    const response = await axiosInstanceWithToken.get('/channels');
     return response.data;
   } catch (error) {
     console.error(error);
@@ -12,7 +12,7 @@ export const getAllchannelList = async () => {
 
 export const getChannelById = async (channelId: string) => {
   try {
-    const response = await instanceIncludeToken.get(`/channels/${channelId}`);
+    const response = await axiosInstanceWithToken.get(`/channels/${channelId}`);
     return response.data;
   } catch (error) {
     console.error(error);
@@ -21,7 +21,7 @@ export const getChannelById = async (channelId: string) => {
 
 export const createChannel = async () => {
   try {
-    const response = await instanceIncludeToken.post('/channels');
+    const response = await axiosInstanceWithToken.post('/channels');
     return response.data;
   } catch (error) {
     console.error(error);
@@ -30,7 +30,7 @@ export const createChannel = async () => {
 
 export const updateChannel = async (channelId: string, channel: Channel) => {
   try {
-    const response = await instanceIncludeToken.patch(`/channels/${channelId}`, { data: channel });
+    const response = await axiosInstanceWithToken.patch(`/channels/${channelId}`, { data: channel });
     return response.data;
   } catch (error) {
     console.error(error);
@@ -39,9 +39,18 @@ export const updateChannel = async (channelId: string, channel: Channel) => {
 
 export const deleteChannel = async (channelId: string) => {
   try {
-    const response = await instanceIncludeToken.delete(`/channels/${channelId}`);
+    const response = await axiosInstanceWithToken.delete(`/channels/${channelId}`);
     return response.data;
   } catch (error) {
     console.error(error);
+  }
+};
+
+export const getMusicsByChannelId = async (channelId: string | undefined) => {
+  try {
+    const response = await axiosInstanceWithToken.get(`/channels/${channelId}/musics`);
+    return response.data;
+  } catch (e) {
+    console.error(e);
   }
 };

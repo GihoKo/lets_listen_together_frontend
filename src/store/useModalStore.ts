@@ -1,30 +1,22 @@
+import React from 'react';
 import create from 'zustand';
 
-type FormData = {
-  [key: string]: string;
-};
-
 interface ModalStore {
-  modalType: string | null;
   isOpen: boolean;
-  formData: FormData | null;
-  openModal: (modalType: string | null) => void;
+  type: string | null;
+  component: React.ReactNode | null;
+  props: unknown;
+  openModal: (type: string | null, component: React.ReactNode | null, props?: unknown) => void;
   closeModal: () => void;
-  setFormData: (formData: FormData) => void;
-  resetFormData: () => void;
 }
 
 const useModalStore = create<ModalStore>((set) => ({
-  modalType: null,
   isOpen: false,
-  formData: null,
-  openModal: (modalType) => {
-    set({ isOpen: true });
-    set({ modalType: modalType });
-  },
-  closeModal: () => set({ isOpen: false }),
-  setFormData: (formData) => set({ formData }),
-  resetFormData: () => set({ formData: null }),
+  type: null,
+  component: null,
+  props: {},
+  openModal: (type, component, props = {}) => set({ isOpen: true, type, component, props }),
+  closeModal: () => set({ isOpen: false, type: null, component: null, props: {} }),
 }));
 
 export default useModalStore;

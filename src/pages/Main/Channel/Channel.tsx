@@ -4,11 +4,11 @@ import MusicPlayer from './_components/MusicPlayer';
 import MusicList from './_components/MusicList';
 import { useParams } from 'react-router-dom';
 import CreateMusicModal from '../../../components/Organisms/Modal/CreateMusicModal';
-import useModalStore from '../../../../store/useModalStore';
 import { useEffect, useState } from 'react';
-import axios from 'axios';
 import { Music } from './_types/interface';
-import useMusicStore from '../../../../store/useMusicStore';
+import useMusicStore from '../../../store/useMusicStore';
+import useModalStore from '../../../store/useModalStore';
+import useGetMusicsByChannelId from '../../../../apis/hooks/useGetMusicsByChannelId';
 
 // type ChannelState = 'Personal' | 'Public' | 'Private';
 // 개인 채널 -> 나 혼자만 음악 듣기
@@ -23,16 +23,7 @@ export default function Channel() {
   const [musicList, setMusicList] = useState<Music[]>([]);
   const { music: currentMusic, setMusic, resetMusic } = useMusicStore();
 
-  const getMusicList = async () => {
-    try {
-      await axios.get(`http://localhost:8080/api/channels/${channelId}/musics`).then((response) => {
-        setMusicList(response.data);
-        setMusic(response.data[0]);
-      });
-    } catch (e) {
-      console.error(e);
-    }
-  };
+  const { data, isLoading, isError } = useGetMusicsByChannelId(channelId);
 
   const playNextMusic = () => {
     let currentMusicIndex = musicList.findIndex((music) => music.id === currentMusic?.id);
@@ -47,21 +38,25 @@ export default function Channel() {
     if (currentMusicIndex === 0) {
       currentMusicIndex = musicList.length;
     }
-    resetMusic();
     setMusic(musicList[currentMusicIndex - 1]);
   };
 
   useEffect(() => {
-    getMusicList();
+    if (data) {
+      setMusicList(data);
+    }
 
     return () => {
       resetMusic();
     };
-  }, [channelId]);
+  }, [data, channelId]);
+
+  if (isLoading) return <div>음악 리스트를 가져오고 있습니다...</div>;
+  if (isError) return <div>음악 리스트를 가져오지 못했습니다...</div>;
 
   return (
     <>
-      {isOpen ? <CreateMusicModal channelId={channelId} /> : null}
+      {isOpen ? <CreateMusicModal /> : null}
       <Wrapper>
         <MusicPlayer currentMusic={currentMusic} playNextMusic={playNextMusic} playPrevMusic={playPrevMusic} />
         <MusicList data={musicList} />

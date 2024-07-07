@@ -1,30 +1,30 @@
-import Button from '../../Atoms/Modal/Button';
 import { useState } from 'react';
-import Dimmed from '../../Atoms/Modal/Dimmed';
-import {
-  FormField,
-  Input,
-  Label,
-  Wrapper,
-  Form,
-  Title,
-  Description,
-  ButtonWrapper,
-} from '../../Atoms/Modal/Main.style';
-import { axiosInstance } from '../../../../apis/instances';
 import useModalStore from '../../../store/useModalStore';
+import Button from '../../Atoms/Modal/Button';
+import Dimmed from '../../Atoms/Modal/Dimmed';
+import { ButtonWrapper, Form, FormField, Input, Label, Title, Wrapper } from '../../Atoms/Modal/Main.style';
+import { useParams } from 'react-router-dom';
+import { Music } from '@prisma/client';
 import { ModalType } from '../../../types/enum';
+import useUpdateMusic from '../../../../apis/hooks/useUpdateMusic';
 
-export default function CreateMusicModal() {
+interface EditMusicModalProps {
+  music: Music;
+}
+
+export default function EditMusicModal() {
   const { type, closeModal, props } = useModalStore();
 
-  if (type !== ModalType.CREATE_MUSIC) return null;
+  if (type !== ModalType.EDIT_MUSIC) return null;
 
-  const modalProps = props as { channelId: string };
+  const modalProps = props as EditMusicModalProps;
+
+  const upLoadUpdateMusicMutation = useUpdateMusic();
+  const { channelId } = useParams<{ channelId: string }>();
   const [musicData, setMusicData] = useState({
-    title: '',
-    artist: '',
-    url: '',
+    title: modalProps.music.title,
+    artist: modalProps.music.artist,
+    url: modalProps.music.url,
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -36,41 +36,21 @@ export default function CreateMusicModal() {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // Call API to create music
-    createMusic();
-    closeModal();
-  };
-
-  const createMusic = async () => {
-    const music = {
-      channelId: modalProps.channelId,
+    // Call API to update music
+    const edittedMusic = {
+      channelId: channelId,
       title: musicData.title,
       artist: musicData.artist,
       url: musicData.url,
     };
-    try {
-      const response = await axiosInstance
-        .post('/musics', {
-          music,
-        })
-        .then(() => {
-          setMusicData({
-            title: '',
-            artist: '',
-            url: '',
-          });
-        });
-      console.log(response);
-    } catch (error) {
-      console.error(error);
-    }
+    upLoadUpdateMusicMutation.mutate({ musicId: modalProps.music.id, music: edittedMusic });
+    closeModal();
   };
 
   return (
     <Dimmed>
       <Wrapper>
-        <Title>음악 생성</Title>
-        <Description>플레이리스트에 추가하고 싶은 음악 URL을 넣어주세요</Description>
+        <Title>음악 수정</Title>
 
         <Form onSubmit={handleSubmit}>
           <FormField>
@@ -107,7 +87,7 @@ export default function CreateMusicModal() {
           </FormField>
           <ButtonWrapper>
             <Button variant='confirm' type='submit'>
-              생성
+              수정
             </Button>
             <Button variant='close' type='button' onClick={closeModal}>
               취소

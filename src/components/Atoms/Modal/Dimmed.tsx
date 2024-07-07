@@ -14,7 +14,7 @@ const Wrapper = styled.div`
   align-items: center;
 
   background-color: rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(2px);
+  backdrop-filter: blur(1px);
 
   position: fixed;
   z-index: 9998;

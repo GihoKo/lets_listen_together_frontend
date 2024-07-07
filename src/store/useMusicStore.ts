@@ -1,5 +1,5 @@
 import create from 'zustand';
-import { Music } from '../src/types/music';
+import { Music } from '../types/music';
 
 interface MusicStore {
   music: Music | null;

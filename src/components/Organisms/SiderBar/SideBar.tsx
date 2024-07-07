@@ -3,15 +3,16 @@ import ChannelContainer from '../../Molcules/SideBar/ChannelContainer';
 import CreateChannelButton from '../../Molcules/SideBar/CreateChannelButton';
 import SideBarToggleButton from '../../Molcules/SideBar/SideBarToggleButton';
 import useSideBar from './SideBar.hook';
-import useModalStore from '../../../../store/useModalStore';
 import CreateChannelModal from '../Modal/CreateChannelModal';
+import useModalStore from '../../../store/useModalStore';
+import { ModalType } from '../../../types/enum';
 
 export default function SideBar() {
   const { isOpen, handleToggleButtonClick } = useSideBar();
   const { openModal, isOpen: isModalOpen } = useModalStore();
 
-  const handleOpenModal = () => {
-    openModal('CREATE_CHANNEL');
+  const handleCreateChannelButtonClick = () => {
+    openModal(ModalType.CREATE_CHANNEL, <CreateChannelModal />);
   };
 
   return (
@@ -20,7 +21,7 @@ export default function SideBar() {
         {isModalOpen ? <CreateChannelModal /> : null}
         <Header>
           <SideBarToggleButton onClick={handleToggleButtonClick} isOpen={isOpen} />
-          <CreateChannelButton isOpen={isOpen} onClick={handleOpenModal} />
+          <CreateChannelButton isOpen={isOpen} onClick={handleCreateChannelButtonClick} />
         </Header>
         <TitleText $isOpen={isOpen}>Channels</TitleText>
         <ChannelContainer isOpen={isOpen} />

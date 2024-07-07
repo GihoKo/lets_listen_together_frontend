@@ -1,8 +1,11 @@
 import styled from 'styled-components';
 import MusicContainer from './MusicContainer';
-import useModalStore from '../../../../../store/useModalStore';
 import { Music } from '../_types/interface';
 import addSquareSvg from '../../../../images/svg/add-square.svg';
+import useModalStore from '../../../../store/useModalStore';
+import CreateMusicModal from '../../../../components/Organisms/Modal/CreateMusicModal';
+import { useParams } from 'react-router-dom';
+import { ModalType } from '../../../../types/enum';
 
 interface MusicListProps {
   data: Music[];
@@ -10,16 +13,17 @@ interface MusicListProps {
 
 export default function MusicList({ data }: MusicListProps) {
   const { openModal } = useModalStore();
+  const { channelId } = useParams<{ channelId: string }>();
 
-  const handleOpenModalButtonClick = () => {
-    openModal('CREATE_MUSIC');
+  const handleCreateMusicButtonButtonClick = () => {
+    openModal(ModalType.CREATE_MUSIC, <CreateMusicModal />, { channelId });
   };
 
   return (
     <Wrapper>
       <Header>
         <Title>Music List</Title>
-        <CreateMusicButton onClick={handleOpenModalButtonClick}>
+        <CreateMusicButton onClick={handleCreateMusicButtonButtonClick}>
           <img src={addSquareSvg} alt='음악 생성 버튼 이미지' />
         </CreateMusicButton>
       </Header>

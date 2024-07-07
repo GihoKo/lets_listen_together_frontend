@@ -5,10 +5,16 @@ import axios from 'axios';
 import extractYouTubeVideoId from '../../../../utils/extractYouTubeVideoId';
 import mediaPlaySvg from '../../../../images/svg/media-play.svg';
 import editSvg from '../../../../images/svg/edit.svg';
-import useMusicStore from '../../../../../store/useMusicStore';
+import deleteSvg from '../../../../images/svg/delete.svg';
+import useMusicStore from '../../../../store/useMusicStore';
 import { prefixZeroForNumber } from '../../../../utils/prefixZeroForNumber';
+import useModalStore from '../../../../store/useModalStore';
+import EditMusicModal from '../../../../components/Organisms/Modal/EditMusicModal';
+import DeleteMusicModal from '../../../../components/Organisms/Modal/DeleteMusicModal';
+import { ModalType } from '../../../../types/enum';
 
 export default function MusicItem({ music, index }: MusicItemProps) {
+  const { openModal } = useModalStore();
   const { setMusic } = useMusicStore();
   const [musicImageUrl, setMusicImageUrl] = useState<string>();
 
@@ -16,8 +22,14 @@ export default function MusicItem({ music, index }: MusicItemProps) {
     setMusic(music);
   };
 
-  const handleDetailModalOpenButtonClick = () => {
-    console.log('상세 버튼 클릭됨 ');
+  const handleEditMusicButtonClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    e.stopPropagation();
+    openModal(ModalType.EDIT_MUSIC, <EditMusicModal />, { music });
+  };
+
+  const handleDeleteButtonClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    e.stopPropagation();
+    openModal(ModalType.DELETE_MUSIC, <DeleteMusicModal />, { music });
   };
 
   useEffect(() => {
@@ -52,12 +64,15 @@ export default function MusicItem({ music, index }: MusicItemProps) {
         <Artist>{music.artist}</Artist>
       </Middle>
       <Right>
-        <PlayButton onClick={handlePlayButtonClick}>
-          <img src={mediaPlaySvg} alt='재생 버튼 이미지' />
+        <PlayButton type='button' onClick={handlePlayButtonClick}>
+          <img src={mediaPlaySvg} alt='음악 재생 버튼 이미지' />
         </PlayButton>
-        <DetailButton onClick={handleDetailModalOpenButtonClick}>
-          <img src={editSvg} alt='상세 버튼 이미지' />
-        </DetailButton>
+        <EditButton type='button' onClick={handleEditMusicButtonClick}>
+          <img src={editSvg} alt='음악 수정 버튼 이미지' />
+        </EditButton>
+        <DeleteButton type='button' onClick={handleDeleteButtonClick}>
+          <img src={deleteSvg} alt='음악 삭제 버튼 이미지' />
+        </DeleteButton>
       </Right>
     </Wrapper>
   );
@@ -104,18 +119,20 @@ const ImageBox = styled.div`
 const Middle = styled.div`
   flex-grow: 1;
   display: flex;
-  align-items: center;
-  gap: 24px;
+  flex-direction: column;
+  justify-content: center;
+  gap: 4px;
 `;
 
 const Title = styled.div`
   color: var(--grey-grey900);
-  font-size: 24px;
+  font-weight: 700;
+  font-size: 16px;
 `;
 
 const Artist = styled.div`
   color: var(--grey-grey600);
-  font-size: 16px;
+  font-size: 14px;
 `;
 
 const Right = styled.div`
@@ -146,4 +163,6 @@ const Button = styled.button`
 
 const PlayButton = styled(Button)``;
 
-const DetailButton = styled(Button)``;
+const EditButton = styled(Button)``;
+
+const DeleteButton = styled(Button)``;

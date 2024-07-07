@@ -22,8 +22,7 @@ const Wrapper = styled.button<{
   border-radius: 16px;
 
   padding: 16px 32px;
-  background-color: ${({ $variant }) =>
-    $variant === 'confirm' ? 'var(--yellow-galaxyYellowDark2)' : 'var(--grey-grey150)'};
+  background-color: ${({ $variant }) => ($variant === 'confirm' ? 'var(--mint6)' : 'var(--grey-grey150)')};
   color: ${({ $variant }) => ($variant === 'confirm' ? 'var(--grey-grey150)' : 'var(--grey-grey900)')};
   font-size: 16px;
   font-weight: bold;
@@ -31,7 +30,6 @@ const Wrapper = styled.button<{
   cursor: pointer;
 
   &:hover {
-    background-color: ${({ $variant }) =>
-      $variant === 'confirm' ? 'var(--yellow-galaxyYellowDark1)' : 'var(--grey-grey250)'};
+    background-color: ${({ $variant }) => ($variant === 'confirm' ? 'var(--mint7)' : 'var(--grey-grey250)')};
   }
 `;
