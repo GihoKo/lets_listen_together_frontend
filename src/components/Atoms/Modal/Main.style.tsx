@@ -35,7 +35,7 @@ export const Input = styled.input`
   font-size: 16px;
 
   &:focus {
-    border: 1px solid var(--yellow-galaxyYellowDark1);
+    border: 1px solid var(--mint5);
   }
 `;
 
@@ -49,6 +49,12 @@ export const FormField = styled.div`
   display: flex;
   flex-direction: column;
   gap: 8px;
+
+  &:focus-within {
+    label {
+      color: var(--mint5);
+    }
+  }
 `;
 
 export const Description = styled.div`
