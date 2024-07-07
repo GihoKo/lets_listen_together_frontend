@@ -3,12 +3,14 @@ import { Music } from '../_types/interface';
 import MusicItem from './MusicItem';
 import upCircleSvg from '../../../../images/svg/up-circle.svg';
 import { useRef } from 'react';
+import useMusicStore from '../../../../store/useMusicStore';
 
 interface MusicContainerProps {
   data: Music[];
 }
 
 export default function MusicContainer({ data }: MusicContainerProps) {
+  const { music: currentMusic } = useMusicStore();
   const containerRef = useRef<HTMLDivElement>(null);
 
   const handleScrollUpButtonClick = () => {
@@ -21,7 +23,7 @@ export default function MusicContainer({ data }: MusicContainerProps) {
     <>
       <Container ref={containerRef}>
         {data.map((music, index) => (
-          <MusicItem key={music.id} index={index} music={music} />
+          <MusicItem key={music.id} index={index} music={music} currentMusic={currentMusic} />
         ))}
       </Container>
       <ScrollUpButton onClick={handleScrollUpButtonClick}>

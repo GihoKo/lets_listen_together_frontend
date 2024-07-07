@@ -11,6 +11,7 @@ export type MusicRequestData = Omit<Music, 'id'>;
 export interface MusicItemProps {
   index: number;
   music: Music;
+  currentMusic: Music | null;
 }
 
 export interface ChatMessage {

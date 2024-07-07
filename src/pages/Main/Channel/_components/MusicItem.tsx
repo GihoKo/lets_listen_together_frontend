@@ -13,10 +13,11 @@ import EditMusicModal from '../../../../components/Organisms/Modal/EditMusicModa
 import DeleteMusicModal from '../../../../components/Organisms/Modal/DeleteMusicModal';
 import { ModalType } from '../../../../types/enum';
 
-export default function MusicItem({ music, index }: MusicItemProps) {
+export default function MusicItem({ music, index, currentMusic }: MusicItemProps) {
   const { openModal } = useModalStore();
   const { setMusic } = useMusicStore();
   const [musicImageUrl, setMusicImageUrl] = useState<string>();
+  const isCurrentMusic = currentMusic?.id === music.id;
 
   const handlePlayButtonClick = () => {
     setMusic(music);
@@ -54,7 +55,7 @@ export default function MusicItem({ music, index }: MusicItemProps) {
   }, [music?.url]);
 
   return (
-    <Wrapper>
+    <Wrapper $isCurrentMusic={isCurrentMusic}>
       <Number>{prefixZeroForNumber(index + 1)}</Number>
       <ImageBox>
         <img src={musicImageUrl} alt='음악 이미지' />
@@ -78,15 +79,16 @@ export default function MusicItem({ music, index }: MusicItemProps) {
   );
 }
 
-const Wrapper = styled.div`
+const Wrapper = styled.div<{ $isCurrentMusic: boolean }>`
   border-radius: 12px;
+  border: ${({ $isCurrentMusic }) => ($isCurrentMusic ? '2px solid var(--mint5)' : '2px solid var(--grey-grey150)')};
   min-width: 300px;
   width: 100%;
 
   display: flex;
   gap: 16px;
 
-  background-color: var(--grey-grey200);
+  background-color: ${({ $isCurrentMusic }) => ($isCurrentMusic ? 'var(--mint8)' : 'var(--grey-grey200)')};
   padding: 8px 20px;
 `;
 
