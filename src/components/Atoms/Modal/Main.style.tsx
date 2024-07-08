@@ -26,7 +26,7 @@ export const Label = styled.label`
 
 export const Input = styled.input`
   border-radius: 8px;
-  border: none;
+  border: 1px solid var(--grey-grey150);
   width: 100%;
   outline: none;
 
