@@ -15,6 +15,7 @@ import { useUserStore } from '../../../store/useUserStore';
 import { axiosInstance } from '../../../../apis/instances';
 import useModalStore from '../../../store/useModalStore';
 import { ModalType } from '../../../types/enum';
+import styled from 'styled-components';
 
 export default function CreateChannelModal() {
   const { type, closeModal } = useModalStore();
@@ -22,13 +23,25 @@ export default function CreateChannelModal() {
   if (type !== ModalType.CREATE_CHANNEL) return null;
 
   const { user } = useUserStore();
-
   const [channelData, setChannelData] = useState({
     name: '',
     tags: '',
     description: '',
     image: '',
   });
+  const [tags, setTags] = useState<string[]>([]);
+
+  const handleAddTagKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    e.preventDefault();
+    if (channelData.tags === '') return;
+    if (e.key === 'Enter') {
+      setTags([...tags, channelData.tags]);
+      setChannelData({
+        ...channelData,
+        tags: '',
+      });
+    }
+  };
 
   const handleChangeChannelData = (e: React.ChangeEvent<HTMLInputElement>) => {
     setChannelData({
@@ -51,10 +64,9 @@ export default function CreateChannelModal() {
   };
 
   const createChannel = async () => {
-    console.log(user?.id);
     const channel = {
       name: channelData.name,
-      tags: [`${channelData.tags}`],
+      tags: tags,
       description: channelData.description,
       image: '',
       ownerId: user?.id,
@@ -95,12 +107,18 @@ export default function CreateChannelModal() {
 
           <FormField>
             <Label htmlFor='tags'>태그</Label>
+            <TagContainer>
+              {tags.map((tag) => (
+                <Tag key={tag}>{tag}</Tag>
+              ))}
+            </TagContainer>
             <Input
               name='tags'
               value={channelData.tags}
               onChange={handleChangeChannelData}
               placeholder='태그를 입력하세요.'
               type='text'
+              onKeyDown={handleAddTagKeyDown}
             />
           </FormField>
 
@@ -127,3 +145,23 @@ export default function CreateChannelModal() {
     </Dimmed>
   );
 }
+
+const TagContainer = styled.div`
+  display: flex;
+  gap: 8px;
+
+  overflow-x: hidden;
+`;
+
+const Tag = styled.div`
+  border-radius: 8px;
+
+  background-color: var(--mint7);
+  padding: 8px;
+  color: var(--grey-grey900);
+  font-size: 16px;
+  font-weight: 600;
+  white-space: nowrap;
+
+  margin-right: 8px;
+`;

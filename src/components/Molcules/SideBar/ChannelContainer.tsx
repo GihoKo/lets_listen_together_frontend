@@ -30,7 +30,16 @@ export default function ChannelContainer({ isOpen }: ChannelContainerProps) {
 }
 
 const Container = styled.div`
+  border-bottom: 1px solid var(--grey-grey300);
+  height: 240px;
+
   display: flex;
   flex-direction: column;
   gap: 8px;
+
+  overflow-y: scroll;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;

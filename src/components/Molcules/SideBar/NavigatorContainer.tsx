@@ -42,7 +42,11 @@ export default function NavigatorContainer({ isOpen }: NavigatorContainerProps) 
 }
 
 const Container = styled.div`
+  border-bottom: 1px solid var(--grey-grey300);
+
   display: flex;
   flex-direction: column;
   gap: 8px;
+
+  padding-bottom: 8px;
 `;
