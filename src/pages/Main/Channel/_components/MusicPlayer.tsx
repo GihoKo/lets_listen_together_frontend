@@ -146,7 +146,7 @@ export default function MusicPlayer({ currentMusic, playNextMusic, playPrevMusic
     playerRef.current?.seekTo((clickedPositionX / progressBarWidth) * totalTime, true);
   };
 
-  if (!currentMusic) return <>유튜브 플레이어를 초기화 중 입니다...</>;
+  if (!currentMusic) return null;
 
   return (
     <Wrapper>

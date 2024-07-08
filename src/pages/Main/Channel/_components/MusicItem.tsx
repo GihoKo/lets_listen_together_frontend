@@ -4,8 +4,11 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import extractYouTubeVideoId from '../../../../utils/extractYouTubeVideoId';
 import mediaPlaySvg from '../../../../images/svg/media-play.svg';
+import mediaPlayFocusedSvg from '../../../../images/svg/media-play-focused.svg';
 import editSvg from '../../../../images/svg/edit.svg';
+import editFocusedSvg from '../../../../images/svg/edit-focused.svg';
 import deleteSvg from '../../../../images/svg/delete.svg';
+import deleteFocusedSvg from '../../../../images/svg/delete-focused.svg';
 import useMusicStore from '../../../../store/useMusicStore';
 import { prefixZeroForNumber } from '../../../../utils/prefixZeroForNumber';
 import useModalStore from '../../../../store/useModalStore';
@@ -56,23 +59,23 @@ export default function MusicItem({ music, index, currentMusic }: MusicItemProps
 
   return (
     <Wrapper $isCurrentMusic={isCurrentMusic}>
-      <Number>{prefixZeroForNumber(index + 1)}</Number>
+      <Number $isCurrentMusic={isCurrentMusic}>{prefixZeroForNumber(index + 1)}</Number>
       <ImageBox>
         <img src={musicImageUrl} alt='음악 이미지' />
       </ImageBox>
       <Middle>
-        <Title>{music.title}</Title>
-        <Artist>{music.artist}</Artist>
+        <Title $isCurrentMusic={isCurrentMusic}>{music.title}</Title>
+        <Artist $isCurrentMusic={isCurrentMusic}>{music.artist}</Artist>
       </Middle>
       <Right>
         <PlayButton type='button' onClick={handlePlayButtonClick}>
-          <img src={mediaPlaySvg} alt='음악 재생 버튼 이미지' />
+          <img src={isCurrentMusic ? mediaPlayFocusedSvg : mediaPlaySvg} alt='음악 재생 버튼 이미지' />
         </PlayButton>
         <EditButton type='button' onClick={handleEditMusicButtonClick}>
-          <img src={editSvg} alt='음악 수정 버튼 이미지' />
+          <img src={isCurrentMusic ? editFocusedSvg : editSvg} alt='음악 수정 버튼 이미지' />
         </EditButton>
         <DeleteButton type='button' onClick={handleDeleteButtonClick}>
-          <img src={deleteSvg} alt='음악 삭제 버튼 이미지' />
+          <img src={isCurrentMusic ? deleteFocusedSvg : deleteSvg} alt='음악 삭제 버튼 이미지' />
         </DeleteButton>
       </Right>
     </Wrapper>
@@ -92,11 +95,13 @@ const Wrapper = styled.div<{ $isCurrentMusic: boolean }>`
   padding: 8px 20px;
 `;
 
-const Number = styled.div`
+const Number = styled.div<{
+  $isCurrentMusic: boolean;
+}>`
   display: flex;
   align-items: center;
 
-  color: var(--grey-grey600);
+  color: ${({ $isCurrentMusic }) => ($isCurrentMusic ? 'var(--mint3)' : 'var(--grey-grey600)')};
   font-size: 18px;
 `;
 
@@ -126,14 +131,18 @@ const Middle = styled.div`
   gap: 4px;
 `;
 
-const Title = styled.div`
-  color: var(--grey-grey900);
+const Title = styled.div<{
+  $isCurrentMusic: boolean;
+}>`
+  color: ${({ $isCurrentMusic }) => ($isCurrentMusic ? 'var(--mint3)' : 'var(--grey-grey900)')};
   font-weight: 700;
   font-size: 16px;
 `;
 
-const Artist = styled.div`
-  color: var(--grey-grey600);
+const Artist = styled.div<{
+  $isCurrentMusic: boolean;
+}>`
+  color: ${({ $isCurrentMusic }) => ($isCurrentMusic ? 'var(--mint6)' : 'var(--grey-grey600)')};
   font-size: 14px;
 `;
 
