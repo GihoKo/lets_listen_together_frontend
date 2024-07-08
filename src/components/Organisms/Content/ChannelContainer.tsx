@@ -32,7 +32,7 @@ export default function ChannelContainer() {
 
 const Container = styled.ul`
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(5, 20%);
   gap: 24px 24px;
 
   padding: 0 24px;

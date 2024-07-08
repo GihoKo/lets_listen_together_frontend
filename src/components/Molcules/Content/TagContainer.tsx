@@ -9,8 +9,12 @@ export default function TagContainer({ tags }: TagContainerProps) {
 }
 
 const Container = styled.div`
+  width: 100%;
+
   display: flex;
   gap: 8px;
+
+  overflow-x: hidden;
 `;
 
 const VoidTag = styled.div`

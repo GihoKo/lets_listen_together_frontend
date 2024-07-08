@@ -36,6 +36,7 @@ const Wrapper = styled(Link)<{ $isFocused: boolean }>`
   background-color: ${(props) => (props.$isFocused ? 'var(--mint7)' : 'transparent')};
   box-shadow: ${(props) => (props.$isFocused ? '0 0 10px var(--mint5)' : 'none')};
   padding: 8px;
+  padding-left: 6px;
 
   cursor: pointer;
 

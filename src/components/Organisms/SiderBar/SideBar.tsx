@@ -72,11 +72,14 @@ const Header = styled.div`
 const CartegoryName = styled.div<{
   $isOpen: boolean;
 }>`
-  font-size: 20px;
+  display: flex;
+  justify-content: ${(props) => (props.$isOpen ? 'flex-start' : 'center')};
+
+  font-size: ${(props) => (props.$isOpen ? '20px' : '11px')};
   margin: 12px 0;
   white-space: nowrap;
 
-  color: ${(props) => (props.$isOpen ? 'var(--grey-grey600)' : 'transparent')};
+  color: var(--grey-grey600);
 
   cursor: default;
 `;

@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Channel } from '../../types/interface';
+import { Channel } from '../../../types/channel';
 import { Link } from 'react-router-dom';
 import TagContainer from './../../Molcules/Content/TagContainer';
 import mockImage from '../../../images/dummyImage.png';
@@ -78,15 +78,15 @@ const Image = styled.img`
 
 const UserCount = styled.div`
   border-radius: 6px;
-  width: 36px;
-  height: 24px;
 
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 16px;
-  color: var(--grey-grey600);
-  background-color: var(--grey-grey100);
+  font-weight: 600;
+  color: var(--grey-grey990);
+  background-color: var(--grey-grey200);
+  padding: 4px 8px;
 
   position: absolute;
   top: 18px;

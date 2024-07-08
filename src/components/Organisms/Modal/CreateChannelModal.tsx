@@ -32,9 +32,9 @@ export default function CreateChannelModal() {
   const [tags, setTags] = useState<string[]>([]);
 
   const handleAddTagKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (channelData.tags === '') return;
-    e.preventDefault();
     if (e.key === 'Enter') {
+      e.preventDefault();
+      if (channelData.tags === '' || channelData.tags.length > 10 || tags.length > 5) return;
       setTags([...tags, channelData.tags]);
       setChannelData({
         ...channelData,
@@ -129,6 +129,7 @@ export default function CreateChannelModal() {
               onChange={handleChangeChannelData}
               placeholder='채널 설명을 입력하세요.'
               type='text'
+              maxLength={10}
             />
           </FormField>
           <ButtonWrapper>
