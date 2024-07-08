@@ -6,12 +6,13 @@ import useModalStore from '../../../../store/useModalStore';
 import CreateMusicModal from '../../../../components/Organisms/Modal/CreateMusicModal';
 import { useParams } from 'react-router-dom';
 import { ModalType } from '../../../../types/enum';
+import Guide from '../../../../components/Atoms/Badge/Guide';
 
 interface MusicListProps {
-  data: Music[];
+  musicList: Music[];
 }
 
-export default function MusicList({ data }: MusicListProps) {
+export default function MusicList({ musicList }: MusicListProps) {
   const { openModal } = useModalStore();
   const { channelId } = useParams<{ channelId: string }>();
 
@@ -26,8 +27,13 @@ export default function MusicList({ data }: MusicListProps) {
         <CreateMusicButton onClick={handleCreateMusicButtonButtonClick}>
           <img src={addSquareSvg} alt='음악 생성 버튼 이미지' />
         </CreateMusicButton>
+        {musicList.length === 0 ? (
+          <GuidePositioner>
+            <Guide>{`Add Music!`}</Guide>
+          </GuidePositioner>
+        ) : null}
       </Header>
-      <MusicContainer data={data} />
+      <MusicContainer musicList={musicList} />
     </Wrapper>
   );
 }
@@ -53,6 +59,8 @@ const Header = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+
+  position: relative;
 `;
 
 const Title = styled.div`
@@ -78,4 +86,9 @@ const CreateMusicButton = styled.button`
   &:hover {
     transform: scale(1.2);
   }
+`;
+
+const GuidePositioner = styled.div`
+  position: absolute;
+  right: 48px;
 `;

@@ -59,7 +59,7 @@ export default function Channel() {
       {isOpen ? <CreateMusicModal /> : null}
       <Wrapper>
         <MusicPlayer currentMusic={currentMusic} playNextMusic={playNextMusic} playPrevMusic={playPrevMusic} />
-        <MusicList data={musicList} />
+        <MusicList musicList={musicList} />
       </Wrapper>
     </>
   );

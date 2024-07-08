@@ -6,10 +6,10 @@ import { useRef } from 'react';
 import useMusicStore from '../../../../store/useMusicStore';
 
 interface MusicContainerProps {
-  data: Music[];
+  musicList: Music[];
 }
 
-export default function MusicContainer({ data }: MusicContainerProps) {
+export default function MusicContainer({ musicList }: MusicContainerProps) {
   const { music: currentMusic } = useMusicStore();
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -19,10 +19,14 @@ export default function MusicContainer({ data }: MusicContainerProps) {
     }
   };
 
+  if (musicList.length === 0) {
+    return <NoMusic>음악을 추가해보세요!</NoMusic>;
+  }
+
   return (
     <>
       <Container ref={containerRef}>
-        {data.map((music, index) => (
+        {musicList.map((music, index) => (
           <MusicItem key={music.id} index={index} music={music} currentMusic={currentMusic} />
         ))}
       </Container>
@@ -32,6 +36,18 @@ export default function MusicContainer({ data }: MusicContainerProps) {
     </>
   );
 }
+
+const NoMusic = styled.div`
+  height: 100%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-size: 24px;
+  color: var(--grey-grey600);
+  font-weight: bold;
+`;
 
 const Container = styled.div`
   width: 100%;
