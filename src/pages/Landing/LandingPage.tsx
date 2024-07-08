@@ -15,7 +15,8 @@ export default function LandingPage() {
         <Logo>
           <img src={logo} alt='로고 이미지' />
         </Logo>
-        <StartButton onClick={handleStartButtonClick}>{`Let's start!`}</StartButton>
+        <Description>같이 노래 듣자!</Description>
+        <StartButton onClick={handleStartButtonClick}>Start!</StartButton>
       </Box>
     </Wrapper>
   );
@@ -46,8 +47,12 @@ const Box = styled.div`
 `;
 
 const Logo = styled.div`
+  border-radius: 50%;
   width: 160px;
   height: 160px;
+
+  box-shadow: 0 0 20px 0 var(--mint4);
+
   cursor: pointer;
 
   img {
@@ -56,8 +61,15 @@ const Logo = styled.div`
   }
 `;
 
+const Description = styled.p`
+  font-size: 16px;
+  color: var(--grey-grey600);
+
+  margin-top: 24px;
+`;
+
 const StartButton = styled.button`
-  border: 3px solid var(--mint8);
+  border: 2px solid var(--mint7);
   border-radius: 16px;
 
   padding: 8px 16px;
@@ -65,6 +77,7 @@ const StartButton = styled.button`
   color: var(--mint8);
   font-weight: 700;
   font-size: 16px;
+  box-shadow: 0 0 10px 0 var(--mint4);
 
   cursor: pointer;
 

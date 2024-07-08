@@ -10,7 +10,7 @@ export default function Header() {
 
   return (
     <Wrapper>
-      <Logo>
+      <Logo to='/main'>
         <img src={logoImg} alt='로고 이미지' />
       </Logo>
       <UserProfileImageLink to='/main/myPage'>
@@ -32,12 +32,16 @@ const Wrapper = styled.header`
   padding: 0 16px;
 `;
 
-const Logo = styled.div`
-  height: 42px;
+const Logo = styled(Link)`
+  height: 48px;
+
+  cursor: pointer;
 
   img {
     width: 100%;
     height: 100%;
+
+    cursor: pointer;
   }
 `;
 
