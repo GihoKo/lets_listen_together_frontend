@@ -3,33 +3,39 @@ import { Channel } from '../../../../types/channel';
 import playListSvg from '../../../../../src/images/svg/playlist.svg';
 import deleteSvg from '../../../../../src/images/svg/delete.svg';
 import editSvg from '../../../../../src/images/svg/edit.svg';
+import { Dispatch, SetStateAction } from 'react';
 
 interface ChannelItemProps {
   channel: Channel;
+  setEdittedChannel: Dispatch<SetStateAction<Channel | null>>;
 }
 
-export default function ChannelItem({ channel }: ChannelItemProps) {
+export default function ChannelItem({ channel, setEdittedChannel }: ChannelItemProps) {
+  const handleEditButtonClick = () => (channel: Channel) => {
+    setEdittedChannel(channel);
+  };
+
   return (
     <Wrapper>
       <Left>
-        <Icon>
+        <IconButton type='button'>
           <img src={playListSvg} alt='채널 아이콘 이미지' />
-        </Icon>
+        </IconButton>
         {channel.name}
       </Left>
       <Right>
-        <Icon>
+        <IconButton type='button' onClick={handleEditButtonClick}>
           <img src={editSvg} alt='수정 아이콘 이미지' />
-        </Icon>
-        <Icon>
+        </IconButton>
+        <IconButton type='button'>
           <img src={deleteSvg} alt='삭제 아이콘 이미지' />
-        </Icon>
+        </IconButton>
       </Right>
     </Wrapper>
   );
 }
 
-const Wrapper = styled.div`
+const Wrapper = styled.li`
   width: 100%;
   border: 1px solid var(--grey-grey300);
   border-radius: 8px;
@@ -42,9 +48,11 @@ const Wrapper = styled.div`
   padding: 16px;
 `;
 
-const Icon = styled.div`
+const IconButton = styled.button`
   width: 24px;
   height: 24px;
+
+  padding: 0;
 
   transition: all 0.2s;
 

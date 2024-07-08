@@ -20,22 +20,38 @@ export default function ChannelContainer() {
   }, []);
 
   return (
-    <>
+    <Wrapper>
+      <Title>Channel List</Title>
       <Container>
         {channels.map((channel) => (
           <ChannelItem key={channel.id} channel={channel} />
         ))}
       </Container>
-    </>
+    </Wrapper>
   );
 }
+
+const Wrapper = styled.div`
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  flex-direction: column;
+  padding: 0 32px;
+`;
+
+const Title = styled.h1`
+  border-bottom: 2px solid var(--grey-grey300);
+
+  font-size: 56px;
+  font-weight: bold;
+  padding-bottom: 24px;
+`;
 
 const Container = styled.ul`
   display: grid;
   grid-template-columns: repeat(5, 20%);
   gap: 24px 24px;
 
-  padding: 0 24px;
-
-  margin-top: 56px;
+  padding: 24px;
 `;

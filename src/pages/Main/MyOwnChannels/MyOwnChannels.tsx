@@ -5,10 +5,12 @@ import { UserId } from '../../../types/user';
 import styled from 'styled-components';
 import { Channel } from '../../../types/channel';
 import ChannelItem from './_components/ChannelItem';
+import ChannelEidtor from './_components/ChannelEidtor';
 
 export default function MyOwnChannels() {
   const { user } = useUserStore();
   const [channels, setChannels] = useState<Channel[]>([]);
+  const [EdittedChannel, setEdittedChannel] = useState<Channel | null>(null);
   const { data } = useGetMyOwnChannels(user?.id as UserId);
 
   useEffect(() => {
@@ -22,10 +24,16 @@ export default function MyOwnChannels() {
       <Title>MyOwnChannels</Title>
       <Content>
         <Left>
-          <Container>{channels?.map((channel) => <ChannelItem key={channel.id} channel={channel} />)}</Container>
+          <Container>
+            {channels?.map((channel) => (
+              <ChannelItem key={channel.id} channel={channel} setEdittedChannel={setEdittedChannel} />
+            ))}
+          </Container>
         </Left>
         <CenterLine />
-        <Rignt></Rignt>
+        <Rignt>
+          <ChannelEidtor EdittedChannel={EdittedChannel} />
+        </Rignt>
       </Content>
     </Wrapper>
   );
@@ -58,7 +66,7 @@ const Left = styled.div`
   width: 50%;
 `;
 
-const Container = styled.div`
+const Container = styled.ul`
   display: flex;
   flex-direction: column;
   gap: 8px;
