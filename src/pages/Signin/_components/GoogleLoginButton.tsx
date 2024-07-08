@@ -4,6 +4,9 @@ import { useApplicationAuthTokenStore, useGoogleOAuthTokenStore } from '../../..
 import { useUserStore } from '../../../store/useUserStore';
 import { useNavigate } from 'react-router-dom';
 
+import googleLogoSvg from '../../../../src/images/svg/google-logo.svg';
+import styled from 'styled-components';
+
 export default function GoogleLoginButton() {
   const navigate = useNavigate();
   const { setAccessToken } = useApplicationAuthTokenStore();
@@ -36,5 +39,48 @@ export default function GoogleLoginButton() {
     },
     flow: 'auth-code',
   });
-  return <button onClick={login}>로그인</button>;
+  return (
+    <Wrapper onClick={login}>
+      <Logo>
+        <img src={googleLogoSvg} alt='구글 로그인 버튼 이미지' />
+      </Logo>
+      <Text>Google로 시작하기</Text>
+    </Wrapper>
+  );
 }
+
+const Wrapper = styled.button`
+  border: 2px solid var(--mint6);
+  border-radius: 8px;
+  width: 100%;
+  height: 48px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+
+  background-color: var(--grey-grey990);
+
+  cursor: pointer;
+`;
+
+const Logo = styled.div`
+  width: 24px;
+  height: 24px;
+
+  cursor: pointer;
+
+  img {
+    width: 100%;
+    height: 100%;
+  }
+`;
+
+const Text = styled.div`
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--grey-grey50);
+
+  cursor: pointer;
+`;

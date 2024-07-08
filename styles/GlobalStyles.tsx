@@ -2,6 +2,7 @@ import { createGlobalStyle } from 'styled-components';
 
 const GlobalStyles = createGlobalStyle`
   @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css");
+  @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 
   *,
   *::after,
@@ -193,6 +194,7 @@ const GlobalStyles = createGlobalStyle`
     --mint6: #8ABD99; 
     --mint7: #5C7E66; 
     --mint8: #2E3F33; 
+    --mint9: #1B2721;
     --black: #000000; 
 
     --gray-button: #626262;
