@@ -18,3 +18,13 @@ export const getMyUser = async (userId: UserId) => {
     console.error(error);
   }
 };
+
+export const getMyOwnChannels = async (userId: UserId | undefined) => {
+  try {
+    const response = await axiosInstanceWithToken.get(`/users/myOwnChannels/${userId}`);
+    console.log(response.data);
+    return response.data;
+  } catch (e) {
+    console.error(e);
+  }
+};
