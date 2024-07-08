@@ -262,10 +262,8 @@ const ProgressTrack = styled.div<{
   width: ${(props) => `${props.progressValue}%`};
   height: 100%;
 
-  background-color: var(--mint4);
-  box-shadow:
-    0 0 5px var(--mint5),
-    0 0 10px var(--mint5);
+  background-color: var(--mint5);
+  box-shadow: 0 0 10px var(--mint5);
 
   position: absolute;
 `;

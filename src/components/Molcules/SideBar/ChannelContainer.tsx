@@ -2,7 +2,6 @@ import styled from 'styled-components';
 import ChannelItem from './ChannelItem';
 import useGetMyChannel from '../../../../apis/hooks/useGetAllChannel';
 import { useUserStore } from '../../../store/useUserStore';
-import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 interface ChannelContainerProps {

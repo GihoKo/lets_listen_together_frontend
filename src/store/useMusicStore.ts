@@ -9,7 +9,6 @@ interface MusicStore {
 
 const useMusicStore = create<MusicStore>((set) => ({
   music: null,
-
   setMusic: (music) => set({ music }),
   resetMusic: () => set({ music: null }),
 }));

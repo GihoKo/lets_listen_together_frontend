@@ -11,15 +11,16 @@ import {
   Description,
   ButtonWrapper,
 } from '../../Atoms/Modal/Main.style';
-import { axiosInstance } from '../../../../apis/instances';
 import useModalStore from '../../../store/useModalStore';
 import { ModalType } from '../../../types/enum';
+import useCreateMusic from '../../../../apis/hooks/useCreateMusic';
 
 export default function CreateMusicModal() {
   const { type, closeModal, props } = useModalStore();
 
   if (type !== ModalType.CREATE_MUSIC) return null;
 
+  const upLoadMusicMutation = useCreateMusic();
   const modalProps = props as { channelId: string };
   const [musicData, setMusicData] = useState({
     title: '',
@@ -36,34 +37,14 @@ export default function CreateMusicModal() {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // Call API to create music
-    createMusic();
-    closeModal();
-  };
-
-  const createMusic = async () => {
     const music = {
       channelId: modalProps.channelId,
       title: musicData.title,
       artist: musicData.artist,
       url: musicData.url,
     };
-    try {
-      const response = await axiosInstance
-        .post('/musics', {
-          music,
-        })
-        .then(() => {
-          setMusicData({
-            title: '',
-            artist: '',
-            url: '',
-          });
-        });
-      console.log(response);
-    } catch (error) {
-      console.error(error);
-    }
+    upLoadMusicMutation.mutate({ music });
+    closeModal();
   };
 
   return (

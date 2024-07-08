@@ -6,6 +6,7 @@ import useSideBar from './SideBar.hook';
 import CreateChannelModal from '../Modal/CreateChannelModal';
 import useModalStore from '../../../store/useModalStore';
 import { ModalType } from '../../../types/enum';
+import NavigatorContainer from '../../Molcules/SideBar/NavigatorContainer';
 
 export default function SideBar() {
   const { isOpen, handleToggleButtonClick } = useSideBar();
@@ -23,7 +24,9 @@ export default function SideBar() {
           <SideBarToggleButton onClick={handleToggleButtonClick} isOpen={isOpen} />
           <CreateChannelButton isOpen={isOpen} onClick={handleCreateChannelButtonClick} />
         </Header>
-        <TitleText $isOpen={isOpen}>Channels</TitleText>
+        <CartegoryName $isOpen={isOpen}>Navigator</CartegoryName>
+        <NavigatorContainer isOpen={isOpen} />
+        <CartegoryName $isOpen={isOpen}>Channels</CartegoryName>
         <ChannelContainer isOpen={isOpen} />
       </Wrapper>
     </NavBar>
@@ -66,7 +69,7 @@ const Header = styled.div`
   padding: 0 8px;
 `;
 
-const TitleText = styled.div<{
+const CartegoryName = styled.div<{
   $isOpen: boolean;
 }>`
   font-size: 20px;

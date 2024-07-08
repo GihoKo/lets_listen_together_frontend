@@ -1,13 +1,21 @@
 import styled from 'styled-components';
 import { SideBarChannelItemProps } from '../../types/props';
 import { Link } from 'react-router-dom';
-import mockImage from '../../../images/dummyImage.png';
+import playListSvg from '../../../images/svg/playlist.svg';
+import playListFocusedSvg from '../../../images/svg/playlist-focused.svg';
 
 export default function ChannelItem({ channel, isOpen, isCurrentChannel }: SideBarChannelItemProps) {
+  const playListToggle = () => {
+    if (isCurrentChannel) {
+      return playListFocusedSvg;
+    }
+    return playListSvg;
+  };
+
   return (
     <Wrapper to={`/main/channel/${channel.id}`} $isCurrentChannel={isCurrentChannel}>
       <ChannelImageBox>
-        <img src={mockImage} alt='채널 이미지' />
+        <img src={channel.image === '' ? playListToggle() : channel.image} alt='채널 이미지' />
       </ChannelImageBox>
       <ChannelName $isOpen={isOpen} $isCurrentChannel={isCurrentChannel}>
         {channel.name ? channel.name : ''}
@@ -18,6 +26,7 @@ export default function ChannelItem({ channel, isOpen, isCurrentChannel }: SideB
 
 const Wrapper = styled(Link)<{ $isCurrentChannel: boolean }>`
   box-sizing: border-box;
+  border: ${(props) => (props.$isCurrentChannel ? '2px solid var(--mint5)' : '2px solid transparent')};
   border-radius: 6px;
   height: 40px;
 
@@ -26,14 +35,14 @@ const Wrapper = styled(Link)<{ $isCurrentChannel: boolean }>`
   justify-content: space-between;
   gap: 24px;
 
-  background-color: ${(props) => (props.$isCurrentChannel ? 'var(--mint6)' : 'transparent')};
-  box-shadow: ${(props) => (props.$isCurrentChannel ? '0 0 10px var(--mint6)' : 'none')};
+  background-color: ${(props) => (props.$isCurrentChannel ? 'var(--mint7)' : 'transparent')};
+  box-shadow: ${(props) => (props.$isCurrentChannel ? '0 0 10px var(--mint5)' : 'none')};
   padding: 8px;
 
   cursor: pointer;
 
   &:hover {
-    background-color: var(--grey-grey250);
+    background-color: ${(props) => (props.$isCurrentChannel ? 'var(--mint7)' : 'var(--grey-grey300)')};
   }
 `;
 
@@ -58,7 +67,7 @@ const ChannelName = styled.div<{ $isOpen: boolean; $isCurrentChannel: boolean }>
 
   display: ${(props) => (props.$isOpen ? 'block' : 'none')};
   font-size: 16px;
-  color: ${(props) => (props.$isCurrentChannel ? 'var(--grey-grey900)' : 'var(--grey-grey600)')};
+  color: ${(props) => (props.$isCurrentChannel ? 'var(--mint3)' : 'var(--grey-grey600)')};
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;

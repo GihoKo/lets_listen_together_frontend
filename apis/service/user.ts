@@ -1,7 +1,7 @@
 import { UserId } from '../../src/types/user';
 import { axiosInstanceWithToken } from '../instances';
 
-export const getMyChannelList = async (userId: UserId) => {
+export const getMyChannelList = async (userId: UserId | undefined) => {
   try {
     const response = await axiosInstanceWithToken.get(`/users/myChannels/${userId}`);
     return response.data;
