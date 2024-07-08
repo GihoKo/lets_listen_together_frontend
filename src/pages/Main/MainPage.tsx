@@ -31,9 +31,7 @@ export default function MainPage() {
       <Main>
         <SideBar />
         <Right>
-          <Content>
-            <Outlet />
-          </Content>
+          <Outlet />
         </Right>
       </Main>
     </Wrapper>
@@ -50,23 +48,17 @@ const Wrapper = styled.div`
   position: relative;
 `;
 
-const Main = styled.div`
-  flex-grow: 1;
+const Main = styled.main`
   display: flex;
+  overflow-y: hidden;
 `;
 
 const Right = styled.div`
-  height: 100%;
   flex-grow: 1;
-
-  overflow-y: hidden;
 
   display: flex;
   flex-direction: column;
-`;
 
-const Content = styled.main`
-  flex-grow: 1;
   overflow-y: scroll;
 
   &::-webkit-scrollbar {

@@ -30,8 +30,9 @@ export default function ChannelItem({ channel }: ChannelItemProps) {
 
 const Border = styled.div`
   border-radius: 12px;
+  border: 2px solid var(--grey-grey100);
 
-  transition: all 0.2s;
+  transition: all 0.3s;
 
   &:hover {
     border: 2px solid var(--yellow-galaxyYellow);

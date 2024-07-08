@@ -32,8 +32,8 @@ export default function CreateChannelModal() {
   const [tags, setTags] = useState<string[]>([]);
 
   const handleAddTagKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    e.preventDefault();
     if (channelData.tags === '') return;
+    e.preventDefault();
     if (e.key === 'Enter') {
       setTags([...tags, channelData.tags]);
       setChannelData({
@@ -52,7 +52,6 @@ export default function CreateChannelModal() {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // Call API to create music
     createChannel();
     closeModal();
     setChannelData({
