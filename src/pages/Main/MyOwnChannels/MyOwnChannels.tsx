@@ -6,12 +6,17 @@ import styled from 'styled-components';
 import { Channel } from '../../../types/channel';
 import ChannelItem from './_components/ChannelItem';
 import ChannelEidtor from './_components/ChannelEidtor';
+import MainTitle from '../../../components/Atoms/Text/MainTitle';
 
 export default function MyOwnChannels() {
   const { user } = useUserStore();
   const [channels, setChannels] = useState<Channel[]>([]);
   const [EdittedChannel, setEdittedChannel] = useState<Channel | null>(null);
   const { data } = useGetMyOwnChannels(user?.id as UserId);
+
+  const handleEditButtonClick = (channel: Channel) => {
+    setEdittedChannel(channel);
+  };
 
   useEffect(() => {
     if (data) {
@@ -21,18 +26,20 @@ export default function MyOwnChannels() {
 
   return (
     <Wrapper>
-      <Title>MyOwnChannels</Title>
+      <MainTitle>MyOwnChannels</MainTitle>
       <Content>
         <Left>
           <Container>
+            <ContentTitle>ChannelList</ContentTitle>
             {channels?.map((channel) => (
-              <ChannelItem key={channel.id} channel={channel} setEdittedChannel={setEdittedChannel} />
+              <ChannelItem key={channel.id} channel={channel} onEditButtonClick={handleEditButtonClick} />
             ))}
           </Container>
         </Left>
         <CenterLine />
         <Rignt>
-          <ChannelEidtor EdittedChannel={EdittedChannel} />
+          <ContentTitle>ChannelEditor</ContentTitle>
+          <ChannelEidtor EdittedChannel={EdittedChannel} setEdittedChannel={setEdittedChannel}></ChannelEidtor>
         </Rignt>
       </Content>
     </Wrapper>
@@ -48,14 +55,6 @@ const Wrapper = styled.div`
   padding: 0 32px;
 `;
 
-const Title = styled.h1`
-  border-bottom: 2px solid var(--grey-grey300);
-  padding-bottom: 24px;
-
-  font-size: 56px;
-  font-weight: bold;
-`;
-
 const Content = styled.div`
   flex-grow: 1;
 
@@ -64,14 +63,23 @@ const Content = styled.div`
 
 const Left = styled.div`
   width: 50%;
+
+  padding-top: 16px;
+  padding-right: 32px;
+  padding-left: 32px;
+`;
+
+const ContentTitle = styled.h2`
+  font-size: 24px;
+  font-weight: 700;
+
+  margin-bottom: 16px;
 `;
 
 const Container = styled.ul`
   display: flex;
   flex-direction: column;
   gap: 8px;
-
-  padding: 32px;
 `;
 
 const CenterLine = styled.div`
@@ -82,4 +90,8 @@ const CenterLine = styled.div`
 
 const Rignt = styled.div`
   width: 50%;
+
+  padding-top: 16px;
+  padding-right: 32px;
+  padding-left: 32px;
 `;

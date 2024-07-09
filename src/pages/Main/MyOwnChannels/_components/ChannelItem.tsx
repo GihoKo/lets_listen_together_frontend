@@ -3,18 +3,13 @@ import { Channel } from '../../../../types/channel';
 import playListSvg from '../../../../../src/images/svg/playlist.svg';
 import deleteSvg from '../../../../../src/images/svg/delete.svg';
 import editSvg from '../../../../../src/images/svg/edit.svg';
-import { Dispatch, SetStateAction } from 'react';
 
 interface ChannelItemProps {
   channel: Channel;
-  setEdittedChannel: Dispatch<SetStateAction<Channel | null>>;
+  onEditButtonClick: (channel: Channel) => void;
 }
 
-export default function ChannelItem({ channel, setEdittedChannel }: ChannelItemProps) {
-  const handleEditButtonClick = () => (channel: Channel) => {
-    setEdittedChannel(channel);
-  };
-
+export default function ChannelItem({ channel, onEditButtonClick }: ChannelItemProps) {
   return (
     <Wrapper>
       <Left>
@@ -24,7 +19,12 @@ export default function ChannelItem({ channel, setEdittedChannel }: ChannelItemP
         {channel.name}
       </Left>
       <Right>
-        <IconButton type='button' onClick={handleEditButtonClick}>
+        <IconButton
+          type='button'
+          onClick={() => {
+            onEditButtonClick(channel);
+          }}
+        >
           <img src={editSvg} alt='수정 아이콘 이미지' />
         </IconButton>
         <IconButton type='button'>

@@ -3,6 +3,7 @@ import ChannelItem from './ChannelItem';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Channel } from '../../../types/channel';
+import MainTitle from '../../Atoms/Text/MainTitle';
 
 export default function ChannelContainer() {
   const [channels, setChannels] = useState<Channel[]>([]);
@@ -21,7 +22,7 @@ export default function ChannelContainer() {
 
   return (
     <Wrapper>
-      <Title>Channel List</Title>
+      <MainTitle>Channel List</MainTitle>
       <Container>
         {channels.map((channel) => (
           <ChannelItem key={channel.id} channel={channel} />
@@ -40,18 +41,18 @@ const Wrapper = styled.div`
   padding: 0 32px;
 `;
 
-const Title = styled.h1`
-  border-bottom: 2px solid var(--grey-grey300);
-
-  font-size: 56px;
-  font-weight: bold;
-  padding-bottom: 24px;
-`;
-
 const Container = styled.ul`
   display: grid;
-  grid-template-columns: repeat(5, 20%);
+  grid-template-columns: repeat(5, 1fr);
   gap: 24px 24px;
 
   padding: 24px;
+
+  @media (max-width: 1024px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(1, 1fr);
+  }
 `;

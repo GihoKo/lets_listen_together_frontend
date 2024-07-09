@@ -10,12 +10,13 @@ import {
   Title,
   Description,
   ButtonWrapper,
+  TagContainer,
+  Tag,
 } from '../../Atoms/Modal/Main.style';
 import { useUserStore } from '../../../store/useUserStore';
 import { axiosInstance } from '../../../../apis/instances';
 import useModalStore from '../../../store/useModalStore';
 import { ModalType } from '../../../types/enum';
-import styled from 'styled-components';
 
 export default function CreateChannelModal() {
   const { type, closeModal } = useModalStore();
@@ -34,13 +35,24 @@ export default function CreateChannelModal() {
   const handleAddTagKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
       e.preventDefault();
-      if (channelData.tags === '' || channelData.tags.length > 10 || tags.length > 5) return;
+      if (
+        channelData.tags === '' ||
+        channelData.tags.length > 10 ||
+        tags.length > 5 ||
+        channelData?.tags.includes(channelData.tags)
+      )
+        return;
+
       setTags([...tags, channelData.tags]);
       setChannelData({
         ...channelData,
         tags: '',
       });
     }
+  };
+
+  const handleDeleteTag = (tag: string) => {
+    setTags(tags.filter((t) => t !== tag));
   };
 
   const handleChangeChannelData = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -108,7 +120,14 @@ export default function CreateChannelModal() {
             <Label htmlFor='tags'>태그</Label>
             <TagContainer>
               {tags.map((tag) => (
-                <Tag key={tag}>{tag}</Tag>
+                <Tag
+                  key={tag}
+                  onClick={() => {
+                    handleDeleteTag(tag);
+                  }}
+                >
+                  {tag}
+                </Tag>
               ))}
             </TagContainer>
             <Input
@@ -145,23 +164,3 @@ export default function CreateChannelModal() {
     </Dimmed>
   );
 }
-
-const TagContainer = styled.div`
-  display: flex;
-  gap: 8px;
-
-  overflow-x: hidden;
-`;
-
-const Tag = styled.div`
-  border-radius: 8px;
-
-  background-color: var(--mint7);
-  padding: 8px;
-  color: var(--grey-grey900);
-  font-size: 16px;
-  font-weight: 600;
-  white-space: nowrap;
-
-  margin-right: 8px;
-`;

@@ -1,9 +1,10 @@
 import styled from 'styled-components';
+import MainTitle from '../../../components/Atoms/Text/MainTitle';
 
 export default function MyPage() {
   return (
     <Wrapper>
-      <Title>MyPage</Title>
+      <MainTitle>MyPage</MainTitle>
     </Wrapper>
   );
 }
@@ -15,12 +16,4 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   padding: 0 32px;
-`;
-
-const Title = styled.h1`
-  border-bottom: 2px solid var(--grey-grey300);
-
-  font-size: 56px;
-  font-weight: bold;
-  padding-bottom: 24px;
 `;

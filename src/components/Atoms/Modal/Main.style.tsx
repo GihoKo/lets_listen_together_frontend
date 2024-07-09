@@ -70,3 +70,25 @@ export const ButtonWrapper = styled.div`
 
   margin-top: 24px;
 `;
+
+export const TagContainer = styled.div`
+  display: flex;
+  gap: 8px;
+
+  overflow-x: hidden;
+`;
+
+export const Tag = styled.div`
+  border-radius: 8px;
+
+  background-color: var(--mint7);
+  padding: 8px;
+  color: var(--grey-grey900);
+  font-size: 16px;
+  font-weight: 600;
+  white-space: nowrap;
+
+  margin-right: 8px;
+
+  cursor: pointer;
+`;

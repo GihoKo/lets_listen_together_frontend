@@ -29,8 +29,9 @@ export const createChannel = async () => {
 };
 
 export const updateChannel = async (channelId: string, channel: Channel) => {
+  console.log(channelId, channel);
   try {
-    const response = await axiosInstanceWithToken.patch(`/channels/${channelId}`, { data: channel });
+    const response = await axiosInstanceWithToken.patch(`/channels/${channelId}`, { channel });
     return response.data;
   } catch (error) {
     console.error(error);
