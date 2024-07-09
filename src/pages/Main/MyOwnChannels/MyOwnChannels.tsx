@@ -32,7 +32,12 @@ export default function MyOwnChannels() {
           <Container>
             <ContentTitle>ChannelList</ContentTitle>
             {channels?.map((channel) => (
-              <ChannelItem key={channel.id} channel={channel} onEditButtonClick={handleEditButtonClick} />
+              <ChannelItem
+                key={channel.id}
+                channel={channel}
+                onEditButtonClick={handleEditButtonClick}
+                EdittedChannel={EdittedChannel}
+              />
             ))}
           </Container>
         </Left>
@@ -59,6 +64,8 @@ const Content = styled.div`
   flex-grow: 1;
 
   display: flex;
+
+  padding-bottom: 64px;
 `;
 
 const Left = styled.div`

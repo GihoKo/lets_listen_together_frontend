@@ -1,22 +1,28 @@
 import styled from 'styled-components';
 import { Channel } from '../../../../types/channel';
 import playListSvg from '../../../../../src/images/svg/playlist.svg';
+import playListFocusedSvg from '../../../../../src/images/svg/playlist-focused.svg';
 import deleteSvg from '../../../../../src/images/svg/delete.svg';
+import deleteFocusedSvg from '../../../../../src/images/svg/delete-focused.svg';
 import editSvg from '../../../../../src/images/svg/edit.svg';
+import editFocusedSvg from '../../../../../src/images/svg/edit-focused.svg';
 
 interface ChannelItemProps {
   channel: Channel;
+  EdittedChannel: Channel | null;
   onEditButtonClick: (channel: Channel) => void;
 }
 
-export default function ChannelItem({ channel, onEditButtonClick }: ChannelItemProps) {
+export default function ChannelItem({ channel, EdittedChannel, onEditButtonClick }: ChannelItemProps) {
+  const isEditted = channel.id === EdittedChannel?.id;
+
   return (
-    <Wrapper>
+    <Wrapper $isEditted={isEditted}>
       <Left>
         <IconButton type='button'>
-          <img src={playListSvg} alt='채널 아이콘 이미지' />
+          <img src={isEditted ? playListFocusedSvg : playListSvg} alt='채널 아이콘 이미지' />
         </IconButton>
-        {channel.name}
+        <Name $isEditted={isEditted}> {channel.name}</Name>
       </Left>
       <Right>
         <IconButton
@@ -25,19 +31,21 @@ export default function ChannelItem({ channel, onEditButtonClick }: ChannelItemP
             onEditButtonClick(channel);
           }}
         >
-          <img src={editSvg} alt='수정 아이콘 이미지' />
+          <img src={isEditted ? editFocusedSvg : editSvg} alt='수정 아이콘 이미지' />
         </IconButton>
         <IconButton type='button'>
-          <img src={deleteSvg} alt='삭제 아이콘 이미지' />
+          <img src={isEditted ? deleteFocusedSvg : deleteSvg} alt='삭제 아이콘 이미지' />
         </IconButton>
       </Right>
     </Wrapper>
   );
 }
 
-const Wrapper = styled.li`
+const Wrapper = styled.li<{
+  $isEditted: boolean;
+}>`
   width: 100%;
-  border: 1px solid var(--grey-grey300);
+  border: 1px solid ${(props) => (props.$isEditted ? 'var(--mint5)' : 'var(--grey-grey300)')};
   border-radius: 8px;
 
   display: flex;
@@ -45,6 +53,7 @@ const Wrapper = styled.li`
   align-items: center;
   gap: 16px;
 
+  background-color: ${(props) => (props.$isEditted ? 'var(--mint8)' : 'transparent')};
   padding: 16px;
 `;
 
@@ -71,8 +80,13 @@ const Left = styled.div`
   display: flex;
   align-items: center;
   gap: 16px;
+`;
 
-  color: var(--grey-grey500);
+const Name = styled.span<{
+  $isEditted: boolean;
+}>`
+  font-size: 16px;
+  color: ${(props) => (props.$isEditted ? 'var(--mint5)' : 'var(--grey-grey600)')};
 `;
 
 const Right = styled.div`
