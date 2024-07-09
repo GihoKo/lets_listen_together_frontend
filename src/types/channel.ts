@@ -8,3 +8,19 @@ export interface Channel {
   createdAt: string;
   tags: string[];
 }
+
+export type ChannelId = Pick<Channel, 'id'>;
+
+export type ChannelName = Pick<Channel, 'name'>;
+
+export type ChannelDescription = Pick<Channel, 'description'>;
+
+export type ChannelImage = Pick<Channel, 'image'>;
+
+export type ChannelTags = Pick<Channel, 'tags'>;
+
+export type ChannelOwnerId = Pick<Channel, 'ownerId'>;
+
+export type ChannelCreatedAt = Pick<Channel, 'createdAt'>;
+
+export type ChannelChannelUsers = Pick<Channel, 'ChannelUsers'>;

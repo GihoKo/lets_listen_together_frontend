@@ -1,18 +1,17 @@
 import { useEffect, useState } from 'react';
 import useGetMyOwnChannels from '../../../../apis/hooks/useGetMyOwnChannels';
 import { useUserStore } from '../../../store/useUserStore';
-import { UserId } from '../../../types/user';
 import styled from 'styled-components';
 import { Channel } from '../../../types/channel';
 import ChannelItem from './_components/ChannelItem';
-import ChannelEidtor from './_components/ChannelEidtor';
+import ChannelEditor from './_components/ChannelEditor';
 import MainTitle from '../../../components/Atoms/Text/MainTitle';
 
 export default function MyOwnChannels() {
   const { user } = useUserStore();
   const [channels, setChannels] = useState<Channel[]>([]);
   const [EdittedChannel, setEdittedChannel] = useState<Channel | null>(null);
-  const { data } = useGetMyOwnChannels(user?.id as UserId);
+  const { data } = useGetMyOwnChannels(user?.id as string);
 
   const handleEditButtonClick = (channel: Channel) => {
     setEdittedChannel(channel);
@@ -44,7 +43,7 @@ export default function MyOwnChannels() {
         <CenterLine />
         <Rignt>
           <ContentTitle>ChannelEditor</ContentTitle>
-          <ChannelEidtor EdittedChannel={EdittedChannel} setEdittedChannel={setEdittedChannel}></ChannelEidtor>
+          <ChannelEditor EdittedChannel={EdittedChannel} setEdittedChannel={setEdittedChannel}></ChannelEditor>
         </Rignt>
       </Content>
     </Wrapper>

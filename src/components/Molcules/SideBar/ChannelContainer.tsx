@@ -3,6 +3,7 @@ import ChannelItem from './ChannelItem';
 import useGetMyChannel from '../../../../apis/hooks/useGetAllChannel';
 import { useUserStore } from '../../../store/useUserStore';
 import { useParams } from 'react-router-dom';
+import { UserId } from '../../../types/user';
 
 interface ChannelContainerProps {
   isOpen: boolean;
@@ -10,7 +11,7 @@ interface ChannelContainerProps {
 
 export default function ChannelContainer({ isOpen }: ChannelContainerProps) {
   const { user } = useUserStore();
-  const userId = user?.id;
+  const userId = user?.id as UserId;
   const { data: channelList, error, isLoading } = useGetMyChannel(userId);
 
   // channelId

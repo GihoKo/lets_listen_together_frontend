@@ -36,7 +36,7 @@ const Wrapper = styled(Link)<{ $isCurrentChannel: boolean }>`
   gap: 24px;
 
   background-color: ${(props) => (props.$isCurrentChannel ? 'var(--mint7)' : 'transparent')};
-  box-shadow: ${(props) => (props.$isCurrentChannel ? '0 0 10px var(--mint5)' : 'none')};
+  box-shadow: ${(props) => (props.$isCurrentChannel ? '0 0 5px var(--mint5)' : 'none')};
   padding: 8px;
 
   cursor: pointer;

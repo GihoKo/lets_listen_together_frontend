@@ -6,6 +6,9 @@ import deleteSvg from '../../../../../src/images/svg/delete.svg';
 import deleteFocusedSvg from '../../../../../src/images/svg/delete-focused.svg';
 import editSvg from '../../../../../src/images/svg/edit.svg';
 import editFocusedSvg from '../../../../../src/images/svg/edit-focused.svg';
+import useModalStore from '../../../../store/useModalStore';
+import { ModalType } from '../../../../types/enum';
+import DeleteChannelModal from '../../../../components/Organisms/Modal/DeleteChannelModal';
 
 interface ChannelItemProps {
   channel: Channel;
@@ -14,7 +17,14 @@ interface ChannelItemProps {
 }
 
 export default function ChannelItem({ channel, EdittedChannel, onEditButtonClick }: ChannelItemProps) {
+  const { openModal } = useModalStore();
+
   const isEditted = channel.id === EdittedChannel?.id;
+
+  const handleDeleteModalButtonClick = () => {
+    console.log('openModal');
+    openModal(ModalType.DELETE_CHANNEL, <DeleteChannelModal />, { channelId: channel.id, channelName: channel.name });
+  };
 
   return (
     <Wrapper $isEditted={isEditted}>
@@ -33,7 +43,7 @@ export default function ChannelItem({ channel, EdittedChannel, onEditButtonClick
         >
           <img src={isEditted ? editFocusedSvg : editSvg} alt='수정 아이콘 이미지' />
         </IconButton>
-        <IconButton type='button'>
+        <IconButton type='button' onClick={handleDeleteModalButtonClick}>
           <img src={isEditted ? deleteFocusedSvg : deleteSvg} alt='삭제 아이콘 이미지' />
         </IconButton>
       </Right>

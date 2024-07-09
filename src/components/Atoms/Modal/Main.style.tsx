@@ -79,9 +79,10 @@ export const TagContainer = styled.div`
 `;
 
 export const Tag = styled.div`
+  border: 1px solid var(--mint3);
   border-radius: 8px;
 
-  background-color: var(--mint7);
+  background-color: var(--mint8);
   padding: 8px;
   color: var(--grey-grey900);
   font-size: 16px;
@@ -91,4 +92,8 @@ export const Tag = styled.div`
   margin-right: 8px;
 
   cursor: pointer;
+
+  &:hover {
+    background-color: var(--mint7);
+  }
 `;

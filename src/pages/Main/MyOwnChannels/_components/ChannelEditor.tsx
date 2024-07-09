@@ -13,12 +13,12 @@ import Button from '../../../../components/Atoms/Modal/Button';
 import { Dispatch, SetStateAction, useState } from 'react';
 import useUpdateChannel from '../../../../../apis/hooks/useUpdateChannel';
 
-interface ChannelEidtorProps {
+interface ChannelEditorProps {
   EdittedChannel: Channel | null;
   setEdittedChannel: Dispatch<SetStateAction<Channel | null>>;
 }
 
-export default function ChannelEidtor({ EdittedChannel, setEdittedChannel }: ChannelEidtorProps) {
+export default function ChannelEditor({ EdittedChannel, setEdittedChannel }: ChannelEditorProps) {
   if (!EdittedChannel) return null;
 
   const upLoadUpdateChannelMutate = useUpdateChannel();
