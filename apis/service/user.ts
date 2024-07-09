@@ -1,5 +1,14 @@
-import { UserId } from '../../src/types/user';
+import { User, UserId } from '../../src/types/user';
 import { axiosInstanceWithToken } from '../instances';
+
+export const updateUser = async (userId: string | undefined, user: User | null) => {
+  try {
+    const response = await axiosInstanceWithToken.patch(`/users/${userId}`, user);
+    return response.data;
+  } catch (error) {
+    console.error(error);
+  }
+};
 
 export const getMyChannelList = async (userId: UserId | undefined) => {
   try {
@@ -10,7 +19,7 @@ export const getMyChannelList = async (userId: UserId | undefined) => {
   }
 };
 
-export const getMyUser = async (userId: UserId) => {
+export const getMyUser = async (userId: string) => {
   try {
     const response = await axiosInstanceWithToken.get(`/users/${userId}`);
     return response.data;

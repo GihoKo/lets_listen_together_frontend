@@ -37,6 +37,7 @@ export default function ChannelEditor({ EdittedChannel, setEdittedChannel }: Cha
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
     upLoadUpdateChannelMutate.mutate({
       channelId: EdittedChannel.id,
       channel: EdittedChannel,
