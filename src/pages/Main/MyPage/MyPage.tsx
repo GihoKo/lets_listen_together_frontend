@@ -11,15 +11,28 @@ export default function MyPage() {
   const UploadUpdateUserMutation = useUpdateUser();
   const { user } = useUserStore();
   const [edittedUser, setEdittedUser] = useState<User | null>(user);
-  const [selectedProfileImage, setSelectedProfileImage] = useState<string | null>(null);
+  const [profileImageFile, setProfileImageFile] = useState<File | string | null>(user?.profileImage || null);
+  const [previewProfileImageUrl, setpreviewProfileImageUrl] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    UploadUpdateUserMutation.mutate({ userId: user?.id, user: edittedUser });
+
+    const formData = new FormData();
+    if (edittedUser) {
+      formData.append('id', edittedUser.id || '');
+      formData.append('email', edittedUser.email || '');
+      formData.append('nickName', edittedUser.nickName || '');
+    }
+    if (profileImageFile instanceof File) {
+      formData.append('profileImage', profileImageFile);
+    }
+
+    UploadUpdateUserMutation.mutate({ userId: user?.id, user: formData });
   };
 
-  const handleProfileImageClick = () => {
+  const handleProfileImageClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    e.preventDefault();
     if (fileInputRef.current) {
       fileInputRef.current.click();
     }
@@ -27,21 +40,16 @@ export default function MyPage() {
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     // 이전 파일 제거
-    setSelectedProfileImage(null);
+    setpreviewProfileImageUrl(null);
+    setProfileImageFile(null);
 
-    // event객체에서 파일 가져오기
     if (!e.target.files) return;
-    const file = e.target.files[0];
+    const file = e.target.files?.[0];
+    setProfileImageFile(file);
 
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        if (reader.result) {
-          setSelectedProfileImage(reader.result.toString());
-        }
-      };
-      reader.readAsDataURL(file);
-    }
+    // 파일 미리보기
+    const fileUrl = URL.createObjectURL(file);
+    setpreviewProfileImageUrl(fileUrl);
   };
 
   const handleInputChanege = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -58,7 +66,10 @@ export default function MyPage() {
           <FormField>
             <ProfileImageLabel htmlFor='profileImage'>profileImage</ProfileImageLabel>
             <ProfileImageWrapper onClick={handleProfileImageClick}>
-              <img src={selectedProfileImage ? selectedProfileImage : edittedUser?.profileImage} alt='프로필 이미지' />
+              <img
+                src={previewProfileImageUrl ? previewProfileImageUrl : edittedUser?.profileImage}
+                alt='프로필 이미지'
+              />
             </ProfileImageWrapper>
             <FileInput
               name='profileImage'

@@ -1,16 +1,19 @@
-import { User, UserId } from '../../src/types/user';
 import { axiosInstanceWithToken } from '../instances';
 
-export const updateUser = async (userId: string | undefined, user: User | null) => {
+export const updateUser = async (userId: string | undefined, user: FormData) => {
   try {
-    const response = await axiosInstanceWithToken.patch(`/users/${userId}`, user);
+    const response = await axiosInstanceWithToken.patch(`/users/${userId}`, user, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
     return response.data;
   } catch (error) {
     console.error(error);
   }
 };
 
-export const getMyChannelList = async (userId: UserId | undefined) => {
+export const getMyChannelList = async (userId: string | undefined) => {
   try {
     const response = await axiosInstanceWithToken.get(`/users/myChannels/${userId}`);
     return response.data;
