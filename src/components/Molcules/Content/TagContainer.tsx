@@ -5,7 +5,15 @@ interface TagContainerProps {
 }
 
 export default function TagContainer({ tags }: TagContainerProps) {
-  return <Container>{tags?.length === 0 ? <VoidTag /> : tags?.map((tag) => <Tag key={tag}>{tag}</Tag>)}</Container>;
+  if (!tags) {
+    return <VoidTag />;
+  }
+
+  if (tags?.length === 0) {
+    return <VoidTag />;
+  }
+
+  return <Container>{tags?.map((tag) => <Tag key={tag}>{tag}</Tag>)}</Container>;
 }
 
 const Container = styled.div`

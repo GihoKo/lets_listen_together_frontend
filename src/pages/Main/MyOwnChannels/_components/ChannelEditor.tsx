@@ -51,7 +51,7 @@ export default function ChannelEditor({ EdittedChannel, setEdittedChannel }: Cha
       if (
         tagValue === '' ||
         tagValue.length > 10 ||
-        (EdittedChannel?.tags.length as number) > 5 ||
+        EdittedChannel?.tags.length > 5 ||
         EdittedChannel?.tags.includes(tagValue)
       )
         return;

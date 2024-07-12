@@ -14,7 +14,7 @@ export default function ChannelItem({ channel }: ChannelItemProps) {
     <Border>
       <Wrapper to={`/main/channel/${channel.id}`}>
         <Positioner>
-          <Image src={mockImage} alt={channel?.name} />
+          <Image src={channel.image ? channel.image : mockImage} alt={channel?.name} />
           <UserCount>
             <img src={personSvg} alt='참여자수 이미지' />
             {channel?.ChannelUsers?.length > 0 ? channel?.ChannelUsers?.length : '0'}

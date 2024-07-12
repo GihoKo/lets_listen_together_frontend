@@ -21,7 +21,11 @@ export const getChannelById = async (channelId: string) => {
 
 export const createChannel = async (channel: FormData) => {
   try {
-    const response = await axiosInstanceWithToken.post('/channels', channel);
+    const response = await axiosInstanceWithToken.post('/channels', channel, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
     return response.data;
   } catch (error) {
     console.error(error);

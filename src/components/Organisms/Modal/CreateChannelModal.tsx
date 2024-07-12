@@ -27,11 +27,11 @@ export default function CreateChannelModal() {
   const { user } = useUserStore();
   const [channelData, setChannelData] = useState({
     name: '',
-    tags: '',
+    tags: [] as string[],
     description: '',
     image: '',
   });
-  const [tags, setTags] = useState<string[]>([]);
+  const [tagValue, setTagValue] = useState<string>('');
   const [previewChannelImageUrl, setPreviewChannelImageUrl] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [profileImageFile, setProfileImageFile] = useState<File | null>(null);
@@ -61,29 +61,32 @@ export default function CreateChannelModal() {
   const handleAddTagKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
       e.preventDefault();
-      if (channelData.tags.trim() === '') {
+      if (tagValue.trim() === '') {
         return console.log('태그를 입력하세요.');
       }
-      if (channelData.tags.length > 10) {
+      if (tagValue.length > 10) {
         return console.log('태그는 10자 이내로 입력하세요.');
       }
-      if (tags.length > 5) {
+      if (channelData.tags.length > 5) {
         return console.log('태그는 5개까지만 입력할 수 있습니다.');
       }
-      if (tags.includes(channelData.tags)) {
+      if (channelData.tags.includes(tagValue)) {
         return console.log('이미 입력된 태그입니다.');
       }
 
-      setTags([...tags, channelData.tags]);
       setChannelData({
         ...channelData,
-        tags: '',
+        tags: [...channelData.tags, tagValue],
       });
+      setTagValue('');
     }
   };
 
   const handleDeleteTag = (tag: string) => {
-    setTags(tags.filter((t) => t !== tag));
+    setChannelData({
+      ...channelData,
+      tags: channelData.tags.filter((t) => t !== tag),
+    });
   };
 
   const handleChangeChannelData = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -93,13 +96,17 @@ export default function CreateChannelModal() {
     });
   };
 
+  const handleChangeTagValue = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setTagValue(e.target.value);
+  };
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     createChannel();
     closeModal();
     setChannelData({
       name: '',
-      tags: '',
+      tags: [],
       description: '',
       image: '',
     });
@@ -109,7 +116,9 @@ export default function CreateChannelModal() {
     const newChannel = new FormData();
     if (channelData) {
       newChannel.append('name', channelData.name);
-      newChannel.append('tags', channelData.tags);
+      // FormData의 경우 배열을 받을 수 없기 때문에 JSON.stringify를 사용하여 문자열로 변환하여 전송
+      // 이후 서버에서 JSON.parse를 통해 배열로 변환하고 사용
+      newChannel.append('tags', JSON.stringify(channelData.tags));
       newChannel.append('description', channelData.description);
       newChannel.append('ownerId', user?.id || '');
     }
@@ -162,7 +171,7 @@ export default function CreateChannelModal() {
           <FormField>
             <Label htmlFor='tags'>태그</Label>
             <TagContainer>
-              {tags.map((tag) => (
+              {channelData.tags.map((tag) => (
                 <Tag
                   key={tag}
                   onClick={() => {
@@ -175,8 +184,8 @@ export default function CreateChannelModal() {
             </TagContainer>
             <Input
               name='tags'
-              value={channelData.tags}
-              onChange={handleChangeChannelData}
+              value={tagValue}
+              onChange={handleChangeTagValue}
               placeholder='태그를 입력하세요.'
               type='text'
               onKeyDown={handleAddTagKeyDown}
