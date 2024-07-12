@@ -1,7 +1,7 @@
 import { axiosInstanceWithToken } from '../instances';
 import { Channel } from '../../src/types/channel';
 
-export const getAllchannelList = async () => {
+export const getAllchannelLists = async () => {
   try {
     const response = await axiosInstanceWithToken.get('/channels');
     return response.data;
@@ -29,7 +29,6 @@ export const createChannel = async () => {
 };
 
 export const updateChannel = async (channelId: string, channel: Channel) => {
-  console.log(channelId, channel);
   try {
     const response = await axiosInstanceWithToken.patch(`/channels/${channelId}`, { channel });
     return response.data;

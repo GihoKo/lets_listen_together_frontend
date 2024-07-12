@@ -1,24 +1,23 @@
 import styled from 'styled-components';
 import ChannelItem from './ChannelItem';
 import { useEffect, useState } from 'react';
-import axios from 'axios';
 import { Channel } from '../../../types/channel';
 import MainTitle from '../../Atoms/Text/MainTitle';
+import useGetAllChannels from '../../../../apis/hooks/useGetAllChannels';
 
 export default function ChannelContainer() {
-  const [channels, setChannels] = useState<Channel[]>([]);
-  useEffect(() => {
-    const getAllChannel = async () => {
-      try {
-        const response = await axios.get('http://localhost:8080/api/channels');
-        setChannels(response.data);
-      } catch (error) {
-        console.error(error);
-      }
-    };
+  const [channels, setChannels] = useState<Channel[] | null>(null);
+  const { data } = useGetAllChannels();
 
-    getAllChannel();
-  }, []);
+  useEffect(() => {
+    if (data) {
+      setChannels(data);
+    }
+  }, [data]);
+
+  if (!channels) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <Wrapper>

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import ChannelItem from './ChannelItem';
-import useGetMyChannel from '../../../../apis/hooks/useGetAllChannel';
+import useGetMyChannel from '../../../../apis/hooks/useGetMyChannel';
 import { useUserStore } from '../../../store/useUserStore';
 import { useParams } from 'react-router-dom';
 import { UserId } from '../../../types/user';

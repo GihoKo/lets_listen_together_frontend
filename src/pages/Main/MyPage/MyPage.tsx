@@ -18,6 +18,12 @@ export default function MyPage() {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+    /**
+     * 일반적으로 바이너리 데이터를 전송할 때는 FormData를 사용한다.
+     * FormData는 multipart/form-data 형식으로 데이터를 전송한다.
+     *
+     * 이외의 경우는 JSON 형식으로 데이터를 전송한다.
+     */
     const formData = new FormData();
     if (edittedUser) {
       formData.append('id', edittedUser.id || '');

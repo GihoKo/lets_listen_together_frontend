@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Channel } from '../../types/interface';
-import useGetAllChannel from '../../../../apis/hooks/useGetAllChannel';
+import useGetAllChannel from '../../../../apis/hooks/useGetMyChannel';
 
 export default function useChannelContainer() {
   const [channelList, setChannelList] = useState<Channel[]>([]);
