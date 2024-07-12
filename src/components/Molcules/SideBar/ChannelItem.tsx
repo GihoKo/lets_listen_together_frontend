@@ -14,12 +14,12 @@ export default function ChannelItem({ channel, isOpen, isCurrentChannel }: SideB
 
   return (
     <Wrapper to={`/main/channel/${channel.id}`} $isCurrentChannel={isCurrentChannel}>
-      <ChannelImageBox>
+      <ImageWrapper>
         <img src={channel.image === '' ? playListToggle() : channel.image} alt='채널 이미지' />
-      </ChannelImageBox>
-      <ChannelName $isOpen={isOpen} $isCurrentChannel={isCurrentChannel}>
+      </ImageWrapper>
+      <Name $isOpen={isOpen} $isCurrentChannel={isCurrentChannel}>
         {channel.name ? channel.name : ''}
-      </ChannelName>
+      </Name>
     </Wrapper>
   );
 }
@@ -38,6 +38,7 @@ const Wrapper = styled(Link)<{ $isCurrentChannel: boolean }>`
   background-color: ${(props) => (props.$isCurrentChannel ? 'var(--mint7)' : 'transparent')};
   box-shadow: ${(props) => (props.$isCurrentChannel ? '0 0 5px var(--mint5)' : 'none')};
   padding: 8px;
+  padding-left: 6px;
 
   cursor: pointer;
 
@@ -46,7 +47,7 @@ const Wrapper = styled(Link)<{ $isCurrentChannel: boolean }>`
   }
 `;
 
-const ChannelImageBox = styled.div`
+const ImageWrapper = styled.div`
   width: 32px;
   height: 32px;
   border-radius: 50%;
@@ -62,7 +63,7 @@ const ChannelImageBox = styled.div`
   }
 `;
 
-const ChannelName = styled.div<{ $isOpen: boolean; $isCurrentChannel: boolean }>`
+const Name = styled.div<{ $isOpen: boolean; $isCurrentChannel: boolean }>`
   width: 100%;
 
   display: ${(props) => (props.$isOpen ? 'block' : 'none')};
@@ -73,4 +74,8 @@ const ChannelName = styled.div<{ $isOpen: boolean; $isCurrentChannel: boolean }>
   text-overflow: ellipsis;
 
   cursor: pointer;
+
+  @media (max-width: 1024px) {
+    display: none;
+  }
 `;

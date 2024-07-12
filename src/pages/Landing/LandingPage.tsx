@@ -15,7 +15,6 @@ export default function LandingPage() {
         <Logo>
           <img src={logo} alt='로고 이미지' />
         </Logo>
-        <Description>같이 노래 듣자!</Description>
         <StartButton onClick={handleStartButtonClick}>Start!</StartButton>
       </Box>
     </Wrapper>
@@ -59,13 +58,6 @@ const Logo = styled.div`
     width: 100%;
     height: 100%;
   }
-`;
-
-const Description = styled.p`
-  font-size: 16px;
-  color: var(--grey-grey600);
-
-  margin-top: 24px;
 `;
 
 const StartButton = styled.button`

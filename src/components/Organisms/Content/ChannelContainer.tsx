@@ -42,16 +42,21 @@ const Wrapper = styled.div`
 
 const Container = styled.ul`
   display: grid;
-  grid-template-columns: repeat(5, 25%);
-  gap: 24px 24px;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 16px;
 
   padding: 24px;
 
+  @media (max-width: 1440px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
   @media (max-width: 1024px) {
-    grid-template-columns: repeat(2, 50%);
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
   }
 
   @media (max-width: 768px) {
-    grid-template-columns: repeat(1, 100%);
+    grid-template-columns: repeat(1, 1fr);
   }
 `;

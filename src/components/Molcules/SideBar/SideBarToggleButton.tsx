@@ -35,4 +35,8 @@ const Button = styled.button`
     object-fit: cover;
     cursor: pointer;
   }
+
+  @media (max-width: 1024px) {
+    display: none;
+  }
 `;

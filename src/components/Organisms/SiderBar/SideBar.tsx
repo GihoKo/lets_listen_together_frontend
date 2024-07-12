@@ -58,6 +58,10 @@ const Wrapper = styled.div<{
   }
 
   transition: width 0.3s;
+
+  @media (max-width: 1024px) {
+    width: 72px;
+  }
 `;
 
 const Header = styled.div`
@@ -82,4 +86,8 @@ const CartegoryName = styled.div<{
   color: var(--grey-grey600);
 
   cursor: default;
+
+  @media (max-width: 1024px) {
+    display: none;
+  }
 `;

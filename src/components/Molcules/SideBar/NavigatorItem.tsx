@@ -71,4 +71,8 @@ const Name = styled.div<{ $isOpen: boolean; $isFocused: boolean }>`
   text-overflow: ellipsis;
 
   cursor: pointer;
+
+  @media (max-width: 1024px) {
+    display: none;
+  }
 `;
