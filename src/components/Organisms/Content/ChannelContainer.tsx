@@ -38,6 +38,10 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   padding: 0 32px;
+
+  @media (max-width: 1024px) {
+    padding: 0 16px;
+  }
 `;
 
 const Container = styled.ul`
@@ -53,6 +57,7 @@ const Container = styled.ul`
 
   @media (max-width: 1024px) {
     grid-template-columns: repeat(2, 1fr);
+    padding: 16px;
     gap: 8px;
   }
 
