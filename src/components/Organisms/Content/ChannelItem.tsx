@@ -14,7 +14,9 @@ export default function ChannelItem({ channel }: ChannelItemProps) {
     <Border>
       <Wrapper to={`/main/channel/${channel.id}`}>
         <Positioner>
-          <Image src={channel.image ? channel.image : mockImage} alt={channel?.name} />
+          <ImageWrapper>
+            <img src={channel?.image ? channel.image : mockImage} alt='채널 이미지' />
+          </ImageWrapper>
           <UserCount>
             <img src={personSvg} alt='참여자수 이미지' />
             {channel?.ChannelUsers?.length > 0 ? channel?.ChannelUsers?.length : '0'}
@@ -42,7 +44,6 @@ const Border = styled.div`
 const Wrapper = styled(Link)`
   border-radius: 12px;
   width: 100%;
-  height: 280px;
 
   display: flex;
   flex-direction: column;
@@ -63,17 +64,25 @@ const Wrapper = styled(Link)`
 
 const Positioner = styled.div`
   width: 100%;
-
   display: flex;
   justify-content: space-between;
 `;
 
-const Image = styled.img`
+const ImageWrapper = styled.div`
   border-radius: 12px;
   width: 100%;
-  height: 120px;
-  object-fit: cover;
+
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+
   cursor: pointer;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 12px;
+  }
 `;
 
 const UserCount = styled.div`
