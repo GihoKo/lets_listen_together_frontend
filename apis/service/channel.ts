@@ -19,9 +19,9 @@ export const getChannelById = async (channelId: string) => {
   }
 };
 
-export const createChannel = async () => {
+export const createChannel = async (channel: FormData) => {
   try {
-    const response = await axiosInstanceWithToken.post('/channels');
+    const response = await axiosInstanceWithToken.post('/channels', channel);
     return response.data;
   } catch (error) {
     console.error(error);
