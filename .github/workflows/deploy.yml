@@ -19,15 +19,18 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Build project
-        run: npm run build
-
       - name: Create .env file
         run: |
           echo GOOGLE_OAUTH_CLIENT_ID=${{ secrets.GOOGLE_OAUTH_CLIENT_ID }} >> .env.local
           echo GOOGLE_OAUTH_CLIENT_SECRET=${{ secrets.GOOGLE_OAUTH_CLIENT_SECRET }} >> .env.local
           echo GOOGLE_API_KEY=${{ secrets.GOOGLE_API_KEY }} >> .env.local
           echo API_URL=${{ secrets.API_URL }} >> .env.local
+
+      - name: Build project
+        run: npm run build
+
+      - name: Copy .env.local to build directory
+        run: cp .env.local dist/
 
       - name: Deploy to S3
         env:
