@@ -9,6 +9,7 @@ import MyPage from '../pages/Main/MyPage/MyPage';
 import MyOwnChannels from '../pages/Main/MyOwnChannels/MyOwnChannels';
 
 export default function Router() {
+  // cicd test
   return (
     <Routes>
       <Route path='/' element={<LandingPage />} />
