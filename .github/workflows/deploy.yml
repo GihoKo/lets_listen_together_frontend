@@ -19,7 +19,7 @@ jobs:
       - name: Install Node.js
         uses: actions/setup-node@v2
         with:
-        node-version: '21.0.0' # 원하는 Node.js 버전을 지정하세요
+          node-version: '21.0.0' # 원하는 Node.js 버전을 지정하세요
 
       - name: Build project
         run: npm run build
