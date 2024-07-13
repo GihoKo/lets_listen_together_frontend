@@ -13,22 +13,14 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
+      - name: Install Node.js
+        uses: actions/setup-node@v2
+
       - name: Install dependencies
         run: npm install
 
-      - name: Install Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: '21.0.0' # 원하는 Node.js 버전을 지정하세요
-
       - name: Build project
         run: npm run build
-
-      - name: Install AWS CLI v2
-        run: |
-          curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-          unzip awscliv2.zip
-          sudo ./aws/install
 
       - name: Deploy to S3
         env:
@@ -38,4 +30,4 @@ jobs:
           S3_BUCKET_NAME: ${{ secrets.S3_BUCKET_NAME }}
         run: |
           npm install -g aws-cli
-          aws s3 sync build/ s3://$S3_BUCKET_NAME --delete
+          aws s3 sync dist/ s3://$S3_BUCKET_NAME
