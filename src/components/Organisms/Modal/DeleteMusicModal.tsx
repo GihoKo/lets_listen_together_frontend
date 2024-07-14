@@ -1,27 +1,18 @@
 import Dimmed from '../../Atoms/Modal/Dimmed';
 import { ButtonWrapper, Description, Form, Title, Wrapper } from '../../Atoms/Modal/StyledComponents';
 import Button from '../../Atoms/Modal/Button';
-import useModalStore from '../../../store/useModalStore';
-import { Music } from '@prisma/client';
-import { ModalType } from '../../../types/enum';
-import useDeleteMusic from '../../../apis/hooks/useDeleteMusic';
+
+import useDeleteMusicModal from './DeleteMusicModal.hook';
 
 export default function DeleteMusicModal() {
-  const { type, closeModal, props } = useModalStore();
+  // logics
+  const logics = useDeleteMusicModal();
 
-  if (type !== ModalType.DELETE_MUSIC) return null;
+  if (!logics) return null;
 
-  const modalProps = props as { music: Music };
+  const { handleSubmit, closeModal, modalProps } = logics;
 
-  const upLoadDeleteMusicMutation = useDeleteMusic();
-
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    // Call API to delete music
-    upLoadDeleteMusicMutation.mutate(modalProps.music.id);
-    closeModal();
-  };
-
+  // view
   return (
     <Dimmed>
       <Wrapper>

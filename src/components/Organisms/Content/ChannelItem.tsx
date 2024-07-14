@@ -1,14 +1,16 @@
+// libraries
 import styled from 'styled-components';
-import { Channel } from '../../../types/channel';
-import { Link } from 'react-router-dom';
 
-import mockImage from '../../../images/dummyImage.png';
-import personSvg from '../../../images/svg/person.svg';
+// components
+import { Link } from 'react-router-dom';
 import TagContainer from '../../Molecules/Content/TagContainer';
 
-interface ChannelItemProps {
-  channel: Channel;
-}
+// types
+import { ChannelItemProps } from './ChannelItem.type';
+
+// images
+import mockImage from '../../../images/dummyImage.png';
+import personSvg from '../../../images/svg/person.svg';
 
 export default function ChannelItem({ channel }: ChannelItemProps) {
   return (

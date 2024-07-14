@@ -1,5 +1,8 @@
+// hooks
+import useCreateMusicModal from './CreateMusicModal.hook';
+
+// components
 import Button from '../../Atoms/Modal/Button';
-import { useState } from 'react';
 import Dimmed from '../../Atoms/Modal/Dimmed';
 import {
   FormField,
@@ -11,42 +14,16 @@ import {
   Description,
   ButtonWrapper,
 } from '../../Atoms/Modal/StyledComponents';
-import useModalStore from '../../../store/useModalStore';
-import { ModalType } from '../../../types/enum';
-import useCreateMusic from '../../../apis/hooks/useCreateMusic';
 
 export default function CreateMusicModal() {
-  const { type, closeModal, props } = useModalStore();
+  // logics
+  const Logics = useCreateMusicModal();
 
-  if (type !== ModalType.CREATE_MUSIC) return null;
+  if (!Logics) return null;
 
-  const upLoadMusicMutation = useCreateMusic();
-  const modalProps = props as { channelId: string };
-  const [musicData, setMusicData] = useState({
-    title: '',
-    artist: '',
-    url: '',
-  });
+  const { musicData, handleChange, handleSubmit, closeModal } = Logics;
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setMusicData({
-      ...musicData,
-      [e.target.name]: e.target.value,
-    });
-  };
-
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const music = {
-      channelId: modalProps.channelId,
-      title: musicData.title,
-      artist: musicData.artist,
-      url: musicData.url,
-    };
-    upLoadMusicMutation.mutate({ music });
-    closeModal();
-  };
-
+  // view
   return (
     <Dimmed>
       <Wrapper>

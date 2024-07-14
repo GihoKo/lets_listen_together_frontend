@@ -1,32 +1,29 @@
+// libraries
 import styled from 'styled-components';
+
+// hooks
+import useChannelContainer from './ChannelContainer.hook';
+
+// components
 import ChannelItem from './ChannelItem';
-import { useEffect, useState } from 'react';
-import { Channel } from '../../../types/channel';
 import MainTitle from '../../Atoms/Text/MainTitle';
-import useGetAllChannels from '../../../apis/hooks/useGetAllChannels';
 
 export default function ChannelContainer() {
-  const [channels, setChannels] = useState<Channel[] | null>(null);
-  const { data } = useGetAllChannels();
+  // logics
+  const { channels, isLoading, isError } = useChannelContainer();
 
-  useEffect(() => {
-    if (data) {
-      setChannels(data);
-    }
-  }, [data]);
-
-  if (!channels) {
+  // view
+  if (isLoading) {
     return <div>Loading...</div>;
+  }
+  if (isError) {
+    return <div>Error...</div>;
   }
 
   return (
     <Wrapper>
       <MainTitle>Channel List</MainTitle>
-      <Container>
-        {channels.map((channel) => (
-          <ChannelItem key={channel.id} channel={channel} />
-        ))}
-      </Container>
+      <Container>{channels?.map((channel) => <ChannelItem key={channel.id} channel={channel} />)}</Container>
     </Wrapper>
   );
 }

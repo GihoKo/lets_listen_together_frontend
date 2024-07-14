@@ -1,24 +1,20 @@
+// hooks
+import useDeleteChannelModal from './DeleteChannelModal.hook';
+
+// components
 import Dimmed from '../../Atoms/Modal/Dimmed';
 import { ButtonWrapper, Description, Form, Title, Wrapper } from '../../Atoms/Modal/StyledComponents';
 import Button from '../../Atoms/Modal/Button';
-import useModalStore from '../../../store/useModalStore';
-import { ModalType } from '../../../types/enum';
-import useDeleteChannel from '../../../apis/hooks/useDeleteChannel';
 
 export default function DeleteChannelModal() {
-  const { type, closeModal, props } = useModalStore();
+  // logics
+  const logics = useDeleteChannelModal();
 
-  if (type !== ModalType.DELETE_CHANNEL) return null;
+  if (!logics) return null;
 
-  const modalProps = props as { channelId: string; channelName: string };
-  const upLoadDeleteChannelMutation = useDeleteChannel();
+  const { handleSubmit, closeModal, modalProps } = logics;
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    upLoadDeleteChannelMutation.mutate({ channelId: modalProps.channelId });
-    closeModal();
-  };
-
+  // view
   return (
     <Dimmed>
       <Wrapper>

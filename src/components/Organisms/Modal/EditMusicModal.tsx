@@ -1,52 +1,20 @@
-import { useState } from 'react';
-import useModalStore from '../../../store/useModalStore';
+// hooks
+import useEditMusicModal from './EditMusicModal.hook';
+
+// components
 import Button from '../../Atoms/Modal/Button';
 import Dimmed from '../../Atoms/Modal/Dimmed';
 import { ButtonWrapper, Form, FormField, Input, Label, Title, Wrapper } from '../../Atoms/Modal/StyledComponents';
-import { useParams } from 'react-router-dom';
-import { Music } from '@prisma/client';
-import { ModalType } from '../../../types/enum';
-import useUpdateMusic from '../../../apis/hooks/useUpdateMusic';
-
-interface EditMusicModalProps {
-  music: Music;
-}
 
 export default function EditMusicModal() {
-  const { type, closeModal, props } = useModalStore();
+  // logics
+  const logics = useEditMusicModal();
 
-  if (type !== ModalType.EDIT_MUSIC) return null;
+  if (!logics) return null;
 
-  const modalProps = props as EditMusicModalProps;
+  const { musicData, handleChange, handleSubmit, closeModal } = logics;
 
-  const upLoadUpdateMusicMutation = useUpdateMusic();
-  const { channelId } = useParams<{ channelId: string }>();
-  const [musicData, setMusicData] = useState({
-    title: modalProps.music.title,
-    artist: modalProps.music.artist,
-    url: modalProps.music.url,
-  });
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setMusicData({
-      ...musicData,
-      [e.target.name]: e.target.value,
-    });
-  };
-
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    // Call API to update music
-    const edittedMusic = {
-      channelId: channelId,
-      title: musicData.title,
-      artist: musicData.artist,
-      url: musicData.url,
-    };
-    upLoadUpdateMusicMutation.mutate({ musicId: modalProps.music.id, music: edittedMusic });
-    closeModal();
-  };
-
+  // view
   return (
     <Dimmed>
       <Wrapper>
