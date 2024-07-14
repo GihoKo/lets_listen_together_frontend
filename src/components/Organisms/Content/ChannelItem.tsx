@@ -1,9 +1,10 @@
 import styled from 'styled-components';
 import { Channel } from '../../../types/channel';
 import { Link } from 'react-router-dom';
-import TagContainer from './../../Molcules/Content/TagContainer';
+
 import mockImage from '../../../images/dummyImage.png';
 import personSvg from '../../../images/svg/person.svg';
+import TagContainer from '../../Molecules/Content/TagContainer';
 
 interface ChannelItemProps {
   channel: Channel;

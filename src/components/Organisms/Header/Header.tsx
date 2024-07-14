@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import useHeader from './Header.hook';
-import Logo from '../../Molcules/Header/Logo';
-import UserProfileImage from '../../Molcules/Header/UserProfileImage';
+import UserProfileImage from '../../Molecules/Header/UserProfileImage';
+import Logo from '../../Molecules/Header/Logo';
 
 export default function Header() {
   // logics

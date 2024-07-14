@@ -5,12 +5,12 @@ import styled from 'styled-components';
 import useSideBar from './SideBar.hook';
 
 // components
-import ChannelContainer from '../../Molcules/SideBar/ChannelContainer';
-import CreateChannelButton from '../../Molcules/SideBar/CreateChannelButton';
-import SideBarToggleButton from '../../Molcules/SideBar/SideBarToggleButton';
 import CreateChannelModal from '../Modal/CreateChannelModal';
-import NavigatorContainer from '../../Molcules/SideBar/NavigatorContainer';
 import CategoryName from '../../Atoms/SideBar/CategoryName';
+import SideBarToggleButton from '../../Molecules/SideBar/SideBarToggleButton';
+import CreateChannelButton from '../../Molecules/SideBar/CreateChannelButton';
+import NavigatorContainer from '../../Molecules/SideBar/NavigatorContainer';
+import ChannelContainer from '../../Molecules/SideBar/ChannelContainer';
 
 export default function SideBar() {
   // logics
