@@ -1,5 +1,5 @@
 import { axiosInstanceWithToken } from '../instances';
-import { MusicRequestData } from '../../src/pages/Main/Channel/_types/interface';
+import { MusicRequestData } from '../../pages/Main/Channel/_types/interface';
 
 export const getMusicById = async (musicId: string) => {
   try {

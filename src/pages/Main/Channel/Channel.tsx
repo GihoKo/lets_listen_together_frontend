@@ -8,7 +8,7 @@ import { useEffect, useState } from 'react';
 import { Music } from './_types/interface';
 import useMusicStore from '../../../store/useMusicStore';
 import useModalStore from '../../../store/useModalStore';
-import useGetMusicsByChannelId from '../../../../apis/hooks/useGetMusicsByChannelId';
+import useGetMusicsByChannelId from '../../../apis/hooks/useGetMusicsByChannelId';
 
 // type ChannelState = 'Personal' | 'Public' | 'Private';
 // 개인 채널 -> 나 혼자만 음악 듣기

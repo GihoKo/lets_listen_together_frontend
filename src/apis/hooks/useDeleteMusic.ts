@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { deleteMusic } from '../service/music';
+import { deleteMusic } from '../services/music';
 
 export default function useDeleteMusic() {
   const queryClient = useQueryClient();

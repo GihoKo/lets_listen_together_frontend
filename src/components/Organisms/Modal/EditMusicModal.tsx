@@ -6,7 +6,7 @@ import { ButtonWrapper, Form, FormField, Input, Label, Title, Wrapper } from '..
 import { useParams } from 'react-router-dom';
 import { Music } from '@prisma/client';
 import { ModalType } from '../../../types/enum';
-import useUpdateMusic from '../../../../apis/hooks/useUpdateMusic';
+import useUpdateMusic from '../../../apis/hooks/useUpdateMusic';
 
 interface EditMusicModalProps {
   music: Music;

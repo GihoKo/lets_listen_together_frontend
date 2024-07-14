@@ -4,7 +4,7 @@ import Button from '../../Atoms/Modal/Button';
 import useModalStore from '../../../store/useModalStore';
 import { Music } from '@prisma/client';
 import { ModalType } from '../../../types/enum';
-import useDeleteMusic from '../../../../apis/hooks/useDeleteMusic';
+import useDeleteMusic from '../../../apis/hooks/useDeleteMusic';
 
 export default function DeleteMusicModal() {
   const { type, closeModal, props } = useModalStore();

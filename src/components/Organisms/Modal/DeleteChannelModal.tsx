@@ -3,7 +3,7 @@ import { ButtonWrapper, Description, Form, Title, Wrapper } from '../../Atoms/Mo
 import Button from '../../Atoms/Modal/Button';
 import useModalStore from '../../../store/useModalStore';
 import { ModalType } from '../../../types/enum';
-import useDeleteChannel from '../../../../apis/hooks/useDeleteChannel';
+import useDeleteChannel from '../../../apis/hooks/useDeleteChannel';
 
 export default function DeleteChannelModal() {
   const { type, closeModal, props } = useModalStore();

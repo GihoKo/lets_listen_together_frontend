@@ -11,7 +11,7 @@ import {
 } from '../../../../components/Atoms/Modal/Main.style';
 import Button from '../../../../components/Atoms/Modal/Button';
 import { Dispatch, SetStateAction, useState } from 'react';
-import useUpdateChannel from '../../../../../apis/hooks/useUpdateChannel';
+import useUpdateChannel from '../../../../apis/hooks/useUpdateChannel';
 
 interface ChannelEditorProps {
   EdittedChannel: Channel | null;

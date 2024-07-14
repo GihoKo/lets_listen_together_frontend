@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { Channel } from '../../src/types/channel';
-import { updateChannel } from '../service/channel';
+import { Channel } from '../../types/channel';
+import { updateChannel } from '../services/channel';
 
 interface updateChannelParams {
   channelId: string;

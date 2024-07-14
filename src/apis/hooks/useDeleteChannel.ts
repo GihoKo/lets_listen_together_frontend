@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { deleteChannel } from '../service/channel';
+import { deleteChannel } from '../services/channel';
 
 interface updateMusicParams {
   channelId: string;

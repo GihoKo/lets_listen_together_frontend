@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import Router from './router';
-import GlobalStyles from '../styles/GlobalStyles';
+import GlobalStyles from './styles/GlobalStyles';
 import useModalStore from './store/useModalStore';
 
 export default function App() {

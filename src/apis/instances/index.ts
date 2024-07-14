@@ -1,8 +1,8 @@
 import axios, { AxiosError } from 'axios';
-import { handleAxiosError } from '../../src/utils/handleAxiosError';
-import { handleUnexpectedError } from '../../src/utils/handleUnexpectedError';
-import getAccessToken from '../../src/utils/getAccessToken';
-import { renewTokens } from '../service/auth';
+import { handleAxiosError } from '../../utils/handleAxiosError';
+import { handleUnexpectedError } from '../../utils/handleUnexpectedError';
+import getAccessToken from '../../utils/getAccessToken';
+import { renewTokens } from '../services/auth';
 
 const baseURL = process.env.API_URL;
 

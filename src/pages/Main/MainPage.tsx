@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import SideBar from '../../components/Organisms/SiderBar/SideBar';
 import Header from '../../components/Molcules/Header/Header';
 import { Outlet, useNavigate } from 'react-router-dom';
-import useRenewTokens from '../../../apis/hooks/useRenewTokens';
+import useRenewTokens from '../../apis/hooks/useRenewTokens';
 import { useEffect } from 'react';
 import { useApplicationAuthTokenStore } from '../../store/useAuthStore';
 

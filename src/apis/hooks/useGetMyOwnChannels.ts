@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
-import { getMyOwnChannels } from '../service/user';
-import { Channel } from '../../src/types/channel';
+import { getMyOwnChannels } from '../services/user';
+import { Channel } from '../../types/channel';
 
 export default function useGetMyOwnChannels(userId: string) {
   const queryKey = ['myOwnChannels', 'myChannels'];

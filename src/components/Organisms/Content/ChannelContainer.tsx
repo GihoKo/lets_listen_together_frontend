@@ -3,7 +3,7 @@ import ChannelItem from './ChannelItem';
 import { useEffect, useState } from 'react';
 import { Channel } from '../../../types/channel';
 import MainTitle from '../../Atoms/Text/MainTitle';
-import useGetAllChannels from '../../../../apis/hooks/useGetAllChannels';
+import useGetAllChannels from '../../../apis/hooks/useGetAllChannels';
 
 export default function ChannelContainer() {
   const [channels, setChannels] = useState<Channel[] | null>(null);

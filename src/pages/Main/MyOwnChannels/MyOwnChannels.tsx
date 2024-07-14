@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import useGetMyOwnChannels from '../../../../apis/hooks/useGetMyOwnChannels';
+import useGetMyOwnChannels from '../../../apis/hooks/useGetMyOwnChannels';
 import { useUserStore } from '../../../store/useUserStore';
 import styled from 'styled-components';
 import { Channel } from '../../../types/channel';

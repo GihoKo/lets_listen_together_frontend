@@ -17,7 +17,7 @@ import { useUserStore } from '../../../store/useUserStore';
 import useModalStore from '../../../store/useModalStore';
 import { ModalType } from '../../../types/enum';
 import styled from 'styled-components';
-import useCreateChannel from '../../../../apis/hooks/useCreateChannel';
+import useCreateChannel from '../../../apis/hooks/useCreateChannel';
 
 export default function CreateChannelModal() {
   const { type, closeModal } = useModalStore();

@@ -1,5 +1,5 @@
 import { axiosInstanceWithToken } from '../instances';
-import { Channel } from '../../src/types/channel';
+import { Channel } from '../../types/channel';
 
 export const getAllchannelLists = async () => {
   try {

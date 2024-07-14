@@ -1,5 +1,5 @@
 import { useGoogleLogin } from '@react-oauth/google';
-import { axiosInstanceWithToken } from '../../../../apis/instances';
+import { axiosInstanceWithToken } from '../../../apis/instances';
 import { useApplicationAuthTokenStore, useGoogleOAuthTokenStore } from '../../../store/useAuthStore';
 import { useUserStore } from '../../../store/useUserStore';
 import { useNavigate } from 'react-router-dom';

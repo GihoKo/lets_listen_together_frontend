@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { updateUser } from '../service/user';
-import { useUserStore } from '../../src/store/useUserStore';
-import { User } from '../../src/types/user';
+import { updateUser } from '../services/user';
+import { useUserStore } from '../../store/useUserStore';
+import { User } from '../../types/user';
 
 interface updateUserParams {
   userId: string | undefined;

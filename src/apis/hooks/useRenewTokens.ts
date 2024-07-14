@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { renewTokens } from '../service/auth';
+import { renewTokens } from '../services/auth';
 
 interface AccessToken {
   accessToken: string;

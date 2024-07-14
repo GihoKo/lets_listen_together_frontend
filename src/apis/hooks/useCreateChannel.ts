@@ -1,18 +1,17 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { createMusic } from '../service/music';
-import { MusicRequestData } from '../../src/pages/Main/Channel/_types/interface';
+import { createChannel } from '../services/channel';
 
 interface createMusicParams {
-  music: MusicRequestData;
+  channel: FormData;
 }
 
-export default function useCreateMusic() {
+export default function useCreateChannel() {
   const queryClient = useQueryClient();
   return useMutation<void, Error, createMusicParams>({
-    mutationFn: ({ music }) => createMusic(music),
+    mutationFn: ({ channel }) => createChannel(channel),
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: ['musicList'],
+        queryKey: ['channels'],
       });
     },
   });

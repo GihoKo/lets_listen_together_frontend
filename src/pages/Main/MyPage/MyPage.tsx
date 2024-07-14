@@ -5,7 +5,7 @@ import Button from '../../../components/Atoms/Modal/Button';
 import { useUserStore } from '../../../store/useUserStore';
 import { useRef, useState } from 'react';
 import { User } from '../../../types/user';
-import useUpdateUser from '../../../../apis/hooks/useUpdateUser';
+import useUpdateUser from '../../../apis/hooks/useUpdateUser';
 
 export default function MyPage() {
   const UploadUpdateUserMutation = useUpdateUser();

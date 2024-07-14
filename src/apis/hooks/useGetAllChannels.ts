@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
-import { getAllchannelLists } from '../service/channel';
-import { Channel } from '../../src/types/channel';
+import { getAllchannelLists } from '../services/channel';
+import { Channel } from '../../types/channel';
 
 export default function useGetAllChannels() {
   const queryKey = ['channels'];

@@ -13,7 +13,7 @@ import {
 } from '../../Atoms/Modal/Main.style';
 import useModalStore from '../../../store/useModalStore';
 import { ModalType } from '../../../types/enum';
-import useCreateMusic from '../../../../apis/hooks/useCreateMusic';
+import useCreateMusic from '../../../apis/hooks/useCreateMusic';
 
 export default function CreateMusicModal() {
   const { type, closeModal, props } = useModalStore();
