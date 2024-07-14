@@ -1,24 +1,23 @@
+// libraries
 import styled from 'styled-components';
-import ChannelItem from './ChannelItem';
-import useGetMyChannel from '../../../apis/hooks/useGetMyChannel';
-import { useUserStore } from '../../../store/useUserStore';
-import { useParams } from 'react-router-dom';
 
-interface ChannelContainerProps {
-  isOpen: boolean;
-}
+// hooks
+import useChannelContainer from './ChannelContainer.hook';
+
+// components
+import ChannelItem from './ChannelItem';
+
+// types
+import { ChannelContainerProps } from './ChannelContainer.type';
 
 export default function ChannelContainer({ isOpen }: ChannelContainerProps) {
-  const { user } = useUserStore();
-  const userId = user?.id;
-  const { data: channelList, error, isLoading } = useGetMyChannel(userId);
+  // logics
+  const { channelList, isError, isLoading, channelId } = useChannelContainer();
 
-  // channelId
-  const { channelId } = useParams();
-
+  // view
   if (isLoading) return <div>Loading...</div>;
+  if (isError) return <div>Error...</div>;
   if (!channelList) return <div>Channel is empty</div>;
-  if (error) return <div>Error</div>;
 
   return (
     <Container>

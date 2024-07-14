@@ -1,21 +1,24 @@
+// libraries
 import styled from 'styled-components';
-import { SideBarChannelItemProps } from '../../types/props';
+
+// hooks
+import useChannelItem from './ChannelItem.hook';
+
+// components
 import { Link } from 'react-router-dom';
-import playListSvg from '../../../images/svg/playlist.svg';
-import playListFocusedSvg from '../../../images/svg/playlist-focused.svg';
+
+// types
+import { SideBarChannelItemProps } from './ChannelItem.type';
 
 export default function ChannelItem({ channel, isOpen, isCurrentChannel }: SideBarChannelItemProps) {
-  const playListToggle = () => {
-    if (isCurrentChannel) {
-      return playListFocusedSvg;
-    }
-    return playListSvg;
-  };
+  // logics
+  const { handleDefaultPlayListImageToggle } = useChannelItem({ isCurrentChannel });
 
+  // view
   return (
     <Wrapper to={`/main/channel/${channel.id}`} $isCurrentChannel={isCurrentChannel}>
       <ImageWrapper>
-        <img src={channel.image === '' ? playListToggle() : channel.image} alt='채널 이미지' />
+        <img src={channel.image === '' ? handleDefaultPlayListImageToggle() : channel.image} alt='채널 이미지' />
       </ImageWrapper>
       <Name $isOpen={isOpen} $isCurrentChannel={isCurrentChannel}>
         {channel.name ? channel.name : ''}

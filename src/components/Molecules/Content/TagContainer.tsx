@@ -1,16 +1,13 @@
+// libraries
 import styled from 'styled-components';
 
-interface TagContainerProps {
-  tags: string[] | undefined;
-}
+// types
+import { TagContainerProps } from './TagContainer.type';
 
 export default function TagContainer({ tags }: TagContainerProps) {
-  if (!tags) {
-    return <VoidTag />;
-  }
-
-  if (tags?.length === 0) {
-    return <VoidTag />;
+  // view
+  if (!tags || tags?.length === 0) {
+    return <EmptyTag />;
   }
 
   return <Container>{tags?.map((tag) => <Tag key={tag}>{tag}</Tag>)}</Container>;
@@ -25,18 +22,18 @@ const Container = styled.div`
   overflow-x: hidden;
 `;
 
-const VoidTag = styled.div`
+const EmptyTag = styled.div`
   height: 20px;
 `;
 
 const Tag = styled.div`
-  padding: 4px 8px;
   border-radius: 12px;
+
+  padding: 4px 8px;
   background-color: var(--grey-grey150);
   font-size: 12px;
   color: var(--grey-grey600);
   white-space: nowrap;
-
   cursor: pointer;
 
   &:hover {

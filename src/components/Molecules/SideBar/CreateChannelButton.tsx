@@ -1,10 +1,11 @@
+// libraries
 import styled from 'styled-components';
-import addChannelSvg from '../../../images/svg/add-square.svg';
 
-interface CreateChannelButtonProps {
-  isOpen: boolean;
-  onClick: () => void;
-}
+// types
+import { CreateChannelButtonProps } from './CreateChannelButton.type';
+
+// images
+import addChannelSvg from '../../../images/svg/add-square.svg';
 
 export default function CreateChannelButton({ isOpen, onClick }: CreateChannelButtonProps) {
   return (

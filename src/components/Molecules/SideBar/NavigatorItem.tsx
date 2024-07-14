@@ -1,15 +1,14 @@
-import { Link } from 'react-router-dom';
+// libraries
 import styled from 'styled-components';
 
-interface NavigatorItemProps {
-  isOpen: boolean;
-  name: string;
-  path: string;
-  icon: string[] | string;
-  isFocused: boolean;
-}
+// components
+import { Link } from 'react-router-dom';
+
+// types
+import { NavigatorItemProps } from './NavigatorItem.type';
 
 export default function NavigatorItem({ isOpen, name, path, icon, isFocused }: NavigatorItemProps) {
+  // view
   return (
     <Wrapper to={path} $isFocused={isFocused}>
       <ImageBox>

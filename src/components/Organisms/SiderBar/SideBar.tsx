@@ -1,39 +1,40 @@
+// libraries
 import styled from 'styled-components';
+
+// hooks
+import useSideBar from './SideBar.hook';
+
+// components
 import ChannelContainer from '../../Molcules/SideBar/ChannelContainer';
 import CreateChannelButton from '../../Molcules/SideBar/CreateChannelButton';
 import SideBarToggleButton from '../../Molcules/SideBar/SideBarToggleButton';
-import useSideBar from './SideBar.hook';
 import CreateChannelModal from '../Modal/CreateChannelModal';
-import useModalStore from '../../../store/useModalStore';
-import { ModalType } from '../../../types/enum';
 import NavigatorContainer from '../../Molcules/SideBar/NavigatorContainer';
+import CategoryName from '../../Atoms/SideBar/CategoryName';
 
 export default function SideBar() {
-  const { isOpen, handleToggleButtonClick } = useSideBar();
-  const { openModal, isOpen: isModalOpen } = useModalStore();
+  // logics
+  const { isOpen, handleSideBarToggleButtonClick, isModalOpen, handleCreateChannelModalOpenButtonClick } = useSideBar();
 
-  const handleCreateChannelButtonClick = () => {
-    openModal(ModalType.CREATE_CHANNEL, <CreateChannelModal />);
-  };
-
+  // view
   return (
-    <NavBar>
+    <BackGround>
       <Wrapper $isOpen={isOpen}>
         {isModalOpen ? <CreateChannelModal /> : null}
         <Header>
-          <SideBarToggleButton onClick={handleToggleButtonClick} isOpen={isOpen} />
-          <CreateChannelButton isOpen={isOpen} onClick={handleCreateChannelButtonClick} />
+          <SideBarToggleButton onClick={handleSideBarToggleButtonClick} isOpen={isOpen} />
+          <CreateChannelButton isOpen={isOpen} onClick={handleCreateChannelModalOpenButtonClick} />
         </Header>
-        <CartegoryName $isOpen={isOpen}>Navigator</CartegoryName>
+        <CategoryName isOpen={isOpen}>Navigator</CategoryName>
         <NavigatorContainer isOpen={isOpen} />
-        <CartegoryName $isOpen={isOpen}>Channels</CartegoryName>
+        <CategoryName isOpen={isOpen}>Channels</CategoryName>
         <ChannelContainer isOpen={isOpen} />
       </Wrapper>
-    </NavBar>
+    </BackGround>
   );
 }
 
-const NavBar = styled.nav`
+const BackGround = styled.nav`
   height: 800px;
 
   display: flex;
@@ -64,30 +65,11 @@ const Wrapper = styled.div<{
   }
 `;
 
-const Header = styled.div`
+const Header = styled.header`
   height: 56px;
   display: flex;
   justify-content: space-between;
   align-items: center;
 
   padding: 0 8px;
-`;
-
-const CartegoryName = styled.div<{
-  $isOpen: boolean;
-}>`
-  display: flex;
-  justify-content: ${(props) => (props.$isOpen ? 'flex-start' : 'center')};
-
-  font-size: ${(props) => (props.$isOpen ? '20px' : '11px')};
-  margin: 12px 0;
-  white-space: nowrap;
-
-  color: var(--grey-grey600);
-
-  cursor: default;
-
-  @media (max-width: 1024px) {
-    display: none;
-  }
 `;
