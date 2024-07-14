@@ -1,19 +1,31 @@
+// libraries
 import styled from 'styled-components';
-import GoogleLoginButton from './_components/GoogleLoginButton';
+
+// hooks
+import useSignInPage from './SignInPage.hook';
+
+// components
 import { GoogleOAuthProvider } from '@react-oauth/google';
+import GoogleLoginButton from './_components/GoogleLoginButton';
 
 export default function SignInPage() {
-  const CLIENT_ID = process.env.GOOGLE_OAUTH_CLIENT_ID;
+  // logics
+  const { CLIENT_ID } = useSignInPage();
 
-  if (!CLIENT_ID) return <NotFoundClientId>client id가 존재하지 않습니다</NotFoundClientId>;
+  // view
+  if (!CLIENT_ID) {
+    return <NotFoundClientId>client id가 존재하지 않습니다</NotFoundClientId>;
+  }
+
   return (
-    <Wrapper>
+    <BackGround>
       <Container>
+        <Header>간단하게 로그인 또는 회원가입하세요</Header>
         <GoogleOAuthProvider clientId={CLIENT_ID}>
           <GoogleLoginButton />
         </GoogleOAuthProvider>
       </Container>
-    </Wrapper>
+    </BackGround>
   );
 }
 
@@ -21,15 +33,22 @@ const NotFoundClientId = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  color: var(--grey-grey100);
+  color: var(--grey-grey900);
 `;
 
-const Wrapper = styled.div`
+const BackGround = styled.div`
   height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
   background-color: var(--grey-grey100);
+`;
+
+const Header = styled.header`
+  font-size: 16px;
+  color: var(--grey-grey900);
+
+  margin-bottom: 24px;
 `;
 
 const Container = styled.div`

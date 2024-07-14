@@ -1,3 +1,4 @@
+// hooks
 import { useNavigate } from 'react-router-dom';
 
 export default function useStartButton() {
@@ -6,5 +7,6 @@ export default function useStartButton() {
   const handleClick = () => {
     navigate('/signin');
   };
+
   return { handleClick };
 }

@@ -1,53 +1,44 @@
-import { CredentialResponse } from '@react-oauth/google';
-import { useUserStore } from '../../../../store/useUserStore';
-import axios from 'axios';
+// libraries
+import { axiosInstanceWithToken } from '../../../apis/instances';
+
+// hooks
 import { useNavigate } from 'react-router-dom';
-import { useEffect } from 'react';
+import { useGoogleLogin } from '@react-oauth/google';
+import { useApplicationAuthTokenStore, useGoogleOAuthTokenStore } from '../../../store/useAuthStore';
+import { useUserStore } from '../../../store/useUserStore';
 
 export default function useGoogleLoginButton() {
-  const clientId = process.env.GOOGLE_OAUTH_CLIENT_ID;
-  const { user, setUser } = useUserStore();
   const navigate = useNavigate();
+  const { setAccessToken } = useApplicationAuthTokenStore();
+  const { setGoogleOAuthToken } = useGoogleOAuthTokenStore();
+  const { setUser } = useUserStore();
+  const login = useGoogleLogin({
+    scope: 'email profile',
+    onSuccess: async ({ code }) => {
+      try {
+        await axiosInstanceWithToken.post('/auth/google/callback', { code }).then((response) => {
+          setAccessToken(response.data.applicationToken.accessToken);
+          setGoogleOAuthToken(response.data.googleToken.googleAccessToken);
+          setUser(response.data.user);
 
-  const handleLogin = async (response: CredentialResponse) => {
-    try {
-      const { credential } = response;
-      console.log('credential', credential);
-
-      if (credential) {
-        // const { data } = await axios.post('http://localhost:8080/api/auth/google', {
-        //   credential,
-        // });
-
-        const token = await axios.post('http://localhost:8080/api/auth/google/auth', {
-          credential,
+          // refresh token의 경우 백엔드에서 cookie로 보내주기 때문에 따로 저장할 필요가 없다.
+          if (
+            response.data.user &&
+            response.data.applicationToken.accessToken &&
+            response.data.googleToken.googleAccessToken
+          ) {
+            navigate('/main');
+          }
         });
-        console.log('token', token);
-
-        setUser({
-          id: data.id,
-          email: data.email,
-          name: data.nickName,
-          picture: data.profileImage,
-        });
-
-        console.log('로그인 성공', data);
+      } catch (error) {
+        console.error(error);
       }
-    } catch (error) {
-      console.error('로그인 중 에러 발생', error);
-    }
-  };
+    },
+    onError: (error) => {
+      console.error(error);
+    },
+    flow: 'auth-code',
+  });
 
-  // useEffect(() => {
-  //   console.log('user', user);
-  //   if (user) {
-  //     navigate('/main');
-  //   }
-  // }, [user, navigate]);
-
-  const handleError = () => {
-    console.log('로그인 실패');
-  };
-
-  return { clientId, handleLogin, handleError };
+  return { login };
 }

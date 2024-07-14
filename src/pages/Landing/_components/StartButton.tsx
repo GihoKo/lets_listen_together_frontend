@@ -1,9 +1,14 @@
+// libraries
 import styled from 'styled-components';
+
+// hooks
 import useStartButton from './StartButton.hook';
 
 export default function StartButton() {
+  // logics
   const { handleClick } = useStartButton();
 
+  // view
   return (
     <Button onClick={handleClick} type='button'>
       Start!

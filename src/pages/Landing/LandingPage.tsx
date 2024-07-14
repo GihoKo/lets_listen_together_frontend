@@ -1,9 +1,12 @@
+// libraries
 import styled from 'styled-components';
 
+// components
 import StartButton from './_components/StartButton';
 import Logo from './_components/Logo';
 
 export default function LandingPage() {
+  // view
   return (
     <BackGround>
       <Box>
