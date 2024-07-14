@@ -1,8 +1,8 @@
+// libraries
 import styled from 'styled-components';
 
-interface GuideProps {
-  children: string;
-}
+// types
+import { GuideProps } from './Guide.type';
 
 export default function Guide({ children }: GuideProps) {
   return <Wrapper>{children}</Wrapper>;

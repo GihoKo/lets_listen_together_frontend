@@ -8,7 +8,7 @@ import {
   Label,
   Tag,
   TagContainer,
-} from '../../../../components/Atoms/Modal/Main.style';
+} from '../../../../components/Atoms/Modal/StyledComponents';
 import Button from '../../../../components/Atoms/Modal/Button';
 import { Dispatch, SetStateAction, useState } from 'react';
 import useUpdateChannel from '../../../../apis/hooks/useUpdateChannel';

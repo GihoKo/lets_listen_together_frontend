@@ -1,13 +1,11 @@
+// libraries
 import styled from 'styled-components';
 
-interface ButtonProps {
-  children: React.ReactNode;
-  variant: 'confirm' | 'close';
-  onClick?: () => void;
-  type: 'button' | 'submit';
-}
+// types
+import { ButtonProps } from './Button.type';
 
 export default function Button({ children, variant, onClick, type }: ButtonProps) {
+  // view
   return (
     <Wrapper type={type} $variant={variant} onClick={onClick}>
       {children}

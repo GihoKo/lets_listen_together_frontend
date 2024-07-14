@@ -1,5 +1,5 @@
 import Dimmed from '../../Atoms/Modal/Dimmed';
-import { ButtonWrapper, Description, Form, Title, Wrapper } from '../../Atoms/Modal/Main.style';
+import { ButtonWrapper, Description, Form, Title, Wrapper } from '../../Atoms/Modal/StyledComponents';
 import Button from '../../Atoms/Modal/Button';
 import useModalStore from '../../../store/useModalStore';
 import { ModalType } from '../../../types/enum';

@@ -2,7 +2,7 @@ import { useState } from 'react';
 import useModalStore from '../../../store/useModalStore';
 import Button from '../../Atoms/Modal/Button';
 import Dimmed from '../../Atoms/Modal/Dimmed';
-import { ButtonWrapper, Form, FormField, Input, Label, Title, Wrapper } from '../../Atoms/Modal/Main.style';
+import { ButtonWrapper, Form, FormField, Input, Label, Title, Wrapper } from '../../Atoms/Modal/StyledComponents';
 import { useParams } from 'react-router-dom';
 import { Music } from '@prisma/client';
 import { ModalType } from '../../../types/enum';

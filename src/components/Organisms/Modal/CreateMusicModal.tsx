@@ -10,7 +10,7 @@ import {
   Title,
   Description,
   ButtonWrapper,
-} from '../../Atoms/Modal/Main.style';
+} from '../../Atoms/Modal/StyledComponents';
 import useModalStore from '../../../store/useModalStore';
 import { ModalType } from '../../../types/enum';
 import useCreateMusic from '../../../apis/hooks/useCreateMusic';

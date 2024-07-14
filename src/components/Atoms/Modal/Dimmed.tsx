@@ -1,8 +1,8 @@
+// libraries
 import styled from 'styled-components';
 
-interface DimmedProps {
-  children: React.ReactNode;
-}
+// types
+import { DimmedProps } from './Dimmed.type';
 
 export default function Dimmed({ children }: DimmedProps) {
   return <Wrapper>{children}</Wrapper>;

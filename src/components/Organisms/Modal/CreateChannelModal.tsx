@@ -12,7 +12,7 @@ import {
   ButtonWrapper,
   TagContainer,
   Tag,
-} from '../../Atoms/Modal/Main.style';
+} from '../../Atoms/Modal/StyledComponents';
 import { useUserStore } from '../../../store/useUserStore';
 import useModalStore from '../../../store/useModalStore';
 import { ModalType } from '../../../types/enum';

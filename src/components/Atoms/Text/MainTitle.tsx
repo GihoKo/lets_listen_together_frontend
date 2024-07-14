@@ -1,6 +1,10 @@
+// libraries
 import styled from 'styled-components';
 
-export default function MainTitle({ children }: { children: React.ReactNode }) {
+// types
+import MainTitleProps from './MainTitle.type';
+
+export default function MainTitle({ children }: MainTitleProps) {
   return <Wrapper>{children}</Wrapper>;
 }
 

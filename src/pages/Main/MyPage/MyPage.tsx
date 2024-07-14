@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import MainTitle from '../../../components/Atoms/Text/MainTitle';
-import { ButtonWrapper, Form, FormField, Input, Label } from '../../../components/Atoms/Modal/Main.style';
+import { ButtonWrapper, Form, FormField, Input, Label } from '../../../components/Atoms/Modal/StyledComponents';
 import Button from '../../../components/Atoms/Modal/Button';
 import { useUserStore } from '../../../store/useUserStore';
 import { useRef, useState } from 'react';
