@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { CreateChannelButtonProps } from './CreateChannelButton.type';
 
 // images
-import addChannelSvg from '../../../images/svg/add-square.svg';
+import addChannelSvg from '@/images/svg/add-square.svg';
 
 export default function CreateChannelButton({ isOpen, onClick }: CreateChannelButtonProps) {
   return (

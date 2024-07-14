@@ -3,14 +3,14 @@ import styled from 'styled-components';
 
 // components
 import { Link } from 'react-router-dom';
-import TagContainer from '../../Molecules/Content/TagContainer';
 
 // types
 import { ChannelItemProps } from './ChannelItem.type';
 
 // images
-import mockImage from '../../../images/dummyImage.png';
-import personSvg from '../../../images/svg/person.svg';
+import mockImage from '@/images/dummyImage.png';
+import personSvg from '@/images/svg/person.svg';
+import TagContainer from './TagContainer';
 
 export default function ChannelItem({ channel }: ChannelItemProps) {
   return (

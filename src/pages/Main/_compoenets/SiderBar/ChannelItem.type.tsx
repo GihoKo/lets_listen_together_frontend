@@ -1,4 +1,4 @@
-import { Channel } from '../../../types/channel';
+import { Channel } from '@/types/channel';
 
 export interface SideBarChannelItemProps {
   channel: Channel;

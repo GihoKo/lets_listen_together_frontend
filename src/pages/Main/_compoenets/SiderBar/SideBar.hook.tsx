@@ -1,12 +1,12 @@
 // hooks
+import useModalStore from '@/store/useModalStore';
 import { useState } from 'react';
-import useModalStore from '../../../store/useModalStore';
 
 // types
-import { ModalType } from '../../../types/enum';
+import { ModalType } from '@/types/enum';
 
 // components
-import CreateChannelModal from '../Modal/CreateChannelModal';
+import CreateChannelModal from '@/components/Organisms/Modal/CreateChannelModal';
 
 export default function useSideBar() {
   const [isOpen, setIsOpen] = useState(true);

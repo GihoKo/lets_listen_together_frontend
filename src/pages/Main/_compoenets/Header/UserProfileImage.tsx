@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
 import { UserProfileImageProps } from './UserProfileImage.type';
 
 // images
-import defaultProfileImage from '../../../images/dummyImage.png';
+import defaultProfileImage from '@/images/dummyImage.png';
 
 export default function UserProfileImage({ profileImage }: UserProfileImageProps) {
   return (

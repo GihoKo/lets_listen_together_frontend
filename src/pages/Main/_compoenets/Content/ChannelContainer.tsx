@@ -6,7 +6,7 @@ import useChannelContainer from './ChannelContainer.hook';
 
 // components
 import ChannelItem from './ChannelItem';
-import MainTitle from '../../Atoms/Text/MainTitle';
+import MainTitle from '@/components/Atoms/Text/MainTitle';
 
 export default function ChannelContainer() {
   // logics
