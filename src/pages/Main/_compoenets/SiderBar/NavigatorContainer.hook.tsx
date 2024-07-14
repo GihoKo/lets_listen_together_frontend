@@ -25,13 +25,13 @@ export default function useNavigatorContainer() {
       icon: [homeSvg, homeFocusedSvg], // [default, focused]
     },
     {
-      name: 'MyPage',
-      path: '/main/myPage',
+      name: 'MyProfile',
+      path: '/main/myProfile',
       icon: [personSvg, personFocusedSvg],
     },
     {
       name: 'MyOwnChannels',
-      path: '/main/MyOwnChannels',
+      path: '/main/myOwnChannels',
       icon: [channelListSvg, channelListFocusedSvg],
     },
   ];

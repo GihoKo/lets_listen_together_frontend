@@ -1,27 +1,24 @@
-import { useEffect, useState } from 'react';
-import useGetMyOwnChannels from '../../../apis/hooks/useGetMyOwnChannels';
-import { useUserStore } from '../../../store/useUserStore';
+// libraries
 import styled from 'styled-components';
-import { Channel } from '../../../types/channel';
+
+// components
 import ChannelItem from './_components/ChannelItem';
 import ChannelEditor from './_components/ChannelEditor';
 import MainTitle from '../../../components/Atoms/Text/MainTitle';
+import useMyOwnChannels from './MyOwnChannels.hook';
 
 export default function MyOwnChannels() {
-  const { user } = useUserStore();
-  const [channels, setChannels] = useState<Channel[]>([]);
-  const [EdittedChannel, setEdittedChannel] = useState<Channel | null>(null);
-  const { data } = useGetMyOwnChannels(user?.id as string);
+  // logics
+  const { EdittedChannel, setEdittedChannel, channels, isLoading, isError, handleEditButtonClick } = useMyOwnChannels();
 
-  const handleEditButtonClick = (channel: Channel) => {
-    setEdittedChannel(channel);
-  };
+  // view
+  if (isLoading) {
+    return <div>loading...</div>;
+  }
 
-  useEffect(() => {
-    if (data) {
-      setChannels(data);
-    }
-  }, [data]);
+  if (isError) {
+    return <div>error...</div>;
+  }
 
   return (
     <Wrapper>
