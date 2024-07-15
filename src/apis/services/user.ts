@@ -34,7 +34,6 @@ export const getMyUser = async (userId: string) => {
 export const getMyOwnChannels = async (userId: string) => {
   try {
     const response = await axiosInstanceWithToken.get(`/users/myOwnChannels/${userId}`);
-    console.log(response.data);
     return response.data;
   } catch (e) {
     console.error(e);
