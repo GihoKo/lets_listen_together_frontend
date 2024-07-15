@@ -2,7 +2,7 @@
 import styled from 'styled-components';
 
 // hooks
-import useMainPage from './MainPage.hook';
+// import useMainPage from './MainPage.hook';
 
 // components
 import Header from './_compoenets/Header/Header';
@@ -11,15 +11,7 @@ import { Outlet } from 'react-router-dom';
 
 export default function MainPage() {
   //logics
-  const { isLoading, isError, navigate } = useMainPage();
-
-  // view
-  if (isLoading) {
-    return <div>엑세스 토큰을 발급 중 입니다...</div>;
-  }
-  if (isError) {
-    navigate('/signIn');
-  }
+  // const { navigate } = useMainPage();
 
   return (
     <Wrapper>
