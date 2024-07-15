@@ -1,31 +1,25 @@
+// libraries
 import styled from 'styled-components';
-import { Channel } from '../../../../types/channel';
-import playListSvg from '../../../../../src/images/svg/playlist.svg';
-import playListFocusedSvg from '../../../../../src/images/svg/playlist-focused.svg';
-import deleteSvg from '../../../../../src/images/svg/delete.svg';
-import deleteFocusedSvg from '../../../../../src/images/svg/delete-focused.svg';
-import editSvg from '../../../../../src/images/svg/edit.svg';
-import editFocusedSvg from '../../../../../src/images/svg/edit-focused.svg';
-import useModalStore from '../../../../store/useModalStore';
-import { ModalType } from '../../../../types/enum';
-import DeleteChannelModal from '../../../../components/Organisms/Modal/DeleteChannelModal';
 
-interface ChannelItemProps {
-  channel: Channel;
-  EdittedChannel: Channel | null;
-  onEditButtonClick: (channel: Channel) => void;
-}
+// images
+import playListSvg from '@/images/svg/playlist.svg';
+import playListFocusedSvg from '@/images/svg/playlist-focused.svg';
+import deleteSvg from '@/images/svg/delete.svg';
+import deleteFocusedSvg from '@/images/svg/delete-focused.svg';
+import editSvg from '@/images/svg/edit.svg';
+import editFocusedSvg from '@/images/svg/edit-focused.svg';
+
+// hooks
+import useChannelItem from './ChannelItem.hook';
+
+// types
+import { ChannelItemProps } from './ChannelItem.type';
 
 export default function ChannelItem({ channel, EdittedChannel, onEditButtonClick }: ChannelItemProps) {
-  const { openModal } = useModalStore();
+  // logics
+  const { isEditted, handleDeleteModalButtonClick } = useChannelItem({ channel, EdittedChannel });
 
-  const isEditted = channel.id === EdittedChannel?.id;
-
-  const handleDeleteModalButtonClick = () => {
-    console.log('openModal');
-    openModal(ModalType.DELETE_CHANNEL, <DeleteChannelModal />, { channelId: channel.id, channelName: channel.name });
-  };
-
+  // view
   return (
     <Wrapper $isEditted={isEditted}>
       <Left>

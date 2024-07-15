@@ -5,8 +5,8 @@ import styled from 'styled-components';
 import { SideBarToggleButtonProps } from './SideBarToggleButton.type';
 
 // images
-import SideBarOpenSvg from '../../../images/svg/sidebar-open.svg';
-import SideBarCloseSvg from '../../../images/svg/sidebar-close.svg';
+import SideBarOpenSvg from '@/images/svg/sidebar-open.svg';
+import SideBarCloseSvg from '@/images/svg/sidebar-close.svg';
 
 export default function SideBarToggleButton({ onClick, isOpen }: SideBarToggleButtonProps) {
   return (

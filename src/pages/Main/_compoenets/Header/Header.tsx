@@ -1,7 +1,12 @@
+// libraries
 import styled from 'styled-components';
+
+// hooks
 import useHeader from './Header.hook';
-import UserProfileImage from '../../Molecules/Header/UserProfileImage';
-import Logo from '../../Molecules/Header/Logo';
+
+// components
+import Logo from './Logo';
+import UserProfileImage from './UserProfileImage';
 
 export default function Header() {
   // logics

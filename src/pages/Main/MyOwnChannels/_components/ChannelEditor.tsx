@@ -1,5 +1,10 @@
+// libraries
 import styled from 'styled-components';
-import { Channel } from '../../../../types/channel';
+
+// hooks
+import useChannelEditor from './ChannelEditor.hook';
+
+// components
 import {
   ButtonWrapper,
   Form,
@@ -8,69 +13,28 @@ import {
   Label,
   Tag,
   TagContainer,
-} from '../../../../components/Atoms/Modal/StyledComponents';
-import Button from '../../../../components/Atoms/Modal/Button';
-import { Dispatch, SetStateAction, useState } from 'react';
-import useUpdateChannel from '../../../../apis/hooks/useUpdateChannel';
+} from '@/components/Atoms/Modal/StyledComponents';
+import Button from '@/components/Atoms/Modal/Button';
 
-interface ChannelEditorProps {
-  EdittedChannel: Channel | null;
-  setEdittedChannel: Dispatch<SetStateAction<Channel | null>>;
-}
+// types
+import { ChannelEditorProps } from './ChannelEditor.type';
 
 export default function ChannelEditor({ EdittedChannel, setEdittedChannel }: ChannelEditorProps) {
-  if (!EdittedChannel) return null;
+  // logics
+  const logics = useChannelEditor({ setEdittedChannel, EdittedChannel });
 
-  const upLoadUpdateChannelMutate = useUpdateChannel();
-  const [tagValue, setTagValue] = useState<string>('');
+  if (!logics) return null;
 
-  const handleChangeTagValue = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setTagValue(e.target.value);
-  };
+  const {
+    tagValue,
+    handleChangeTagValue,
+    handleDeleteTag,
+    handleSubmit,
+    handleAddTagKeyDown,
+    handleChangeChannelData,
+  } = logics;
 
-  const handleDeleteTag = (tag: string) => {
-    setEdittedChannel({
-      ...EdittedChannel,
-      tags: EdittedChannel.tags.filter((t) => t !== tag),
-    });
-  };
-
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
-    upLoadUpdateChannelMutate.mutate({
-      channelId: EdittedChannel.id,
-      channel: EdittedChannel,
-    });
-  };
-
-  const handleAddTagKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter') {
-      e.preventDefault();
-
-      if (
-        tagValue === '' ||
-        tagValue.length > 10 ||
-        EdittedChannel?.tags.length > 5 ||
-        EdittedChannel?.tags.includes(tagValue)
-      )
-        return;
-
-      setEdittedChannel({
-        ...EdittedChannel,
-        tags: [...EdittedChannel.tags, tagValue],
-      });
-      setTagValue('');
-    }
-  };
-
-  const handleChangeChannelData = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setEdittedChannel({
-      ...EdittedChannel,
-      [e.target.name]: e.target.value,
-    });
-  };
-
+  // view
   return (
     <Wrapper>
       <Form onSubmit={handleSubmit}>

@@ -1,7 +1,7 @@
 // hooks
-import { useUserStore } from '../../../store/useUserStore';
+import { useUserStore } from '@/store/useUserStore';
 import { useParams } from 'react-router-dom';
-import useGetAllChannels from '../../../apis/hooks/useGetAllChannels';
+import useGetAllChannels from '@/apis/hooks/useGetAllChannels';
 
 export default function useChannelContainer() {
   const { user } = useUserStore();

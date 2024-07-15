@@ -1,26 +1,22 @@
+// libraries
 import styled from 'styled-components';
-import SideBar from '../../components/Organisms/SiderBar/SideBar';
-import Header from '../../components/Organisms/Header/Header';
-import { Outlet, useNavigate } from 'react-router-dom';
-import useRenewTokens from '../../apis/hooks/useRenewTokens';
-import { useEffect } from 'react';
-import { useApplicationAuthTokenStore } from '../../store/useAuthStore';
+
+// hooks
+import useMainPage from './MainPage.hook';
+
+// components
+import Header from './_compoenets/Header/Header';
+import SideBar from './_compoenets/SiderBar/SideBar';
+import { Outlet } from 'react-router-dom';
 
 export default function MainPage() {
-  const navigate = useNavigate();
-  const { setAccessToken } = useApplicationAuthTokenStore();
-  const { data, isLoading, isSuccess, isError } = useRenewTokens();
+  //logics
+  const { isLoading, isError, navigate } = useMainPage();
 
-  useEffect(() => {
-    if (isSuccess) {
-      setAccessToken(data.accessToken);
-    }
-  }, [data]);
-
+  // view
   if (isLoading) {
     return <div>엑세스 토큰을 발급 중 입니다...</div>;
   }
-
   if (isError) {
     navigate('/signIn');
   }

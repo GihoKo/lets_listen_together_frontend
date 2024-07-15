@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-import logoImg from '../../../../src/images/logo.png';
+import logoImg from '@/images/logo.png';
 
 export default function Logo() {
   return (
