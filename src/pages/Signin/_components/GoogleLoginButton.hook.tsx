@@ -1,5 +1,5 @@
 // libraries
-import { axiosInstance } from '../../../apis/instances';
+import { axiosInstanceWithToken } from '../../../apis/instances';
 
 // hooks
 import { useNavigate } from 'react-router-dom';
@@ -17,7 +17,7 @@ export default function useGoogleLoginButton() {
     scope: 'email profile',
     onSuccess: async ({ code }) => {
       try {
-        await axiosInstance.post('/auth/google/callback', { code }).then((response) => {
+        await axiosInstanceWithToken.post('/auth/google/callback', { code }).then((response) => {
           console.log(response.data);
           setAccessToken(response.data.applicationAccessToken);
           setGoogleOAuthToken(response.data.googleAccessToken);
