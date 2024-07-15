@@ -27,14 +27,14 @@ export const axiosInstanceWithToken = axios.create({
 
 // request interceptor의 경우 token을 넣을 때 자주 사용한다.
 axiosInstanceWithToken.interceptors.request.use(
-  (config) => {
+  (AxiosRequestConfig) => {
     const { accessToken } = useApplicationAuthTokenStore.getState();
 
     // 만약 토큰이 존재하는 경우 헤더에 넣어준다.
     if (accessToken) {
-      config.headers['authorization'] = `Bearer ${accessToken}`;
+      AxiosRequestConfig.headers['authorization'] = `Bearer ${accessToken}`;
     }
-    return config;
+    return AxiosRequestConfig;
   },
   (error) => {
     console.error(error);
@@ -61,7 +61,7 @@ axiosInstanceWithToken.interceptors.response.use(
         const newAccessToken = await renewTokens();
         if (typeof newAccessToken === 'string') {
           // 상태 업데이트 후 새로운 accessToken 값 가져오기
-          return new Promise((resolve) => {
+          return new Promise((resolve, reject) => {
             // Promise로 subscribe를 사용해 accessToken이 업데이트 되었을 때까지 기다림
             const unsubscribe = useApplicationAuthTokenStore.subscribe((state) => {
               // 비동기적으로 accessToken이 업데이트 되면 조건문을 만족하게 됨
@@ -72,6 +72,8 @@ axiosInstanceWithToken.interceptors.response.use(
                   // 새로운 accessToken으로 요청 재시도
                   originalRequest.headers['authorization'] = `Bearer ${state.accessToken}`;
                   resolve(axiosInstanceWithToken(originalRequest));
+                } else {
+                  reject(new Error('Original request is missing'));
                 }
               }
             });
