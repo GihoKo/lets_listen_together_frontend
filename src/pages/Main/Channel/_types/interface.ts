@@ -1,5 +1,5 @@
 export interface Music {
-  id: number;
+  id: string;
   title: string;
   artist: string;
   url: string;
@@ -15,9 +15,9 @@ export interface MusicItemProps {
 }
 
 export interface ChatMessage {
-  id: number;
-  channelId: number;
-  userId: number;
+  id: string;
+  channelId: string;
+  userId: string;
   content: string;
   createdAt: string;
   updatedAt: string;
