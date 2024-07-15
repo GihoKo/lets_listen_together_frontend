@@ -1,19 +1,16 @@
-import axios from 'axios';
-import { axiosInstanceWithToken } from '../instances';
+import { axiosInstance } from '../instances';
+
+interface RenewTokenResponse {
+  applicationAccessToken: string;
+}
 
 // accessToken 만료시 token들을 재발급
 export const renewTokens = async () => {
   try {
-    const response = await axiosInstanceWithToken.post('/auth/renewTokens');
-    return response.data;
+    const response = await axiosInstance.post<RenewTokenResponse>('/auth/renewTokens');
+    return response.data.applicationAccessToken;
   } catch (error) {
-    if (!axios.isAxiosError(error)) {
-      console.error('에러가 발생했습니다.');
-      return;
-    }
-    if (error.response?.status === 401) {
-      console.error('리프레시 토큰이 만료됐습니다. 다시 로그인해주세요.');
-      window.location.href = '/signIn';
-    }
+    console.error(error);
+    return error;
   }
 };
