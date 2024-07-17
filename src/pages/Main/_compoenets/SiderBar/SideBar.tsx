@@ -5,7 +5,6 @@ import styled from 'styled-components';
 import useSideBar from './SideBar.hook';
 
 // components
-import CreateChannelModal from '@/components/Organisms/Modal/CreateChannelModal';
 import SideBarToggleButton from './SideBarToggleButton';
 import CreateChannelButton from './CreateChannelButton';
 import CategoryName from './CategoryName';
@@ -14,14 +13,13 @@ import ChannelContainer from './ChannelContainer';
 
 export default function SideBar() {
   // logics
-  const { isOpen, handleToggle, isModalOpen, handleCreateChannelModalOpenButtonClick, handleClose } = useSideBar();
+  const { isOpen, handleToggle, handleCreateChannelModalOpenButtonClick, handleClose } = useSideBar();
 
   // view
   return (
     <>
       <BackGround>
         <Wrapper $isOpen={isOpen}>
-          {isModalOpen ? <CreateChannelModal /> : null}
           <Header>
             <SideBarToggleButton onClick={handleToggle} isOpen={isOpen} />
             <CreateChannelButton isOpen={isOpen} onClick={handleCreateChannelModalOpenButtonClick} />

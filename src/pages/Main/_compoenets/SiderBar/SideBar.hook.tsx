@@ -10,7 +10,7 @@ import useSideBarStore from '@/store/useSideBarStore';
 
 export default function useSideBar() {
   const { isOpen, toggle, close } = useSideBarStore();
-  const { openModal, isOpen: isModalOpen } = useModalStore();
+  const { openModal } = useModalStore();
 
   const handleToggle = () => {
     toggle();
@@ -27,7 +27,6 @@ export default function useSideBar() {
   return {
     isOpen,
     handleToggle,
-    isModalOpen,
     handleCreateChannelModalOpenButtonClick,
     handleClose,
   };

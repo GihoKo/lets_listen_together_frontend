@@ -3,11 +3,9 @@ import styled from 'styled-components';
 import MusicPlayer from './_components/MusicPlayer';
 import MusicList from './_components/MusicList';
 import { useParams } from 'react-router-dom';
-import CreateMusicModal from '../../../components/Organisms/Modal/CreateMusicModal';
 import { useEffect, useState } from 'react';
 import { Music } from './_types/interface';
 import useMusicStore from '../../../store/useMusicStore';
-import useModalStore from '../../../store/useModalStore';
 import useGetMusicsByChannelId from '../../../apis/hooks/useGetMusicsByChannelId';
 
 // type ChannelState = 'Personal' | 'Public' | 'Private';
@@ -18,7 +16,6 @@ import useGetMusicsByChannelId from '../../../apis/hooks/useGetMusicsByChannelId
 
 export default function Channel() {
   const { channelId } = useParams<{ channelId: string }>();
-  const { isOpen } = useModalStore();
 
   const [musicList, setMusicList] = useState<Music[]>([]);
   const { music: currentMusic, setMusic, resetMusic } = useMusicStore();
@@ -56,7 +53,6 @@ export default function Channel() {
 
   return (
     <>
-      {isOpen ? <CreateMusicModal /> : null}
       <Wrapper>
         <MusicPlayer currentMusic={currentMusic} playNextMusic={playNextMusic} playPrevMusic={playPrevMusic} />
         <MusicList musicList={musicList} />
