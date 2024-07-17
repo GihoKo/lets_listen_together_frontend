@@ -43,6 +43,10 @@ const Container = styled.div`
   }
 
   @media (max-width: 1024px) {
+    padding: 8px 0;
+  }
+
+  @media (max-width: 768px) {
     padding: 8px;
   }
 `;

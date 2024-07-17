@@ -12,11 +12,11 @@ export default function useSideBar() {
   const { isOpen, toggle, close } = useSideBarStore();
   const { openModal, isOpen: isModalOpen } = useModalStore();
 
-  const handleSideBarToggleButtonClick = () => {
+  const handleToggle = () => {
     toggle();
   };
 
-  const handleSideBarCloseButtonClick = () => {
+  const handleClose = () => {
     close();
   };
 
@@ -26,9 +26,9 @@ export default function useSideBar() {
 
   return {
     isOpen,
-    handleSideBarToggleButtonClick,
+    handleToggle,
     isModalOpen,
     handleCreateChannelModalOpenButtonClick,
-    handleSideBarCloseButtonClick,
+    handleClose,
   };
 }

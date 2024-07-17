@@ -38,6 +38,8 @@ const Wrapper = styled.header`
 
   @media (max-width: 768px) {
     height: 56px;
+
+    padding: 0 8px;
   }
 `;
 

@@ -5,7 +5,7 @@ import logoImg from '@/images/logo.png';
 
 export default function Logo() {
   return (
-    <Wrapper to='/main/myProfile'>
+    <Wrapper to='/main'>
       <img src={logoImg} alt='로고 이미지' />
     </Wrapper>
   );

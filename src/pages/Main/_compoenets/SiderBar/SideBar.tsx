@@ -14,22 +14,16 @@ import ChannelContainer from './ChannelContainer';
 
 export default function SideBar() {
   // logics
-  const {
-    isOpen,
-    handleSideBarToggleButtonClick,
-    isModalOpen,
-    handleCreateChannelModalOpenButtonClick,
-    handleSideBarCloseButtonClick,
-  } = useSideBar();
+  const { isOpen, handleToggle, isModalOpen, handleCreateChannelModalOpenButtonClick, handleClose } = useSideBar();
 
   // view
   return (
-    <Dimmed $isOpen={isOpen} onClick={handleSideBarCloseButtonClick}>
+    <>
       <BackGround>
         <Wrapper $isOpen={isOpen}>
           {isModalOpen ? <CreateChannelModal /> : null}
           <Header>
-            <SideBarToggleButton onClick={handleSideBarToggleButtonClick} isOpen={isOpen} />
+            <SideBarToggleButton onClick={handleToggle} isOpen={isOpen} />
             <CreateChannelButton isOpen={isOpen} onClick={handleCreateChannelModalOpenButtonClick} />
           </Header>
           <CategoryName isOpen={isOpen}>Navigator</CategoryName>
@@ -38,26 +32,10 @@ export default function SideBar() {
           <ChannelContainer isOpen={isOpen} />
         </Wrapper>
       </BackGround>
-    </Dimmed>
+      <Dimmed $isOpen={isOpen} onClick={handleClose} />
+    </>
   );
 }
-
-const Dimmed = styled.div<{
-  $isOpen: boolean;
-}>`
-  width: 100vh;
-  height: 100vh;
-
-  display: ${(props) => (props.$isOpen ? 'block' : 'none')};
-  background-color: rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(1px);
-
-  position: absolute;
-  z-index: 100;
-  top: 0;
-  left: 0;
-  bottom: 0;
-`;
 
 const BackGround = styled.nav`
   height: 800px;
@@ -68,11 +46,13 @@ const BackGround = styled.nav`
   padding-left: 24px;
 
   @media (max-width: 768px) {
-    height: 100vh;
+    height: 100%;
 
     padding-left: 0;
 
     position: absolute;
+    bottom: 0;
+    z-index: 100;
   }
 `;
 
@@ -111,4 +91,20 @@ const Header = styled.header`
   align-items: center;
 
   padding: 0 8px;
+`;
+
+const Dimmed = styled.div<{
+  $isOpen: boolean;
+}>`
+  display: none;
+
+  @media (max-width: 768px) {
+    display: ${(props) => (props.$isOpen ? 'block' : 'none')};
+
+    background-color: rgba(0, 0, 0, 0.5);
+
+    position: absolute;
+    inset: 0;
+    z-index: 10;
+  }
 `;

@@ -73,12 +73,22 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   padding: 0 32px;
+
+  @media (max-width: 768px) {
+    padding: 0 16px;
+  }
 `;
 
 const FormWrapper = styled.div`
   width: 400px;
 
   padding-top: 32px;
+
+  @media (max-width: 768px) {
+    width: 100%;
+
+    padding-top: 16px;
+  }
 `;
 
 const ProfileImageWrapper = styled.button`
