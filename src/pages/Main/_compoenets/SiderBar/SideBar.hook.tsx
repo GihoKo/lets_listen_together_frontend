@@ -9,11 +9,15 @@ import CreateChannelModal from '@/components/Organisms/Modal/CreateChannelModal'
 import useSideBarStore from '@/store/useSideBarStore';
 
 export default function useSideBar() {
-  const { isOpen, toggle } = useSideBarStore();
+  const { isOpen, toggle, close } = useSideBarStore();
   const { openModal, isOpen: isModalOpen } = useModalStore();
 
   const handleSideBarToggleButtonClick = () => {
     toggle();
+  };
+
+  const handleSideBarCloseButtonClick = () => {
+    close();
   };
 
   const handleCreateChannelModalOpenButtonClick = () => {
@@ -25,5 +29,6 @@ export default function useSideBar() {
     handleSideBarToggleButtonClick,
     isModalOpen,
     handleCreateChannelModalOpenButtonClick,
+    handleSideBarCloseButtonClick,
   };
 }

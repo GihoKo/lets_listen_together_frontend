@@ -53,7 +53,6 @@ const Wrapper = styled(Link)`
   align-items: flex-start;
   gap: 12px;
 
-  padding: 12px;
   transition: all 0.2s;
 
   position: relative;
@@ -62,6 +61,9 @@ const Wrapper = styled(Link)`
 
   &:hover {
     scale: 0.95;
+  }
+
+  @media (max-width: 768px) {
   }
 `;
 

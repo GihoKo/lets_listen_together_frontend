@@ -43,6 +43,6 @@ const Container = styled.div`
   }
 
   @media (max-width: 1024px) {
-    margin-top: 8px;
+    padding: 8px;
   }
 `;

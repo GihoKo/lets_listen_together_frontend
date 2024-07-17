@@ -17,9 +17,11 @@ const Wrapper = styled.h1`
 
   @media (max-width: 1024px) {
     font-size: 32px;
+    padding-bottom: 16px;
   }
 
   @media (max-width: 768px) {
     font-size: 24px;
+    padding-bottom: 12px;
   }
 `;

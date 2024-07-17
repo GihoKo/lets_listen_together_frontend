@@ -14,25 +14,50 @@ import ChannelContainer from './ChannelContainer';
 
 export default function SideBar() {
   // logics
-  const { isOpen, handleSideBarToggleButtonClick, isModalOpen, handleCreateChannelModalOpenButtonClick } = useSideBar();
+  const {
+    isOpen,
+    handleSideBarToggleButtonClick,
+    isModalOpen,
+    handleCreateChannelModalOpenButtonClick,
+    handleSideBarCloseButtonClick,
+  } = useSideBar();
 
   // view
   return (
-    <BackGround>
-      <Wrapper $isOpen={isOpen}>
-        {isModalOpen ? <CreateChannelModal /> : null}
-        <Header>
-          <SideBarToggleButton onClick={handleSideBarToggleButtonClick} isOpen={isOpen} />
-          <CreateChannelButton isOpen={isOpen} onClick={handleCreateChannelModalOpenButtonClick} />
-        </Header>
-        <CategoryName isOpen={isOpen}>Navigator</CategoryName>
-        <NavigatorContainer isOpen={isOpen} />
-        <CategoryName isOpen={isOpen}>Channels</CategoryName>
-        <ChannelContainer isOpen={isOpen} />
-      </Wrapper>
-    </BackGround>
+    <Dimmed $isOpen={isOpen} onClick={handleSideBarCloseButtonClick}>
+      <BackGround>
+        <Wrapper $isOpen={isOpen}>
+          {isModalOpen ? <CreateChannelModal /> : null}
+          <Header>
+            <SideBarToggleButton onClick={handleSideBarToggleButtonClick} isOpen={isOpen} />
+            <CreateChannelButton isOpen={isOpen} onClick={handleCreateChannelModalOpenButtonClick} />
+          </Header>
+          <CategoryName isOpen={isOpen}>Navigator</CategoryName>
+          <NavigatorContainer isOpen={isOpen} />
+          <CategoryName isOpen={isOpen}>Channels</CategoryName>
+          <ChannelContainer isOpen={isOpen} />
+        </Wrapper>
+      </BackGround>
+    </Dimmed>
   );
 }
+
+const Dimmed = styled.div<{
+  $isOpen: boolean;
+}>`
+  width: 100vh;
+  height: 100vh;
+
+  display: ${(props) => (props.$isOpen ? 'block' : 'none')};
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(1px);
+
+  position: absolute;
+  z-index: 100;
+  top: 0;
+  left: 0;
+  bottom: 0;
+`;
 
 const BackGround = styled.nav`
   height: 800px;
@@ -41,6 +66,14 @@ const BackGround = styled.nav`
   flex-direction: column;
   align-items: center;
   padding-left: 24px;
+
+  @media (max-width: 768px) {
+    height: 100vh;
+
+    padding-left: 0;
+
+    position: absolute;
+  }
 `;
 
 const Wrapper = styled.div<{
@@ -62,6 +95,12 @@ const Wrapper = styled.div<{
 
   @media (max-width: 1024px) {
     width: 72px;
+  }
+
+  @media (max-width: 768px) {
+    border-radius: 0;
+    width: ${(props) => (props.$isOpen ? '240px' : '0')};
+    padding: 0;
   }
 `;
 

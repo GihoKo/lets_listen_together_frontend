@@ -44,4 +44,8 @@ const Button = styled.button`
   @media (max-width: 1024px) {
     display: none;
   }
+
+  @media (max-width: 768px) {
+    display: flex;
+  }
 `;

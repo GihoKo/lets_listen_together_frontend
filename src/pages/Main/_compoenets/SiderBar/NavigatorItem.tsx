@@ -42,6 +42,10 @@ const Wrapper = styled(Link)<{ $isFocused: boolean }>`
   &:hover {
     background-color: ${(props) => (props.$isFocused ? 'var(--mint7)' : 'var(--grey-grey300)')};
   }
+
+  @media (max-width: 768px) {
+    gap: 8px;
+  }
 `;
 
 const ImageBox = styled.div`
@@ -73,5 +77,10 @@ const Name = styled.div<{ $isOpen: boolean; $isFocused: boolean }>`
 
   @media (max-width: 1024px) {
     display: none;
+  }
+
+  @media (max-width: 768px) {
+    display: block;
+    font-size: 14px;
   }
 `;
