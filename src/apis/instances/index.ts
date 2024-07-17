@@ -50,12 +50,12 @@ axiosInstanceWithToken.interceptors.response.use(
       return Promise.reject(error);
     }
 
-    // 토큰 관리
+    // accessToken 관리
+    // refreshToken가 문제가 있는 경우 renewTokens함수에서 에러처리
     try {
       const { setAccessToken } = useApplicationAuthTokenStore.getState();
       const originalRequest = error.config;
 
-      // 1. accessToken이 없거나 만료된 경우
       if (error.response?.status === 401) {
         // accessToken 갱신
         const newAccessToken = await renewTokens();
@@ -86,11 +86,6 @@ axiosInstanceWithToken.interceptors.response.use(
       if (!axios.isAxiosError(error)) {
         handleUnexpectedError(error);
         return Promise.reject(error);
-      }
-      // 2. accessToken을 새로 요청했을 때 refreshToken이 만료되거나 잘못된 경우 로그아웃 처리
-      if (error.response?.status === 401) {
-        window.location.href = '/signIn';
-        return null;
       }
     }
 

@@ -6,7 +6,6 @@ import { useNavigate } from 'react-router-dom';
 import { useGoogleLogin } from '@react-oauth/google';
 import { useApplicationAuthTokenStore, useGoogleOAuthTokenStore } from '../../../store/useAuthStore';
 import { useUserStore } from '../../../store/useUserStore';
-import { useEffect } from 'react';
 
 export default function useGoogleLoginButton() {
   const navigate = useNavigate();
@@ -23,6 +22,10 @@ export default function useGoogleLoginButton() {
           setGoogleOAuthToken(response.data.googleAccessToken);
           setUser(response.data.user);
         });
+
+        if (accessToken && googleOAuthToken && user) {
+          navigate('/main');
+        }
       } catch (error) {
         console.error(error);
       }
@@ -32,12 +35,6 @@ export default function useGoogleLoginButton() {
     },
     flow: 'auth-code',
   });
-
-  useEffect(() => {
-    if (accessToken && googleOAuthToken && user) {
-      navigate('/main');
-    }
-  }, [accessToken, googleOAuthToken, user]);
 
   return { login };
 }
