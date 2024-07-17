@@ -26,6 +26,9 @@ const Wrapper = styled.button`
   }
 
   @media (max-width: 768px) {
+    width: 40px;
+    height: 40px;
+
     display: block;
   }
 `;

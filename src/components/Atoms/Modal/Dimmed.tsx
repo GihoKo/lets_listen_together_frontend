@@ -3,9 +3,11 @@ import styled from 'styled-components';
 
 // types
 import { DimmedProps } from './Dimmed.type';
+import useModalStore from '@/store/useModalStore';
 
 export default function Dimmed({ children }: DimmedProps) {
-  return <Wrapper>{children}</Wrapper>;
+  const { closeModal } = useModalStore();
+  return <Wrapper onClick={closeModal}>{children}</Wrapper>;
 }
 
 const Wrapper = styled.div`

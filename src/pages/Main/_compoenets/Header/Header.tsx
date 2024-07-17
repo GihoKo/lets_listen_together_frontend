@@ -35,6 +35,10 @@ const Wrapper = styled.header`
   align-items: center;
 
   padding: 0 16px;
+
+  @media (max-width: 768px) {
+    height: 56px;
+  }
 `;
 
 const Left = styled.div`
@@ -43,4 +47,8 @@ const Left = styled.div`
   align-items: center;
 
   gap: 16px;
+
+  @media (max-width: 768px) {
+    gap: 8px;
+  }
 `;
