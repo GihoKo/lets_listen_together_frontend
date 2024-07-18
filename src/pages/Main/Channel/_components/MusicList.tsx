@@ -79,6 +79,7 @@ const Title = styled.div`
 
   @media (max-width: 768px) {
     font-size: 20px;
+    color: var(--grey-grey900);
   }
 `;
 

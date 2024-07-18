@@ -8,6 +8,7 @@ import mediaPlaySvg from '../../../../images/svg/media-play.svg';
 import mediaStopSvg from '../../../../images/svg/media-stop.svg';
 import previosMusicSvg from '../../../../images/svg/previous-music.svg';
 import nextMusicSvg from '../../../../images/svg/next-music.svg';
+import mockImage from '@/images/dummyImage.png';
 
 export interface VideoData {
   id: string;
@@ -146,12 +147,12 @@ export default function MusicPlayer({ currentMusic, playNextMusic, playPrevMusic
     playerRef.current?.seekTo((clickedPositionX / progressBarWidth) * totalTime, true);
   };
 
-  if (!currentMusic) return null;
+  if (!currentMusic) return <NoPlayer>음악을 선택해주세요!</NoPlayer>;
 
   return (
     <Wrapper>
       <ImageBox>
-        <img src={videoData?.thumbnails} alt='비디오 썸네일 이미지' />
+        <img src={videoData?.thumbnails ? videoData?.thumbnails : mockImage} alt='비디오 썸네일 이미지' />
       </ImageBox>
       <Title>{currentMusic.title}</Title>
       <Artist>{currentMusic.artist}</Artist>
@@ -180,6 +181,22 @@ export default function MusicPlayer({ currentMusic, playNextMusic, playPrevMusic
   );
 }
 
+const NoPlayer = styled.div`
+  display: none;
+
+  @media (max-width: 768px) {
+    width: 100vw;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-size: 24px;
+    color: var(--grey-grey600);
+    font-weight: bold;
+  }
+`;
+
 const Wrapper = styled.div`
   border-radius: 12px;
   width: 100%;
@@ -192,6 +209,15 @@ const Wrapper = styled.div`
 
   background-color: var(--grey-grey150);
   padding: 48px 0px;
+
+  @media (max-width: 768px) {
+    border-radius: 0;
+    width: 100vw;
+    max-width: none;
+    height: auto;
+
+    gap: 0px;
+  }
 `;
 
 const ImageBox = styled.div`
