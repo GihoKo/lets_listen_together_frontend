@@ -38,6 +38,7 @@ const Main = styled.main`
 
 const Right = styled.div`
   flex-grow: 1;
+  height: calc(100vh - 72px);
 
   display: flex;
   flex-direction: column;
@@ -46,5 +47,9 @@ const Right = styled.div`
 
   &::-webkit-scrollbar {
     display: none;
+  }
+
+  @media (max-width: 768px) {
+    height: calc(100vh - 56px);
   }
 `;
