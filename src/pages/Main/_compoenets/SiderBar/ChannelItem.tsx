@@ -48,6 +48,10 @@ const Wrapper = styled(Link)<{ $isCurrentChannel: boolean }>`
   &:hover {
     background-color: ${(props) => (props.$isCurrentChannel ? 'var(--mint7)' : 'var(--grey-grey300)')};
   }
+
+  @media (max-width: 768px) {
+    gap: 8px;
+  }
 `;
 
 const ImageWrapper = styled.div`
@@ -80,5 +84,10 @@ const Name = styled.div<{ $isOpen: boolean; $isCurrentChannel: boolean }>`
 
   @media (max-width: 1024px) {
     display: none;
+  }
+
+  @media (max-width: 768px) {
+    display: block;
+    font-size: 14px;
   }
 `;

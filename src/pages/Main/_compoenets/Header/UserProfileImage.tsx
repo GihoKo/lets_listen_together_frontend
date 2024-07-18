@@ -12,7 +12,7 @@ import defaultProfileImage from '@/images/dummyImage.png';
 
 export default function UserProfileImage({ profileImage }: UserProfileImageProps) {
   return (
-    <Wrapper to='/main/myPage'>
+    <Wrapper to='/main/myProfile'>
       <img src={profileImage ? profileImage : defaultProfileImage} />
     </Wrapper>
   );
@@ -35,5 +35,10 @@ const Wrapper = styled(Link)`
 
     object-fit: cover;
     cursor: pointer;
+  }
+
+  @media (max-width: 768px) {
+    width: 40px;
+    height: 40px;
   }
 `;

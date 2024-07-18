@@ -5,7 +5,6 @@ import styled from 'styled-components';
 import useSideBar from './SideBar.hook';
 
 // components
-import CreateChannelModal from '@/components/Organisms/Modal/CreateChannelModal';
 import SideBarToggleButton from './SideBarToggleButton';
 import CreateChannelButton from './CreateChannelButton';
 import CategoryName from './CategoryName';
@@ -14,23 +13,25 @@ import ChannelContainer from './ChannelContainer';
 
 export default function SideBar() {
   // logics
-  const { isOpen, handleSideBarToggleButtonClick, isModalOpen, handleCreateChannelModalOpenButtonClick } = useSideBar();
+  const { isOpen, handleToggle, handleCreateChannelModalOpenButtonClick, handleClose } = useSideBar();
 
   // view
   return (
-    <BackGround>
-      <Wrapper $isOpen={isOpen}>
-        {isModalOpen ? <CreateChannelModal /> : null}
-        <Header>
-          <SideBarToggleButton onClick={handleSideBarToggleButtonClick} isOpen={isOpen} />
-          <CreateChannelButton isOpen={isOpen} onClick={handleCreateChannelModalOpenButtonClick} />
-        </Header>
-        <CategoryName isOpen={isOpen}>Navigator</CategoryName>
-        <NavigatorContainer isOpen={isOpen} />
-        <CategoryName isOpen={isOpen}>Channels</CategoryName>
-        <ChannelContainer isOpen={isOpen} />
-      </Wrapper>
-    </BackGround>
+    <>
+      <BackGround>
+        <Wrapper $isOpen={isOpen}>
+          <Header>
+            <SideBarToggleButton onClick={handleToggle} isOpen={isOpen} />
+            <CreateChannelButton isOpen={isOpen} onClick={handleCreateChannelModalOpenButtonClick} />
+          </Header>
+          <CategoryName isOpen={isOpen}>Navigator</CategoryName>
+          <NavigatorContainer isOpen={isOpen} />
+          <CategoryName isOpen={isOpen}>Channels</CategoryName>
+          <ChannelContainer isOpen={isOpen} />
+        </Wrapper>
+      </BackGround>
+      <Dimmed $isOpen={isOpen} onClick={handleClose} />
+    </>
   );
 }
 
@@ -41,6 +42,16 @@ const BackGround = styled.nav`
   flex-direction: column;
   align-items: center;
   padding-left: 24px;
+
+  @media (max-width: 768px) {
+    height: 100%;
+
+    padding-left: 0;
+
+    position: absolute;
+    bottom: 0;
+    z-index: 100;
+  }
 `;
 
 const Wrapper = styled.div<{
@@ -63,6 +74,12 @@ const Wrapper = styled.div<{
   @media (max-width: 1024px) {
     width: 72px;
   }
+
+  @media (max-width: 768px) {
+    border-radius: 0;
+    width: ${(props) => (props.$isOpen ? '240px' : '0')};
+    padding: 0;
+  }
 `;
 
 const Header = styled.header`
@@ -72,4 +89,20 @@ const Header = styled.header`
   align-items: center;
 
   padding: 0 8px;
+`;
+
+const Dimmed = styled.div<{
+  $isOpen: boolean;
+}>`
+  display: none;
+
+  @media (max-width: 768px) {
+    display: ${(props) => (props.$isOpen ? 'block' : 'none')};
+
+    background-color: rgba(0, 0, 0, 0.5);
+
+    position: absolute;
+    inset: 0;
+    z-index: 10;
+  }
 `;

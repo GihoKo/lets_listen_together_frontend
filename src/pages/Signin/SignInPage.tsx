@@ -7,15 +7,10 @@ import useSignInPage from './SignInPage.hook';
 // components
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import GoogleLoginButton from './_components/GoogleLoginButton';
-import { useApplicationAuthTokenStore, useGoogleOAuthTokenStore } from '@/store/useAuthStore';
-import { useUserStore } from '@/store/useUserStore';
 
 export default function SignInPage() {
   // logics
   const { CLIENT_ID } = useSignInPage();
-  const accessToken = useApplicationAuthTokenStore.getState();
-  const googleOAuthToken = useGoogleOAuthTokenStore.getState();
-  const user = useUserStore.getState();
 
   // view
   if (!CLIENT_ID) {
@@ -26,15 +21,6 @@ export default function SignInPage() {
     <BackGround>
       <Container>
         <Header>간단하게 로그인 또는 회원가입하세요</Header>
-        <button
-          onClick={() => {
-            console.log(accessToken);
-            console.log(googleOAuthToken);
-            console.log(user);
-          }}
-        >
-          accessToken 확인
-        </button>
         <GoogleOAuthProvider clientId={CLIENT_ID}>
           <GoogleLoginButton />
         </GoogleOAuthProvider>

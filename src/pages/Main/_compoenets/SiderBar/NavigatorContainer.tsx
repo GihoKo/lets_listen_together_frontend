@@ -36,4 +36,8 @@ const Container = styled.div`
   gap: 8px;
 
   padding-bottom: 8px;
+
+  @media (max-width: 768px) {
+    padding: 8px;
+  }
 `;

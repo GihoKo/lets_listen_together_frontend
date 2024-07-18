@@ -47,6 +47,10 @@ const NoMusic = styled.div`
   font-size: 24px;
   color: var(--grey-grey600);
   font-weight: bold;
+
+  @media (max-width: 768px) {
+    height: 100vh;
+  }
 `;
 
 const Container = styled.div`
@@ -60,6 +64,10 @@ const Container = styled.div`
   overflow-y: scroll;
   &::-webkit-scrollbar {
     display: none;
+  }
+
+  @media (max-width: 768px) {
+    gap: 4px;
   }
 `;
 
@@ -80,5 +88,12 @@ const ScrollUpButton = styled.button`
 
   &:hover {
     transform: scale(1.2);
+  }
+
+  @media (max-width: 768px) {
+    width: 40px;
+    height: 40px;
+
+    margin-top: 8px;
   }
 `;

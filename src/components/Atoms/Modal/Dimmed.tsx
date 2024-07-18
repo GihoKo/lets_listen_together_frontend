@@ -1,11 +1,16 @@
 // libraries
 import styled from 'styled-components';
 
+// hooks
+
 // types
 import { DimmedProps } from './Dimmed.type';
+import useDimmed from './Dimmed.hook';
 
 export default function Dimmed({ children }: DimmedProps) {
-  return <Wrapper>{children}</Wrapper>;
+  const { handleModalClose } = useDimmed();
+
+  return <Wrapper onClick={handleModalClose}>{children}</Wrapper>;
 }
 
 const Wrapper = styled.div`

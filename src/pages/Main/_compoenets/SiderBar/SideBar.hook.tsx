@@ -1,19 +1,23 @@
 // hooks
 import useModalStore from '@/store/useModalStore';
-import { useState } from 'react';
 
 // types
 import { ModalType } from '@/types/enum';
 
 // components
 import CreateChannelModal from '@/components/Organisms/Modal/CreateChannelModal';
+import useSideBarStore from '@/store/useSideBarStore';
 
 export default function useSideBar() {
-  const [isOpen, setIsOpen] = useState(true);
-  const { openModal, isOpen: isModalOpen } = useModalStore();
+  const { isOpen, toggle, close } = useSideBarStore();
+  const { openModal } = useModalStore();
 
-  const handleSideBarToggleButtonClick = () => {
-    setIsOpen(!isOpen);
+  const handleToggle = () => {
+    toggle();
+  };
+
+  const handleClose = () => {
+    close();
   };
 
   const handleCreateChannelModalOpenButtonClick = () => {
@@ -22,8 +26,8 @@ export default function useSideBar() {
 
   return {
     isOpen,
-    handleSideBarToggleButtonClick,
-    isModalOpen,
+    handleToggle,
     handleCreateChannelModalOpenButtonClick,
+    handleClose,
   };
 }

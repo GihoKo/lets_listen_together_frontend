@@ -46,7 +46,7 @@ const Container = styled.ul`
   grid-template-columns: repeat(5, 1fr);
   gap: 16px;
 
-  padding: 24px;
+  margin-top: 16px;
 
   @media (max-width: 1440px) {
     grid-template-columns: repeat(3, 1fr);
@@ -54,8 +54,7 @@ const Container = styled.ul`
 
   @media (max-width: 1024px) {
     grid-template-columns: repeat(2, 1fr);
-    padding: 16px;
-    gap: 8px;
+    gap: 16px;
   }
 
   @media (max-width: 768px) {

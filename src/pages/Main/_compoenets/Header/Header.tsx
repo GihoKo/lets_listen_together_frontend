@@ -7,6 +7,7 @@ import useHeader from './Header.hook';
 // components
 import Logo from './Logo';
 import UserProfileImage from './UserProfileImage';
+import ToggleSideBarButton from './ToggleSideBarButton';
 
 export default function Header() {
   // logics
@@ -15,7 +16,10 @@ export default function Header() {
   // view
   return (
     <Wrapper>
-      <Logo />
+      <Left>
+        <ToggleSideBarButton />
+        <Logo />
+      </Left>
       <UserProfileImage profileImage={profileImage} />
     </Wrapper>
   );
@@ -31,4 +35,22 @@ const Wrapper = styled.header`
   align-items: center;
 
   padding: 0 16px;
+
+  @media (max-width: 768px) {
+    height: 56px;
+
+    padding: 0 8px;
+  }
+`;
+
+const Left = styled.div`
+  display: flex;
+
+  align-items: center;
+
+  gap: 16px;
+
+  @media (max-width: 768px) {
+    gap: 8px;
+  }
 `;

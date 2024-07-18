@@ -1,18 +1,13 @@
 // libraries
 import styled from 'styled-components';
 
-// hooks
-// import useMainPage from './MainPage.hook';
-
 // components
 import Header from './_compoenets/Header/Header';
 import SideBar from './_compoenets/SiderBar/SideBar';
 import { Outlet } from 'react-router-dom';
 
 export default function MainPage() {
-  //logics
-  // const { navigate } = useMainPage();
-
+  // view
   return (
     <Wrapper>
       <Header />

@@ -26,4 +26,13 @@ const Wrapper = styled.span<{
   @media (max-width: 1024px) {
     display: none;
   }
+
+  @media (max-width: 768px) {
+    display: flex;
+
+    padding-left: 16px;
+    font-size: 16px;
+    margin: 0;
+    margin-top: 8px;
+  }
 `;
