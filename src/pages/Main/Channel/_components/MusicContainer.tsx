@@ -61,6 +61,10 @@ const Container = styled.div`
   &::-webkit-scrollbar {
     display: none;
   }
+
+  @media (max-width: 768px) {
+    gap: 4px;
+  }
 `;
 
 const ScrollUpButton = styled.button`
@@ -80,5 +84,12 @@ const ScrollUpButton = styled.button`
 
   &:hover {
     transform: scale(1.2);
+  }
+
+  @media (max-width: 768px) {
+    width: 40px;
+    height: 40px;
+
+    margin-top: 8px;
   }
 `;

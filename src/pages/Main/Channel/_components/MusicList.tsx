@@ -50,6 +50,16 @@ const Wrapper = styled.div`
 
   background-color: var(--grey-grey150);
   padding: 16px 32px;
+
+  @media (max-width: 768px) {
+    border-radius: 0;
+    width: 100vw;
+    height: auto;
+
+    gap: 0px;
+
+    padding: 0 16px 8px 16px;
+  }
 `;
 
 const Header = styled.div`
@@ -66,6 +76,10 @@ const Header = styled.div`
 const Title = styled.div`
   font-size: 24px;
   color: var(--grey-grey600);
+
+  @media (max-width: 768px) {
+    font-size: 20px;
+  }
 `;
 
 const CreateMusicButton = styled.button`
@@ -85,6 +99,11 @@ const CreateMusicButton = styled.button`
 
   &:hover {
     transform: scale(1.2);
+  }
+
+  @media (max-width: 768px) {
+    width: 40px;
+    height: 40px;
   }
 `;
 

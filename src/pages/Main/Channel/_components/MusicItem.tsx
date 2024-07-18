@@ -15,6 +15,7 @@ import useModalStore from '../../../../store/useModalStore';
 import EditMusicModal from '../../../../components/Organisms/Modal/EditMusicModal';
 import DeleteMusicModal from '../../../../components/Organisms/Modal/DeleteMusicModal';
 import { ModalType } from '../../../../types/enum';
+import mockImage from '@/images/dummyImage.png';
 
 export default function MusicItem({ music, index, currentMusic }: MusicItemProps) {
   const { openModal } = useModalStore();
@@ -61,7 +62,7 @@ export default function MusicItem({ music, index, currentMusic }: MusicItemProps
     <Wrapper $isCurrentMusic={isCurrentMusic}>
       <Number $isCurrentMusic={isCurrentMusic}>{prefixZeroForNumber(index + 1)}</Number>
       <ImageBox>
-        <img src={musicImageUrl} alt='음악 이미지' />
+        <img src={musicImageUrl ? musicImageUrl : mockImage} alt='음악 이미지' />
       </ImageBox>
       <Middle>
         <Title $isCurrentMusic={isCurrentMusic}>{music.title}</Title>
@@ -93,6 +94,11 @@ const Wrapper = styled.div<{ $isCurrentMusic: boolean }>`
 
   background-color: ${({ $isCurrentMusic }) => ($isCurrentMusic ? 'var(--mint8)' : 'var(--grey-grey200)')};
   padding: 8px 20px;
+
+  @media (max-width: 768px) {
+    gap: 8px;
+    padding: 8px 16px;
+  }
 `;
 
 const Number = styled.div<{
@@ -103,6 +109,10 @@ const Number = styled.div<{
 
   color: ${({ $isCurrentMusic }) => ($isCurrentMusic ? 'var(--mint3)' : 'var(--grey-grey600)')};
   font-size: 18px;
+
+  @media (max-width: 768px) {
+    display: none;
+  }
 `;
 
 const ImageBox = styled.div`
@@ -120,6 +130,12 @@ const ImageBox = styled.div`
   img {
     width: 100%;
     height: 100%;
+    object-fit: cover;
+  }
+
+  @media (max-width: 768px) {
+    width: 40px;
+    height: 40px;
   }
 `;
 
@@ -137,6 +153,14 @@ const Title = styled.div<{
   color: ${({ $isCurrentMusic }) => ($isCurrentMusic ? 'var(--mint3)' : 'var(--grey-grey900)')};
   font-weight: 700;
   font-size: 16px;
+
+  @media (max-width: 768px) {
+    max-width: 152px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 14px;
+  }
 `;
 
 const Artist = styled.div<{
@@ -144,12 +168,24 @@ const Artist = styled.div<{
 }>`
   color: ${({ $isCurrentMusic }) => ($isCurrentMusic ? 'var(--mint6)' : 'var(--grey-grey600)')};
   font-size: 14px;
+
+  @media (max-width: 768px) {
+    max-width: 152px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 12px;
+  }
 `;
 
 const Right = styled.div`
   display: flex;
   align-items: center;
   gap: 8px;
+
+  @media (max-width: 768px) {
+    gap: 0px;
+  }
 `;
 
 const Button = styled.button`
@@ -169,6 +205,10 @@ const Button = styled.button`
     height: 100%;
 
     cursor: pointer;
+  }
+  @media (max-width: 768px) {
+    width: 32px;
+    height: 32px;
   }
 `;
 
