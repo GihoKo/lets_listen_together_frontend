@@ -1,5 +1,6 @@
 export interface Music {
   id: string;
+  order: number;
   title: string;
   artist: string;
   url: string;

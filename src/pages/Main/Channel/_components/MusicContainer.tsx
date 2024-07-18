@@ -7,9 +7,11 @@ import useMusicStore from '../../../../store/useMusicStore';
 
 interface MusicContainerProps {
   musicList: Music[];
+  isEditMode: boolean;
+  setMusicList: React.Dispatch<React.SetStateAction<Music[]>>;
 }
 
-export default function MusicContainer({ musicList }: MusicContainerProps) {
+export default function MusicContainer({ musicList, setMusicList, isEditMode }: MusicContainerProps) {
   const { music: currentMusic } = useMusicStore();
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -27,7 +29,14 @@ export default function MusicContainer({ musicList }: MusicContainerProps) {
     <>
       <Container ref={containerRef}>
         {musicList.map((music, index) => (
-          <MusicItem key={music.id} index={index} music={music} currentMusic={currentMusic} />
+          <MusicItem
+            key={music.id}
+            index={index}
+            music={music}
+            setMusicList={setMusicList}
+            currentMusic={currentMusic}
+            isEditMode={isEditMode}
+          />
         ))}
       </Container>
       <ScrollUpButton onClick={handleScrollUpButtonClick}>
@@ -67,7 +76,7 @@ const Container = styled.div`
   }
 
   @media (max-width: 768px) {
-    gap: 4px;
+    gap: 0px;
   }
 `;
 

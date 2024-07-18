@@ -1,29 +1,54 @@
 import styled from 'styled-components';
 import MusicContainer from './MusicContainer';
-import { Music } from '../_types/interface';
+import { Music } from '@/types/music';
 import addSquareSvg from '../../../../images/svg/add-square.svg';
 import useModalStore from '../../../../store/useModalStore';
 import CreateMusicModal from '../../../../components/Organisms/Modal/CreateMusicModal';
 import { useParams } from 'react-router-dom';
 import { ModalType } from '../../../../types/enum';
 import Guide from '../../../../components/Atoms/Badge/Guide';
+import { useState } from 'react';
+import useUpdateMusicOrder from '@/apis/hooks/useUpdateMusicListOrder';
 
 interface MusicListProps {
   musicList: Music[];
+  setMusicList: React.Dispatch<React.SetStateAction<Music[]>>;
 }
 
-export default function MusicList({ musicList }: MusicListProps) {
+export default function MusicList({ musicList, setMusicList }: MusicListProps) {
   const { openModal } = useModalStore();
   const { channelId } = useParams<{ channelId: string }>();
+  const uploadUpdateMusicOrder = useUpdateMusicOrder();
 
   const handleCreateMusicButtonButtonClick = () => {
-    openModal(ModalType.CREATE_MUSIC, <CreateMusicModal />, { channelId });
+    openModal(ModalType.CREATE_MUSIC, <CreateMusicModal />, { channelId, order: musicList.length });
+  };
+
+  const [isEditMode, setIsEditMode] = useState(false);
+
+  const handleEditButtonClick = () => {
+    setIsEditMode(true);
+  };
+
+  const handleEditConfirmButtonClick = () => {
+    uploadUpdateMusicOrder.mutate({ musicList });
+    setIsEditMode(false);
   };
 
   return (
     <Wrapper>
       <Header>
-        <Title>Music List</Title>
+        <Left>
+          <Title>Music List</Title>
+
+          <EditButton
+            type='button'
+            onClick={isEditMode ? handleEditConfirmButtonClick : handleEditButtonClick}
+            $isEditMode={isEditMode}
+          >
+            {isEditMode ? 'Confirm' : 'Edit'}
+          </EditButton>
+        </Left>
         <CreateMusicButton onClick={handleCreateMusicButtonButtonClick}>
           <img src={addSquareSvg} alt='음악 생성 버튼 이미지' />
         </CreateMusicButton>
@@ -33,7 +58,8 @@ export default function MusicList({ musicList }: MusicListProps) {
           </GuidePositioner>
         ) : null}
       </Header>
-      <MusicContainer musicList={musicList} />
+
+      <MusicContainer musicList={musicList} setMusicList={setMusicList} isEditMode={isEditMode} />
     </Wrapper>
   );
 }
@@ -58,7 +84,7 @@ const Wrapper = styled.div`
 
     gap: 0px;
 
-    padding: 0 16px 8px 16px;
+    padding: 0 0 8px;
   }
 `;
 
@@ -71,6 +97,15 @@ const Header = styled.div`
   align-items: center;
 
   position: relative;
+
+  @media (max-width: 768px) {
+    padding: 0 16px;
+  }
+`;
+
+const Left = styled.div`
+  display: flex;
+  gap: 8px;
 `;
 
 const Title = styled.div`
@@ -80,6 +115,21 @@ const Title = styled.div`
   @media (max-width: 768px) {
     font-size: 20px;
     color: var(--grey-grey900);
+  }
+`;
+
+const EditButton = styled.button<{
+  $isEditMode: boolean;
+}>`
+  border: ${({ $isEditMode }) => ($isEditMode ? '2px solid var(--mint3)' : '2px solid var(--grey-grey600)')};
+  border-radius: 8px;
+
+  font-weight: bold;
+  font-size: 16px;
+  color: ${({ $isEditMode }) => ($isEditMode ? 'var(--mint3)' : 'var(--grey-grey600)')};
+
+  @media (max-width: 768px) {
+    font-size: 14px;
   }
 `;
 
