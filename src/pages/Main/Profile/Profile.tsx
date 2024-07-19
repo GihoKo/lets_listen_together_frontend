@@ -19,6 +19,7 @@ export default function Profile() {
     <Wrapper>
       <MainTitle>Profile</MainTitle>
       <UserInfoBox>
+        <Description title='Notice' text='유저 정보를 수정하고 싶다면 Google에서 수정해주세요.' />
         <UserInfoContent>
           <ContentTitle>UserInfo</ContentTitle>
 
@@ -42,7 +43,6 @@ export default function Profile() {
             <InfoContentItemValue>{user.nickName}</InfoContentItemValue>
           </InfoContentItem>
         </UserInfoContent>
-        <Description title='Notice' text='유저 정보를 수정하고 싶다면 Google에서 수정해주세요.' />
       </UserInfoBox>
     </Wrapper>
   );
@@ -55,10 +55,10 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
 
-  padding: 0 32px;
+  padding: 24px;
 
   @media (max-width: 768px) {
-    padding: 0 16px;
+    padding: 16px;
   }
 `;
 

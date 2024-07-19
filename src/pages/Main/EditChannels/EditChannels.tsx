@@ -42,10 +42,10 @@ const Wrapper = styled.div`
 
   display: flex;
   flex-direction: column;
-  padding: 0 32px 32px 32px;
+  padding: 24px;
 
   @media (max-width: 992px) {
-    padding: 0 16px 16px 16px;
+    padding: 16px;
   }
 `;
 

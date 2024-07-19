@@ -11,7 +11,7 @@ export default function MainTitle({ children }: MainTitleProps) {
 const Wrapper = styled.h1`
   border-bottom: 2px solid var(--grey-grey300);
 
-  font-size: 56px;
+  font-size: 40px;
   font-weight: bold;
   padding-bottom: 24px;
 

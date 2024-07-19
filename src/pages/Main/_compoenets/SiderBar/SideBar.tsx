@@ -39,13 +39,12 @@ const BackGround = styled.nav`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-left: 24px;
-  padding-bottom: 24px;
+  padding: 24px 0 24px 24px;
 
   @media (max-width: 768px) {
     height: 100%;
 
-    padding-left: 0;
+    padding: 0;
 
     position: absolute;
     bottom: 0;
@@ -57,6 +56,7 @@ const Wrapper = styled.div<{
   $isOpen: boolean;
 }>`
   border-radius: 12px;
+  border: 1px solid var(--grey-grey300);
   width: ${(props) => (props.$isOpen ? '240px' : '72px')};
   flex-grow: 1;
 

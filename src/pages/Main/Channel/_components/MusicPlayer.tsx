@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { formatTime } from '../../../../utils/formatNumber';
 import { Music } from '../_types/interface';
 import extractYouTubeVideoId from '../../../../utils/extractYouTubeVideoId';
-import mediaPlaySvg from '../../../../images/svg/media-play.svg';
+import mediaPlaySvg from '../../../../images/svg/media-play-black.svg';
 import mediaStopSvg from '../../../../images/svg/media-stop.svg';
 import previosMusicSvg from '../../../../images/svg/previous-music.svg';
 import nextMusicSvg from '../../../../images/svg/next-music.svg';
@@ -182,33 +182,33 @@ export default function MusicPlayer({ currentMusic, playNextMusic, playPrevMusic
 }
 
 const NoPlayer = styled.div`
-  display: none;
+  width: 100%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background-color: var(--grey-grey100);
+  font-size: 24px;
+  color: var(--grey-grey600);
+  font-weight: bold;
 
   @media (max-width: 768px) {
     width: 100vw;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    font-size: 24px;
-    color: var(--grey-grey600);
-    font-weight: bold;
   }
 `;
 
 const Wrapper = styled.div`
-  border-radius: 12px;
   width: 100%;
-  max-width: 320px;
-  height: 800px;
+  max-width: 480px;
 
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
 
-  background-color: var(--grey-grey150);
-  padding: 48px 0px;
+  background-color: var(--grey-grey100);
+  padding: 48px 36px;
 
   @media (max-width: 768px) {
     border-radius: 0;
@@ -221,39 +221,41 @@ const Wrapper = styled.div`
 `;
 
 const ImageBox = styled.div`
-  border: 1px solid #000;
+  border: 2px solid var(--mint5);
   border-radius: 24px;
-  width: 240px;
-  height: 240px;
+  width: 100%;
+  aspect-ratio: 4 / 3;
 
   display: flex;
   justify-content: center;
   align-items: center;
 
+  box-shadow: 0 0 10px var(--mint5);
   overflow: hidden;
   background-color: #000;
 
   img {
     width: 100%;
     height: 100%;
-    object-fit: contain;
+    object-fit: cover;
   }
 `;
 
 const Title = styled.div`
   margin-top: 16px;
   font-size: 20px;
-  color: var(--grey-grey900);
+  font-weight: bold;
+  color: var(--mint2);
 `;
 
 const Artist = styled.div`
   margin-top: 8px;
   font-size: 16px;
-  color: var(--grey-grey600);
+  color: var(--mint6);
 `;
 
 const TimeBox = styled.div`
-  width: 240px;
+  width: 100%;
 
   display: flex;
   flex-direction: column;
@@ -271,10 +273,12 @@ const TimeBoxPositioner = styled.div`
 
 const ProgressBar = styled.div`
   border-radius: 6px;
+  border: 1px solid var(--mint5);
   width: 100%;
-  height: 8px;
+  height: 12px;
 
-  background-color: var(--grey-grey600);
+  background-color: var(--mint8);
+  box-shadow: 0 0 10px var(--mint5);
 
   position: relative;
 
@@ -296,7 +300,7 @@ const ProgressTrack = styled.div<{
 
 const Time = styled.div`
   font-size: 14px;
-  color: var(--grey-grey600);
+  color: var(--mint5);
 `;
 
 const CurrentTime = styled(Time)``;
@@ -334,8 +338,19 @@ const PreviousMusicButton = styled(PlayButton)`
 `;
 
 const TogglePlayButton = styled(PlayButton)`
-  width: 48px;
-  height: 48px;
+  border-radius: 50%;
+  width: 64px;
+  height: 64px;
+
+  padding: 16px;
+  overflow: hidden;
+  background-color: var(--mint5);
+  box-shadow: 0 0 10px var(--mint5);
+
+  img {
+    width: 100%;
+    height: 100%;
+  }
 `;
 
 const NextMusicButton = styled(PlayButton)`

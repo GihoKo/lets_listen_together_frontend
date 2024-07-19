@@ -63,7 +63,9 @@ const NoMusic = styled.div`
 `;
 
 const Container = styled.div`
+  border-bottom: 1px solid var(--grey-grey300);
   width: 100%;
+  height: 1px;
   flex-grow: 1;
 
   display: flex;

@@ -184,7 +184,6 @@ const GlobalStyles = createGlobalStyle`
     --yellow-galaxyYellowDark4: #695900;
     --yellow-galaxyYellowDark5: #463b00;
     --yellow-galaxyYellowDark6: #231d00;
-
     --white: #FFFFFF; //white
     --mint1: #EEFFF3; 
     --mint2: #DCFEE6; 

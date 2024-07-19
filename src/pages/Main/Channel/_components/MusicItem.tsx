@@ -3,7 +3,6 @@ import { MusicItemProps } from '../_types/interface';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import extractYouTubeVideoId from '../../../../utils/extractYouTubeVideoId';
-import mediaPlaySvg from '../../../../images/svg/media-play.svg';
 import mediaPlayFocusedSvg from '../../../../images/svg/media-play-focused.svg';
 import editSvg from '../../../../images/svg/edit.svg';
 import editFocusedSvg from '../../../../images/svg/edit-focused.svg';
@@ -20,6 +19,7 @@ import upChevron from '@/images/svg/up-chevron.svg';
 import upChveronFocused from '@/images/svg/up-chevron-focused.svg';
 import downChevron from '@/images/svg/down-chevron.svg';
 import downChevronFocused from '@/images/svg/down-chevron-focused.svg';
+import mediaPlayGregSvg from '../../../../images/svg/media-play-grey.svg';
 
 export default function MusicItem({ music, index, currentMusic, setMusicList, isEditMode }: MusicItemProps) {
   const { openModal } = useModalStore();
@@ -150,7 +150,7 @@ export default function MusicItem({ music, index, currentMusic, setMusicList, is
           </Middle>
           <Right>
             <PlayButton type='button' onClick={handlePlayButtonClick}>
-              <img src={isCurrentMusic ? mediaPlayFocusedSvg : mediaPlaySvg} alt='음악 재생 버튼 이미지' />
+              <img src={isCurrentMusic ? mediaPlayFocusedSvg : mediaPlayGregSvg} alt='음악 재생 버튼 이미지' />
             </PlayButton>
           </Right>
         </Wrapper>
@@ -161,7 +161,7 @@ export default function MusicItem({ music, index, currentMusic, setMusicList, is
 
 const Wrapper = styled.div<{ $isCurrentMusic: boolean }>`
   border-radius: 12px;
-  border: ${({ $isCurrentMusic }) => ($isCurrentMusic ? '2px solid var(--mint5)' : '2px solid var(--grey-grey150)')};
+  border: ${({ $isCurrentMusic }) => ($isCurrentMusic ? '2px solid var(--mint5)' : '1px solid var(--grey-grey300)')};
   min-width: 300px;
   width: 100%;
   height: 72px;
@@ -170,7 +170,10 @@ const Wrapper = styled.div<{ $isCurrentMusic: boolean }>`
   align-items: center;
   gap: 16px;
 
-  background-color: ${({ $isCurrentMusic }) => ($isCurrentMusic ? 'var(--mint8)' : 'var(--grey-grey200)')};
+  background: ${({ $isCurrentMusic }) =>
+    $isCurrentMusic
+      ? 'linear-gradient(120deg, rgba(92,126,102,1) 0%, rgba(138,189,153,1) 100%)'
+      : 'var(--grey-grey200)'};
   padding: 8px 20px;
 
   @media (max-width: 768px) {
@@ -225,7 +228,7 @@ const OrderButton = styled.button`
 `;
 
 const ImageBox = styled.div`
-  border-radius: 12px;
+  border-radius: 50%;
   flex-shrink: 0;
 
   display: flex;
@@ -233,8 +236,8 @@ const ImageBox = styled.div`
   align-items: center;
   overflow: hidden;
 
-  width: 60px;
-  height: 60px;
+  width: 48px;
+  height: 48px;
 
   img {
     width: 100%;
@@ -243,8 +246,8 @@ const ImageBox = styled.div`
   }
 
   @media (max-width: 768px) {
-    width: 40px;
-    height: 40px;
+    width: 48px;
+    height: 48px;
   }
 `;
 
