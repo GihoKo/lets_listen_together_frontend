@@ -32,5 +32,5 @@
     "noFallthroughCasesInSwitch": true,
     "incremental": true
   },
-  "include": ["src", "src/styles", "utils", "custom.d.ts"]
+  "include": ["custom.d.ts"]
 }
