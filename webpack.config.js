@@ -2,6 +2,7 @@ var path = require('path');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var CleanWebpackPlugin = require('clean-webpack-plugin');
 var Dotenv = require('dotenv-webpack');
+var CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
   mode: 'development',
@@ -52,11 +53,18 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: 'index.html',
+      template: './public/index.html',
     }),
     new CleanWebpackPlugin.CleanWebpackPlugin(),
     new Dotenv({
       path: './.env.local', // .env.local 파일을 명시적으로 지정
+    }),
+    new CopyWebpackPlugin({
+      patterns: [
+        { from: 'public/icon-192x192.png', to: 'icon-192x192.png' },
+        { from: 'public/icon-512x512.png', to: 'icon-512x512.png' },
+        { from: 'public/manifest.json', to: 'manifest.json' },
+      ],
     }),
   ],
   devServer: {
