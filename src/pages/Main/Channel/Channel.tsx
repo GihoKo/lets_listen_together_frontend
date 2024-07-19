@@ -99,16 +99,17 @@ const Content = styled.div<{
   width: 100%;
   height: 100%;
 
-  display: flex;
-  gap: 32px;
-  justify-items: center;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+  padding: 24px;
 
-  padding: 0 32px;
+  justify-items: center;
 
   @media (max-width: 768px) {
     width: 200vw;
 
-    gap: 0;
+    gap: 0px;
     padding: 0 0 52px 0;
 
     transition: transform 0.3s;
@@ -117,11 +118,10 @@ const Content = styled.div<{
 `;
 
 const TapContainer = styled.div`
+  border-top: 1px solid var(--grey-grey300);
   display: none;
 
   width: 100%;
-
-  font-size: 24px;
 
   background-color: var(--grey-grey100);
 
@@ -140,8 +140,10 @@ const TapButton = styled.button<{
 }>`
   flex-grow: 1;
 
+  font-size: 16px;
   padding: 16px 0;
   cursor: pointer;
 
-  background-color: ${({ $isFocused }) => ($isFocused ? 'var(--grey-grey300)' : 'var(--grey-grey100)')};
+  color: ${({ $isFocused }) => ($isFocused ? 'var(--mint9)' : 'var(--mint5)')};
+  background-color: ${({ $isFocused }) => ($isFocused ? 'var(--mint5)' : 'var(--grey-grey100)')};
 `;

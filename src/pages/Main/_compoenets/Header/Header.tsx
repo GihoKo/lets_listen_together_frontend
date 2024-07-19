@@ -26,6 +26,7 @@ export default function Header() {
 }
 
 const Wrapper = styled.header`
+  border-bottom: 1px solid var(--grey-grey300);
   width: 100%;
   height: 72px;
   flex-shrink: 0;
@@ -34,6 +35,7 @@ const Wrapper = styled.header`
   justify-content: space-between;
   align-items: center;
 
+  background-color: var(--grey-grey150);
   padding: 0 16px;
 
   @media (max-width: 768px) {

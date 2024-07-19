@@ -39,8 +39,6 @@ export default function MusicList({ musicList, setMusicList }: MusicListProps) {
     <Wrapper>
       <Header>
         <Left>
-          <Title>Music List</Title>
-
           <EditButton
             type='button'
             onClick={isEditMode ? handleEditConfirmButtonClick : handleEditButtonClick}
@@ -66,8 +64,8 @@ export default function MusicList({ musicList, setMusicList }: MusicListProps) {
 
 const Wrapper = styled.div`
   border-radius: 12px;
+  border: 1px solid var(--grey-grey300);
   width: 100%;
-  height: 800px;
 
   display: flex;
   flex-direction: column;
@@ -85,6 +83,8 @@ const Wrapper = styled.div`
     gap: 0px;
 
     padding: 0 0 8px;
+
+    margin-top: 0;
   }
 `;
 
@@ -108,25 +108,17 @@ const Left = styled.div`
   gap: 8px;
 `;
 
-const Title = styled.div`
-  font-size: 24px;
-  color: var(--grey-grey600);
-
-  @media (max-width: 768px) {
-    font-size: 20px;
-    color: var(--grey-grey900);
-  }
-`;
-
 const EditButton = styled.button<{
   $isEditMode: boolean;
 }>`
-  border: ${({ $isEditMode }) => ($isEditMode ? '2px solid var(--mint3)' : '2px solid var(--grey-grey600)')};
+  border: ${({ $isEditMode }) => ($isEditMode ? '2px solid var(--mint3)' : '1px solid var(--grey-grey600)')};
   border-radius: 8px;
 
   font-weight: bold;
   font-size: 16px;
   color: ${({ $isEditMode }) => ($isEditMode ? 'var(--mint3)' : 'var(--grey-grey600)')};
+
+  cursor: pointer;
 
   @media (max-width: 768px) {
     font-size: 14px;
