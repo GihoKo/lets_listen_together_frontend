@@ -25,8 +25,8 @@ export default function useNavigatorContainer() {
       icon: [homeSvg, homeFocusedSvg], // [default, focused]
     },
     {
-      name: 'MyProfile',
-      path: '/main/myProfile',
+      name: 'Profile',
+      path: '/main/Profile',
       icon: [personSvg, personFocusedSvg],
     },
     {
