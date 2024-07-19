@@ -12,11 +12,12 @@ export default function useCreateMusicModal() {
   if (type !== ModalType.CREATE_MUSIC) return null;
 
   const upLoadMusicMutation = useCreateMusic();
-  const modalProps = props as { channelId: string };
+  const modalProps = props as { channelId: string; order: number };
   const [musicData, setMusicData] = useState({
     title: '',
     artist: '',
     url: '',
+    order: 0,
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -30,6 +31,7 @@ export default function useCreateMusicModal() {
     e.preventDefault();
     const music = {
       channelId: modalProps.channelId,
+      order: modalProps.order,
       title: musicData.title,
       artist: musicData.artist,
       url: musicData.url,

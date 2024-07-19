@@ -74,7 +74,7 @@ export default function Channel() {
     <>
       <Content $currentTapValue={currentTapValue}>
         <MusicPlayer currentMusic={currentMusic} playNextMusic={playNextMusic} playPrevMusic={playPrevMusic} />
-        <MusicList musicList={musicList} />
+        <MusicList musicList={musicList} setMusicList={setMusicList} />
       </Content>
       <TapContainer>
         {personalTap.map((tap) => (

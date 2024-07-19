@@ -1,5 +1,6 @@
 import { axiosInstanceWithToken } from '../instances';
 import { Channel } from '../../types/channel';
+import { Music } from '@/types/music';
 
 export const getAllchannelLists = async () => {
   try {
@@ -56,5 +57,14 @@ export const getMusicsByChannelId = async (channelId: string | undefined) => {
     return response.data;
   } catch (e) {
     console.error(e);
+  }
+};
+
+export const updateMusicListOrder = async (musicList: Music[]) => {
+  try {
+    const response = await axiosInstanceWithToken.patch('/channels/music-order', musicList);
+    return response.data;
+  } catch (error) {
+    console.error(error);
   }
 };

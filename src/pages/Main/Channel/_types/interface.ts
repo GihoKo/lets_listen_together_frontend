@@ -1,5 +1,6 @@
 export interface Music {
   id: string;
+  order: number;
   title: string;
   artist: string;
   url: string;
@@ -12,6 +13,8 @@ export interface MusicItemProps {
   index: number;
   music: Music;
   currentMusic: Music | null;
+  isEditMode: boolean;
+  setMusicList: React.Dispatch<React.SetStateAction<Music[]>>;
 }
 
 export interface ChatMessage {
