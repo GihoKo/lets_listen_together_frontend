@@ -1,5 +1,4 @@
 import { axiosInstanceWithToken } from '../instances';
-import { Channel } from '../../types/channel';
 import { Music } from '@/types/music';
 
 export const getAllchannelLists = async () => {
@@ -11,7 +10,7 @@ export const getAllchannelLists = async () => {
   }
 };
 
-export const getChannelById = async (channelId: string) => {
+export const getChannelById = async (channelId: string | undefined) => {
   try {
     const response = await axiosInstanceWithToken.get(`/channels/${channelId}`);
     return response.data;
@@ -33,9 +32,14 @@ export const createChannel = async (channel: FormData) => {
   }
 };
 
-export const updateChannel = async (channelId: string, channel: Channel) => {
+export const updateChannel = async (channelId: string, channel: FormData) => {
+  console.log(channelId, channel);
   try {
-    const response = await axiosInstanceWithToken.patch(`/channels/${channelId}`, { channel });
+    const response = await axiosInstanceWithToken.patch(`/channels/${channelId}`, channel, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
     return response.data;
   } catch (error) {
     console.error(error);

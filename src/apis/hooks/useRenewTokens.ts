@@ -1,13 +1,13 @@
 import { useQuery } from '@tanstack/react-query';
 import { renewTokens } from '../services/auth';
 
-interface AccessToken {
-  accessToken: string;
+interface ApplicationAccessToken {
+  applicationAccessToken: string;
 }
 
 export default function useRenewTokens() {
   const queryKey = ['tokens'];
-  return useQuery<AccessToken, Error>({
+  return useQuery<ApplicationAccessToken, Error>({
     queryKey: queryKey,
     queryFn: renewTokens,
   });

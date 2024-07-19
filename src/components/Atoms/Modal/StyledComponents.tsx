@@ -97,3 +97,45 @@ export const Tag = styled.div`
     background-color: var(--mint7);
   }
 `;
+
+export const ChannelImageWrapper = styled.button`
+  border-radius: 16px;
+  width: 120px;
+  height: 120px;
+
+  overflow: hidden;
+  padding: 0;
+
+  cursor: pointer;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    cursor: pointer;
+  }
+`;
+
+export const EmptyImage = styled.div`
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  color: var(--grey-grey600);
+  background-color: var(--grey-grey150);
+
+  cursor: pointer;
+
+  &:hover {
+    background-color: var(--grey-grey200);
+  }
+`;
+
+export const ChannelImageLabel = styled(Label)``;
+
+export const FileInput = styled.input`
+  display: none;
+`;
