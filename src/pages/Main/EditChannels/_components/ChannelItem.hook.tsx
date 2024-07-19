@@ -7,20 +7,22 @@ import DeleteChannelModal from '@/components/Organisms/Modal/DeleteChannelModal'
 // types
 import { Channel } from '@/types/channel';
 import { ModalType } from '@/types/enum';
+import EditChannelModal from '@/components/Organisms/Modal/EditChannelModal';
 
 interface ChannelItemProps {
   channel: Channel;
-  EdittedChannel: Channel | null;
 }
 
-export default function useChannelItem({ channel, EdittedChannel }: ChannelItemProps) {
+export default function useChannelItem({ channel }: ChannelItemProps) {
   const { openModal } = useModalStore();
-
-  const isEditted = channel.id === EdittedChannel?.id;
 
   const handleDeleteModalButtonClick = () => {
     openModal(ModalType.DELETE_CHANNEL, <DeleteChannelModal />, { channelId: channel.id, channelName: channel.name });
   };
 
-  return { isEditted, handleDeleteModalButtonClick };
+  const handleEditModalButtonClick = () => {
+    openModal(ModalType.EDIT_CHANNEL, <EditChannelModal />, { channelId: channel.id, channelName: channel.name });
+  };
+
+  return { handleDeleteModalButtonClick, handleEditModalButtonClick };
 }

@@ -30,8 +30,8 @@ export default function useNavigatorContainer() {
       icon: [personSvg, personFocusedSvg],
     },
     {
-      name: 'MyOwnChannels',
-      path: '/main/myOwnChannels',
+      name: 'EditChannels',
+      path: '/main/EditChannels',
       icon: [channelListSvg, channelListFocusedSvg],
     },
   ];

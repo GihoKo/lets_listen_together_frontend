@@ -1,10 +1,9 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { Channel } from '../../types/channel';
 import { updateChannel } from '../services/channel';
 
 interface updateChannelParams {
   channelId: string;
-  channel: Channel;
+  channel: FormData;
 }
 
 export default function useUpdateChannel() {
@@ -13,7 +12,7 @@ export default function useUpdateChannel() {
     mutationFn: ({ channelId, channel }) => updateChannel(channelId, channel),
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: ['myOwnChannels, myChannels'],
+        queryKey: ['channels'],
       });
     },
   });

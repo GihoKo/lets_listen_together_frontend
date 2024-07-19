@@ -36,12 +36,11 @@ export default function SideBar() {
 }
 
 const BackGround = styled.nav`
-  height: 800px;
-
   display: flex;
   flex-direction: column;
   align-items: center;
   padding-left: 24px;
+  padding-bottom: 24px;
 
   @media (max-width: 768px) {
     height: 100%;

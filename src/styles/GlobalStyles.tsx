@@ -118,7 +118,7 @@ const GlobalStyles = createGlobalStyle`
 
   body {
     min-height: 100vh;
-    line-height: 1;
+    line-height: normal;
   }
 
   ol,

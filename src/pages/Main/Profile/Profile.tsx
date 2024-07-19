@@ -6,6 +6,7 @@ import useProfile from './Profile.hook';
 
 // components
 import MainTitle from '@/components/Atoms/Text/MainTitle';
+import Description from '@/components/Molecules/Description';
 
 export default function Profile() {
   // logics
@@ -41,10 +42,7 @@ export default function Profile() {
             <InfoContentItemValue>{user.nickName}</InfoContentItemValue>
           </InfoContentItem>
         </UserInfoContent>
-        <NoticeBox>
-          <ContentTitle>Notice</ContentTitle>
-          <NoticeText> 유저 정보를 수정하고 싶다면 Google에서 수정해주세요.</NoticeText>
-        </NoticeBox>
+        <Description title='Notice' text='유저 정보를 수정하고 싶다면 Google에서 수정해주세요.' />
       </UserInfoBox>
     </Wrapper>
   );
@@ -94,32 +92,6 @@ const UserInfoBox = styled.div`
 
     margin-top: 16px;
   }
-`;
-
-const NoticeBox = styled.div`
-  border-radius: 16px;
-  border: 1px solid var(--grey-grey300);
-  width: 320px;
-  height: 160px;
-
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-
-  padding: 32px;
-  background-color: var(--grey-grey150);
-
-  @media (max-width: 992px) {
-    width: 100%;
-
-    padding: 16px;
-  }
-`;
-
-const NoticeText = styled.span`
-  font-size: 16px;
-
-  color: var(--grey-grey600);
 `;
 
 const UserInfoContent = styled.div`

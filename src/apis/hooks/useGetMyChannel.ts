@@ -3,7 +3,7 @@ import { getMyChannelList } from '../services/user';
 import { Channel } from '../../types/channel';
 
 export default function useGetMyChannel(userId: string | undefined) {
-  const queryKey = ['myChannels'];
+  const queryKey = ['channels'];
   return useQuery<Channel[], Error>({
     queryKey: queryKey,
     queryFn: () => getMyChannelList(userId),

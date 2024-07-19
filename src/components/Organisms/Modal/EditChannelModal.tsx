@@ -1,31 +1,32 @@
+// libraries
+
 // hooks
-import useCreateChannelModal from './CreateChannelModal.hook';
+import useEditChannelModal from './EditChannelModal.hook';
 
 // components
-import Dimmed from '../../Atoms/Modal/Dimmed';
-import Button from '../../Atoms/Modal/Button';
 import {
-  Wrapper,
+  ButtonWrapper,
+  ChannelImageLabel,
+  ChannelImageWrapper,
+  Description,
+  EmptyImage,
+  FileInput,
   Form,
   FormField,
   Input,
   Label,
-  Title,
-  Description,
-  ButtonWrapper,
-  TagContainer,
   Tag,
-  ChannelImageLabel,
-  ChannelImageWrapper,
-  EmptyImage,
-  FileInput,
-} from '../../Atoms/Modal/StyledComponents';
+  TagContainer,
+  Title,
+  Wrapper,
+} from '@/components/Atoms/Modal/StyledComponents';
+import Button from '@/components/Atoms/Modal/Button';
+import Dimmed from '@/components/Atoms/Modal/Dimmed';
 
-export default function CreateChannelModal() {
+export default function EditChannelModal() {
   // logics
-  const logics = useCreateChannelModal();
+  const logics = useEditChannelModal();
 
-  // useCreateChannelModal hook에서 null을 반환할 수 있으므로 null 체크
   if (!logics) return null;
 
   const {
@@ -33,24 +34,30 @@ export default function CreateChannelModal() {
     tagValue,
     previewChannelImageUrl,
     fileInputRef,
+    modalProps,
+    isLoading,
+    isError,
     handleChannelImageClick,
     handleFileChange,
-    handleChangeChannelData,
     handleChangeTagValue,
-    handleAddTagKeyDown,
     handleDeleteTag,
     handleSubmit,
+    handleAddTagKeyDown,
+    handleChangeChannelData,
     closeModal,
   } = logics;
 
   // view
+  if (isLoading) return <div>Loading...</div>;
+  if (isError) return <div>Error...</div>;
+
   return (
     <Dimmed>
       <Wrapper>
-        <Title>채널 생성</Title>
-        <Description>나만의 채널을 생성해보세요!</Description>
-
         <Form onSubmit={handleSubmit}>
+          <Title>채널 수정</Title>
+          <Description>{`'${modalProps.channelName}' 채널 정보를 수정해보세요!`}</Description>
+
           <FormField>
             <ChannelImageLabel htmlFor='channelImage'>channelImage</ChannelImageLabel>
             <ChannelImageWrapper onClick={handleChannelImageClick}>
@@ -77,7 +84,7 @@ export default function CreateChannelModal() {
             <Label htmlFor='name'>채널 이름</Label>
             <Input
               name='name'
-              value={channelData.name}
+              value={channelData?.name}
               onChange={handleChangeChannelData}
               placeholder='채널 이름을 입력하세요.'
               type='text'
@@ -87,7 +94,7 @@ export default function CreateChannelModal() {
           <FormField>
             <Label htmlFor='tags'>태그</Label>
             <TagContainer>
-              {channelData.tags.map((tag) => (
+              {channelData?.tags.map((tag) => (
                 <Tag
                   key={tag}
                   onClick={() => {
@@ -112,16 +119,17 @@ export default function CreateChannelModal() {
             <Label htmlFor='description'>채널 설명</Label>
             <Input
               name='description'
-              value={channelData.description}
+              value={channelData?.description}
               onChange={handleChangeChannelData}
               placeholder='채널 설명을 입력하세요.'
               type='text'
               maxLength={10}
             />
           </FormField>
+
           <ButtonWrapper>
             <Button variant='confirm' type='submit'>
-              생성
+              수정
             </Button>
             <Button variant='close' type='button' onClick={closeModal}>
               취소
