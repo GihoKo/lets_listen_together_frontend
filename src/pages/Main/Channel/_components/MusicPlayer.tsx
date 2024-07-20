@@ -57,10 +57,12 @@ export default function MusicPlayer({ currentMusic, playNextMusic, playPrevMusic
 
   const initializePlayer = () => {
     if (!currentMusic?.url) return;
+    const videoId = extractYouTubeVideoId(currentMusic.url);
+    if (!videoId) return;
     playerRef.current = new window.YT.Player('player', {
       height: '360',
       width: '640',
-      videoId: extractYouTubeVideoId(currentMusic?.url),
+      videoId: videoId,
       events: {
         onReady: onPlayerReady,
         onStateChange: onPlayerStateChange,
@@ -69,11 +71,11 @@ export default function MusicPlayer({ currentMusic, playNextMusic, playPrevMusic
     console.log('initializePlayer');
   };
 
-  const onPlayerReady = (event: any) => {
+  const onPlayerReady = (event: YT.PlayerEvent) => {
     event.target.playVideo();
   };
 
-  const onPlayerStateChange = (event: any) => {
+  const onPlayerStateChange = (event: YT.OnStateChangeEvent) => {
     /**
      * onStateChange 이벤트
      * -1(시작되지 않음)
@@ -207,7 +209,7 @@ const Wrapper = styled.div`
   justify-content: center;
   align-items: center;
 
-  background-color: var(--grey-grey100);
+  background-color: var(--grey-grey200);
   padding: 48px 36px;
 
   @media (max-width: 768px) {
@@ -221,7 +223,6 @@ const Wrapper = styled.div`
 `;
 
 const ImageBox = styled.div`
-  border: 2px solid var(--mint5);
   border-radius: 24px;
   width: 100%;
   aspect-ratio: 4 / 3;
@@ -230,7 +231,6 @@ const ImageBox = styled.div`
   justify-content: center;
   align-items: center;
 
-  box-shadow: 0 0 10px var(--mint5);
   overflow: hidden;
   background-color: #000;
 
@@ -245,13 +245,13 @@ const Title = styled.div`
   margin-top: 16px;
   font-size: 20px;
   font-weight: bold;
-  color: var(--mint2);
+  color: var(--mint1);
 `;
 
 const Artist = styled.div`
   margin-top: 8px;
   font-size: 16px;
-  color: var(--mint6);
+  color: var(--grey-grey600);
 `;
 
 const TimeBox = styled.div`

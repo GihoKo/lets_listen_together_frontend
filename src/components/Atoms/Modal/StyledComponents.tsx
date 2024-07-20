@@ -11,6 +11,14 @@ export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 16px;
+
+  @media (max-width: 768px) {
+    width: 100%;
+
+    gap: 8px;
+
+    padding: 16px;
+  }
 `;
 
 export const Title = styled.div`
