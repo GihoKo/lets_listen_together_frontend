@@ -1,40 +1,25 @@
+// libraries
 import styled from 'styled-components';
-import MusicContainer from './MusicContainer';
-import { Music } from '@/types/music';
-import addSquareSvg from '../../../../images/svg/add-square.svg';
-import useModalStore from '../../../../store/useModalStore';
-import CreateMusicModal from '../../../../components/Organisms/Modal/CreateMusicModal';
-import { useParams } from 'react-router-dom';
-import { ModalType } from '../../../../types/enum';
-import Guide from '../../../../components/Atoms/Badge/Guide';
-import { useState } from 'react';
-import useUpdateMusicOrder from '@/apis/hooks/useUpdateMusicListOrder';
 
-interface MusicListProps {
-  musicList: Music[];
-  setMusicList: React.Dispatch<React.SetStateAction<Music[]>>;
-}
+// components
+import MusicContainer from './MusicContainer';
+import Guide from '../../../../components/Atoms/Badge/Guide';
+
+// types
+import { MusicListProps } from './MusicList.type';
+
+// images
+import addSquareSvg from '../../../../images/svg/add-square.svg';
+
+// hooks
+import useMusicList from './MusicList.hook';
 
 export default function MusicList({ musicList, setMusicList }: MusicListProps) {
-  const { openModal } = useModalStore();
-  const { channelId } = useParams<{ channelId: string }>();
-  const uploadUpdateMusicOrder = useUpdateMusicOrder();
+  // logics
+  const { isEditMode, handleCreateMusicButtonButtonClick, handleEditButtonClick, handleEditConfirmButtonClick } =
+    useMusicList({ musicList });
 
-  const handleCreateMusicButtonButtonClick = () => {
-    openModal(ModalType.CREATE_MUSIC, <CreateMusicModal />, { channelId, order: musicList.length });
-  };
-
-  const [isEditMode, setIsEditMode] = useState(false);
-
-  const handleEditButtonClick = () => {
-    setIsEditMode(true);
-  };
-
-  const handleEditConfirmButtonClick = () => {
-    uploadUpdateMusicOrder.mutate({ musicList });
-    setIsEditMode(false);
-  };
-
+  // view
   return (
     <Wrapper>
       <Header>
