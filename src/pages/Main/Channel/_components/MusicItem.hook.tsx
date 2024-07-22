@@ -13,12 +13,14 @@ import { getMusicImage } from '@/apis/services/youtube';
 // types
 import { ModalType } from '@/types/enum';
 import { UseMusicItemProps } from './MusicItem.type';
+import { useParams } from 'react-router-dom';
 
 export default function useMusicItem({ music, currentMusic, setMusicList }: UseMusicItemProps) {
   const { openModal } = useModalStore();
   const { setMusic } = useMusicStore();
   const [musicImageUrl, setMusicImageUrl] = useState<string>();
   const isCurrentMusic = currentMusic?.id === music.id;
+  const { channelId } = useParams();
 
   const handlePlayButtonClick = () => {
     setMusic(music);
@@ -26,12 +28,12 @@ export default function useMusicItem({ music, currentMusic, setMusicList }: UseM
 
   const handleEditMusicButtonClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.stopPropagation();
-    openModal(ModalType.EDIT_MUSIC, <EditMusicModal />, { music });
+    openModal(ModalType.EDIT_MUSIC, <EditMusicModal />, { music, channelId });
   };
 
   const handleDeleteButtonClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.stopPropagation();
-    openModal(ModalType.DELETE_MUSIC, <DeleteMusicModal />, { music });
+    openModal(ModalType.DELETE_MUSIC, <DeleteMusicModal />, { music, channelId });
   };
 
   const handleOrderUpButton = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
@@ -98,5 +100,6 @@ export default function useMusicItem({ music, currentMusic, setMusicList }: UseM
     handleOrderUpButton,
     handleOrderDownButton,
     musicImageUrl,
+    channelId,
   };
 }

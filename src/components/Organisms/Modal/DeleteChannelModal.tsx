@@ -20,7 +20,7 @@ export default function DeleteChannelModal() {
       <Wrapper>
         <Title>채널 삭제</Title>
         <Description>{`"${modalProps.channelName}"을(를) 삭제하시겠습니까?`}</Description>
-        {errorMessage ? <ErrorMessage>{errorMessage}</ErrorMessage> : null}
+        {errorMessage === '' ? null : <ErrorMessage>{errorMessage}</ErrorMessage>}
         <Form onSubmit={handleSubmit}>
           <ButtonWrapper>
             <Button variant='confirm' type='submit'>

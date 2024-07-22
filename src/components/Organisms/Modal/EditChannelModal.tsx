@@ -10,6 +10,7 @@ import {
   ChannelImageWrapper,
   Description,
   EmptyImage,
+  ErrorMessage,
   FileInput,
   Form,
   FormField,
@@ -37,6 +38,7 @@ export default function EditChannelModal() {
     modalProps,
     isLoading,
     isError,
+    errorMessage,
     handleChannelImageClick,
     handleFileChange,
     handleChangeTagValue,
@@ -126,6 +128,8 @@ export default function EditChannelModal() {
               maxLength={10}
             />
           </FormField>
+
+          {errorMessage === '' ? null : <ErrorMessage>{errorMessage}</ErrorMessage>}
 
           <ButtonWrapper>
             <Button variant='confirm' type='submit'>

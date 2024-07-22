@@ -8,5 +8,8 @@ export const checkIsChannelOwner = ({ ownerId }: CheckChannelOwnerProps) => {
   const { user } = useUserStore.getState();
   const userId = user?.id;
   const isChannelOwner = userId === ownerId;
-  return isChannelOwner;
+  console.log('userId: ', userId);
+  console.log('ownerId: ', ownerId);
+  console.log('isChannelOwner: ', isChannelOwner);
+  return !isChannelOwner;
 };
