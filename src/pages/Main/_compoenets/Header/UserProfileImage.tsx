@@ -12,7 +12,7 @@ import defaultProfileImage from '@/images/dummyImage.png';
 
 export default function UserProfileImage({ profileImage }: UserProfileImageProps) {
   return (
-    <Wrapper to='/main/myProfile'>
+    <Wrapper to='/main/profile'>
       <img src={profileImage ? profileImage : defaultProfileImage} />
     </Wrapper>
   );

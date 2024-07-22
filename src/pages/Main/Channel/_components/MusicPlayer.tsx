@@ -278,8 +278,6 @@ const ProgressBar = styled.div`
   height: 12px;
 
   background-color: var(--mint8);
-  box-shadow: 0 0 10px var(--mint5);
-
   position: relative;
 
   cursor: pointer;
