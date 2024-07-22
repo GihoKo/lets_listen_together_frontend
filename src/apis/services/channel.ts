@@ -33,7 +33,6 @@ export const createChannel = async (channel: FormData) => {
 };
 
 export const updateChannel = async (channelId: string, channel: FormData) => {
-  console.log(channelId, channel);
   try {
     const response = await axiosInstanceWithToken.patch(`/channels/${channelId}`, channel, {
       headers: {

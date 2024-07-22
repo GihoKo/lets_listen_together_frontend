@@ -147,3 +147,12 @@ export const ChannelImageLabel = styled(Label)``;
 export const FileInput = styled.input`
   display: none;
 `;
+
+export const ErrorMessage = styled.p`
+  color: var(--red-errorMessage-dark);
+  font-size: 12px;
+
+  @media (max-width: 768px) {
+    font-size: 10px;
+  }
+`;
