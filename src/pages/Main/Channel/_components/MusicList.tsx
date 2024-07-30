@@ -3,16 +3,17 @@ import styled from 'styled-components';
 
 // components
 import MusicContainer from './MusicContainer';
-import Guide from '../../../../components/Atoms/Badge/Guide';
+import Guide from '@/components/Atoms/Badge/Guide';
 
 // types
 import { MusicListProps } from './MusicList.type';
 
 // images
-import addSquareSvg from '../../../../images/svg/add-square.svg';
+import addSquareSvg from '@/images/svg/add-square.svg';
 
 // hooks
 import useMusicList from './MusicList.hook';
+import SubscribeButton from './SubscribeButton';
 
 export default function MusicList({ musicList, setMusicList }: MusicListProps) {
   // logics
@@ -24,6 +25,7 @@ export default function MusicList({ musicList, setMusicList }: MusicListProps) {
     <Wrapper>
       <Header>
         <Left>
+          <SubscribeButton />
           <EditButton
             type='button'
             onClick={isEditMode ? handleEditConfirmButtonClick : handleEditButtonClick}
@@ -90,7 +92,15 @@ const Header = styled.div`
 
 const Left = styled.div`
   display: flex;
-  gap: 8px;
+  gap: 16px;
+
+  @media (max-width: 1024px) {
+    gap: 8px;
+  }
+
+  @media (max-width: 768px) {
+    gap: 4px;
+  }
 `;
 
 const EditButton = styled.button<{
@@ -98,6 +108,7 @@ const EditButton = styled.button<{
 }>`
   border: ${({ $isEditMode }) => ($isEditMode ? '2px solid var(--mint3)' : '1px solid var(--grey-grey600)')};
   border-radius: 8px;
+  width: 80px;
 
   font-weight: bold;
   font-size: 16px;
@@ -105,8 +116,13 @@ const EditButton = styled.button<{
 
   cursor: pointer;
 
-  @media (max-width: 768px) {
+  @media (max-width: 1024px) {
     font-size: 14px;
+  }
+
+  @media (max-width: 768px) {
+    width: 60px;
+    font-size: 12px;
   }
 `;
 
