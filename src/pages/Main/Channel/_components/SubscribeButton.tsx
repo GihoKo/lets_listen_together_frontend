@@ -2,18 +2,26 @@
 import styled from 'styled-components';
 
 // hooks
-import { useState } from 'react';
+import { useRef } from 'react';
+import useModalStore from '@/store/useModalStore';
+
+// components
+import SubscribeChannelModal from '@/components/Organisms/Modal/SubscribeChannelModal';
 
 // images
 import subscribeOffSvg from '@/images/svg/subscribe-off.svg';
 import subscribeOnSvg from '@/images/svg/subscribe-on.svg';
 
+// types
+import { ModalType } from '@/types/enum';
+
 export default function SubscribeButton() {
   // logics
-  const [isSubscribed, setIsSubscribed] = useState(false);
+  const isSubscribed = useRef(false);
+  const { openModal } = useModalStore();
 
   const handleSubscribeButtonClick = () => {
-    setIsSubscribed((prev) => !prev);
+    openModal(ModalType.SUBSCRBE_CHANNEL, <SubscribeChannelModal />);
   };
 
   // view
