@@ -1,9 +1,12 @@
+import { User } from './user';
+
 export interface Channel {
   id: string;
   ownerId: string;
   name: string;
   image: string;
   description: string;
+  users: User[];
   ChannelUsers: string[];
   createdAt: string;
   tags: string[];

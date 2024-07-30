@@ -6,9 +6,11 @@ import { useParams } from 'react-router-dom';
 
 // types
 import { Music } from '@/types/music';
+import useChannelIdStore from '@/store/useChannelIdStore';
 
 export default function useChannel() {
   const { channelId } = useParams<{ channelId: string }>();
+  const { setChannelId } = useChannelIdStore();
   const [musicList, setMusicList] = useState<Music[]>([]);
   const { music: currentMusic, setMusic, resetMusic } = useMusicStore();
   const { data, isLoading, isError } = useGetMusicsByChannelId(channelId);
@@ -49,12 +51,14 @@ export default function useChannel() {
   useEffect(() => {
     if (data) {
       setMusicList(data);
+      setChannelId(channelId);
     }
 
     return () => {
       resetMusic();
     };
   }, [data, channelId]);
+
   return {
     musicList,
     setMusicList,
