@@ -1,54 +1,20 @@
 // libraries
 import styled from 'styled-components';
 
-// hooks
-import useModalStore from '@/store/useModalStore';
-
-// components
-import SubscribeChannelModal from '@/components/Organisms/Modal/SubscribeChannelModal';
-
 // images
 import subscribeOffSvg from '@/images/svg/subscribe-off.svg';
 import subscribeOnSvg from '@/images/svg/subscribe-on.svg';
 
 // types
-import { ModalType } from '@/types/enum';
-import useGetChannelById from '@/apis/hooks/useGetChannelById';
-import { useUserStore } from '@/store/useUserStore';
-import { useEffect, useState } from 'react';
-import UnSubscribeChannelModal from '@/components/Organisms/Modal/UnSubscribeChannelModal';
 
-interface SubscribeButtonProps {
-  channelId: string | undefined;
-}
+import { SubscribeButtonProps } from './SubscribeButton.type';
+import useSubscribeButton from './SubscribeButton.hook';
 
 export default function SubscribeButton({ channelId }: SubscribeButtonProps) {
   // logics
-  const [isSubscribed, setIsSubscribed] = useState(false);
-  const { openModal } = useModalStore();
-  const { data: channel, isLoading: isChannelLoading, isError: isChannelError } = useGetChannelById(channelId);
-  const { user } = useUserStore.getState();
-  const userId = user?.id;
 
-  const handleSubscribeButtonClick = () => {
-    openModal(ModalType.SUBSCRBE_CHANNEL, <SubscribeChannelModal />, { channelId });
-  };
-
-  const handleUnsubscribeButtonClick = () => {
-    openModal(ModalType.UNSUBSCRIBE_CHANNEL, <UnSubscribeChannelModal />, { channelId });
-  };
-
-  const checkIsSubscribed = () => {
-    if (channel?.users.some((user) => user.id === userId)) {
-      setIsSubscribed(true);
-    } else {
-      setIsSubscribed(false);
-    }
-  };
-
-  useEffect(() => {
-    checkIsSubscribed();
-  }, [isSubscribed, channel]);
+  const { isSubscribed, isChannelLoading, isChannelError, handleSubscribeButtonClick, handleUnsubscribeButtonClick } =
+    useSubscribeButton({ channelId });
 
   // view
 

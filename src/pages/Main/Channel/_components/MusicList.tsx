@@ -4,6 +4,7 @@ import styled from 'styled-components';
 // components
 import MusicContainer from './MusicContainer';
 import Guide from '@/components/Atoms/Badge/Guide';
+import SubscribeButton from './SubscribeButton';
 
 // types
 import { MusicListProps } from './MusicList.type';
@@ -13,8 +14,6 @@ import addSquareSvg from '@/images/svg/add-square.svg';
 
 // hooks
 import useMusicList from './MusicList.hook';
-import SubscribeButton from './SubscribeButton';
-
 export default function MusicList({ musicList, setMusicList }: MusicListProps) {
   // logics
   const {

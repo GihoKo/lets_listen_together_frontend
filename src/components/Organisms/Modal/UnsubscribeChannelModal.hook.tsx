@@ -1,11 +1,11 @@
+// hooks
 import useUnsubscribeChannel from '@/apis/hooks/useUnSubscribeChannel';
 import useModalStore from '@/store/useModalStore';
 import { useUserStore } from '@/store/useUserStore';
-import { ModalType } from '@/types/enum';
 
-export interface UnSubscribeChannelModalProps {
-  channelId: string;
-}
+// types
+import { ModalType } from '@/types/enum';
+import { UnSubscribeChannelModalProps } from './UnsubscribeChannelModal.type';
 
 export default function useUnsubscribeChannelModal() {
   const { type, closeModal, props } = useModalStore();
