@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
-import { getMyUser } from '../service/user';
 import { User } from '../../types/user';
+import { getMyUser } from '../services/user';
 
 export default function useGetMyUser(userId: string) {
   const queryKey = ['user'];

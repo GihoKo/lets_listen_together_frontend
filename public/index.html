@@ -3,9 +3,27 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>같이듣자</title>
+    <title>같이 듣자</title>
+    <meta name="description" content="나의 플레이리스트를 다른 사람과 공유해보세요!" />
+    <meta name="robots" content="index, follow" />
+    <meta property="og:title" content="같이 듣자" />
+    <meta property="og:description" content="나의 플레이리스트를 다른 사람과 공유해보세요!" />
+    <meta property="og:image" content="./icon-192x192.png" />
+    <meta property="og:url" content="https://lets-listen-together.link" />
     <link rel="manifest" href="./manifest.json" />
     <script src="https://www.youtube.com/iframe_api"></script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://lets-listen-together.link",
+        "@type": "WebApplication",
+        "name": "같이 듣자",
+        "description": "나의 플레이리스트를 다른 사람과 공유해보세요!",
+        "url": "https://lets-listen-together.link",
+        "applicationCategory": "MusicApplication",
+        "operatingSystem": "Android, iOS, Windows, macOS",
+        "image": "https://lets-listen-together.link/icon-192x192.png"
+      }
+    </script>
   </head>
   <body>
     <div id="root"></div>
