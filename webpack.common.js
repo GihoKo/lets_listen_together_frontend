@@ -58,4 +58,9 @@ module.exports = {
       path: './.env.local',
     }),
   ],
+  optimization: {
+    splitChunks: {
+      chunks: 'all',
+    },
+  },
 };
