@@ -11,4 +11,8 @@ module.exports = merge(common, {
   },
   plugins: [new BundleAnalyzerPlugin()],
   devtool: 'eval-cheap-module-source-map',
+  output: {
+    filename: '[name].bundle.js',
+    chunkFilename: '[name].bundle.js',
+  },
 });

@@ -8,10 +8,10 @@ const progressPlugin = require('progress-webpack-plugin');
 module.exports = {
   entry: './src/index.tsx',
   output: {
-    filename: 'bundle.js',
+    filename: '[name].[contenthash].js',
     path: path.resolve(__dirname, 'dist'),
     publicPath: '/',
-    chunkFilename: '[name].bundle.js',
+    chunkFilename: '[name].[contenthash].js',
     assetModuleFilename: 'images/[hash][ext][query]',
     clean: true,
   },
