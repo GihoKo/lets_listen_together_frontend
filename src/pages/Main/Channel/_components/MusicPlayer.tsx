@@ -114,9 +114,11 @@ const ImageBox = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  box-shadow:
+    0 0 5px var(--mint5),
+    0 0 10px var(--mint5);
 
   overflow: hidden;
-  background-color: #000;
 
   img {
     width: 100%;
