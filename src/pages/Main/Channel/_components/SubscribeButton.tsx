@@ -16,6 +16,7 @@ import { ModalType } from '@/types/enum';
 import useGetChannelById from '@/apis/hooks/useGetChannelById';
 import { useUserStore } from '@/store/useUserStore';
 import { useEffect, useState } from 'react';
+import UnSubscribeChannelModal from '@/components/Organisms/Modal/UnSubscribeChannelModal';
 
 interface SubscribeButtonProps {
   channelId: string | undefined;
@@ -34,7 +35,7 @@ export default function SubscribeButton({ channelId }: SubscribeButtonProps) {
   };
 
   const handleUnsubscribeButtonClick = () => {
-    openModal(ModalType.UNSUBSCRIBE_CHANNEL, <SubscribeChannelModal />, { channelId });
+    openModal(ModalType.UNSUBSCRIBE_CHANNEL, <UnSubscribeChannelModal />, { channelId });
   };
 
   const checkIsSubscribed = () => {
