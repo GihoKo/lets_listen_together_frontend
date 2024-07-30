@@ -17,15 +17,20 @@ import SubscribeButton from './SubscribeButton';
 
 export default function MusicList({ musicList, setMusicList }: MusicListProps) {
   // logics
-  const { isEditMode, handleCreateMusicButtonButtonClick, handleEditButtonClick, handleEditConfirmButtonClick } =
-    useMusicList({ musicList });
+  const {
+    isEditMode,
+    channelId,
+    handleCreateMusicButtonButtonClick,
+    handleEditButtonClick,
+    handleEditConfirmButtonClick,
+  } = useMusicList({ musicList });
 
   // view
   return (
     <Wrapper>
       <Header>
         <Left>
-          <SubscribeButton />
+          <SubscribeButton channelId={channelId} />
           <EditButton
             type='button'
             onClick={isEditMode ? handleEditConfirmButtonClick : handleEditButtonClick}

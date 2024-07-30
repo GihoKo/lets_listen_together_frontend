@@ -31,5 +31,11 @@ export default function useMusicList({ musicList }: UseMusicListProps) {
     setIsEditMode(false);
   };
 
-  return { isEditMode, handleCreateMusicButtonButtonClick, handleEditButtonClick, handleEditConfirmButtonClick };
+  return {
+    isEditMode,
+    channelId,
+    handleCreateMusicButtonButtonClick,
+    handleEditButtonClick,
+    handleEditConfirmButtonClick,
+  };
 }

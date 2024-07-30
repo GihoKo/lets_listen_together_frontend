@@ -54,6 +54,16 @@ export const deleteChannel = async (channelId: string) => {
   }
 };
 
+// user는 전역 상태로 관리하기 때문에 굳이 tanstack query를 사용하지 않아도 될 것 같음.
+export const subscribeChannel = async (channelId: string, userId: string | undefined) => {
+  try {
+    const response = await axiosInstanceWithToken.post(`/channels/${channelId}/subscribe`, { userId });
+    return response.data;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 export const getMusicsByChannelId = async (channelId: string | undefined) => {
   try {
     const response = await axiosInstanceWithToken.get(`/channels/${channelId}/musics`);
