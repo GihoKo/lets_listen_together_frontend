@@ -1,7 +1,7 @@
 import { useUserStore } from '@/store/useUserStore';
 
 interface CheckChannelOwnerProps {
-  ownerId: string | undefined;
+  ownerId: string | null;
 }
 
 export const checkIsChannelOwner = ({ ownerId }: CheckChannelOwnerProps) => {

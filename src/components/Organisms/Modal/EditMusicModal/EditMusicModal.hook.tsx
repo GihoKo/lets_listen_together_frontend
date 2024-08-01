@@ -25,8 +25,8 @@ export default function useEditMusicModal() {
     artist: modalProps.music.artist,
     url: modalProps.music.url,
   });
-  const { data } = useGetChannelById(modalProps.channelId);
-  const ownerIdRef = useRef<string>();
+  const { data: channel } = useGetChannelById(modalProps.channelId);
+  const ownerIdRef = useRef<string | null>(null);
   const [errorMessage, setErrorMessage] = useState('');
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -38,6 +38,11 @@ export default function useEditMusicModal() {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    if (!checkIsChannelOwner({ ownerId: ownerIdRef.current })) {
+      setErrorMessage(ErrorMessagesType.MUSIC_EDIT_PERMISSION);
+      return;
+    }
     if (
       !validateMusicData({
         musicData: {
@@ -49,12 +54,9 @@ export default function useEditMusicModal() {
       })
     )
       return;
-    if (checkIsChannelOwner({ ownerId: ownerIdRef.current })) {
-      updateMusic();
-      closeModal();
-    } else {
-      setErrorMessage(ErrorMessagesType.MUSIC_EDIT_PERMISSION);
-    }
+
+    updateMusic();
+    closeModal();
   };
 
   const updateMusic = () => {
@@ -69,10 +71,10 @@ export default function useEditMusicModal() {
   };
 
   useEffect(() => {
-    if (data) {
-      ownerIdRef.current = data.ownerId;
+    if (channel) {
+      ownerIdRef.current = channel.ownerId;
     }
-  }, [data]);
+  }, [channel]);
 
   return { musicData, errorMessage, handleChange, handleSubmit, closeModal };
 }

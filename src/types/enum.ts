@@ -24,6 +24,7 @@ export enum ErrorMessagesType {
 
   // 음악
   MUSIC_EDIT_PERMISSION = '채널의 주인만 음악을 수정할 수 있습니다.',
+  MUSIC_CREATE_PERMISSION = '채널의 주인만 음악을 추가할 수 있습니다.',
   MUSIC_TITLE_EMPTY = '음악 제목을 입력해주세요.',
   MUSIC_ARTIST_EMPTY = '아티스트 이름을 입력해주세요.',
   MUSIC_URL_EMPTY = '음악 URL을 입력해주세요.',
