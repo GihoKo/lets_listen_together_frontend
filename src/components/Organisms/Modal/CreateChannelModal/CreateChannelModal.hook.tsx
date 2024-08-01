@@ -7,6 +7,10 @@ import useModalStore from '@/store/useModalStore';
 // types
 import { ModalType } from '@/types/enum';
 
+// utils
+import validateTag from '@/utils/validateTag';
+import validateChannelData from '@/utils/validateChannelData';
+
 export default function useCreateChannelModal() {
   const { type, closeModal } = useModalStore();
 
@@ -24,6 +28,7 @@ export default function useCreateChannelModal() {
   const [profileImageFile, setProfileImageFile] = useState<File | null>(null);
   const [tagValue, setTagValue] = useState<string>('');
   const uploadCreateChannel = useCreateChannel();
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const handleChannelImageClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
@@ -49,19 +54,14 @@ export default function useCreateChannelModal() {
   const handleAddTagKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
       e.preventDefault();
-      if (tagValue.trim() === '') {
-        return console.log('태그를 입력하세요.');
-      }
-      if (tagValue.length > 10) {
-        return console.log('태그는 10자 이내로 입력하세요.');
-      }
-      if (channelData.tags.length > 5) {
-        return console.log('태그는 5개까지만 입력할 수 있습니다.');
-      }
-      if (channelData.tags.includes(tagValue)) {
-        return console.log('이미 입력된 태그입니다.');
-      }
-
+      if (
+        !validateTag({
+          tagValue,
+          channelData,
+          setErrorMessage,
+        })
+      )
+        return;
       setChannelData({
         ...channelData,
         tags: [...channelData.tags, tagValue],
@@ -90,14 +90,15 @@ export default function useCreateChannelModal() {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (
+      !validateChannelData({
+        channelData,
+        setErrorMessage,
+      })
+    )
+      return;
     createChannel();
     closeModal();
-    setChannelData({
-      name: '',
-      tags: [],
-      description: '',
-      image: '',
-    });
   };
 
   const createChannel = async () => {
@@ -121,6 +122,7 @@ export default function useCreateChannelModal() {
     tagValue,
     previewChannelImageUrl,
     fileInputRef,
+    errorMessage,
     handleChangeChannelData,
     handleChangeTagValue,
     handleChannelImageClick,

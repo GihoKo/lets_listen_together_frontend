@@ -5,7 +5,7 @@ import useModalStore from '@/store/useModalStore';
 import { ModalType } from '@/types/enum';
 
 // components
-import CreateChannelModal from '@/components/Organisms/Modal/CreateChannelModal';
+import CreateChannelModal from '@/components/Organisms/Modal/CreateChannelModal/CreateChannelModal';
 import useSideBarStore from '@/store/useSideBarStore';
 import useGetMyOwnChannels from '@/apis/hooks/useGetMyOwnChannels';
 import { useUserStore } from '@/store/useUserStore';

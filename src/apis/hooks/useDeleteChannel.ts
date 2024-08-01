@@ -1,5 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { deleteChannel } from '../services/channel';
+import queryKeys from '../queryKey';
 
 interface updateMusicParams {
   channelId: string;
@@ -11,7 +12,7 @@ export default function useDeleteChannel() {
     mutationFn: ({ channelId }) => deleteChannel(channelId),
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: ['channels'],
+        queryKey: queryKeys.channels.allChannels,
       });
     },
   });

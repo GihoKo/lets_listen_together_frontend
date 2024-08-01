@@ -6,8 +6,10 @@ import { useUserStore } from '@/store/useUserStore';
 import { useEffect, useRef, useState } from 'react';
 
 // type
-import { ModalType } from '@/types/enum';
+import { ErrorMessagesType, ModalType } from '@/types/enum';
 import { checkIsChannelOwner } from '@/utils/checkIsChannelOwner';
+import validateChannelData from '@/utils/validateChannelData';
+import validateTag from '@/utils/validateTag';
 
 export default function useEditChannelModal() {
   const { type, closeModal, props } = useModalStore();
@@ -28,7 +30,7 @@ export default function useEditChannelModal() {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [profileImageFile, setProfileImageFile] = useState<File | null>(null);
   const [tagValue, setTagValue] = useState<string>('');
-  const [errorMessage, setErrorMessage] = useState<string>('');
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const handleChannelImageClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
@@ -54,17 +56,15 @@ export default function useEditChannelModal() {
   const handleAddTagKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
       e.preventDefault();
-      if (tagValue.trim() === '') {
-        return setErrorMessage('태그를 입력하세요.');
-      }
-      if (tagValue.length > 10) {
-        return setErrorMessage('태그는 10자 이내로 입력하세요.');
-      }
-      if (channelData.tags.length > 5) {
-        return setErrorMessage('태그는 6개까지 입력 가능합니다.');
-      }
-      if (channelData.tags.includes(tagValue)) {
-        return setErrorMessage('이미 추가된 태그입니다.');
+
+      if (
+        !validateTag({
+          tagValue,
+          channelData,
+          setErrorMessage,
+        })
+      ) {
+        return;
       }
 
       setChannelData({
@@ -95,6 +95,16 @@ export default function useEditChannelModal() {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    if (
+      !validateChannelData({
+        channelData,
+        setErrorMessage,
+      })
+    ) {
+      return;
+    }
+
     if (
       checkIsChannelOwner({
         ownerId: modalProps.channelOwnerId,
@@ -103,7 +113,7 @@ export default function useEditChannelModal() {
       updateChannel();
       closeModal();
     } else {
-      setErrorMessage('채널 수정 권한이 없습니다.');
+      setErrorMessage(ErrorMessagesType.CHANNEL_EDIT_PERMISSION);
     }
   };
 

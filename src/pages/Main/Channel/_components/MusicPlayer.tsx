@@ -93,7 +93,7 @@ const Wrapper = styled.div`
   justify-content: center;
   align-items: center;
 
-  background-color: var(--grey-grey200);
+  background-color: var(--grey-grey100);
   padding: 48px 36px;
 
   @media (max-width: 768px) {

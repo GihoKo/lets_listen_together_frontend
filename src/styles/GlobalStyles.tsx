@@ -195,11 +195,7 @@ const GlobalStyles = createGlobalStyle`
     --mint8: #2E3F33; 
     --mint9: #1B2721;
     --black: #000000; 
-    --red-errorMessage: #c21b1b;
-    --red-errorMessage-light: #e03a3a;
-    --red-errorMessage-lighter: #f25b5b;
-    --red-errorMessage-dark: #a31818;
-
+    --red-errorMessage: #da2121;
     --gray-button: #626262;
   }
 `;

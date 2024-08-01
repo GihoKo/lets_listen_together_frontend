@@ -5,7 +5,7 @@ import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 // components
-import CreateMusicModal from '@/components/Organisms/Modal/CreateMusicModal';
+import CreateMusicModal from '@/components/Organisms/Modal/CreateMusicModal/CreateMusicModal';
 
 // types
 import { ModalType } from '@/types/enum';
@@ -14,16 +14,12 @@ import { UseMusicListProps } from './MusicList.type';
 export default function useMusicList({ musicList }: UseMusicListProps) {
   const { openModal } = useModalStore();
   const { channelId } = useParams<{ channelId: string }>();
+
+  const [isEditMode, setIsEditMode] = useState(false);
   const uploadUpdateMusicOrder = useUpdateMusicOrder();
 
   const handleCreateMusicButtonButtonClick = () => {
     openModal(ModalType.CREATE_MUSIC, <CreateMusicModal />, { channelId, order: musicList.length });
-  };
-
-  const [isEditMode, setIsEditMode] = useState(false);
-
-  const handleEditButtonClick = () => {
-    setIsEditMode(true);
   };
 
   const handleEditConfirmButtonClick = () => {
@@ -34,8 +30,8 @@ export default function useMusicList({ musicList }: UseMusicListProps) {
   return {
     isEditMode,
     channelId,
+    setIsEditMode,
     handleCreateMusicButtonButtonClick,
-    handleEditButtonClick,
     handleEditConfirmButtonClick,
   };
 }

@@ -1,6 +1,6 @@
 // components
-import DeleteMusicModal from '@/components/Organisms/Modal/DeleteMusicModal';
-import EditMusicModal from '@/components/Organisms/Modal/EditMusicModal';
+import DeleteMusicModal from '@/components/Organisms/Modal/DeleteMusicModal/DeleteMusicModal';
+import EditMusicModal from '@/components/Organisms/Modal/EditMusicModal/EditMusicModal';
 
 // hooks
 import useModalStore from '@/store/useModalStore';

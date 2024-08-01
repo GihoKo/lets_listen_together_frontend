@@ -1,33 +1,35 @@
 // hooks
-import useEditMusicModal from './EditMusicModal.hook';
+import useCreateMusicModal from './CreateMusicModal.hook';
 
 // components
-import Button from '../../Atoms/Modal/Button';
-import Dimmed from '../../Atoms/Modal/Dimmed';
+import Button from '../../../Atoms/Modal/Button';
+import Dimmed from '../../../Atoms/Modal/Dimmed';
 import {
-  ButtonWrapper,
-  ErrorMessage,
-  Form,
   FormField,
   Input,
   Label,
-  Title,
   Wrapper,
-} from '../../Atoms/Modal/StyledComponents';
+  Form,
+  Title,
+  Description,
+  ButtonWrapper,
+  ErrorMessage,
+} from '../../../Atoms/Modal/StyledComponents';
 
-export default function EditMusicModal() {
+export default function CreateMusicModal() {
   // logics
-  const logics = useEditMusicModal();
+  const Logics = useCreateMusicModal();
 
-  if (!logics) return null;
+  if (!Logics) return null;
 
-  const { musicData, errorMessage, handleChange, handleSubmit, closeModal } = logics;
+  const { musicData, errorMessage, handleChange, handleSubmit, closeModal } = Logics;
 
   // view
   return (
     <Dimmed>
       <Wrapper>
-        <Title>음악 수정</Title>
+        <Title>음악 생성</Title>
+        <Description>플레이리스트에 추가하고 싶은 음악 URL을 넣어주세요</Description>
 
         <Form onSubmit={handleSubmit}>
           <FormField>
@@ -38,6 +40,7 @@ export default function EditMusicModal() {
               onChange={handleChange}
               placeholder='음악 제목을 입력하세요.'
               type='text'
+              maxLength={20}
             />
           </FormField>
 
@@ -49,6 +52,7 @@ export default function EditMusicModal() {
               onChange={handleChange}
               placeholder='아티스트 이름을 입력하세요'
               type='text'
+              maxLength={20}
             />
           </FormField>
 
@@ -63,11 +67,11 @@ export default function EditMusicModal() {
             />
           </FormField>
 
-          {errorMessage === '' ? null : <ErrorMessage>{errorMessage}</ErrorMessage>}
+          {errorMessage ? <ErrorMessage>{errorMessage}</ErrorMessage> : null}
 
           <ButtonWrapper>
             <Button variant='confirm' type='submit'>
-              수정
+              생성
             </Button>
             <Button variant='close' type='button' onClick={closeModal}>
               취소

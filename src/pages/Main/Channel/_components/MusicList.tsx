@@ -3,8 +3,8 @@ import styled from 'styled-components';
 
 // components
 import MusicContainer from './MusicContainer';
-import Guide from '@/components/Atoms/Badge/Guide';
-import SubscribeButton from './SubscribeButton';
+import SubscribeButton from './SubscribeButton/SubscribeButton';
+import EditButton from './EditButton/EditButton';
 
 // types
 import { MusicListProps } from './MusicList.type';
@@ -14,15 +14,12 @@ import addSquareSvg from '@/images/svg/add-square.svg';
 
 // hooks
 import useMusicList from './MusicList.hook';
+import AddMusicGuide from './AddMusicGuide';
+
 export default function MusicList({ musicList, setMusicList }: MusicListProps) {
   // logics
-  const {
-    isEditMode,
-    channelId,
-    handleCreateMusicButtonButtonClick,
-    handleEditButtonClick,
-    handleEditConfirmButtonClick,
-  } = useMusicList({ musicList });
+  const { isEditMode, channelId, setIsEditMode, handleCreateMusicButtonButtonClick, handleEditConfirmButtonClick } =
+    useMusicList({ musicList });
 
   // view
   return (
@@ -31,21 +28,15 @@ export default function MusicList({ musicList, setMusicList }: MusicListProps) {
         <Left>
           <SubscribeButton channelId={channelId} />
           <EditButton
-            type='button'
-            onClick={isEditMode ? handleEditConfirmButtonClick : handleEditButtonClick}
-            $isEditMode={isEditMode}
-          >
-            {isEditMode ? 'Confirm' : 'Edit'}
-          </EditButton>
+            isEditMode={isEditMode}
+            handleEditConfirmButtonClick={handleEditConfirmButtonClick}
+            setIsEditMode={setIsEditMode}
+          />
         </Left>
         <CreateMusicButton onClick={handleCreateMusicButtonButtonClick}>
           <img src={addSquareSvg} alt='음악 생성 버튼 이미지' />
         </CreateMusicButton>
-        {musicList.length === 0 ? (
-          <GuidePositioner>
-            <Guide>{`Add Music!`}</Guide>
-          </GuidePositioner>
-        ) : null}
+        <AddMusicGuide musicList={musicList} />
       </Header>
 
       <MusicContainer musicList={musicList} setMusicList={setMusicList} isEditMode={isEditMode} />
@@ -107,29 +98,6 @@ const Left = styled.div`
   }
 `;
 
-const EditButton = styled.button<{
-  $isEditMode: boolean;
-}>`
-  border: ${({ $isEditMode }) => ($isEditMode ? '2px solid var(--mint3)' : '1px solid var(--grey-grey600)')};
-  border-radius: 8px;
-  width: 80px;
-
-  font-weight: bold;
-  font-size: 16px;
-  color: ${({ $isEditMode }) => ($isEditMode ? 'var(--mint3)' : 'var(--grey-grey600)')};
-
-  cursor: pointer;
-
-  @media (max-width: 1024px) {
-    font-size: 14px;
-  }
-
-  @media (max-width: 768px) {
-    width: 60px;
-    font-size: 12px;
-  }
-`;
-
 const CreateMusicButton = styled.button`
   width: 48px;
   height: 48px;
@@ -153,9 +121,4 @@ const CreateMusicButton = styled.button`
     width: 40px;
     height: 40px;
   }
-`;
-
-const GuidePositioner = styled.div`
-  position: absolute;
-  right: 48px;
 `;
