@@ -13,9 +13,23 @@ import ChannelContainer from './ChannelContainer';
 
 export default function SideBar() {
   // logics
-  const { isOpen, handleToggle, handleCreateChannelModalOpenButtonClick, handleClose } = useSideBar();
+  const {
+    isOpen,
+    myChannels,
+    isLoadingMyChannels,
+    isErrorMyChannels,
+    mySubscribedChannels,
+    isLoadingMySubscribedChannels,
+    isErrorMySubscribedChannels,
+    handleToggle,
+    handleCreateChannelModalOpenButtonClick,
+    handleClose,
+  } = useSideBar();
 
   // view
+  if (isLoadingMyChannels || isLoadingMySubscribedChannels) return <div>Loading...</div>;
+  if (isErrorMyChannels || isErrorMySubscribedChannels) return <div>Error...</div>;
+
   return (
     <>
       <BackGround>
@@ -26,8 +40,10 @@ export default function SideBar() {
           </Header>
           <CategoryName isOpen={isOpen}>Navigator</CategoryName>
           <NavigatorContainer isOpen={isOpen} />
-          <CategoryName isOpen={isOpen}>Channels</CategoryName>
-          <ChannelContainer isOpen={isOpen} />
+          <CategoryName isOpen={isOpen}>MyChannels</CategoryName>
+          <ChannelContainer isOpen={isOpen} channelList={myChannels} />
+          <CategoryName isOpen={isOpen}>Subscribed</CategoryName>
+          <ChannelContainer isOpen={isOpen} channelList={mySubscribedChannels} />
         </Wrapper>
       </BackGround>
       <Dimmed $isOpen={isOpen} onClick={handleClose} />

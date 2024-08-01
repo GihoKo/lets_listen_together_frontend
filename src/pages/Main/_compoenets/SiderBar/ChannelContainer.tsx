@@ -1,23 +1,19 @@
 // libraries
 import styled from 'styled-components';
 
-// hooks
-import useChannelContainer from './ChannelContainer.hook';
-
 // components
 import ChannelItem from './ChannelItem';
 
 // types
 import { ChannelContainerProps } from './ChannelContainer.type';
+import { useParams } from 'react-router-dom';
 
-export default function ChannelContainer({ isOpen }: ChannelContainerProps) {
+export default function ChannelContainer({ isOpen, channelList }: ChannelContainerProps) {
   // logics
-  const { channelList, isError, isLoading, channelId } = useChannelContainer();
+  const { channelId } = useParams();
 
   // view
-  if (isLoading) return <div>Loading...</div>;
-  if (isError) return <div>Error...</div>;
-  if (!channelList) return <div>Channel is empty</div>;
+  if (!channelList) return null;
 
   return (
     <Container>

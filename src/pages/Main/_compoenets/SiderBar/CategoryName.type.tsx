@@ -1,4 +1,6 @@
+import { ReactNode } from 'react';
+
 export interface CategoryNameProps {
-  children: string;
+  children: ReactNode;
   isOpen: boolean;
 }

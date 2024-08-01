@@ -16,6 +16,7 @@ export const updateUser = async (userId: string | undefined, user: FormData) => 
 export const getMyChannelList = async (userId: string | undefined) => {
   try {
     const response = await axiosInstanceWithToken.get(`/users/myChannels/${userId}`);
+    console.log(response.data);
     return response.data;
   } catch (error) {
     console.error(error);
@@ -31,9 +32,18 @@ export const getMyUser = async (userId: string) => {
   }
 };
 
-export const getMyOwnChannels = async (userId: string) => {
+export const getMyOwnChannels = async (userId: string | undefined) => {
   try {
     const response = await axiosInstanceWithToken.get(`/users/myOwnChannels/${userId}`);
+    return response.data;
+  } catch (e) {
+    console.error(e);
+  }
+};
+
+export const getMySubscribedChannels = async (userId: string | undefined) => {
+  try {
+    const response = await axiosInstanceWithToken.get(`/users/mySubscribedChannels/${userId}`);
     return response.data;
   } catch (e) {
     console.error(e);
