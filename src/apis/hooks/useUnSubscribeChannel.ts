@@ -10,7 +10,7 @@ interface unsubscribeChannelParams {
 export default function useUnsubscribeChannel() {
   const queryClient = useQueryClient();
 
-  const { mutate, status, isPending, isError } = useMutation<void, Error, unsubscribeChannelParams>({
+  return useMutation<void, Error, unsubscribeChannelParams>({
     mutationFn: ({ channelId, userId }) => unsubscribeChannel(channelId, userId),
     onSuccess: (_data, { channelId, userId }) => {
       queryClient.invalidateQueries({
@@ -22,6 +22,4 @@ export default function useUnsubscribeChannel() {
       });
     },
   });
-
-  return { mutate, status, isPending, isError };
 }

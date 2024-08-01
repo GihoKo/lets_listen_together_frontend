@@ -19,4 +19,6 @@ const Wrapper = styled.div`
 
   background-color: rgba(0, 0, 0, 0.5);
   position: fixed;
+
+  z-index: 9999;
 `;

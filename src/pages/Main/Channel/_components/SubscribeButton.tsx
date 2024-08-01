@@ -17,7 +17,6 @@ export default function SubscribeButton({ channelId }: SubscribeButtonProps) {
     useSubscribeButton({ channelId });
 
   // view
-
   if (isChannelLoading) {
     return null;
   }

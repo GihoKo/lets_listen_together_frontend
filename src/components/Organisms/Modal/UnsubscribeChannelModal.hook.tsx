@@ -6,7 +6,7 @@ import { useUserStore } from '@/store/useUserStore';
 // types
 import { ModalType } from '@/types/enum';
 import { UnSubscribeChannelModalProps } from './UnsubscribeChannelModal.type';
-import { useEffect } from 'react';
+import { useState } from 'react';
 
 export default function useUnsubscribeChannelModal() {
   const { type, closeModal, props } = useModalStore();
@@ -17,24 +17,28 @@ export default function useUnsubscribeChannelModal() {
   const channelId = modalProps.channelId;
   const { user } = useUserStore.getState();
   const userId = user?.id;
-  const { mutate, status, isPending, isError } = useUnsubscribeChannel();
+  const upLoadUnSubscribeChannel = useUnsubscribeChannel();
+  const [errorMessages, setErrorMessages] = useState<string | null>(null);
 
-  const handleUnSubscribeButtonClick = async () => {
-    unSubscribeChannel();
+  const handleUnSubscribeButtonClick = () => {
+    upLoadUnSubscribeChannel.mutate({ channelId, userId });
+
+    if (upLoadUnSubscribeChannel.isError) {
+      setErrorMessages('채널 구독 해제에 실패했습니다. 다시 시도해주세요.');
+    }
+
     closeModal();
-  };
-
-  const unSubscribeChannel = async () => {
-    mutate({ channelId, userId });
   };
 
   const handleModalCloseButtonClick = () => {
     closeModal();
   };
 
-  useEffect(() => {
-    console.log('status: ', status);
-  }, [status]);
-
-  return { isPending, isError, handleUnSubscribeButtonClick, handleModalCloseButtonClick };
+  return {
+    isPending: upLoadUnSubscribeChannel.isPending,
+    isError: upLoadUnSubscribeChannel.isError,
+    errorMessages,
+    handleUnSubscribeButtonClick,
+    handleModalCloseButtonClick,
+  };
 }

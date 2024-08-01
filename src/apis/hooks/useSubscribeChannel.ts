@@ -10,7 +10,7 @@ interface subscribeChannelParams {
 export default function useSubscribeChannel() {
   const queryClient = useQueryClient();
 
-  const { mutate, status, isPending, isError } = useMutation<void, Error, subscribeChannelParams>({
+  return useMutation<void, Error, subscribeChannelParams>({
     mutationFn: ({ channelId, userId }) => subscribeChannel(channelId, userId),
     onSuccess: (_data, { channelId, userId }) => {
       queryClient.invalidateQueries({
@@ -22,6 +22,4 @@ export default function useSubscribeChannel() {
       });
     },
   });
-
-  return { mutate, status, isPending, isError };
 }
