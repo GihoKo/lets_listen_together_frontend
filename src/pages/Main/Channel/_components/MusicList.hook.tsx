@@ -5,7 +5,7 @@ import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 // components
-import CreateMusicModal from '@/components/Organisms/Modal/CreateMusicModal';
+import CreateMusicModal from '@/components/Organisms/Modal/CreateMusicModal/CreateMusicModal';
 
 // types
 import { ModalType } from '@/types/enum';

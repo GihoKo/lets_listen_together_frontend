@@ -2,7 +2,7 @@
 import useModalStore from '@/store/useModalStore';
 
 // components
-import DeleteChannelModal from '@/components/Organisms/Modal/DeleteChannelModal';
+import DeleteChannelModal from '@/components/Organisms/Modal/DeleteChannelModal/DeleteChannelModal';
 
 // types
 import { Channel } from '@/types/channel';

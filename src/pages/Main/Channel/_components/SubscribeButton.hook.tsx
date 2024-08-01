@@ -5,12 +5,12 @@ import useModalStore from '@/store/useModalStore';
 import { useUserStore } from '@/store/useUserStore';
 
 // components
-import SubscribeChannelModal from '@/components/Organisms/Modal/SubscribeChannelModal';
+import SubscribeChannelModal from '@/components/Organisms/Modal/SubscribeChannelModal/SubscribeChannelModal';
+import UnSubscribeChannelModal from '@/components/Organisms/Modal/UnsubscribeChannelModal/UnsubscribeChannelModal';
 
 // types
 import { ModalType } from '@/types/enum';
 import { UseSubscribeButtonProps } from './SubscribeButton.type';
-import UnSubscribeChannelModal from '@/components/Organisms/Modal/UnsubscribeChannelModal';
 
 export default function useSubscribeButton({ channelId }: UseSubscribeButtonProps) {
   const [isSubscribed, setIsSubscribed] = useState(false);

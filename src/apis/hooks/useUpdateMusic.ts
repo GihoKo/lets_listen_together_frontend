@@ -1,11 +1,10 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { updateMusic } from '../services/music';
-import { Music } from '@/types/music';
+import { updateMusic, UpdateMusicData } from '../services/music';
 import queryKeys from '../queryKey';
 
 interface updateMusicParams {
   musicId: string;
-  music: Music;
+  music: UpdateMusicData;
 }
 
 export default function useUpdateMusic() {

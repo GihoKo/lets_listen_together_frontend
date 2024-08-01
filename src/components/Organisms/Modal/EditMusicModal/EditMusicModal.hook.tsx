@@ -2,12 +2,15 @@
 import { useEffect, useRef, useState } from 'react';
 import useUpdateMusic from '@/apis/hooks/useUpdateMusic';
 import useModalStore from '@/store/useModalStore';
+import useGetChannelById from '@/apis/hooks/useGetChannelById';
 
 // types
-import { ModalType } from '@/types/enum';
-import { EditMusicModalProps } from './EditMusicModal.hook.type';
+import { ErrorMessagesType, ModalType } from '@/types/enum';
+
+// utils
+import validateMusicData from '@/utils/validateMusicData';
 import { checkIsChannelOwner } from '@/utils/checkIsChannelOwner';
-import useGetChannelById from '@/apis/hooks/useGetChannelById';
+import { EditMusicModalProps } from './EditMusicModal.hook.type';
 
 export default function useEditMusicModal() {
   const { type, closeModal, props } = useModalStore();
@@ -35,11 +38,22 @@ export default function useEditMusicModal() {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (
+      !validateMusicData({
+        musicData: {
+          title: musicData.title,
+          artist: musicData.artist,
+          url: musicData.url,
+        },
+        setErrorMessage,
+      })
+    )
+      return;
     if (checkIsChannelOwner({ ownerId: ownerIdRef.current })) {
       updateMusic();
       closeModal();
     } else {
-      setErrorMessage('채널의 주인만 음악을 수정할 수 있습니다.');
+      setErrorMessage(ErrorMessagesType.MUSIC_EDIT_PERMISSION);
     }
   };
 
@@ -50,8 +64,8 @@ export default function useEditMusicModal() {
       artist: musicData.artist,
       url: musicData.url,
     };
+
     upLoadUpdateMusicMutation.mutate({ musicId: modalProps.music.id, music: edittedMusic });
-    closeModal();
   };
 
   useEffect(() => {
