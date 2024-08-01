@@ -1,5 +1,5 @@
 // hooks
-import useUnsubscribeChannelModal from './UnSubscribeChannelModal.hook';
+import useUnsubscribeChannelModal from './UnsubscribeChannelModal.hook';
 
 // components
 import Button from '@/components/Atoms/Modal/Button';
