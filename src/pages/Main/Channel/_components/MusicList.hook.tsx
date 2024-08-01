@@ -22,10 +22,6 @@ export default function useMusicList({ musicList }: UseMusicListProps) {
 
   const [isEditMode, setIsEditMode] = useState(false);
 
-  const handleEditButtonClick = () => {
-    setIsEditMode(true);
-  };
-
   const handleEditConfirmButtonClick = () => {
     uploadUpdateMusicOrder.mutate({ musicList });
     setIsEditMode(false);
@@ -34,8 +30,8 @@ export default function useMusicList({ musicList }: UseMusicListProps) {
   return {
     isEditMode,
     channelId,
+    setIsEditMode,
     handleCreateMusicButtonButtonClick,
-    handleEditButtonClick,
     handleEditConfirmButtonClick,
   };
 }
