@@ -1,6 +1,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { updateMusic } from '../services/music';
 import { Music } from '@/types/music';
+import queryKeys from '../queryKey';
 
 interface updateMusicParams {
   musicId: string;
@@ -14,7 +15,7 @@ export default function useUpdateMusic() {
     mutationFn: ({ musicId, music }) => updateMusic(musicId, music),
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: ['musicList'],
+        queryKey: queryKeys.musicList.allMusicList,
       });
     },
   });

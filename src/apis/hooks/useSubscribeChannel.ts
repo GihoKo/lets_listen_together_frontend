@@ -1,5 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { subscribeChannel } from '../services/channel';
+import queryKeys from '../queryKey';
 
 interface subscribeChannelParams {
   channelId: string;
@@ -13,11 +14,11 @@ export default function useSubscribeChannel() {
     mutationFn: ({ channelId, userId }) => subscribeChannel(channelId, userId),
     onSuccess: (_data, { channelId, userId }) => {
       queryClient.invalidateQueries({
-        queryKey: ['channels', 'channel', channelId],
+        queryKey: queryKeys.channels.channel(channelId),
       });
 
       queryClient.invalidateQueries({
-        queryKey: ['channels', 'myChannels', userId, 'mySubscribedChannels'],
+        queryKey: queryKeys.channels.mySubscribedChannels(userId),
       });
     },
   });
