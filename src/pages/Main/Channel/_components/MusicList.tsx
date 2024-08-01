@@ -3,7 +3,6 @@ import styled from 'styled-components';
 
 // components
 import MusicContainer from './MusicContainer';
-import Guide from '@/components/Atoms/Badge/Guide';
 import SubscribeButton from './SubscribeButton';
 
 // types
@@ -14,6 +13,7 @@ import addSquareSvg from '@/images/svg/add-square.svg';
 
 // hooks
 import useMusicList from './MusicList.hook';
+import AddMusicGuide from './AddMusicGuide';
 export default function MusicList({ musicList, setMusicList }: MusicListProps) {
   // logics
   const {
@@ -41,11 +41,7 @@ export default function MusicList({ musicList, setMusicList }: MusicListProps) {
         <CreateMusicButton onClick={handleCreateMusicButtonButtonClick}>
           <img src={addSquareSvg} alt='음악 생성 버튼 이미지' />
         </CreateMusicButton>
-        {musicList.length === 0 ? (
-          <GuidePositioner>
-            <Guide>{`Add Music!`}</Guide>
-          </GuidePositioner>
-        ) : null}
+        <AddMusicGuide musicList={musicList} />
       </Header>
 
       <MusicContainer musicList={musicList} setMusicList={setMusicList} isEditMode={isEditMode} />
@@ -153,9 +149,4 @@ const CreateMusicButton = styled.button`
     width: 40px;
     height: 40px;
   }
-`;
-
-const GuidePositioner = styled.div`
-  position: absolute;
-  right: 48px;
 `;
