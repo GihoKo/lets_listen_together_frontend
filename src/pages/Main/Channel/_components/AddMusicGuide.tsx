@@ -17,4 +17,8 @@ export default function AddMusicGuide({ musicList }: AddMusicGuideProps) {
 const Wrapper = styled.div`
   position: absolute;
   right: 48px;
+
+  @media (max-width: 768px) {
+    right: 56px;
+  }
 `;

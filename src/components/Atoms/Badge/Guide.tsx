@@ -17,4 +17,14 @@ const Wrapper = styled.div`
   color: var(--mint5);
   font-weight: bold;
   white-space: nowrap;
+
+  @media (max-width: 1024px) {
+    font-size: 14px;
+    padding: 6px 12px;
+  }
+
+  @media (max-width: 768px) {
+    font-size: 12px;
+    padding: 4px 8px;
+  }
 `;
