@@ -35,7 +35,6 @@ export default function useUnsubscribeChannelModal() {
   };
 
   return {
-    isPending: upLoadUnSubscribeChannel.isPending,
     isError: upLoadUnSubscribeChannel.isError,
     errorMessages,
     handleUnSubscribeButtonClick,

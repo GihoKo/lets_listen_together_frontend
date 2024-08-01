@@ -35,7 +35,6 @@ export default function useSubscribeChannelModal() {
   };
 
   return {
-    isPending: upLoadSubscribeChannel.isPending,
     isError: upLoadSubscribeChannel.isError,
     errorMessages,
     handleSubscribeButtonClick,

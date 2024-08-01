@@ -6,19 +6,12 @@ import { ButtonWrapper, Description, ErrorMessage, Title, Wrapper } from '@/comp
 // hooks
 import useSubscribeChannelModal from './SubscribeChannelModal.hook';
 
-// components
-import Loading from '@/components/Molecules/Loading';
-
 export default function SubscribeChannelModal() {
   const logics = useSubscribeChannelModal();
 
   if (!logics) return null;
 
-  const { isPending, errorMessages, handleSubscribeButtonClick, handleModalCloseButtonClick } = logics;
-
-  if (isPending) {
-    return <Loading />;
-  }
+  const { errorMessages, handleSubscribeButtonClick, handleModalCloseButtonClick } = logics;
 
   return (
     <Dimmed>
