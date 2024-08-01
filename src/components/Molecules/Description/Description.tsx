@@ -27,9 +27,18 @@ const Wrapper = styled.div`
   background-color: var(--grey-grey150);
 
   @media (max-width: 992px) {
+    width: 400px;
+    height: auto;
+
+    padding: 16px;
+    padding-bottom: 32px;
+  }
+
+  @media (max-width: 768px) {
     width: 100%;
 
     padding: 16px;
+    padding-bottom: 32px;
   }
 `;
 

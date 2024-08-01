@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 // components
 import MainTitle from '../../../components/Atoms/Text/MainTitle';
-import Description from '@/components/Molecules/Description';
+import Description from '@/components/Molecules/Description/Description';
 
 // hooks
 import useEditChannels from './EditChannels.hook';
