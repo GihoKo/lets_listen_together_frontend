@@ -14,13 +14,13 @@ import { UseMusicListProps } from './MusicList.type';
 export default function useMusicList({ musicList }: UseMusicListProps) {
   const { openModal } = useModalStore();
   const { channelId } = useParams<{ channelId: string }>();
+
+  const [isEditMode, setIsEditMode] = useState(false);
   const uploadUpdateMusicOrder = useUpdateMusicOrder();
 
   const handleCreateMusicButtonButtonClick = () => {
     openModal(ModalType.CREATE_MUSIC, <CreateMusicModal />, { channelId, order: musicList.length });
   };
-
-  const [isEditMode, setIsEditMode] = useState(false);
 
   const handleEditConfirmButtonClick = () => {
     uploadUpdateMusicOrder.mutate({ musicList });

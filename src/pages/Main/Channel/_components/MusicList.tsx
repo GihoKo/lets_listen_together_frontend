@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 // components
 import MusicContainer from './MusicContainer';
-import SubscribeButton from './SubscribeButton';
+import SubscribeButton from './SubscribeButton/SubscribeButton';
 import EditButton from './EditButton/EditButton';
 
 // types

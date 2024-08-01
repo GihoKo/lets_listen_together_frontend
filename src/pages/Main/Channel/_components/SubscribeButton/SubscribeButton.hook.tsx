@@ -18,6 +18,7 @@ export default function useSubscribeButton({ channelId }: UseSubscribeButtonProp
   const { data: channel, isLoading: isChannelLoading, isError: isChannelError } = useGetChannelById(channelId);
   const { user } = useUserStore.getState();
   const userId = user?.id;
+  const [isOwnChannel, setIsOwnChannel] = useState(false);
 
   const handleSubscribeButtonClick = () => {
     openModal(ModalType.SUBSCRBE_CHANNEL, <SubscribeChannelModal />, { channelId });
@@ -30,14 +31,37 @@ export default function useSubscribeButton({ channelId }: UseSubscribeButtonProp
   const checkIsSubscribed = () => {
     if (channel?.users.some((user) => user.id === userId)) {
       setIsSubscribed(true);
-    } else {
-      setIsSubscribed(false);
+      return true;
     }
+    setIsSubscribed(false);
+    return false;
+  };
+
+  const checkIsOwnChannel = () => {
+    if (channel?.ownerId === userId) {
+      setIsOwnChannel(true);
+      return true;
+    }
+    setIsOwnChannel(false);
+    return false;
   };
 
   useEffect(() => {
-    checkIsSubscribed();
+    if (checkIsOwnChannel()) {
+      return;
+    }
+
+    if (checkIsSubscribed()) {
+      return;
+    }
   }, [isSubscribed, channel]);
 
-  return { isSubscribed, isChannelLoading, isChannelError, handleSubscribeButtonClick, handleUnsubscribeButtonClick };
+  return {
+    isOwnChannel,
+    isSubscribed,
+    isChannelLoading,
+    isChannelError,
+    handleSubscribeButtonClick,
+    handleUnsubscribeButtonClick,
+  };
 }

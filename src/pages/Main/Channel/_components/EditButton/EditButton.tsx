@@ -30,6 +30,7 @@ const Wrapper = styled.button<{
   border: ${({ $isEditMode }) => ($isEditMode ? '2px solid var(--mint3)' : '1px solid var(--grey-grey600)')};
   border-radius: 8px;
   width: 80px;
+  height: 48px;
 
   font-weight: bold;
   font-size: 16px;
@@ -38,11 +39,13 @@ const Wrapper = styled.button<{
   cursor: pointer;
 
   @media (max-width: 1024px) {
+    height: 40px;
     font-size: 14px;
   }
 
   @media (max-width: 768px) {
     width: 60px;
+    height: 32px;
     font-size: 12px;
   }
 `;
