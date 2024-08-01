@@ -8,11 +8,12 @@ interface updateChannelParams {
 
 export default function useUpdateChannel() {
   const queryClient = useQueryClient();
+
   return useMutation<void, Error, updateChannelParams>({
     mutationFn: ({ channelId, channel }) => updateChannel(channelId, channel),
-    onSuccess: () => {
+    onSuccess: (_data, { channelId }) => {
       queryClient.invalidateQueries({
-        queryKey: ['channels'],
+        queryKey: ['channels', 'channel', channelId],
       });
     },
   });

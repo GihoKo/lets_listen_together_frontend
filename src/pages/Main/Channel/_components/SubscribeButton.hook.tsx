@@ -28,6 +28,7 @@ export default function useSubscribeButton({ channelId }: UseSubscribeButtonProp
   };
 
   const checkIsSubscribed = () => {
+    console.log('channel:', channel);
     if (channel?.users.some((user) => user.id === userId)) {
       setIsSubscribed(true);
     } else {

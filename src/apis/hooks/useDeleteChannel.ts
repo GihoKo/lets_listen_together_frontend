@@ -11,7 +11,7 @@ export default function useDeleteChannel() {
     mutationFn: ({ channelId }) => deleteChannel(channelId),
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: ['myOwnChannels', 'channels'],
+        queryKey: ['channels'],
       });
     },
   });

@@ -7,6 +7,7 @@ interface ApplicationAccessToken {
 
 export default function useRenewTokens() {
   const queryKey = ['tokens'];
+
   return useQuery<ApplicationAccessToken, Error>({
     queryKey: queryKey,
     queryFn: renewTokens,

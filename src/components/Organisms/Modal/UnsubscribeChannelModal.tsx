@@ -5,13 +5,23 @@ import useUnsubscribeChannelModal from './UnsubscribeChannelModal.hook';
 import Button from '@/components/Atoms/Modal/Button';
 import Dimmed from '@/components/Atoms/Modal/Dimmed';
 import { ButtonWrapper, Description, Title, Wrapper } from '@/components/Atoms/Modal/StyledComponents';
+import Error from '@/components/Molecules/Error';
+import Loading from '@/components/Molecules/Loading';
 
 export default function UnSubscribeChannelModal() {
   const logics = useUnsubscribeChannelModal();
 
   if (!logics) return null;
 
-  const { handleUnSubscribeButtonClick, handleModalCloseButtonClick } = logics;
+  const { isPending, isError, handleUnSubscribeButtonClick, handleModalCloseButtonClick } = logics;
+
+  if (isPending) {
+    return <Loading />;
+  }
+
+  if (isError) {
+    return <Error />;
+  }
 
   return (
     <Dimmed>

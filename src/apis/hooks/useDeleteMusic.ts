@@ -3,6 +3,7 @@ import { deleteMusic } from '../services/music';
 
 export default function useDeleteMusic() {
   const queryClient = useQueryClient();
+
   return useMutation<void, Error, string>({
     mutationFn: (musicId) => deleteMusic(musicId),
     onSuccess: () => {

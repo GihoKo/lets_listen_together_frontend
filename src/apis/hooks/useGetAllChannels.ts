@@ -4,6 +4,7 @@ import { Channel } from '../../types/channel';
 
 export default function useGetAllChannels() {
   const queryKey = ['channels'];
+
   return useQuery<Channel[], Error>({
     queryKey: queryKey,
     queryFn: () => getAllchannelLists(),

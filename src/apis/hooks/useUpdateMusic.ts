@@ -9,6 +9,7 @@ interface updateMusicParams {
 
 export default function useUpdateMusic() {
   const queryClient = useQueryClient();
+
   return useMutation<void, Error, updateMusicParams>({
     mutationFn: ({ musicId, music }) => updateMusic(musicId, music),
     onSuccess: () => {

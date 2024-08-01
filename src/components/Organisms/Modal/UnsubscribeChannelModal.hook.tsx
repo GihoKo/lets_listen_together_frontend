@@ -6,6 +6,7 @@ import { useUserStore } from '@/store/useUserStore';
 // types
 import { ModalType } from '@/types/enum';
 import { UnSubscribeChannelModalProps } from './UnsubscribeChannelModal.type';
+import { useEffect } from 'react';
 
 export default function useUnsubscribeChannelModal() {
   const { type, closeModal, props } = useModalStore();
@@ -16,7 +17,7 @@ export default function useUnsubscribeChannelModal() {
   const channelId = modalProps.channelId;
   const { user } = useUserStore.getState();
   const userId = user?.id;
-  const uploadUnSubcribeChannelMuatation = useUnsubscribeChannel();
+  const { mutate, status, isPending, isError } = useUnsubscribeChannel();
 
   const handleUnSubscribeButtonClick = async () => {
     unSubscribeChannel();
@@ -24,12 +25,16 @@ export default function useUnsubscribeChannelModal() {
   };
 
   const unSubscribeChannel = async () => {
-    uploadUnSubcribeChannelMuatation.mutate({ channelId, userId });
+    mutate({ channelId, userId });
   };
 
   const handleModalCloseButtonClick = () => {
     closeModal();
   };
 
-  return { handleUnSubscribeButtonClick, handleModalCloseButtonClick };
+  useEffect(() => {
+    console.log('status: ', status);
+  }, [status]);
+
+  return { isPending, isError, handleUnSubscribeButtonClick, handleModalCloseButtonClick };
 }

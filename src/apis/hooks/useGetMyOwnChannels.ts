@@ -3,7 +3,8 @@ import { getMyOwnChannels } from '../services/user';
 import { Channel } from '../../types/channel';
 
 export default function useGetMyOwnChannels(userId: string | undefined) {
-  const queryKey = ['myOwnChannels', 'channels', userId];
+  const queryKey = ['channels', 'myChannels', userId, 'myOwnChannels'];
+
   return useQuery<Channel[], Error>({
     queryKey: queryKey,
     queryFn: () => getMyOwnChannels(userId),

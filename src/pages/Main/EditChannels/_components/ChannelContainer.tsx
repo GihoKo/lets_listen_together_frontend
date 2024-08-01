@@ -1,10 +1,11 @@
+// libraries
 import styled from 'styled-components';
-import ChannelItem from './ChannelItem';
-import { Channel } from '@/types/channel';
 
-export interface ChannelContainerProps {
-  channels: Channel[] | undefined;
-}
+// components
+import ChannelItem from './ChannelItem';
+
+// types
+import { ChannelContainerProps } from './ChannelContainer.type';
 
 export default function ChannelContainer({ channels }: ChannelContainerProps) {
   // view
