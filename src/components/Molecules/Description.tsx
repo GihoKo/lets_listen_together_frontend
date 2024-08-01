@@ -1,9 +1,8 @@
+// libraries
 import styled from 'styled-components';
 
-interface DescriptionProps {
-  title: string;
-  text: string;
-}
+// types
+import { DescriptionProps } from './Description.type';
 
 export default function Description({ title, text }: DescriptionProps) {
   return (

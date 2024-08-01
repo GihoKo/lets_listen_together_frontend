@@ -22,7 +22,7 @@ export default function ChannelItem({ channel }: ChannelItemProps) {
           </ImageWrapper>
           <UserCount>
             <img src={personSvg} alt='참여자수 이미지' />
-            {channel.users.length}
+            {channel?.users.length}
           </UserCount>
         </Positioner>
         <TagContainer tags={channel?.tags} />
