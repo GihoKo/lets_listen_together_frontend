@@ -8,6 +8,8 @@ import { useEffect, useRef, useState } from 'react';
 // type
 import { ErrorMessagesType, ModalType } from '@/types/enum';
 import { checkIsChannelOwner } from '@/utils/checkIsChannelOwner';
+import validateChannelData from '@/utils/validateChannelData';
+import validateTag from '@/utils/validateTag';
 
 export default function useEditChannelModal() {
   const { type, closeModal, props } = useModalStore();
@@ -28,7 +30,7 @@ export default function useEditChannelModal() {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [profileImageFile, setProfileImageFile] = useState<File | null>(null);
   const [tagValue, setTagValue] = useState<string>('');
-  const [errorMessage, setErrorMessage] = useState<string>('');
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const handleChannelImageClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
@@ -54,17 +56,15 @@ export default function useEditChannelModal() {
   const handleAddTagKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
       e.preventDefault();
-      if (tagValue.trim() === '') {
-        return setErrorMessage(ErrorMessagesType.TAG_EMPTY);
-      }
-      if (tagValue.length > 10) {
-        return setErrorMessage(ErrorMessagesType.TAG_LENGTH);
-      }
-      if (channelData.tags.length > 5) {
-        return setErrorMessage(ErrorMessagesType.TAG_LIMIT);
-      }
-      if (channelData.tags.includes(tagValue)) {
-        return setErrorMessage(ErrorMessagesType.TAG_DUPLICATE);
+
+      if (
+        !validateTag({
+          tagValue,
+          channelData,
+          setErrorMessage,
+        })
+      ) {
+        return;
       }
 
       setChannelData({
@@ -95,6 +95,16 @@ export default function useEditChannelModal() {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    if (
+      !validateChannelData({
+        channelData,
+        setErrorMessage,
+      })
+    ) {
+      return;
+    }
+
     if (
       checkIsChannelOwner({
         ownerId: modalProps.channelOwnerId,

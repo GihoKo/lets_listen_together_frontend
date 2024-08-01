@@ -2,8 +2,8 @@
 import useCreateChannelModal from './CreateChannelModal.hook';
 
 // components
-import Dimmed from '../../Atoms/Modal/Dimmed';
-import Button from '../../Atoms/Modal/Button';
+import Dimmed from '../../../Atoms/Modal/Dimmed';
+import Button from '../../../Atoms/Modal/Button';
 import {
   Wrapper,
   Form,
@@ -20,7 +20,7 @@ import {
   EmptyImage,
   FileInput,
   ErrorMessage,
-} from '../../Atoms/Modal/StyledComponents';
+} from '../../../Atoms/Modal/StyledComponents';
 
 export default function CreateChannelModal() {
   // logics

@@ -18,4 +18,7 @@ export enum ErrorMessagesType {
 
   // 채널
   CHANNEL_EDIT_PERMISSION = '채널 수정 권한이 없습니다.',
+  CHANNEL_NAME_EMPTY = '채널 이름을 입력하세요.',
+  CHANNEL_DESCRIPTION_EMPTY = '채널 설명을 입력하세요.',
+  CHANNEL_TAG_EMPTY = '채널 태그를 입력하세요.',
 }

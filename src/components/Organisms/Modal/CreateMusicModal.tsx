@@ -1,5 +1,5 @@
 // hooks
-import useCreateMusicModal from './CreateMusicModal.hook';
+import useCreateMusicModal from './CreateChannelModal/CreateMusicModal.hook';
 
 // components
 import Button from '../../Atoms/Modal/Button';

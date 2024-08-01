@@ -5,7 +5,11 @@ import useCreateChannel from '@/apis/hooks/useCreateChannel';
 import useModalStore from '@/store/useModalStore';
 
 // types
-import { ErrorMessagesType, ModalType } from '@/types/enum';
+import { ModalType } from '@/types/enum';
+
+// utils
+import validateTag from '@/utils/validateTag';
+import validateChannelData from '@/utils/validateChannelData';
 
 export default function useCreateChannelModal() {
   const { type, closeModal } = useModalStore();
@@ -50,19 +54,14 @@ export default function useCreateChannelModal() {
   const handleAddTagKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
       e.preventDefault();
-      if (tagValue.trim() === '') {
-        return setErrorMessage(ErrorMessagesType.TAG_EMPTY);
-      }
-      if (tagValue.length > 10) {
-        return setErrorMessage(ErrorMessagesType.TAG_LENGTH);
-      }
-      if (channelData.tags.length > 5) {
-        return setErrorMessage(ErrorMessagesType.TAG_LIMIT);
-      }
-      if (channelData.tags.includes(tagValue)) {
-        return setErrorMessage(ErrorMessagesType.TAG_DUPLICATE);
-      }
-
+      if (
+        !validateTag({
+          tagValue,
+          channelData,
+          setErrorMessage,
+        })
+      )
+        return;
       setChannelData({
         ...channelData,
         tags: [...channelData.tags, tagValue],
@@ -91,14 +90,15 @@ export default function useCreateChannelModal() {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (
+      !validateChannelData({
+        channelData,
+        setErrorMessage,
+      })
+    )
+      return;
     createChannel();
     closeModal();
-    setChannelData({
-      name: '',
-      tags: [],
-      description: '',
-      image: '',
-    });
   };
 
   const createChannel = async () => {

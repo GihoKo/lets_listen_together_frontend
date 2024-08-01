@@ -7,7 +7,7 @@ import DeleteChannelModal from '@/components/Organisms/Modal/DeleteChannelModal'
 // types
 import { Channel } from '@/types/channel';
 import { ModalType } from '@/types/enum';
-import EditChannelModal from '@/components/Organisms/Modal/EditChannelModal';
+import EditChannelModal from '@/components/Organisms/Modal/EditChannelModal/EditChannelModal';
 
 interface ChannelItemProps {
   channel: Channel;
