@@ -1,4 +1,5 @@
 import { ErrorMessagesType } from '@/types/enum';
+import validateMusicUrl from './validateMusicUrl';
 
 interface ValidateMusicDataProps {
   musicData: {
@@ -24,6 +25,11 @@ const validateMusicData: ValidateMusicData = ({ musicData, setErrorMessage }) =>
 
   if (musicData.url.trim() === '') {
     setErrorMessage(ErrorMessagesType.MUSIC_URL_EMPTY);
+    return false;
+  }
+
+  if (!validateMusicUrl(musicData.url)) {
+    setErrorMessage(ErrorMessagesType.MUSIC_URL_UNVALID);
     return false;
   }
 

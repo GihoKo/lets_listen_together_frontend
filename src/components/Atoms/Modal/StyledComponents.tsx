@@ -196,8 +196,8 @@ export const FileInput = styled.input`
   display: none;
 `;
 
-export const ErrorMessage = styled.p`
-  color: var(--red-errorMessage-dark);
+export const ErrorMessage = styled.span`
+  color: var(--red-errorMessage);
   font-size: 16px;
 
   @media (max-width: 768px) {
