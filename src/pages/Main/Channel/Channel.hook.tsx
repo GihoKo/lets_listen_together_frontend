@@ -13,7 +13,7 @@ export default function useChannel() {
   const { setChannelId } = useChannelIdStore();
   const [musicList, setMusicList] = useState<Music[]>([]);
   const { music: currentMusic, setMusic, resetMusic } = useMusicStore();
-  const { data, isLoading, isError } = useGetMusicsByChannelId(channelId);
+  const { data: musicListData, isLoading, isError, refetch } = useGetMusicsByChannelId(channelId);
   const [personalTap, setPersonalTap] = useState([
     { name: 'Player', value: 0, isFocused: false },
     { name: 'List', value: 1, isFocused: true },
@@ -49,15 +49,17 @@ export default function useChannel() {
   };
 
   useEffect(() => {
-    if (data) {
-      setMusicList(data);
+    if (channelId) {
+      refetch();
+    }
+  }, [refetch, channelId]);
+
+  useEffect(() => {
+    if (musicListData) {
+      setMusicList(musicListData);
       setChannelId(channelId);
     }
-
-    return () => {
-      resetMusic();
-    };
-  }, [data, channelId]);
+  }, [musicListData]);
 
   return {
     musicList,
