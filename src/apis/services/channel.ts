@@ -75,7 +75,6 @@ export const unsubscribeChannel = async (channelId: string, userId: string | und
 export const getMusicsByChannelId = async (channelId: string | undefined) => {
   try {
     const response = await axiosInstanceWithToken.get(`/channels/${channelId}/musics`);
-    console.log('musiclist', response.data);
     return response.data;
   } catch (e) {
     console.error(e);

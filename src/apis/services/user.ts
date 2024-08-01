@@ -16,7 +16,6 @@ export const updateUser = async (userId: string | undefined, user: FormData) => 
 export const getMyChannelList = async (userId: string | undefined) => {
   try {
     const response = await axiosInstanceWithToken.get(`/users/myChannels/${userId}`);
-    console.log(response.data);
     return response.data;
   } catch (error) {
     console.error(error);
