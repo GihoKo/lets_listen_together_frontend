@@ -125,7 +125,7 @@ export default function EditChannelModal() {
               onChange={handleChangeChannelData}
               placeholder='채널 설명을 입력하세요.'
               type='text'
-              maxLength={10}
+              maxLength={50}
             />
           </FormField>
 

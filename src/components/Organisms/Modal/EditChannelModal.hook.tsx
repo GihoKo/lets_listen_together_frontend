@@ -6,7 +6,7 @@ import { useUserStore } from '@/store/useUserStore';
 import { useEffect, useRef, useState } from 'react';
 
 // type
-import { ModalType } from '@/types/enum';
+import { ErrorMessagesType, ModalType } from '@/types/enum';
 import { checkIsChannelOwner } from '@/utils/checkIsChannelOwner';
 
 export default function useEditChannelModal() {
@@ -55,16 +55,16 @@ export default function useEditChannelModal() {
     if (e.key === 'Enter') {
       e.preventDefault();
       if (tagValue.trim() === '') {
-        return setErrorMessage('태그를 입력하세요.');
+        return setErrorMessage(ErrorMessagesType.TAG_EMPTY);
       }
       if (tagValue.length > 10) {
-        return setErrorMessage('태그는 10자 이내로 입력하세요.');
+        return setErrorMessage(ErrorMessagesType.TAG_LENGTH);
       }
       if (channelData.tags.length > 5) {
-        return setErrorMessage('태그는 6개까지 입력 가능합니다.');
+        return setErrorMessage(ErrorMessagesType.TAG_LIMIT);
       }
       if (channelData.tags.includes(tagValue)) {
-        return setErrorMessage('이미 추가된 태그입니다.');
+        return setErrorMessage(ErrorMessagesType.TAG_DUPLICATE);
       }
 
       setChannelData({
@@ -103,7 +103,7 @@ export default function useEditChannelModal() {
       updateChannel();
       closeModal();
     } else {
-      setErrorMessage('채널 수정 권한이 없습니다.');
+      setErrorMessage(ErrorMessagesType.CHANNEL_EDIT_PERMISSION);
     }
   };
 

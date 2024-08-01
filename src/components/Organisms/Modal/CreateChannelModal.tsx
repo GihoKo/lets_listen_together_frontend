@@ -19,6 +19,7 @@ import {
   ChannelImageWrapper,
   EmptyImage,
   FileInput,
+  ErrorMessage,
 } from '../../Atoms/Modal/StyledComponents';
 
 export default function CreateChannelModal() {
@@ -33,6 +34,7 @@ export default function CreateChannelModal() {
     tagValue,
     previewChannelImageUrl,
     fileInputRef,
+    errorMessage,
     handleChannelImageClick,
     handleFileChange,
     handleChangeChannelData,
@@ -116,9 +118,12 @@ export default function CreateChannelModal() {
               onChange={handleChangeChannelData}
               placeholder='채널 설명을 입력하세요.'
               type='text'
-              maxLength={10}
+              maxLength={50}
             />
           </FormField>
+
+          {errorMessage === '' ? null : <ErrorMessage>{errorMessage}</ErrorMessage>}
+
           <ButtonWrapper>
             <Button variant='confirm' type='submit'>
               생성
