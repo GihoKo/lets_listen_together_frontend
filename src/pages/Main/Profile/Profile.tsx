@@ -6,7 +6,7 @@ import useProfile from './Profile.hook';
 
 // components
 import MainTitle from '@/components/Atoms/Text/MainTitle';
-import Description from '@/components/Molecules/Description';
+import Description from '@/components/Molecules/Description/Description';
 
 export default function Profile() {
   // logics

@@ -2,12 +2,15 @@
 import { useEffect, useRef, useState } from 'react';
 import useUpdateMusic from '@/apis/hooks/useUpdateMusic';
 import useModalStore from '@/store/useModalStore';
+import useGetChannelById from '@/apis/hooks/useGetChannelById';
 
 // types
-import { ModalType } from '@/types/enum';
-import { EditMusicModalProps } from './EditMusicModal.hook.type';
+import { ErrorMessagesType, ModalType } from '@/types/enum';
+
+// utils
+import validateMusicData from '@/utils/validateMusicData';
 import { checkIsChannelOwner } from '@/utils/checkIsChannelOwner';
-import useGetChannelById from '@/apis/hooks/useGetChannelById';
+import { EditMusicModalProps } from './EditMusicModal.hook.type';
 
 export default function useEditMusicModal() {
   const { type, closeModal, props } = useModalStore();
@@ -22,8 +25,8 @@ export default function useEditMusicModal() {
     artist: modalProps.music.artist,
     url: modalProps.music.url,
   });
-  const { data } = useGetChannelById(modalProps.channelId);
-  const ownerIdRef = useRef<string>();
+  const { data: channel } = useGetChannelById(modalProps.channelId);
+  const ownerIdRef = useRef<string | null>(null);
   const [errorMessage, setErrorMessage] = useState('');
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -35,12 +38,25 @@ export default function useEditMusicModal() {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (checkIsChannelOwner({ ownerId: ownerIdRef.current })) {
-      updateMusic();
-      closeModal();
-    } else {
-      setErrorMessage('채널의 주인만 음악을 수정할 수 있습니다.');
+
+    if (!checkIsChannelOwner({ ownerId: ownerIdRef.current })) {
+      setErrorMessage(ErrorMessagesType.MUSIC_EDIT_PERMISSION);
+      return;
     }
+    if (
+      !validateMusicData({
+        musicData: {
+          title: musicData.title,
+          artist: musicData.artist,
+          url: musicData.url,
+        },
+        setErrorMessage,
+      })
+    )
+      return;
+
+    updateMusic();
+    closeModal();
   };
 
   const updateMusic = () => {
@@ -50,15 +66,15 @@ export default function useEditMusicModal() {
       artist: musicData.artist,
       url: musicData.url,
     };
+
     upLoadUpdateMusicMutation.mutate({ musicId: modalProps.music.id, music: edittedMusic });
-    closeModal();
   };
 
   useEffect(() => {
-    if (data) {
-      ownerIdRef.current = data.ownerId;
+    if (channel) {
+      ownerIdRef.current = channel.ownerId;
     }
-  }, [data]);
+  }, [channel]);
 
   return { musicData, errorMessage, handleChange, handleSubmit, closeModal };
 }

@@ -2,12 +2,12 @@
 import useModalStore from '@/store/useModalStore';
 
 // components
-import DeleteChannelModal from '@/components/Organisms/Modal/DeleteChannelModal';
+import DeleteChannelModal from '@/components/Organisms/Modal/DeleteChannelModal/DeleteChannelModal';
 
 // types
 import { Channel } from '@/types/channel';
 import { ModalType } from '@/types/enum';
-import EditChannelModal from '@/components/Organisms/Modal/EditChannelModal';
+import EditChannelModal from '@/components/Organisms/Modal/EditChannelModal/EditChannelModal';
 
 interface ChannelItemProps {
   channel: Channel;

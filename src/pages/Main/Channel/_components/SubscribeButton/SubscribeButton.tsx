@@ -1,28 +1,38 @@
 // libraries
 import styled from 'styled-components';
 
+// hooks
+import useSubscribeButton from './SubscribeButton.hook';
+
 // images
 import subscribeOffSvg from '@/images/svg/subscribe-off.svg';
 import subscribeOnSvg from '@/images/svg/subscribe-on.svg';
 
 // types
-
 import { SubscribeButtonProps } from './SubscribeButton.type';
-import useSubscribeButton from './SubscribeButton.hook';
 
 export default function SubscribeButton({ channelId }: SubscribeButtonProps) {
   // logics
 
-  const { isSubscribed, isChannelLoading, isChannelError, handleSubscribeButtonClick, handleUnsubscribeButtonClick } =
-    useSubscribeButton({ channelId });
+  const {
+    isOwnChannel,
+    isSubscribed,
+    isChannelLoading,
+    isChannelError,
+    handleSubscribeButtonClick,
+    handleUnsubscribeButtonClick,
+  } = useSubscribeButton({ channelId });
 
   // view
-
   if (isChannelLoading) {
     return null;
   }
 
   if (isChannelError) {
+    return null;
+  }
+
+  if (isOwnChannel) {
     return null;
   }
 

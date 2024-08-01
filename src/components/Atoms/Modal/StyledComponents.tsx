@@ -13,7 +13,9 @@ export const Wrapper = styled.div`
   gap: 16px;
 
   @media (max-width: 768px) {
-    width: 100%;
+    border: none;
+    width: 100vw;
+    height: 100vh;
 
     gap: 8px;
 
@@ -24,12 +26,20 @@ export const Wrapper = styled.div`
 export const Title = styled.div`
   font-size: 24px;
   color: var(--grey-grey900);
+
+  @media (max-width: 768px) {
+    font-size: 20px;
+  }
 `;
 
 export const Label = styled.label`
   font-size: 16px;
   font-weight: 600;
   color: var(--grey-grey600);
+
+  @media (max-width: 768px) {
+    font-size: 14px;
+  }
 `;
 
 export const Input = styled.input`
@@ -45,12 +55,20 @@ export const Input = styled.input`
   &:focus {
     border: 1px solid var(--mint5);
   }
+
+  @media (max-width: 768px) {
+    padding: 12px;
+  }
 `;
 
 export const Form = styled.form`
   display: flex;
   flex-direction: column;
   gap: 16px;
+
+  @media (max-width: 768px) {
+    gap: 8px;
+  }
 `;
 
 export const FormField = styled.div`
@@ -63,12 +81,20 @@ export const FormField = styled.div`
       color: var(--mint5);
     }
   }
+
+  @media (max-width: 768px) {
+    gap: 4px;
+  }
 `;
 
 export const Description = styled.div`
   font-size: 16px;
   color: var(--grey-grey600);
   margin-top: 8px;
+
+  @media (max-width: 768px) {
+    font-size: 14px;
+  }
 `;
 
 export const ButtonWrapper = styled.div`
@@ -77,6 +103,10 @@ export const ButtonWrapper = styled.div`
   gap: 8px;
 
   margin-top: 24px;
+
+  @media (max-width: 768px) {
+    margin-top: 16px;
+  }
 `;
 
 export const TagContainer = styled.div`
@@ -84,6 +114,10 @@ export const TagContainer = styled.div`
   gap: 8px;
 
   overflow-x: hidden;
+
+  @media (max-width: 768px) {
+    gap: 4px;
+  }
 `;
 
 export const Tag = styled.div`
@@ -104,6 +138,11 @@ export const Tag = styled.div`
   &:hover {
     background-color: var(--mint7);
   }
+
+  @media (max-width: 768px) {
+    padding: 6px;
+    font-size: 14px;
+  }
 `;
 
 export const ChannelImageWrapper = styled.button`
@@ -121,6 +160,11 @@ export const ChannelImageWrapper = styled.button`
     height: 100%;
     object-fit: cover;
     cursor: pointer;
+  }
+
+  @media (max-width: 768px) {
+    width: 80px;
+    height: 80px;
   }
 `;
 
@@ -140,6 +184,10 @@ export const EmptyImage = styled.div`
   &:hover {
     background-color: var(--grey-grey200);
   }
+
+  @media (max-width: 768px) {
+    font-size: 12px;
+  }
 `;
 
 export const ChannelImageLabel = styled(Label)``;
@@ -148,11 +196,11 @@ export const FileInput = styled.input`
   display: none;
 `;
 
-export const ErrorMessage = styled.p`
-  color: var(--red-errorMessage-dark);
-  font-size: 12px;
+export const ErrorMessage = styled.span`
+  color: var(--red-errorMessage);
+  font-size: 16px;
 
   @media (max-width: 768px) {
-    font-size: 10px;
+    font-size: 14px;
   }
 `;

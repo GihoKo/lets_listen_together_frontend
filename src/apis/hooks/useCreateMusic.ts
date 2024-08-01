@@ -1,9 +1,9 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { createMusic } from '../services/music';
-import { Music } from '@/types/music';
+import { createMusic, CreateMusicData } from '../services/music';
+import queryKeys from '../queryKey';
 
 interface createMusicParams {
-  music: Music;
+  music: CreateMusicData;
 }
 
 export default function useCreateMusic() {
@@ -12,7 +12,7 @@ export default function useCreateMusic() {
     mutationFn: ({ music }) => createMusic(music),
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: ['musicList'],
+        queryKey: queryKeys.musicList.allMusicList,
       });
     },
   });
