@@ -17,7 +17,6 @@ export default function useGoogleLoginButton() {
     onSuccess: async ({ code }) => {
       try {
         await axiosInstanceWithToken.post('/auth/google/callback', { code }).then((response) => {
-          console.log(response.data);
           setAccessToken(response.data.applicationAccessToken);
           setGoogleOAuthToken(response.data.googleAccessToken);
           setUser(response.data.user);

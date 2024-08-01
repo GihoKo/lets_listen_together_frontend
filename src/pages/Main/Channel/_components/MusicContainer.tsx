@@ -1,26 +1,21 @@
+// libraries
 import styled from 'styled-components';
-import { Music } from '../_types/interface';
-import MusicItem from './MusicItem';
-import upCircleSvg from '../../../../images/svg/up-circle.svg';
-import { useRef } from 'react';
-import useMusicStore from '../../../../store/useMusicStore';
 
-interface MusicContainerProps {
-  musicList: Music[];
-  isEditMode: boolean;
-  setMusicList: React.Dispatch<React.SetStateAction<Music[]>>;
-}
+// hooks
+import useMusicContainer from './MusicContainer.hook';
+
+// components
+import MusicItem from './MusicItem';
+
+// images
+import upCircleSvg from '../../../../images/svg/up-circle.svg';
+import { MusicContainerProps } from './MusicContainer.type';
 
 export default function MusicContainer({ musicList, setMusicList, isEditMode }: MusicContainerProps) {
-  const { music: currentMusic } = useMusicStore();
-  const containerRef = useRef<HTMLDivElement>(null);
+  // logics
+  const { containerRef, currentMusic, handleScrollUpButtonClick } = useMusicContainer();
 
-  const handleScrollUpButtonClick = () => {
-    if (containerRef.current) {
-      containerRef.current.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-  };
-
+  // view
   if (musicList.length === 0) {
     return <NoMusic>음악을 추가해보세요!</NoMusic>;
   }

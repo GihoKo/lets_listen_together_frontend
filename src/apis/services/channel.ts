@@ -33,7 +33,6 @@ export const createChannel = async (channel: FormData) => {
 };
 
 export const updateChannel = async (channelId: string, channel: FormData) => {
-  console.log(channelId, channel);
   try {
     const response = await axiosInstanceWithToken.patch(`/channels/${channelId}`, channel, {
       headers: {
@@ -49,6 +48,24 @@ export const updateChannel = async (channelId: string, channel: FormData) => {
 export const deleteChannel = async (channelId: string) => {
   try {
     const response = await axiosInstanceWithToken.delete(`/channels/${channelId}`);
+    return response.data;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const subscribeChannel = async (channelId: string, userId: string | undefined) => {
+  try {
+    const response = await axiosInstanceWithToken.post(`/channels/${channelId}/subscribe`, { userId });
+    return response.data;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const unsubscribeChannel = async (channelId: string, userId: string | undefined) => {
+  try {
+    const response = await axiosInstanceWithToken.post(`/channels/${channelId}/unsubscribe`, { userId });
     return response.data;
   } catch (error) {
     console.error(error);

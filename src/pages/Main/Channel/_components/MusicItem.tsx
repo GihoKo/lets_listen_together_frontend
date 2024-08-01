@@ -1,19 +1,18 @@
+// libraries
 import styled from 'styled-components';
-import { MusicItemProps } from '../_types/interface';
-import { useEffect, useState } from 'react';
-import axios from 'axios';
-import extractYouTubeVideoId from '../../../../utils/extractYouTubeVideoId';
+
+// hooks
+import useMusicItem from './MusicItem.hook';
+
+// utils
+import { prefixZeroForNumber } from '../../../../utils/prefixZeroForNumber';
+
+// images
 import mediaPlayFocusedSvg from '../../../../images/svg/media-play-focused.svg';
 import editSvg from '../../../../images/svg/edit.svg';
 import editFocusedSvg from '../../../../images/svg/edit-focused.svg';
 import deleteSvg from '../../../../images/svg/delete.svg';
 import deleteFocusedSvg from '../../../../images/svg/delete-focused.svg';
-import useMusicStore from '../../../../store/useMusicStore';
-import { prefixZeroForNumber } from '../../../../utils/prefixZeroForNumber';
-import useModalStore from '../../../../store/useModalStore';
-import EditMusicModal from '../../../../components/Organisms/Modal/EditMusicModal';
-import DeleteMusicModal from '../../../../components/Organisms/Modal/DeleteMusicModal';
-import { ModalType } from '../../../../types/enum';
 import mockImage from '@/images/dummyImage.png';
 import upChevron from '@/images/svg/up-chevron.svg';
 import upChveronFocused from '@/images/svg/up-chevron-focused.svg';
@@ -21,93 +20,26 @@ import downChevron from '@/images/svg/down-chevron.svg';
 import downChevronFocused from '@/images/svg/down-chevron-focused.svg';
 import mediaPlayGregSvg from '../../../../images/svg/media-play-grey.svg';
 
+// types
+import { MusicItemProps } from './MusicItem.type';
+
 export default function MusicItem({ music, index, currentMusic, setMusicList, isEditMode }: MusicItemProps) {
-  const { openModal } = useModalStore();
-  const { setMusic } = useMusicStore();
-  const [musicImageUrl, setMusicImageUrl] = useState<string>();
-  const isCurrentMusic = currentMusic?.id === music.id;
+  // logics
+  const {
+    isCurrentMusic,
+    handlePlayButtonClick,
+    handleEditMusicButtonClick,
+    handleDeleteButtonClick,
+    handleOrderUpButton,
+    handleOrderDownButton,
+    musicImageUrl,
+  } = useMusicItem({
+    music,
+    currentMusic,
+    setMusicList,
+  });
 
-  const handlePlayButtonClick = () => {
-    setMusic(music);
-  };
-
-  const handleEditMusicButtonClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    e.stopPropagation();
-    openModal(ModalType.EDIT_MUSIC, <EditMusicModal />, { music });
-  };
-
-  const handleDeleteButtonClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    e.stopPropagation();
-    openModal(ModalType.DELETE_MUSIC, <DeleteMusicModal />, { music });
-  };
-
-  const handleOrderUpButton = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    e.stopPropagation();
-    setMusicList((prev) => {
-      const newMusicList = [...prev];
-      const currentIndex = newMusicList.findIndex((m) => m.id === music.id);
-      if (currentIndex === 0) return newMusicList;
-
-      // 객체 순서 바꾸기
-      [newMusicList[currentIndex], newMusicList[currentIndex - 1]] = [
-        newMusicList[currentIndex - 1],
-        newMusicList[currentIndex],
-      ];
-
-      // 실제 order값 바꾸기
-      [newMusicList[currentIndex].order, newMusicList[currentIndex - 1].order] = [
-        newMusicList[currentIndex - 1].order,
-        newMusicList[currentIndex].order,
-      ];
-
-      return newMusicList;
-    });
-  };
-
-  const handleOrderDownButton = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    e.stopPropagation();
-    setMusicList((prev) => {
-      const newMusicList = [...prev];
-      const currentIndex = newMusicList.findIndex((m) => m.id === music.id);
-      if (currentIndex === newMusicList.length - 1) return newMusicList;
-
-      // 객체 순서 바꾸기
-      [newMusicList[currentIndex], newMusicList[currentIndex + 1]] = [
-        newMusicList[currentIndex + 1],
-        newMusicList[currentIndex],
-      ];
-
-      // 실제 order값 바꾸기
-      [newMusicList[currentIndex].order, newMusicList[currentIndex + 1].order] = [
-        newMusicList[currentIndex + 1].order,
-        newMusicList[currentIndex].order,
-      ];
-
-      return newMusicList;
-    });
-  };
-
-  useEffect(() => {
-    if (!music?.url) return;
-
-    const getMusicImageUrl = async () => {
-      try {
-        const response = await axios.get('https://www.googleapis.com/youtube/v3/videos', {
-          params: {
-            part: 'snippet',
-            id: extractYouTubeVideoId(music?.url),
-            key: process.env.GOOGLE_API_KEY,
-          },
-        });
-        setMusicImageUrl(response.data.items[0].snippet.thumbnails.default.url);
-      } catch (e) {
-        console.error(e);
-      }
-    };
-
-    getMusicImageUrl();
-  }, [music?.url]);
-
+  // view
   return (
     <>
       {isEditMode ? (

@@ -4,7 +4,16 @@ import useEditMusicModal from './EditMusicModal.hook';
 // components
 import Button from '../../Atoms/Modal/Button';
 import Dimmed from '../../Atoms/Modal/Dimmed';
-import { ButtonWrapper, Form, FormField, Input, Label, Title, Wrapper } from '../../Atoms/Modal/StyledComponents';
+import {
+  ButtonWrapper,
+  ErrorMessage,
+  Form,
+  FormField,
+  Input,
+  Label,
+  Title,
+  Wrapper,
+} from '../../Atoms/Modal/StyledComponents';
 
 export default function EditMusicModal() {
   // logics
@@ -12,7 +21,7 @@ export default function EditMusicModal() {
 
   if (!logics) return null;
 
-  const { musicData, handleChange, handleSubmit, closeModal } = logics;
+  const { musicData, errorMessage, handleChange, handleSubmit, closeModal } = logics;
 
   // view
   return (
@@ -53,6 +62,9 @@ export default function EditMusicModal() {
               type='text'
             />
           </FormField>
+
+          {errorMessage === '' ? null : <ErrorMessage>{errorMessage}</ErrorMessage>}
+
           <ButtonWrapper>
             <Button variant='confirm' type='submit'>
               수정

@@ -1,5 +1,5 @@
+import { Music } from '@/types/music';
 import { axiosInstanceWithToken } from '../instances';
-import { MusicRequestData } from '../../pages/Main/Channel/_types/interface';
 
 export const getMusicById = async (musicId: string) => {
   try {
@@ -10,7 +10,7 @@ export const getMusicById = async (musicId: string) => {
   }
 };
 
-export const createMusic = async (music: MusicRequestData) => {
+export const createMusic = async (music: Music) => {
   try {
     const response = await axiosInstanceWithToken.post('/musics', music);
     return response.data;
@@ -19,7 +19,8 @@ export const createMusic = async (music: MusicRequestData) => {
   }
 };
 
-export const updateMusic = async (musicId: string, music: MusicRequestData) => {
+export const updateMusic = async (musicId: string, music: Music) => {
+  // user가 channel owner인지 확인
   try {
     const response = await axiosInstanceWithToken.patch(`/musics/${musicId}`, music);
     return response.data;

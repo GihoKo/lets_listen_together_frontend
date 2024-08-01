@@ -29,7 +29,7 @@ module.exports = {
   plugins: ['react', 'compat', 'prettier', 'storybook', '@typescript-eslint'], // eslint-plugin-compat 추가
   rules: {
     'react/react-in-jsx-scope': 'off',
-    'compat/compat': 'warn', // 지원하지 않는 ECMAScript, Web API에 대해 경고
+    'compat/compat': 'warn',
     '@typescript-eslint/no-var-requires': 'off',
   },
 };

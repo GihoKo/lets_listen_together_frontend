@@ -1,12 +1,13 @@
 // hooks
-import { useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useEffect, useRef, useState } from 'react';
 import useUpdateMusic from '@/apis/hooks/useUpdateMusic';
 import useModalStore from '@/store/useModalStore';
 
 // types
 import { ModalType } from '@/types/enum';
 import { EditMusicModalProps } from './EditMusicModal.hook.type';
+import { checkIsChannelOwner } from '@/utils/checkIsChannelOwner';
+import useGetChannelById from '@/apis/hooks/useGetChannelById';
 
 export default function useEditMusicModal() {
   const { type, closeModal, props } = useModalStore();
@@ -16,12 +17,14 @@ export default function useEditMusicModal() {
   const modalProps = props as EditMusicModalProps;
 
   const upLoadUpdateMusicMutation = useUpdateMusic();
-  const { channelId } = useParams<{ channelId: string }>();
   const [musicData, setMusicData] = useState({
     title: modalProps.music.title,
     artist: modalProps.music.artist,
     url: modalProps.music.url,
   });
+  const { data } = useGetChannelById(modalProps.channelId);
+  const ownerIdRef = useRef<string>();
+  const [errorMessage, setErrorMessage] = useState('');
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setMusicData({
@@ -32,9 +35,17 @@ export default function useEditMusicModal() {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // Call API to update music
+    if (checkIsChannelOwner({ ownerId: ownerIdRef.current })) {
+      updateMusic();
+      closeModal();
+    } else {
+      setErrorMessage('채널의 주인만 음악을 수정할 수 있습니다.');
+    }
+  };
+
+  const updateMusic = () => {
     const edittedMusic = {
-      channelId: channelId,
+      channelId: modalProps.channelId,
       title: musicData.title,
       artist: musicData.artist,
       url: musicData.url,
@@ -43,5 +54,11 @@ export default function useEditMusicModal() {
     closeModal();
   };
 
-  return { musicData, handleChange, handleSubmit, closeModal };
+  useEffect(() => {
+    if (data) {
+      ownerIdRef.current = data.ownerId;
+    }
+  }, [data]);
+
+  return { musicData, errorMessage, handleChange, handleSubmit, closeModal };
 }

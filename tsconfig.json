@@ -32,5 +32,6 @@
     "noFallthroughCasesInSwitch": true,
     "incremental": true
   },
-  "include": ["custom.d.ts"]
+  // include: 컴파일할 파일 목록
+  "include": ["image.d.ts", "**/*.ts", "**/*.tsx"]
 }

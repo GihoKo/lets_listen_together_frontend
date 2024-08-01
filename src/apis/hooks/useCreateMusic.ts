@@ -1,9 +1,9 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { createMusic } from '../services/music';
-import { MusicRequestData } from '../../pages/Main/Channel/_types/interface';
+import { Music } from '@/types/music';
 
 interface createMusicParams {
-  music: MusicRequestData;
+  music: Music;
 }
 
 export default function useCreateMusic() {

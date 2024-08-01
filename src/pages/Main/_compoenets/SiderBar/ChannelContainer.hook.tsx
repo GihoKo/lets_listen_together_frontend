@@ -1,14 +1,13 @@
 // hooks
 import { useUserStore } from '@/store/useUserStore';
 import { useParams } from 'react-router-dom';
-import useGetAllChannels from '@/apis/hooks/useGetAllChannels';
+import useGetMyOwnChannels from '@/apis/hooks/useGetMyOwnChannels';
 
 export default function useChannelContainer() {
   const { user } = useUserStore();
   const userId = user?.id;
   const { channelId } = useParams();
-
-  const { data: channelList, isError, isLoading } = useGetAllChannels();
+  const { data: channelList, isError, isLoading } = useGetMyOwnChannels(userId);
 
   return {
     channelList,

@@ -7,13 +7,14 @@ import { useEffect, useRef, useState } from 'react';
 
 // type
 import { ModalType } from '@/types/enum';
+import { checkIsChannelOwner } from '@/utils/checkIsChannelOwner';
 
 export default function useEditChannelModal() {
   const { type, closeModal, props } = useModalStore();
 
   if (type !== ModalType.EDIT_CHANNEL) return null;
 
-  const modalProps = props as { channelId: string; channelName: string };
+  const modalProps = props as { channelId: string; channelName: string; channelOwnerId: string };
   const { user } = useUserStore();
   const { data, isLoading, isError } = useGetChannelById(modalProps.channelId);
   const [channelData, setChannelData] = useState({
@@ -27,6 +28,7 @@ export default function useEditChannelModal() {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [profileImageFile, setProfileImageFile] = useState<File | null>(null);
   const [tagValue, setTagValue] = useState<string>('');
+  const [errorMessage, setErrorMessage] = useState<string>('');
 
   const handleChannelImageClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
@@ -53,16 +55,16 @@ export default function useEditChannelModal() {
     if (e.key === 'Enter') {
       e.preventDefault();
       if (tagValue.trim() === '') {
-        return console.log('태그를 입력하세요.');
+        return setErrorMessage('태그를 입력하세요.');
       }
       if (tagValue.length > 10) {
-        return console.log('태그는 10자 이내로 입력하세요.');
+        return setErrorMessage('태그는 10자 이내로 입력하세요.');
       }
       if (channelData.tags.length > 5) {
-        return console.log('태그는 5개까지만 입력할 수 있습니다.');
+        return setErrorMessage('태그는 6개까지 입력 가능합니다.');
       }
       if (channelData.tags.includes(tagValue)) {
-        return console.log('이미 입력된 태그입니다.');
+        return setErrorMessage('이미 추가된 태그입니다.');
       }
 
       setChannelData({
@@ -93,14 +95,16 @@ export default function useEditChannelModal() {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    updateChannel();
-    closeModal();
-    setChannelData({
-      name: '',
-      tags: [],
-      description: '',
-      image: '',
-    });
+    if (
+      checkIsChannelOwner({
+        ownerId: modalProps.channelOwnerId,
+      })
+    ) {
+      updateChannel();
+      closeModal();
+    } else {
+      setErrorMessage('채널 수정 권한이 없습니다.');
+    }
   };
 
   const updateChannel = async () => {
@@ -120,7 +124,6 @@ export default function useEditChannelModal() {
       // 업로드 하지 않은 경우 기존 이미지 URL 전송
       updatedChannel.append('image', channelData.image);
     }
-    console.log('tags', updatedChannel.get('tags'));
     upLoadUpdateChannelMutation.mutate({ channelId: modalProps.channelId, channel: updatedChannel });
   };
 
@@ -144,6 +147,7 @@ export default function useEditChannelModal() {
     modalProps,
     isLoading,
     isError,
+    errorMessage,
     handleChannelImageClick,
     handleFileChange,
     handleChangeTagValue,

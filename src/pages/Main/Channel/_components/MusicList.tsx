@@ -1,44 +1,35 @@
+// libraries
 import styled from 'styled-components';
+
+// components
 import MusicContainer from './MusicContainer';
-import { Music } from '@/types/music';
-import addSquareSvg from '../../../../images/svg/add-square.svg';
-import useModalStore from '../../../../store/useModalStore';
-import CreateMusicModal from '../../../../components/Organisms/Modal/CreateMusicModal';
-import { useParams } from 'react-router-dom';
-import { ModalType } from '../../../../types/enum';
-import Guide from '../../../../components/Atoms/Badge/Guide';
-import { useState } from 'react';
-import useUpdateMusicOrder from '@/apis/hooks/useUpdateMusicListOrder';
+import Guide from '@/components/Atoms/Badge/Guide';
+import SubscribeButton from './SubscribeButton';
 
-interface MusicListProps {
-  musicList: Music[];
-  setMusicList: React.Dispatch<React.SetStateAction<Music[]>>;
-}
+// types
+import { MusicListProps } from './MusicList.type';
 
+// images
+import addSquareSvg from '@/images/svg/add-square.svg';
+
+// hooks
+import useMusicList from './MusicList.hook';
 export default function MusicList({ musicList, setMusicList }: MusicListProps) {
-  const { openModal } = useModalStore();
-  const { channelId } = useParams<{ channelId: string }>();
-  const uploadUpdateMusicOrder = useUpdateMusicOrder();
+  // logics
+  const {
+    isEditMode,
+    channelId,
+    handleCreateMusicButtonButtonClick,
+    handleEditButtonClick,
+    handleEditConfirmButtonClick,
+  } = useMusicList({ musicList });
 
-  const handleCreateMusicButtonButtonClick = () => {
-    openModal(ModalType.CREATE_MUSIC, <CreateMusicModal />, { channelId, order: musicList.length });
-  };
-
-  const [isEditMode, setIsEditMode] = useState(false);
-
-  const handleEditButtonClick = () => {
-    setIsEditMode(true);
-  };
-
-  const handleEditConfirmButtonClick = () => {
-    uploadUpdateMusicOrder.mutate({ musicList });
-    setIsEditMode(false);
-  };
-
+  // view
   return (
     <Wrapper>
       <Header>
         <Left>
+          <SubscribeButton channelId={channelId} />
           <EditButton
             type='button'
             onClick={isEditMode ? handleEditConfirmButtonClick : handleEditButtonClick}
@@ -105,7 +96,15 @@ const Header = styled.div`
 
 const Left = styled.div`
   display: flex;
-  gap: 8px;
+  gap: 16px;
+
+  @media (max-width: 1024px) {
+    gap: 8px;
+  }
+
+  @media (max-width: 768px) {
+    gap: 4px;
+  }
 `;
 
 const EditButton = styled.button<{
@@ -113,6 +112,7 @@ const EditButton = styled.button<{
 }>`
   border: ${({ $isEditMode }) => ($isEditMode ? '2px solid var(--mint3)' : '1px solid var(--grey-grey600)')};
   border-radius: 8px;
+  width: 80px;
 
   font-weight: bold;
   font-size: 16px;
@@ -120,8 +120,13 @@ const EditButton = styled.button<{
 
   cursor: pointer;
 
-  @media (max-width: 768px) {
+  @media (max-width: 1024px) {
     font-size: 14px;
+  }
+
+  @media (max-width: 768px) {
+    width: 60px;
+    font-size: 12px;
   }
 `;
 
