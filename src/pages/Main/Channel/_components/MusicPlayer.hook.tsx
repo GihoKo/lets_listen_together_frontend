@@ -17,7 +17,7 @@ import playPrevMusic from '@/utils/playPrevMusic';
 export default function useMusicPlayer() {
   // useMusicStore.getState()를 통해 music을 가져와버리면 구독이 되지 않아서 music이 변경되어도 반영이 되지 않는다.
   const {
-    music,
+    music: currentMusic,
     currentTime,
     totalTime,
     progressValue,
@@ -32,6 +32,7 @@ export default function useMusicPlayer() {
   const handleNextMusicButtonClick = () => {
     playNextMusic({
       musicList,
+      currentMusic,
       setMusic,
     });
   };
@@ -39,19 +40,20 @@ export default function useMusicPlayer() {
   const handlePreviosMusicButtonClick = () => {
     playPrevMusic({
       musicList,
+      currentMusic,
       setMusic,
     });
   };
 
   useEffect(() => {
-    if (!music?.url) return;
+    if (!currentMusic?.url) return;
 
     const getVideoData = async () => {
       try {
         const response = await axios.get('https://www.googleapis.com/youtube/v3/videos', {
           params: {
             part: 'snippet',
-            id: extractYouTubeVideoId(music?.url),
+            id: extractYouTubeVideoId(currentMusic?.url),
             key: process.env.GOOGLE_API_KEY,
           },
         });
@@ -59,7 +61,7 @@ export default function useMusicPlayer() {
           id: response.data.items[0].id,
           title: response.data.items[0].snippet.title,
           channelTitle: response.data.items[0].snippet.channelTitle,
-          thumbnails: response.data.items[0].snippet.thumbnails.default.url,
+          thumbnails: response.data.items[0].snippet.thumbnails.maxres.url,
         });
       } catch (e) {
         console.error(e);
@@ -67,15 +69,10 @@ export default function useMusicPlayer() {
     };
 
     getVideoData();
-  }, [music?.url]);
-
-  useEffect(() => {
-    console.log('handleTogglePlayButtonClick', handleTogglePlayButtonClick);
-    console.log('handleProgressBarClick', handleProgressBarClick);
-  }, [handleTogglePlayButtonClick, handleProgressBarClick]);
+  }, [currentMusic?.url]);
 
   return {
-    music,
+    currentMusic,
     videoData,
     currentTime,
     totalTime,

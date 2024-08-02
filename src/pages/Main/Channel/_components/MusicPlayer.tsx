@@ -17,7 +17,7 @@ import mockImage from '@/images/dummyImage.png';
 export default function MusicPlayer() {
   // logics
   const {
-    music,
+    currentMusic,
     videoData,
     currentTime,
     totalTime,
@@ -30,7 +30,7 @@ export default function MusicPlayer() {
   } = useMusicPlayer();
 
   // view
-  if (!music) {
+  if (!currentMusic) {
     return <NoPlayer>음악을 선택해주세요!</NoPlayer>;
   }
 
@@ -39,8 +39,8 @@ export default function MusicPlayer() {
       <ImageBox>
         <img src={videoData?.thumbnails ? videoData?.thumbnails : mockImage} alt='비디오 썸네일 이미지' />
       </ImageBox>
-      <Title>{music?.title}</Title>
-      <Artist>{music?.artist}</Artist>
+      <Title>{currentMusic?.title}</Title>
+      <Artist>{currentMusic?.artist}</Artist>
       <TimeBox>
         <TimeBoxPositioner>
           <CurrentTime>{formatTime(currentTime)}</CurrentTime>
@@ -122,7 +122,7 @@ const ImageBox = styled.div`
   img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain;
   }
 `;
 

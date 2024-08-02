@@ -61,6 +61,7 @@ export default function YoutubeIframePlayer() {
     if (event.data === 0) {
       playNextMusic({
         musicList,
+        currentMusic,
         setMusic: setCurrentMusic,
       });
     }
