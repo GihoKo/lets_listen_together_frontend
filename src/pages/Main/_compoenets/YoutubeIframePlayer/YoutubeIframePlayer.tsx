@@ -1,8 +1,9 @@
-import useMusicStore from '@/store/useMusicStore';
-import extractYouTubeVideoId from '@/utils/extractYouTubeVideoId';
-import axios from 'axios';
-import { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
+import { useCallback, useEffect, useRef } from 'react';
+import useMusicStore from '@/store/useMusicStore';
+import useMusicListStore from '@/store/useMusicListStore';
+import extractYouTubeVideoId from '@/utils/extractYouTubeVideoId';
+import playNextMusic from '@/utils/playNextMusic';
 
 export interface VideoData {
   id: string;
@@ -12,34 +13,18 @@ export interface VideoData {
 }
 
 export default function YoutubeIframePlayer() {
-  const [videoData, setVideoData] = useState<VideoData | null>(null);
-  const { music: currentMusic, setMusic: setCurrentMusic } = useMusicStore.getState();
-
-  useEffect(() => {
-    if (!currentMusic?.url) return;
-
-    const getVideoData = async () => {
-      try {
-        const response = await axios.get('https://www.googleapis.com/youtube/v3/videos', {
-          params: {
-            part: 'snippet',
-            id: extractYouTubeVideoId(currentMusic?.url),
-            key: process.env.GOOGLE_API_KEY,
-          },
-        });
-        setVideoData({
-          id: response.data.items[0].id,
-          title: response.data.items[0].snippet.title,
-          channelTitle: response.data.items[0].snippet.channelTitle,
-          thumbnails: response.data.items[0].snippet.thumbnails.default.url,
-        });
-      } catch (e) {
-        console.error(e);
-      }
-    };
-
-    getVideoData();
-  }, [currentMusic?.url]);
+  const {
+    music: currentMusic,
+    setMusic: setCurrentMusic,
+    totalTime,
+    setCurrentTime,
+    setTotalTime,
+    setProgressValue,
+    setIsPlayerPlaying,
+    setHandleTogglePlayButtonClick,
+    setHandleProgressBarClick,
+  } = useMusicStore();
+  const { musicList } = useMusicListStore();
 
   // player의 생성과 제거를 관리하기 위해서 useRef를 사용한다.
   const playerRef = useRef<YT.Player | null>(null);
@@ -57,7 +42,6 @@ export default function YoutubeIframePlayer() {
         onStateChange: onPlayerStateChange,
       },
     });
-    console.log('initializePlayer');
   };
 
   const onPlayerReady = (event: YT.PlayerEvent) => {
@@ -75,7 +59,10 @@ export default function YoutubeIframePlayer() {
      *  5(동영상 신호)
      */
     if (event.data === 0) {
-      playNextMusic();
+      playNextMusic({
+        musicList,
+        setMusic: setCurrentMusic,
+      });
     }
   };
 
@@ -89,9 +76,7 @@ export default function YoutubeIframePlayer() {
     }
   }, [currentMusic?.url]);
 
-  const [isPlayerPlaying, setIsPlayerPlaying] = useState<boolean>(false);
-
-  const handleTogglePlayButtonClick = () => {
+  const handleTogglePlayButtonClick = useCallback(() => {
     if (playerRef.current) {
       if (playerRef.current.getPlayerState() === window.YT.PlayerState.PLAYING) {
         playerRef.current.pauseVideo();
@@ -101,11 +86,7 @@ export default function YoutubeIframePlayer() {
         setIsPlayerPlaying(true);
       }
     }
-  };
-
-  const [currentTime, setCurrentTime] = useState<number>(0);
-  const [totalTime, setTotalTime] = useState<number>(0);
-  const [progressValue, setProgressValue] = useState<number>(0);
+  }, [setIsPlayerPlaying]);
 
   useEffect(() => {
     if (!playerRef.current) return;
@@ -116,26 +97,41 @@ export default function YoutubeIframePlayer() {
         typeof playerRef.current.getCurrentTime === 'function' &&
         typeof playerRef.current.getDuration === 'function'
       ) {
-        setCurrentTime(playerRef.current.getCurrentTime());
-        setTotalTime(playerRef.current.getDuration());
-        setProgressValue((playerRef.current.getCurrentTime() / playerRef.current.getDuration()) * 100);
+        if (playerRef.current?.getPlayerState() !== window.YT.PlayerState.PLAYING) return;
+
+        const currentTime = playerRef.current.getCurrentTime();
+        const totalTime = playerRef.current.getDuration();
+        const progressValue = (currentTime / totalTime) * 100;
+
+        setCurrentTime(currentTime);
+        setTotalTime(totalTime);
+        setProgressValue(progressValue);
       }
     }, 500);
 
     return () => {
       clearInterval(id);
     };
-  }, [currentMusic]);
+  }, [currentMusic?.url]);
 
-  const handleProgressBarClick = (e: React.MouseEvent<HTMLDivElement>) => {
+  const handleProgressBarClick = useCallback(
+    (e: React.MouseEvent<HTMLDivElement>) => {
+      if (!playerRef.current) return;
+
+      const progressBarWidth = e.currentTarget.clientWidth;
+      const clickedPositionX = e.nativeEvent.offsetX;
+      setCurrentTime((clickedPositionX / progressBarWidth) * totalTime);
+      setProgressValue((clickedPositionX / progressBarWidth) * 100);
+      playerRef.current?.seekTo((clickedPositionX / progressBarWidth) * totalTime, true);
+    },
+    [totalTime, setCurrentTime, setProgressValue],
+  );
+
+  useEffect(() => {
     if (!playerRef.current) return;
-
-    const progressBarWidth = e.currentTarget.clientWidth;
-    const clickedPositionX = e.nativeEvent.offsetX;
-    setCurrentTime((clickedPositionX / progressBarWidth) * totalTime);
-    setProgressValue((clickedPositionX / progressBarWidth) * 100);
-    playerRef.current?.seekTo((clickedPositionX / progressBarWidth) * totalTime, true);
-  };
+    setHandleTogglePlayButtonClick(handleTogglePlayButtonClick);
+    setHandleProgressBarClick(handleProgressBarClick);
+  }, [handleTogglePlayButtonClick, handleProgressBarClick]);
 
   return (
     <>

@@ -25,26 +25,28 @@ export default function MusicPlayer() {
     isPlayerPlaying,
     handleNextMusicButtonClick,
     handlePreviosMusicButtonClick,
-    onProgressBarClick,
     handleTogglePlayButtonClick,
+    handleProgressBarClick,
   } = useMusicPlayer();
 
   // view
-  if (!music) return <NoPlayer>음악을 선택해주세요!</NoPlayer>;
+  if (!music) {
+    return <NoPlayer>음악을 선택해주세요!</NoPlayer>;
+  }
 
   return (
     <Wrapper>
       <ImageBox>
         <img src={videoData?.thumbnails ? videoData?.thumbnails : mockImage} alt='비디오 썸네일 이미지' />
       </ImageBox>
-      <Title>{music.title}</Title>
-      <Artist>{music.artist}</Artist>
+      <Title>{music?.title}</Title>
+      <Artist>{music?.artist}</Artist>
       <TimeBox>
         <TimeBoxPositioner>
           <CurrentTime>{formatTime(currentTime)}</CurrentTime>
           <TotalTime>{formatTime(totalTime)}</TotalTime>
         </TimeBoxPositioner>
-        <ProgressBar onClick={onProgressBarClick}>
+        <ProgressBar onClick={handleProgressBarClick}>
           <ProgressTrack progressValue={progressValue} />
         </ProgressBar>
       </TimeBox>
@@ -53,7 +55,7 @@ export default function MusicPlayer() {
           <img src={previosMusicSvg} alt='이전 곡 버튼 이미지' />
         </PreviousMusicButton>
         <TogglePlayButton onClick={handleTogglePlayButtonClick}>
-          <img src={isPlayerPlaying ? mediaPlaySvg : mediaStopSvg} alt='재생/정지 버튼' />
+          <img src={isPlayerPlaying ? mediaStopSvg : mediaPlaySvg} alt='재생/정지 버튼' />
         </TogglePlayButton>
         <NextMusicButton onClick={handleNextMusicButtonClick}>
           <img src={nextMusicSvg} alt='다음 곡 버튼 이미지' />
