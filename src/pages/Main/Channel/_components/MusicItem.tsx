@@ -23,7 +23,7 @@ import mediaPlayGregSvg from '../../../../images/svg/media-play-grey.svg';
 // types
 import { MusicItemProps } from './MusicItem.type';
 
-export default function MusicItem({ music, index, currentMusic, setMusicList, isEditMode }: MusicItemProps) {
+export default function MusicItem({ music, index, isEditMode }: MusicItemProps) {
   // logics
   const {
     isCurrentMusic,
@@ -35,8 +35,6 @@ export default function MusicItem({ music, index, currentMusic, setMusicList, is
     musicImageUrl,
   } = useMusicItem({
     music,
-    currentMusic,
-    setMusicList,
   });
 
   // view

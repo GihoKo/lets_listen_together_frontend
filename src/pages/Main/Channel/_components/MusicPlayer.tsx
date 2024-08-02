@@ -14,34 +14,31 @@ import previosMusicSvg from '../../../../images/svg/previous-music.svg';
 import nextMusicSvg from '../../../../images/svg/next-music.svg';
 import mockImage from '@/images/dummyImage.png';
 
-// types
-import { MusicPlayerProps } from './MusicPlayer.type';
-
-export default function MusicPlayer({ playNextMusic, playPrevMusic }: MusicPlayerProps) {
+export default function MusicPlayer() {
   // logics
   const {
-    currentMusic,
+    music,
     videoData,
     currentTime,
     totalTime,
     progressValue,
     isPlayerPlaying,
+    handleNextMusicButtonClick,
+    handlePreviosMusicButtonClick,
     onProgressBarClick,
     handleTogglePlayButtonClick,
-  } = useMusicPlayer({
-    playNextMusic,
-  });
+  } = useMusicPlayer();
 
   // view
-  if (!currentMusic) return <NoPlayer>음악을 선택해주세요!</NoPlayer>;
+  if (!music) return <NoPlayer>음악을 선택해주세요!</NoPlayer>;
 
   return (
     <Wrapper>
       <ImageBox>
         <img src={videoData?.thumbnails ? videoData?.thumbnails : mockImage} alt='비디오 썸네일 이미지' />
       </ImageBox>
-      <Title>{currentMusic.title}</Title>
-      <Artist>{currentMusic.artist}</Artist>
+      <Title>{music.title}</Title>
+      <Artist>{music.artist}</Artist>
       <TimeBox>
         <TimeBoxPositioner>
           <CurrentTime>{formatTime(currentTime)}</CurrentTime>
@@ -52,13 +49,13 @@ export default function MusicPlayer({ playNextMusic, playPrevMusic }: MusicPlaye
         </ProgressBar>
       </TimeBox>
       <PlayBox>
-        <PreviousMusicButton onClick={playPrevMusic}>
+        <PreviousMusicButton onClick={handlePreviosMusicButtonClick}>
           <img src={previosMusicSvg} alt='이전 곡 버튼 이미지' />
         </PreviousMusicButton>
         <TogglePlayButton onClick={handleTogglePlayButtonClick}>
           <img src={isPlayerPlaying ? mediaPlaySvg : mediaStopSvg} alt='재생/정지 버튼' />
         </TogglePlayButton>
-        <NextMusicButton onClick={playNextMusic}>
+        <NextMusicButton onClick={handleNextMusicButtonClick}>
           <img src={nextMusicSvg} alt='다음 곡 버튼 이미지' />
         </NextMusicButton>
       </PlayBox>

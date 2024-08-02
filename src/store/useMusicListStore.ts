@@ -1,14 +1,14 @@
 import { Music } from '@/types/music';
 import { create } from 'zustand';
 
-interface MusicListStore {
+export interface MusicListStore {
   musicList: Music[];
-  setMusicList: (musicList: Music[]) => void;
+  setMusicList: (updateFn: (musicList: Music[]) => Music[]) => void;
 }
 
 const useMusicListStore = create<MusicListStore>((set) => ({
   musicList: [],
-  setMusicList: (musicList) => set({ musicList }),
+  setMusicList: (updateFn) => set((state) => ({ musicList: updateFn(state.musicList) })),
 }));
 
 export default useMusicListStore;

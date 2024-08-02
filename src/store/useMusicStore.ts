@@ -1,7 +1,7 @@
 import create from 'zustand';
 import { Music } from '../types/music';
 
-interface MusicStore {
+export interface MusicStore {
   music: Music | null;
   setMusic: (music: Music) => void;
   resetMusic: () => void;

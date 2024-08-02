@@ -14,10 +14,13 @@ import { getMusicImage } from '@/apis/services/youtube';
 import { ModalType } from '@/types/enum';
 import { UseMusicItemProps } from './MusicItem.type';
 import { useParams } from 'react-router-dom';
+import useMusicListStore from '@/store/useMusicListStore';
+import { Music } from '@/types/music';
 
-export default function useMusicItem({ music, currentMusic, setMusicList }: UseMusicItemProps) {
+export default function useMusicItem({ music }: UseMusicItemProps) {
   const { openModal } = useModalStore();
-  const { setMusic } = useMusicStore.getState();
+  const { music: currentMusic, setMusic } = useMusicStore();
+  const { setMusicList } = useMusicListStore();
   const [musicImageUrl, setMusicImageUrl] = useState<string>();
   const isCurrentMusic = currentMusic?.id === music.id;
   const { channelId } = useParams();
@@ -38,18 +41,16 @@ export default function useMusicItem({ music, currentMusic, setMusicList }: UseM
 
   const handleOrderUpButton = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.stopPropagation();
-    setMusicList((prev) => {
+    setMusicList((prev: Music[]) => {
       const newMusicList = [...prev];
       const currentIndex = newMusicList.findIndex((m) => m.id === music.id);
       if (currentIndex === 0) return newMusicList;
 
-      // 객체 순서 바꾸기
       [newMusicList[currentIndex], newMusicList[currentIndex - 1]] = [
         newMusicList[currentIndex - 1],
         newMusicList[currentIndex],
       ];
 
-      // 실제 order값 바꾸기
       [newMusicList[currentIndex].order, newMusicList[currentIndex - 1].order] = [
         newMusicList[currentIndex - 1].order,
         newMusicList[currentIndex].order,

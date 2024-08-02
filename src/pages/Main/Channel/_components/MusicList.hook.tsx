@@ -9,12 +9,12 @@ import CreateMusicModal from '@/components/Organisms/Modal/CreateMusicModal/Crea
 
 // types
 import { ModalType } from '@/types/enum';
-import { UseMusicListProps } from './MusicList.type';
+import useMusicListStore from '@/store/useMusicListStore';
 
-export default function useMusicList({ musicList }: UseMusicListProps) {
+export default function useMusicList() {
   const { openModal } = useModalStore();
   const { channelId } = useParams<{ channelId: string }>();
-
+  const { musicList } = useMusicListStore();
   const [isEditMode, setIsEditMode] = useState(false);
   const uploadUpdateMusicOrder = useUpdateMusicOrder();
 

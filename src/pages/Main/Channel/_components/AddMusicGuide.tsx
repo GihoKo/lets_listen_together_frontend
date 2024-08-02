@@ -1,8 +1,10 @@
 import Guide from '@/components/Atoms/Badge/Guide';
+import useMusicListStore from '@/store/useMusicListStore';
 import styled from 'styled-components';
-import { AddMusicGuideProps } from './AddMusicGuide.type';
 
-export default function AddMusicGuide({ musicList }: AddMusicGuideProps) {
+export default function AddMusicGuide() {
+  const { musicList } = useMusicListStore();
+
   return (
     <>
       {musicList.length === 0 ? (

@@ -6,9 +6,6 @@ import MusicContainer from './MusicContainer';
 import SubscribeButton from './SubscribeButton/SubscribeButton';
 import EditButton from './EditButton/EditButton';
 
-// types
-import { MusicListProps } from './MusicList.type';
-
 // images
 import addSquareSvg from '@/images/svg/add-square.svg';
 
@@ -16,10 +13,10 @@ import addSquareSvg from '@/images/svg/add-square.svg';
 import useMusicList from './MusicList.hook';
 import AddMusicGuide from './AddMusicGuide';
 
-export default function MusicList({ musicList, setMusicList }: MusicListProps) {
+export default function MusicList() {
   // logics
   const { isEditMode, channelId, setIsEditMode, handleCreateMusicButtonButtonClick, handleEditConfirmButtonClick } =
-    useMusicList({ musicList });
+    useMusicList();
 
   // view
   return (
@@ -36,10 +33,10 @@ export default function MusicList({ musicList, setMusicList }: MusicListProps) {
         <CreateMusicButton onClick={handleCreateMusicButtonButtonClick}>
           <img src={addSquareSvg} alt='음악 생성 버튼 이미지' />
         </CreateMusicButton>
-        <AddMusicGuide musicList={musicList} />
+        <AddMusicGuide />
       </Header>
 
-      <MusicContainer musicList={musicList} setMusicList={setMusicList} isEditMode={isEditMode} />
+      <MusicContainer isEditMode={isEditMode} />
     </Wrapper>
   );
 }

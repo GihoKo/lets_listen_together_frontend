@@ -11,9 +11,9 @@ import MusicItem from './MusicItem';
 import upCircleSvg from '../../../../images/svg/up-circle.svg';
 import { MusicContainerProps } from './MusicContainer.type';
 
-export default function MusicContainer({ musicList, setMusicList, isEditMode }: MusicContainerProps) {
+export default function MusicContainer({ isEditMode }: MusicContainerProps) {
   // logics
-  const { containerRef, currentMusic, handleScrollUpButtonClick } = useMusicContainer();
+  const { musicList, containerRef, handleScrollUpButtonClick } = useMusicContainer();
 
   // view
   if (musicList.length === 0) {
@@ -24,14 +24,7 @@ export default function MusicContainer({ musicList, setMusicList, isEditMode }: 
     <>
       <Container ref={containerRef}>
         {musicList.map((music, index) => (
-          <MusicItem
-            key={music.id}
-            index={index}
-            music={music}
-            setMusicList={setMusicList}
-            currentMusic={currentMusic}
-            isEditMode={isEditMode}
-          />
+          <MusicItem key={music.id} index={index} music={music} isEditMode={isEditMode} />
         ))}
       </Container>
       <ScrollUpButton onClick={handleScrollUpButtonClick}>

@@ -8,23 +8,41 @@ import extractYouTubeVideoId from '@/utils/extractYouTubeVideoId';
 import { useEffect, useRef, useState } from 'react';
 
 // types
-import { UseMusicPlayerProps, VideoData } from './MusicPlayer.type';
+import { VideoData } from './MusicPlayer.type';
 import useMusicStore from '@/store/useMusicStore';
+import useMusicListStore from '@/store/useMusicListStore';
+import playNextMusic from '@/utils/playNextMusic';
+import playPrevMusic from '@/utils/playPrevMusic';
 
-export default function useMusicPlayer({ playNextMusic }: UseMusicPlayerProps) {
+export default function useMusicPlayer() {
   // useMusicStore.getState()를 통해 music을 가져와버리면 구독이 되지 않아서 music이 변경되어도 반영이 되지 않는다.
-  const { music: currentMusic } = useMusicStore();
+  const { music, setMusic } = useMusicStore();
+  const { musicList } = useMusicListStore();
   const [videoData, setVideoData] = useState<VideoData | null>(null);
 
+  const handleNextMusicButtonClick = () => {
+    playNextMusic({
+      musicList,
+      setMusic,
+    });
+  };
+
+  const handlePreviosMusicButtonClick = () => {
+    playPrevMusic({
+      musicList,
+      setMusic,
+    });
+  };
+
   useEffect(() => {
-    if (!currentMusic?.url) return;
+    if (!music?.url) return;
 
     const getVideoData = async () => {
       try {
         const response = await axios.get('https://www.googleapis.com/youtube/v3/videos', {
           params: {
             part: 'snippet',
-            id: extractYouTubeVideoId(currentMusic?.url),
+            id: extractYouTubeVideoId(music?.url),
             key: process.env.GOOGLE_API_KEY,
           },
         });
@@ -40,14 +58,14 @@ export default function useMusicPlayer({ playNextMusic }: UseMusicPlayerProps) {
     };
 
     getVideoData();
-  }, [currentMusic?.url]);
+  }, [music?.url]);
 
   // player의 생성과 제거를 관리하기 위해서 useRef를 사용한다.
   const playerRef = useRef<YT.Player | null>(null);
 
   const initializePlayer = () => {
-    if (!currentMusic?.url) return;
-    const videoId = extractYouTubeVideoId(currentMusic.url);
+    if (!music?.url) return;
+    const videoId = extractYouTubeVideoId(music.url);
     if (!videoId) return;
     playerRef.current = new window.YT.Player('player', {
       height: '360',
@@ -76,7 +94,10 @@ export default function useMusicPlayer({ playNextMusic }: UseMusicPlayerProps) {
      *  5(동영상 신호)
      */
     if (event.data === 0) {
-      playNextMusic();
+      playNextMusic({
+        musicList,
+        setMusic,
+      });
     }
   };
 
@@ -85,10 +106,10 @@ export default function useMusicPlayer({ playNextMusic }: UseMusicPlayerProps) {
       playerRef.current.destroy();
     }
 
-    if (currentMusic?.url) {
+    if (music?.url) {
       initializePlayer();
     }
-  }, [currentMusic?.url]);
+  }, [music?.url]);
 
   const [isPlayerPlaying, setIsPlayerPlaying] = useState<boolean>(false);
 
@@ -126,7 +147,7 @@ export default function useMusicPlayer({ playNextMusic }: UseMusicPlayerProps) {
     return () => {
       clearInterval(id);
     };
-  }, [currentMusic?.url]);
+  }, [music?.url]);
 
   const onProgressBarClick = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!playerRef.current) return;
@@ -138,12 +159,14 @@ export default function useMusicPlayer({ playNextMusic }: UseMusicPlayerProps) {
   };
 
   return {
-    currentMusic,
+    music,
     videoData,
     currentTime,
     totalTime,
     progressValue,
     isPlayerPlaying,
+    handleNextMusicButtonClick,
+    handlePreviosMusicButtonClick,
     onProgressBarClick,
     handleTogglePlayButtonClick,
   };

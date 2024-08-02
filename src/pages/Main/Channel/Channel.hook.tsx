@@ -1,6 +1,5 @@
 // hooks
 import useGetMusicsByChannelId from '@/apis/hooks/useGetMusicsByChannelId';
-import useMusicStore from '@/store/useMusicStore';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
@@ -15,7 +14,6 @@ export default function useChannel() {
 
   // music
   const { musicList, setMusicList } = useMusicListStore();
-  const { music: currentMusic, setMusic } = useMusicStore();
   const { data: musicListData, isLoading, isError, refetch } = useGetMusicsByChannelId(channelId);
 
   // Tap
@@ -24,22 +22,6 @@ export default function useChannel() {
     { name: 'Player', value: 0, isFocused: false },
     { name: 'List', value: 1, isFocused: true },
   ]);
-
-  const playNextMusic = () => {
-    let currentMusicIndex = musicList.findIndex((music) => music.id === currentMusic?.id);
-    if (currentMusicIndex === musicList.length - 1) {
-      currentMusicIndex = -1;
-    }
-    setMusic(musicList[currentMusicIndex + 1]);
-  };
-
-  const playPrevMusic = () => {
-    let currentMusicIndex = musicList.findIndex((music) => music.id === currentMusic?.id);
-    if (currentMusicIndex === 0) {
-      currentMusicIndex = musicList.length;
-    }
-    setMusic(musicList[currentMusicIndex - 1]);
-  };
 
   const handleTapChange = (tap: number) => {
     setcurrentTapValue(tap);
@@ -61,7 +43,7 @@ export default function useChannel() {
 
   useEffect(() => {
     if (musicListData) {
-      setMusicList(musicListData);
+      setMusicList(() => [...musicListData]);
       setChannelId(channelId);
     }
   }, [musicListData]);
@@ -71,8 +53,6 @@ export default function useChannel() {
     setMusicList,
     isLoading,
     isError,
-    playNextMusic,
-    playPrevMusic,
     personalTap,
     currentTapValue,
     handleTapChange,
