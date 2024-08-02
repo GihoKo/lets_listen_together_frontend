@@ -3,9 +3,16 @@ import mediaPlaySvg from '@/images/svg/media-play-black.svg';
 import mediaPauseSvg from '@/images/svg/media-stop.svg';
 import previousMusicSvg from '@/images/svg/previous-music.svg';
 import nextMusicSvg from '@/images/svg/next-music.svg';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import useMusicStore from '@/store/useMusicStore';
+import { useParams } from 'react-router-dom';
 
 export default function MusicBar() {
+  // url에 channel이 없을 떄만 렌더링
+  const { channelId } = useParams();
+  const [isInChannel, setIsInChannel] = useState(true);
+
+  const { music: currentMusic } = useMusicStore();
   const [isPlaying, setIsPlaying] = useState(false);
 
   const handlePlayButtonClick = () => {
@@ -19,6 +26,18 @@ export default function MusicBar() {
 
     return mediaPlaySvg;
   };
+
+  useEffect(() => {
+    if (channelId) {
+      setIsInChannel(true);
+    } else {
+      setIsInChannel(false);
+    }
+  }, [channelId]);
+
+  if (isInChannel || !currentMusic) {
+    return null;
+  }
 
   return (
     <Wrapper>
