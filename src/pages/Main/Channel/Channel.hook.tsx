@@ -12,7 +12,7 @@ export default function useChannel() {
   const { channelId } = useParams<{ channelId: string }>();
   const { setChannelId } = useChannelIdStore();
   const [musicList, setMusicList] = useState<Music[]>([]);
-  const { music: currentMusic, setMusic, resetMusic } = useMusicStore();
+  const { music: currentMusic, setMusic } = useMusicStore();
   const { data: musicListData, isLoading, isError, refetch } = useGetMusicsByChannelId(channelId);
   const [personalTap, setPersonalTap] = useState([
     { name: 'Player', value: 0, isFocused: false },

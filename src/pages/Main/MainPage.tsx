@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import Header from './_compoenets/Header/Header';
 import SideBar from './_compoenets/SiderBar/SideBar';
 import { Outlet } from 'react-router-dom';
+import MusicBar from './_compoenets/MusicBar/MusicBar';
 
 export default function MainPage() {
   // view
@@ -17,6 +18,7 @@ export default function MainPage() {
           <Outlet />
         </Right>
       </Main>
+      <MusicBar />
     </Wrapper>
   );
 }
