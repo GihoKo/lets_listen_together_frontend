@@ -17,7 +17,7 @@ import { useParams } from 'react-router-dom';
 
 export default function useMusicItem({ music, currentMusic, setMusicList }: UseMusicItemProps) {
   const { openModal } = useModalStore();
-  const { setMusic } = useMusicStore();
+  const { setMusic } = useMusicStore.getState();
   const [musicImageUrl, setMusicImageUrl] = useState<string>();
   const isCurrentMusic = currentMusic?.id === music.id;
   const { channelId } = useParams();

@@ -7,6 +7,7 @@ import MusicList from './_components/MusicList';
 
 // hooks
 import useChannel from './Channel.hook';
+import { useEffect } from 'react';
 
 export default function Channel() {
   // logics
@@ -14,7 +15,6 @@ export default function Channel() {
   const {
     musicList,
     setMusicList,
-    currentMusic,
     isLoading,
     isError,
     playNextMusic,
@@ -31,7 +31,7 @@ export default function Channel() {
   return (
     <>
       <Content $currentTapValue={currentTapValue}>
-        <MusicPlayer currentMusic={currentMusic} playNextMusic={playNextMusic} playPrevMusic={playPrevMusic} />
+        <MusicPlayer playNextMusic={playNextMusic} playPrevMusic={playPrevMusic} />
         <MusicList musicList={musicList} setMusicList={setMusicList} />
       </Content>
       <TapContainer>

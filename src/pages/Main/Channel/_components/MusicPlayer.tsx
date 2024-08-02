@@ -17,9 +17,10 @@ import mockImage from '@/images/dummyImage.png';
 // types
 import { MusicPlayerProps } from './MusicPlayer.type';
 
-export default function MusicPlayer({ currentMusic, playNextMusic, playPrevMusic }: MusicPlayerProps) {
+export default function MusicPlayer({ playNextMusic, playPrevMusic }: MusicPlayerProps) {
   // logics
   const {
+    currentMusic,
     videoData,
     currentTime,
     totalTime,
@@ -28,7 +29,6 @@ export default function MusicPlayer({ currentMusic, playNextMusic, playPrevMusic
     onProgressBarClick,
     handleTogglePlayButtonClick,
   } = useMusicPlayer({
-    currentMusic,
     playNextMusic,
   });
 

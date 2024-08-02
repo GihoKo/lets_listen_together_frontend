@@ -1,20 +1,19 @@
-// libraries
-import axios from 'axios';
-
-// utils
-import extractYouTubeVideoId from '@/utils/extractYouTubeVideoId';
-
-// hooks
-import { useEffect, useRef, useState } from 'react';
-
-// types
-import { UseMusicPlayerProps, VideoData } from './MusicPlayer.type';
 import useMusicStore from '@/store/useMusicStore';
+import extractYouTubeVideoId from '@/utils/extractYouTubeVideoId';
+import axios from 'axios';
+import { useEffect, useRef, useState } from 'react';
+import styled from 'styled-components';
 
-export default function useMusicPlayer({ playNextMusic }: UseMusicPlayerProps) {
-  // useMusicStore.getState()를 통해 music을 가져와버리면 구독이 되지 않아서 music이 변경되어도 반영이 되지 않는다.
-  const { music: currentMusic } = useMusicStore();
+export interface VideoData {
+  id: string;
+  title: string;
+  channelTitle: string;
+  thumbnails: string;
+}
+
+export default function YoutubeIframePlayer() {
   const [videoData, setVideoData] = useState<VideoData | null>(null);
+  const { music: currentMusic, setMusic: setCurrentMusic } = useMusicStore.getState();
 
   useEffect(() => {
     if (!currentMusic?.url) return;
@@ -126,10 +125,11 @@ export default function useMusicPlayer({ playNextMusic }: UseMusicPlayerProps) {
     return () => {
       clearInterval(id);
     };
-  }, [currentMusic?.url]);
+  }, [currentMusic]);
 
-  const onProgressBarClick = (e: React.MouseEvent<HTMLDivElement>) => {
+  const handleProgressBarClick = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!playerRef.current) return;
+
     const progressBarWidth = e.currentTarget.clientWidth;
     const clickedPositionX = e.nativeEvent.offsetX;
     setCurrentTime((clickedPositionX / progressBarWidth) * totalTime);
@@ -137,14 +137,13 @@ export default function useMusicPlayer({ playNextMusic }: UseMusicPlayerProps) {
     playerRef.current?.seekTo((clickedPositionX / progressBarWidth) * totalTime, true);
   };
 
-  return {
-    currentMusic,
-    videoData,
-    currentTime,
-    totalTime,
-    progressValue,
-    isPlayerPlaying,
-    onProgressBarClick,
-    handleTogglePlayButtonClick,
-  };
+  return (
+    <>
+      <YoutubePlayer id='player' />
+    </>
+  );
 }
+
+const YoutubePlayer = styled.div`
+  display: none;
+`;
