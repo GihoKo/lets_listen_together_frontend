@@ -1,49 +1,26 @@
+// libaries
 import styled from 'styled-components';
+
+// images
 import mediaPlaySvg from '@/images/svg/media-play-black.svg';
 import mediaPauseSvg from '@/images/svg/media-stop.svg';
 import previousMusicSvg from '@/images/svg/previous-music.svg';
 import nextMusicSvg from '@/images/svg/next-music.svg';
-import useMusicStore from '@/store/useMusicStore';
-import { useParams } from 'react-router-dom';
-import useMusicListStore from '@/store/useMusicListStore';
-
-import useGetVideoData from '@/apis/hooks/useGetVideoData';
-import { useEffect } from 'react';
-import playNextMusic from '@/utils/playNextMusic';
-import playPrevMusic from '@/utils/playPrevMusic';
+import useMusicBar from './MusicBar.hook';
 
 export default function MusicBar() {
-  const { channelId } = useParams();
+  // logics
   const {
-    music: currentMusic,
-    setMusic,
+    currentMusic,
+    youtubeVideoData,
+    channelId,
     progressValue,
     isPlayerPlaying,
+    handleNextMusicButtonClick,
+    handlePreviosMusicButtonClick,
     handleTogglePlayButtonClick,
     handleProgressBarClick,
-  } = useMusicStore();
-  const { musicList } = useMusicListStore();
-  const { data: youtubeVideoData } = useGetVideoData(currentMusic?.url);
-
-  const handleNextMusicButtonClick = () => {
-    playNextMusic({
-      musicList,
-      currentMusic,
-      setMusic,
-    });
-  };
-
-  const handlePreviosMusicButtonClick = () => {
-    playPrevMusic({
-      musicList,
-      currentMusic,
-      setMusic,
-    });
-  };
-
-  useEffect(() => {
-    console.log('youtubeVideoData', youtubeVideoData);
-  }, [youtubeVideoData]);
+  } = useMusicBar();
 
   // view
   if (!currentMusic) {
