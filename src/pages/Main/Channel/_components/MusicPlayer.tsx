@@ -14,55 +14,53 @@ import previosMusicSvg from '../../../../images/svg/previous-music.svg';
 import nextMusicSvg from '../../../../images/svg/next-music.svg';
 import mockImage from '@/images/dummyImage.png';
 
-// types
-import { MusicPlayerProps } from './MusicPlayer.type';
-
-export default function MusicPlayer({ currentMusic, playNextMusic, playPrevMusic }: MusicPlayerProps) {
+export default function MusicPlayer() {
   // logics
   const {
+    currentMusic,
     videoData,
     currentTime,
     totalTime,
     progressValue,
     isPlayerPlaying,
-    onProgressBarClick,
+    handleNextMusicButtonClick,
+    handlePreviosMusicButtonClick,
     handleTogglePlayButtonClick,
-  } = useMusicPlayer({
-    currentMusic,
-    playNextMusic,
-  });
+    handleProgressBarClick,
+  } = useMusicPlayer();
 
   // view
-  if (!currentMusic) return <NoPlayer>음악을 선택해주세요!</NoPlayer>;
+  if (!currentMusic) {
+    return <NoPlayer>음악을 선택해주세요!</NoPlayer>;
+  }
 
   return (
     <Wrapper>
       <ImageBox>
-        <img src={videoData?.thumbnails ? videoData?.thumbnails : mockImage} alt='비디오 썸네일 이미지' />
+        <img src={videoData?.items[0].snippet.thumbnails.maxres?.url || mockImage} alt='음악 이미지' />
       </ImageBox>
-      <Title>{currentMusic.title}</Title>
-      <Artist>{currentMusic.artist}</Artist>
+      <Title>{currentMusic?.title}</Title>
+      <Artist>{currentMusic?.artist}</Artist>
       <TimeBox>
         <TimeBoxPositioner>
           <CurrentTime>{formatTime(currentTime)}</CurrentTime>
           <TotalTime>{formatTime(totalTime)}</TotalTime>
         </TimeBoxPositioner>
-        <ProgressBar onClick={onProgressBarClick}>
+        <ProgressBar onClick={handleProgressBarClick}>
           <ProgressTrack progressValue={progressValue} />
         </ProgressBar>
       </TimeBox>
       <PlayBox>
-        <PreviousMusicButton onClick={playPrevMusic}>
+        <PreviousMusicButton onClick={handlePreviosMusicButtonClick}>
           <img src={previosMusicSvg} alt='이전 곡 버튼 이미지' />
         </PreviousMusicButton>
         <TogglePlayButton onClick={handleTogglePlayButtonClick}>
-          <img src={isPlayerPlaying ? mediaPlaySvg : mediaStopSvg} alt='재생/정지 버튼' />
+          <img src={isPlayerPlaying ? mediaStopSvg : mediaPlaySvg} alt='재생/정지 버튼' />
         </TogglePlayButton>
-        <NextMusicButton onClick={playNextMusic}>
+        <NextMusicButton onClick={handleNextMusicButtonClick}>
           <img src={nextMusicSvg} alt='다음 곡 버튼 이미지' />
         </NextMusicButton>
       </PlayBox>
-      <YoutubePlayer id='player' />
     </Wrapper>
   );
 }
@@ -123,7 +121,7 @@ const ImageBox = styled.div`
   img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain;
   }
 `;
 
@@ -240,8 +238,4 @@ const TogglePlayButton = styled(PlayButton)`
 const NextMusicButton = styled(PlayButton)`
   width: 40px;
   height: 40px;
-`;
-
-const YoutubePlayer = styled.div`
-  display: none;
 `;

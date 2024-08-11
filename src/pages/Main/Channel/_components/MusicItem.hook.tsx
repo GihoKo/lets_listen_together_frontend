@@ -5,22 +5,23 @@ import EditMusicModal from '@/components/Organisms/Modal/EditMusicModal/EditMusi
 // hooks
 import useModalStore from '@/store/useModalStore';
 import useMusicStore from '@/store/useMusicStore';
-import { useEffect, useState } from 'react';
-
-// apis
-import { getMusicImage } from '@/apis/services/youtube';
+import useMusicListStore from '@/store/useMusicListStore';
+import useGetVideoData from '@/apis/hooks/useGetVideoData';
 
 // types
 import { ModalType } from '@/types/enum';
 import { UseMusicItemProps } from './MusicItem.type';
 import { useParams } from 'react-router-dom';
+import { Music } from '@/types/music';
 
-export default function useMusicItem({ music, currentMusic, setMusicList }: UseMusicItemProps) {
-  const { openModal } = useModalStore();
-  const { setMusic } = useMusicStore();
-  const [musicImageUrl, setMusicImageUrl] = useState<string>();
-  const isCurrentMusic = currentMusic?.id === music.id;
+export default function useMusicItem({ music }: UseMusicItemProps) {
   const { channelId } = useParams();
+  const { openModal } = useModalStore();
+  const { music: currentMusic, setMusic } = useMusicStore();
+  const { setMusicList } = useMusicListStore();
+  const { data: videoData } = useGetVideoData(music.url);
+
+  const isCurrentMusic = currentMusic?.id === music.id;
 
   const handlePlayButtonClick = () => {
     setMusic(music);
@@ -38,18 +39,16 @@ export default function useMusicItem({ music, currentMusic, setMusicList }: UseM
 
   const handleOrderUpButton = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.stopPropagation();
-    setMusicList((prev) => {
+    setMusicList((prev: Music[]) => {
       const newMusicList = [...prev];
       const currentIndex = newMusicList.findIndex((m) => m.id === music.id);
       if (currentIndex === 0) return newMusicList;
 
-      // 객체 순서 바꾸기
       [newMusicList[currentIndex], newMusicList[currentIndex - 1]] = [
         newMusicList[currentIndex - 1],
         newMusicList[currentIndex],
       ];
 
-      // 실제 order값 바꾸기
       [newMusicList[currentIndex].order, newMusicList[currentIndex - 1].order] = [
         newMusicList[currentIndex - 1].order,
         newMusicList[currentIndex].order,
@@ -80,26 +79,13 @@ export default function useMusicItem({ music, currentMusic, setMusicList }: UseM
     });
   };
 
-  useEffect(() => {
-    if (!music?.url) return;
-
-    getMusicImage({ music })
-      .then((res) => {
-        setMusicImageUrl(res?.items[0]?.snippet?.thumbnails?.default?.url);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  }, [music?.url]);
-
   return {
+    videoData,
     isCurrentMusic,
     handlePlayButtonClick,
     handleEditMusicButtonClick,
     handleDeleteButtonClick,
     handleOrderUpButton,
     handleOrderDownButton,
-    musicImageUrl,
-    channelId,
   };
 }

@@ -1,26 +1,25 @@
-// hook
-import useMusicStore from '@/store/useMusicStore';
-import useMusicListStore from '@/store/useMusicListStore';
+// hooks
 import useGetVideoData from '@/apis/hooks/useGetVideoData';
+import useMusicListStore from '@/store/useMusicListStore';
+import useMusicStore from '@/store/useMusicStore';
+import { useParams } from 'react-router-dom';
 
 // utils
 import playNextMusic from '@/utils/playNextMusic';
 import playPrevMusic from '@/utils/playPrevMusic';
 
-export default function useMusicPlayer() {
-  // useMusicStore.getState()를 통해 music을 가져와버리면 구독이 되지 않아서 music이 변경되어도 반영이 되지 않는다.
+export default function useMusicBar() {
+  const { channelId } = useParams();
   const {
     music: currentMusic,
-    currentTime,
-    totalTime,
+    setMusic,
     progressValue,
     isPlayerPlaying,
-    setMusic,
     handleTogglePlayButtonClick,
     handleProgressBarClick,
   } = useMusicStore();
   const { musicList } = useMusicListStore();
-  const { data: videoData } = useGetVideoData(currentMusic?.url);
+  const { data: youtubeVideoData } = useGetVideoData(currentMusic?.url);
 
   const handleNextMusicButtonClick = () => {
     playNextMusic({
@@ -37,12 +36,10 @@ export default function useMusicPlayer() {
       setMusic,
     });
   };
-
   return {
     currentMusic,
-    videoData,
-    currentTime,
-    totalTime,
+    youtubeVideoData,
+    channelId,
     progressValue,
     isPlayerPlaying,
     handleNextMusicButtonClick,

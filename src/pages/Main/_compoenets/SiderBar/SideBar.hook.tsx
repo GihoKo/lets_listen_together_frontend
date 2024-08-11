@@ -1,15 +1,16 @@
 // hooks
 import useModalStore from '@/store/useModalStore';
+import useGetMySubscribedChannels from '@/apis/hooks/useGetMySubscribedChannels';
+import useMusicStore from '@/store/useMusicStore';
+import useSideBarStore from '@/store/useSideBarStore';
+import useGetMyOwnChannels from '@/apis/hooks/useGetMyOwnChannels';
+import { useUserStore } from '@/store/useUserStore';
 
 // types
 import { ModalType } from '@/types/enum';
 
 // components
 import CreateChannelModal from '@/components/Organisms/Modal/CreateChannelModal/CreateChannelModal';
-import useSideBarStore from '@/store/useSideBarStore';
-import useGetMyOwnChannels from '@/apis/hooks/useGetMyOwnChannels';
-import { useUserStore } from '@/store/useUserStore';
-import useGetMySubscribedChannels from '@/apis/hooks/useGetMySubscribedChannels';
 
 export default function useSideBar() {
   const { isOpen, toggle, close } = useSideBarStore();
@@ -22,6 +23,7 @@ export default function useSideBar() {
     isLoading: isLoadingMySubscribedChannels,
     isError: isErrorMySubscribedChannels,
   } = useGetMySubscribedChannels(userId);
+  const { music: currentMusic } = useMusicStore();
 
   const handleToggle = () => {
     toggle();
@@ -37,14 +39,15 @@ export default function useSideBar() {
 
   return {
     isOpen,
-    handleToggle,
-    handleCreateChannelModalOpenButtonClick,
-    handleClose,
+    currentMusic,
     myChannels,
     isLoadingMyChannels,
     isErrorMyChannels,
     mySubscribedChannels,
     isLoadingMySubscribedChannels,
     isErrorMySubscribedChannels,
+    handleToggle,
+    handleCreateChannelModalOpenButtonClick,
+    handleClose,
   };
 }

@@ -1,9 +1,9 @@
 // hooks
-import useMusicStore from '@/store/useMusicStore';
+import useMusicListStore from '@/store/useMusicListStore';
 import { useRef } from 'react';
 
 export default function useMusicContainer() {
-  const { music: currentMusic } = useMusicStore();
+  const { musicList } = useMusicListStore();
   const containerRef = useRef<HTMLDivElement>(null);
 
   const handleScrollUpButtonClick = () => {
@@ -12,5 +12,5 @@ export default function useMusicContainer() {
     }
   };
 
-  return { containerRef, currentMusic, handleScrollUpButtonClick };
+  return { musicList, containerRef, handleScrollUpButtonClick };
 }
