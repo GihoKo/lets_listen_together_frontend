@@ -10,11 +10,13 @@ import CreateChannelButton from './CreateChannelButton';
 import CategoryName from './CategoryName';
 import NavigatorContainer from './NavigatorContainer';
 import ChannelContainer from './ChannelContainer';
+import { Music } from '@/types/music';
 
 export default function SideBar() {
   // logics
   const {
     isOpen,
+    currentMusic,
     myChannels,
     isLoadingMyChannels,
     isErrorMyChannels,
@@ -32,7 +34,7 @@ export default function SideBar() {
 
   return (
     <>
-      <BackGround>
+      <BackGround $currentMusic={currentMusic}>
         <Wrapper $isOpen={isOpen}>
           <Header>
             <SideBarToggleButton onClick={handleToggle} isOpen={isOpen} />
@@ -51,11 +53,14 @@ export default function SideBar() {
   );
 }
 
-const BackGround = styled.nav`
+const BackGround = styled.nav<{
+  $currentMusic: Music | null;
+}>`
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 24px 0 24px 24px;
+  padding-bottom: ${(props) => (props.$currentMusic ? '128px' : '24px')};
 
   @media (max-width: 768px) {
     height: 100%;

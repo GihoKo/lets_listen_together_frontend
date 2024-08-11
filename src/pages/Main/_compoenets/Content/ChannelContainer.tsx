@@ -7,10 +7,11 @@ import useChannelContainer from './ChannelContainer.hook';
 // components
 import ChannelItem from './ChannelItem';
 import MainTitle from '@/components/Atoms/Text/MainTitle';
+import { Music } from '@/types/music';
 
 export default function ChannelContainer() {
   // logics
-  const { channels, isLoading, isError } = useChannelContainer();
+  const { channels, isLoading, isError, currentMusic } = useChannelContainer();
 
   // view
   if (isLoading) {
@@ -23,7 +24,9 @@ export default function ChannelContainer() {
   return (
     <Wrapper>
       <MainTitle>Channel List</MainTitle>
-      <Container>{channels?.map((channel) => <ChannelItem key={channel.id} channel={channel} />)}</Container>
+      <Container $currentMusic={currentMusic}>
+        {channels?.map((channel) => <ChannelItem key={channel.id} channel={channel} />)}
+      </Container>
     </Wrapper>
   );
 }
@@ -41,11 +44,14 @@ const Wrapper = styled.div`
   }
 `;
 
-const Container = styled.ul`
+const Container = styled.ul<{
+  $currentMusic: Music | null;
+}>`
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   gap: 16px;
 
+  padding-bottom: ${(props) => (props.$currentMusic ? '128px' : '24px')};
   margin-top: 16px;
 
   @media (max-width: 1440px) {
