@@ -37,7 +37,7 @@ export default function MusicPlayer() {
   return (
     <Wrapper>
       <ImageBox>
-        <img src={videoData?.thumbnails ? videoData?.thumbnails : mockImage} alt='비디오 썸네일 이미지' />
+        <img src={videoData?.items[0].snippet.thumbnails.maxres?.url || mockImage} alt='음악 이미지' />
       </ImageBox>
       <Title>{currentMusic?.title}</Title>
       <Artist>{currentMusic?.artist}</Artist>

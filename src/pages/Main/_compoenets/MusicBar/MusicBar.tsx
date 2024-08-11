@@ -6,17 +6,11 @@ import nextMusicSvg from '@/images/svg/next-music.svg';
 import useMusicStore from '@/store/useMusicStore';
 import { useParams } from 'react-router-dom';
 import useMusicListStore from '@/store/useMusicListStore';
-import { useEffect, useState } from 'react';
-import axios from 'axios';
-import extractYouTubeVideoId from '@/utils/extractYouTubeVideoId';
-import mockImage from '@/images/dummyImage.png';
 
-interface VideoData {
-  id: string;
-  title: string;
-  channelTitle: string;
-  thumbnails: string;
-}
+import useGetVideoData from '@/apis/hooks/useGetVideoData';
+import { useEffect } from 'react';
+import playNextMusic from '@/utils/playNextMusic';
+import playPrevMusic from '@/utils/playPrevMusic';
 
 export default function MusicBar() {
   const { channelId } = useParams();
@@ -29,43 +23,27 @@ export default function MusicBar() {
     handleProgressBarClick,
   } = useMusicStore();
   const { musicList } = useMusicListStore();
-  const [videoData, setVideoData] = useState<VideoData | null>(null);
+  const { data: youtubeVideoData } = useGetVideoData(currentMusic?.url);
 
   const handleNextMusicButtonClick = () => {
-    const nextMusicIndex = musicList.findIndex((music) => music.id === currentMusic?.id) + 1;
-    setMusic(musicList[nextMusicIndex >= musicList.length ? 0 : nextMusicIndex]);
+    playNextMusic({
+      musicList,
+      currentMusic,
+      setMusic,
+    });
   };
 
   const handlePreviosMusicButtonClick = () => {
-    const previousMusicIndex = musicList.findIndex((music) => music.id === currentMusic?.id) - 1;
-    setMusic(musicList[previousMusicIndex < 0 ? musicList.length - 1 : previousMusicIndex]);
+    playPrevMusic({
+      musicList,
+      currentMusic,
+      setMusic,
+    });
   };
 
   useEffect(() => {
-    if (!currentMusic?.url) return;
-
-    const getVideoData = async () => {
-      try {
-        const response = await axios.get('https://www.googleapis.com/youtube/v3/videos', {
-          params: {
-            part: 'snippet',
-            id: extractYouTubeVideoId(currentMusic?.url),
-            key: process.env.GOOGLE_API_KEY,
-          },
-        });
-        setVideoData({
-          id: response.data.items[0].id,
-          title: response.data.items[0].snippet.title,
-          channelTitle: response.data.items[0].snippet.channelTitle,
-          thumbnails: response.data.items[0].snippet.thumbnails.maxres.url,
-        });
-      } catch (e) {
-        console.error(e);
-      }
-    };
-
-    getVideoData();
-  }, [currentMusic?.url]);
+    console.log('youtubeVideoData', youtubeVideoData);
+  }, [youtubeVideoData]);
 
   // view
   if (!currentMusic) {
@@ -81,7 +59,7 @@ export default function MusicBar() {
       <MusicInfoBox>
         <Left>
           <MusicImage>
-            <img src={videoData?.thumbnails ? videoData?.thumbnails : mockImage} alt='music' />
+            <img src={youtubeVideoData?.items[0].snippet.thumbnails.maxres?.url} alt='음악 이미지' />
           </MusicImage>
           <MusicInfo>
             <MusicTitle>{currentMusic.title}</MusicTitle>

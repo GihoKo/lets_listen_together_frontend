@@ -1,14 +1,9 @@
-import { Music } from '@/types/music';
 import extractYouTubeVideoId from '@/utils/extractYouTubeVideoId';
 import axios from 'axios';
 
-interface GetMusicImageParams {
-  music: Music;
-}
-
-export const getMusicImage = async ({ music }: GetMusicImageParams) => {
+export const getVideoData = async (musicUrl: string | undefined) => {
   try {
-    const videoId = extractYouTubeVideoId(music?.url);
+    const videoId = extractYouTubeVideoId(musicUrl);
 
     const response = await axios.get('https://www.googleapis.com/youtube/v3/videos', {
       params: {

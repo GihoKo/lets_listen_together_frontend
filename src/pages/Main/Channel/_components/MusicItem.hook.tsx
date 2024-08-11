@@ -5,25 +5,23 @@ import EditMusicModal from '@/components/Organisms/Modal/EditMusicModal/EditMusi
 // hooks
 import useModalStore from '@/store/useModalStore';
 import useMusicStore from '@/store/useMusicStore';
-import { useEffect, useState } from 'react';
-
-// apis
-import { getMusicImage } from '@/apis/services/youtube';
+import useMusicListStore from '@/store/useMusicListStore';
+import useGetVideoData from '@/apis/hooks/useGetVideoData';
 
 // types
 import { ModalType } from '@/types/enum';
 import { UseMusicItemProps } from './MusicItem.type';
 import { useParams } from 'react-router-dom';
-import useMusicListStore from '@/store/useMusicListStore';
 import { Music } from '@/types/music';
 
 export default function useMusicItem({ music }: UseMusicItemProps) {
+  const { channelId } = useParams();
   const { openModal } = useModalStore();
   const { music: currentMusic, setMusic } = useMusicStore();
   const { setMusicList } = useMusicListStore();
-  const [musicImageUrl, setMusicImageUrl] = useState<string>();
+  const { data: videoData } = useGetVideoData(music.url);
+
   const isCurrentMusic = currentMusic?.id === music.id;
-  const { channelId } = useParams();
 
   const handlePlayButtonClick = () => {
     setMusic(music);
@@ -81,26 +79,13 @@ export default function useMusicItem({ music }: UseMusicItemProps) {
     });
   };
 
-  useEffect(() => {
-    if (!music?.url) return;
-
-    getMusicImage({ music })
-      .then((res) => {
-        setMusicImageUrl(res?.items[0]?.snippet?.thumbnails?.default?.url);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  }, [music?.url]);
-
   return {
+    videoData,
     isCurrentMusic,
     handlePlayButtonClick,
     handleEditMusicButtonClick,
     handleDeleteButtonClick,
     handleOrderUpButton,
     handleOrderDownButton,
-    musicImageUrl,
-    channelId,
   };
 }

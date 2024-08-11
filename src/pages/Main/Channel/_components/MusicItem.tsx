@@ -27,12 +27,12 @@ export default function MusicItem({ music, index, isEditMode }: MusicItemProps) 
   // logics
   const {
     isCurrentMusic,
+    videoData,
     handlePlayButtonClick,
     handleEditMusicButtonClick,
     handleDeleteButtonClick,
     handleOrderUpButton,
     handleOrderDownButton,
-    musicImageUrl,
   } = useMusicItem({
     music,
   });
@@ -52,7 +52,7 @@ export default function MusicItem({ music, index, isEditMode }: MusicItemProps) 
             </OrderButton>
           </OrderBox>
           <ImageBox>
-            <img src={musicImageUrl ? musicImageUrl : mockImage} alt='음악 이미지' />
+            <img src={videoData?.items[0].snippet.thumbnails.maxres?.url || mockImage} alt='음악 이미지' />
           </ImageBox>
           <Middle>
             <Title $isCurrentMusic={isCurrentMusic}>{music.title}</Title>
@@ -72,7 +72,7 @@ export default function MusicItem({ music, index, isEditMode }: MusicItemProps) 
         <Wrapper $isCurrentMusic={isCurrentMusic}>
           <Number $isCurrentMusic={isCurrentMusic}>{prefixZeroForNumber(index + 1)}</Number>
           <ImageBox>
-            <img src={musicImageUrl ? musicImageUrl : mockImage} alt='음악 이미지' />
+            <img src={videoData?.items[0].snippet.thumbnails.maxres?.url || mockImage} alt='음악 이미지' />
           </ImageBox>
           <Middle>
             <Title $isCurrentMusic={isCurrentMusic}>{music.title}</Title>

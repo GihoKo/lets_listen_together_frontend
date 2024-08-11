@@ -17,6 +17,9 @@ interface QueryKeys {
   auth: {
     tokens: (string | undefined)[];
   };
+  youtube: {
+    videoData: (musicUrl: string | undefined) => (string | undefined)[];
+  };
 }
 
 const queryKeys: QueryKeys = {
@@ -37,6 +40,9 @@ const queryKeys: QueryKeys = {
   },
   auth: {
     tokens: ['auth', 'tokens'],
+  },
+  youtube: {
+    videoData: (musicUrl: string | undefined) => ['youtube', 'videoData', musicUrl],
   },
 };
 

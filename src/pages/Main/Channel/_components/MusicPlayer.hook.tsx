@@ -1,16 +1,9 @@
-// libraries
-import axios from 'axios';
-
-// utils
-import extractYouTubeVideoId from '@/utils/extractYouTubeVideoId';
-
-// hooks
-import { useEffect, useState } from 'react';
-
-// types
-import { VideoData } from './MusicPlayer.type';
+// hook
 import useMusicStore from '@/store/useMusicStore';
 import useMusicListStore from '@/store/useMusicListStore';
+import useGetVideoData from '@/apis/hooks/useGetVideoData';
+
+// utils
 import playNextMusic from '@/utils/playNextMusic';
 import playPrevMusic from '@/utils/playPrevMusic';
 
@@ -27,7 +20,7 @@ export default function useMusicPlayer() {
     handleProgressBarClick,
   } = useMusicStore();
   const { musicList } = useMusicListStore();
-  const [videoData, setVideoData] = useState<VideoData | null>(null);
+  const { data: videoData } = useGetVideoData(currentMusic?.url);
 
   const handleNextMusicButtonClick = () => {
     playNextMusic({
@@ -44,32 +37,6 @@ export default function useMusicPlayer() {
       setMusic,
     });
   };
-
-  useEffect(() => {
-    if (!currentMusic?.url) return;
-
-    const getVideoData = async () => {
-      try {
-        const response = await axios.get('https://www.googleapis.com/youtube/v3/videos', {
-          params: {
-            part: 'snippet',
-            id: extractYouTubeVideoId(currentMusic?.url),
-            key: process.env.GOOGLE_API_KEY,
-          },
-        });
-        setVideoData({
-          id: response.data.items[0].id,
-          title: response.data.items[0].snippet.title,
-          channelTitle: response.data.items[0].snippet.channelTitle,
-          thumbnails: response.data.items[0].snippet.thumbnails.maxres.url,
-        });
-      } catch (e) {
-        console.error(e);
-      }
-    };
-
-    getVideoData();
-  }, [currentMusic?.url]);
 
   return {
     currentMusic,
