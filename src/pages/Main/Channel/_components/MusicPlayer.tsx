@@ -61,7 +61,6 @@ export default function MusicPlayer() {
           <img src={nextMusicSvg} alt='다음 곡 버튼 이미지' />
         </NextMusicButton>
       </PlayBox>
-      <YoutubePlayer id='player' />
     </Wrapper>
   );
 }
@@ -239,8 +238,4 @@ const TogglePlayButton = styled(PlayButton)`
 const NextMusicButton = styled(PlayButton)`
   width: 40px;
   height: 40px;
-`;
-
-const YoutubePlayer = styled.div`
-  display: none;
 `;

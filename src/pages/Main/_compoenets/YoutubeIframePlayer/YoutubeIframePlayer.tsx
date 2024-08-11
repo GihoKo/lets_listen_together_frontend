@@ -13,6 +13,7 @@ export interface VideoData {
 }
 
 export default function YoutubeIframePlayer() {
+  // logics
   const {
     music: currentMusic,
     setMusic: setCurrentMusic,
@@ -133,6 +134,9 @@ export default function YoutubeIframePlayer() {
     setHandleTogglePlayButtonClick(handleTogglePlayButtonClick);
     setHandleProgressBarClick(handleProgressBarClick);
   }, [handleTogglePlayButtonClick, handleProgressBarClick]);
+
+  // view
+  if (!currentMusic?.url) return null;
 
   return (
     <>
