@@ -23,20 +23,18 @@ import mediaPlayGregSvg from '../../../../images/svg/media-play-grey.svg';
 // types
 import { MusicItemProps } from './MusicItem.type';
 
-export default function MusicItem({ music, index, currentMusic, setMusicList, isEditMode }: MusicItemProps) {
+export default function MusicItem({ music, index, isEditMode }: MusicItemProps) {
   // logics
   const {
     isCurrentMusic,
+    videoData,
     handlePlayButtonClick,
     handleEditMusicButtonClick,
     handleDeleteButtonClick,
     handleOrderUpButton,
     handleOrderDownButton,
-    musicImageUrl,
   } = useMusicItem({
     music,
-    currentMusic,
-    setMusicList,
   });
 
   // view
@@ -54,7 +52,7 @@ export default function MusicItem({ music, index, currentMusic, setMusicList, is
             </OrderButton>
           </OrderBox>
           <ImageBox>
-            <img src={musicImageUrl ? musicImageUrl : mockImage} alt='음악 이미지' />
+            <img src={videoData?.items[0].snippet.thumbnails.maxres?.url || mockImage} alt='음악 이미지' />
           </ImageBox>
           <Middle>
             <Title $isCurrentMusic={isCurrentMusic}>{music.title}</Title>
@@ -74,7 +72,7 @@ export default function MusicItem({ music, index, currentMusic, setMusicList, is
         <Wrapper $isCurrentMusic={isCurrentMusic}>
           <Number $isCurrentMusic={isCurrentMusic}>{prefixZeroForNumber(index + 1)}</Number>
           <ImageBox>
-            <img src={musicImageUrl ? musicImageUrl : mockImage} alt='음악 이미지' />
+            <img src={videoData?.items[0].snippet.thumbnails.maxres?.url || mockImage} alt='음악 이미지' />
           </ImageBox>
           <Middle>
             <Title $isCurrentMusic={isCurrentMusic}>{music.title}</Title>

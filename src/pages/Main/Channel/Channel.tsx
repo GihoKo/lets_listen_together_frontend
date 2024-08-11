@@ -11,18 +11,7 @@ import useChannel from './Channel.hook';
 export default function Channel() {
   // logics
 
-  const {
-    musicList,
-    setMusicList,
-    currentMusic,
-    isLoading,
-    isError,
-    playNextMusic,
-    playPrevMusic,
-    personalTap,
-    currentTapValue,
-    handleTapChange,
-  } = useChannel();
+  const { isLoading, isError, personalTap, currentTapValue, handleTapChange } = useChannel();
 
   // view
   if (isLoading) return <div>음악 리스트를 가져오고 있습니다...</div>;
@@ -31,8 +20,8 @@ export default function Channel() {
   return (
     <>
       <Content $currentTapValue={currentTapValue}>
-        <MusicPlayer currentMusic={currentMusic} playNextMusic={playNextMusic} playPrevMusic={playPrevMusic} />
-        <MusicList musicList={musicList} setMusicList={setMusicList} />
+        <MusicPlayer />
+        <MusicList />
       </Content>
       <TapContainer>
         {personalTap.map((tap) => (

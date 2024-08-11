@@ -13,7 +13,6 @@ export const getAllchannelLists = async () => {
 export const getChannelById = async (channelId: string | undefined) => {
   try {
     const response = await axiosInstanceWithToken.get(`/channels/${channelId}`);
-    console.log('response:', response.data);
     return response.data;
   } catch (error) {
     console.error(error);
