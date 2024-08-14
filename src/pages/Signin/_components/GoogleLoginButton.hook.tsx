@@ -8,7 +8,7 @@ import { useGoogleOAuthTokenStore } from '../../../store/useAuthStore';
 import { useUserStore } from '../../../store/useUserStore';
 
 // token
-import AccessTokenManager from '@/authentication/AccessTokenManager';
+import accessTokenManager from '@/authentication/accessTokenManager';
 
 export default function useGoogleLoginButton() {
   const navigate = useNavigate();
@@ -20,11 +20,11 @@ export default function useGoogleLoginButton() {
       try {
         await axiosInstanceWithToken.post('/auth/google/callback', { code }).then((response) => {
           setGoogleOAuthToken(response.data.googleAccessToken);
-          AccessTokenManager.setAccessToken(response.data.applicationAccessToken);
+          accessTokenManager.setAccessToken(response.data.applicationAccessToken);
           setUser(response.data.user);
         });
 
-        if (AccessTokenManager.hasAccessToken()) {
+        if (accessTokenManager.hasAccessToken()) {
           navigate('/main');
         }
       } catch (error) {
