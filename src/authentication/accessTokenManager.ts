@@ -1,4 +1,4 @@
-const AccessTokenManager = (function () {
+const accessTokenManager = (function () {
   let accessToken: string | null = null;
 
   return {
@@ -20,4 +20,4 @@ const AccessTokenManager = (function () {
   };
 })();
 
-export default AccessTokenManager;
+export default accessTokenManager;

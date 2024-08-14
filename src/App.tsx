@@ -17,7 +17,7 @@ import { useEffect } from 'react';
 import { renewTokens } from './apis/services/auth';
 
 // token
-import AccessTokenManager from './authentication/AccessTokenManager';
+import accessTokenManager from './authentication/accessTokenManager';
 
 export default function App() {
   // 모달
@@ -25,11 +25,14 @@ export default function App() {
 
   // 새로고침 시 엑세스 토큰 재발급
   useEffect(() => {
-    if (!AccessTokenManager.hasAccessToken()) {
+    const isincludeMain = window.location.href.includes('main');
+    const isHasAccessToken = accessTokenManager.hasAccessToken();
+
+    if (!isHasAccessToken && isincludeMain) {
       renewTokens()
         .then((newAccessToken) => {
           if (newAccessToken) {
-            AccessTokenManager.setAccessToken(newAccessToken);
+            accessTokenManager.setAccessToken(newAccessToken);
           }
         })
         .catch((error) => {
