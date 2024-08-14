@@ -1,5 +1,5 @@
 // components
-import Button from '@/components/Atoms/Modal/Button';
+import Button from '@/components/Atoms/Modal/Button/Button';
 import Dimmed from '@/components/Atoms/Modal/Dimmed';
 import { ButtonWrapper, Description, ErrorMessage, Title, Wrapper } from '@/components/Atoms/Modal/StyledComponents';
 

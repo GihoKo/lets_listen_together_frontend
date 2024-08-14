@@ -21,7 +21,7 @@ import {
   Title,
   Wrapper,
 } from '@/components/Atoms/Modal/StyledComponents';
-import Button from '@/components/Atoms/Modal/Button';
+import Button from '@/components/Atoms/Modal/Button/Button';
 import Dimmed from '@/components/Atoms/Modal/Dimmed';
 
 export default function EditChannelModal() {

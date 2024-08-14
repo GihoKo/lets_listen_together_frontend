@@ -3,7 +3,7 @@ import useCreateChannelModal from './CreateChannelModal.hook';
 
 // components
 import Dimmed from '../../../Atoms/Modal/Dimmed';
-import Button from '../../../Atoms/Modal/Button';
+import Button from '../../../Atoms/Modal/Button/Button';
 import {
   Wrapper,
   Form,

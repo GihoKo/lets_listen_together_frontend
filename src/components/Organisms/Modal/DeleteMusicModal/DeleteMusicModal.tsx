@@ -1,7 +1,7 @@
 // components
 import Dimmed from '../../../Atoms/Modal/Dimmed';
 import { ButtonWrapper, Description, ErrorMessage, Form, Title, Wrapper } from '../../../Atoms/Modal/StyledComponents';
-import Button from '../../../Atoms/Modal/Button';
+import Button from '../../../Atoms/Modal/Button/Button';
 
 // hooks
 import useDeleteMusicModal from './DeleteMusicModal.hook';
