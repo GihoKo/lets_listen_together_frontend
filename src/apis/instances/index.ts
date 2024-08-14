@@ -2,7 +2,7 @@ import axios, { AxiosError } from 'axios';
 import { handleAxiosError } from '../../utils/handleAxiosError';
 import { handleUnexpectedError } from '../../utils/handleUnexpectedError';
 import { renewTokens } from '../services/auth';
-import AccessTokenManager from '@/authentication/AccessTokenManager';
+import AccessTokenManager from '@/authentication/accessTokenManager';
 
 const baseURL = process.env.API_URL;
 
