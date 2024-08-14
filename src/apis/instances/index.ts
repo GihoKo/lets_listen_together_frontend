@@ -2,7 +2,7 @@ import axios, { AxiosError } from 'axios';
 import { handleAxiosError } from '../../utils/handleAxiosError';
 import { handleUnexpectedError } from '../../utils/handleUnexpectedError';
 import { renewTokens } from '../services/auth';
-import AccessTokenManager from '@/authentication/accessTokenManager';
+import accessTokenManager from '@/authentication/accessTokenManager';
 
 const baseURL = process.env.API_URL;
 
@@ -28,10 +28,10 @@ export const axiosInstanceWithToken = axios.create({
 // request interceptor의 경우 token을 넣을 때 자주 사용한다.
 axiosInstanceWithToken.interceptors.request.use(
   (AxiosRequestConfig) => {
-    const accessToken = AccessTokenManager.getAccessToken();
+    const accessToken = accessTokenManager.getAccessToken();
 
     // 만약 토큰이 존재하는 경우 헤더에 넣어준다.
-    if (AccessTokenManager.hasAccessToken()) {
+    if (accessTokenManager.hasAccessToken()) {
       AxiosRequestConfig.headers['authorization'] = `Bearer ${accessToken}`;
     }
     return AxiosRequestConfig;
@@ -59,9 +59,9 @@ axiosInstanceWithToken.interceptors.response.use(
         // accessToken 갱신
         const newAccessToken = await renewTokens();
 
-        AccessTokenManager.setAccessToken(newAccessToken);
+        accessTokenManager.setAccessToken(newAccessToken);
 
-        const accessToken = AccessTokenManager.getAccessToken();
+        const accessToken = accessTokenManager.getAccessToken();
 
         if (originalRequest) {
           // 새로운 accessToken으로 요청 재시도
