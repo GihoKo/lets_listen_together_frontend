@@ -2,7 +2,7 @@
 import useEditMusicModal from './EditMusicModal.hook';
 
 // components
-import Button from '../../../Atoms/Modal/Button';
+import Button from '../../../Atoms/Modal/Button/Button';
 import Dimmed from '../../../Atoms/Modal/Dimmed';
 import {
   ButtonWrapper,
