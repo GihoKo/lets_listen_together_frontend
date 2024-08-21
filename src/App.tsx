@@ -41,10 +41,6 @@ export default function App() {
     }
   }, []);
 
-  if (!accessTokenManager.hasAccessToken()) {
-    return null;
-  }
-
   return (
     <>
       <GlobalStyles />
