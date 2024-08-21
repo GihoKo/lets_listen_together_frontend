@@ -6,16 +6,12 @@ import MusicPlayer from './_components/MusicPlayer';
 import MusicList from './_components/MusicList';
 
 // hooks
-import useChannel from './Channel.hook';
+import useChannelPage from './ChannelPage.hook';
 
-export default function Channel() {
+export default function ChannelPage() {
   // logics
 
-  const { isLoading, isError, personalTap, currentTapValue, handleTapChange } = useChannel();
-
-  // view
-  if (isLoading) return <div>음악 리스트를 가져오고 있습니다...</div>;
-  if (isError) return <div>음악 리스트를 가져오지 못했습니다...</div>;
+  const { personalTap, currentTapValue, handleTapChange } = useChannelPage();
 
   return (
     <>

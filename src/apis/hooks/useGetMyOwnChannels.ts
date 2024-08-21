@@ -9,5 +9,6 @@ export default function useGetMyOwnChannels(userId: string | undefined) {
   return useQuery<Channel[], Error>({
     queryKey: queryKey,
     queryFn: () => getMyOwnChannels(userId),
+    enabled: !!userId,
   });
 }

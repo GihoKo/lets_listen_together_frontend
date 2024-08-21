@@ -8,7 +8,7 @@ import useMusicContainer from './MusicContainer.hook';
 import MusicItem from './MusicItem';
 
 // images
-import upCircleSvg from '../../../../images/svg/up-circle.svg';
+import upCircleSvg from '@/images/svg/up-circle.svg';
 import { MusicContainerProps } from './MusicContainer.type';
 
 export default function MusicContainer({ isEditMode }: MusicContainerProps) {
@@ -16,6 +16,7 @@ export default function MusicContainer({ isEditMode }: MusicContainerProps) {
   const { musicList, containerRef, handleScrollUpButtonClick } = useMusicContainer();
 
   // view
+
   if (musicList.length === 0) {
     return <NoMusic>음악을 추가해보세요!</NoMusic>;
   }

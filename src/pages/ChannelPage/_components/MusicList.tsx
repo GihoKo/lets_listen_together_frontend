@@ -1,10 +1,13 @@
 // libraries
+import { Suspense } from 'react';
 import styled from 'styled-components';
 
 // components
 import MusicContainer from './MusicContainer';
 import SubscribeButton from './SubscribeButton/SubscribeButton';
 import EditButton from './EditButton/EditButton';
+import FallBack from '@/components/Molecules/ComponentFallBack';
+import QueryErrorBoundary from '@/components/Molecules/QueryErrorBoundary';
 
 // images
 import addSquareSvg from '@/images/svg/add-square.svg';
@@ -36,7 +39,11 @@ export default function MusicList() {
         <AddMusicGuide />
       </Header>
 
-      <MusicContainer isEditMode={isEditMode} />
+      <QueryErrorBoundary>
+        <Suspense fallback={<FallBack />}>
+          <MusicContainer isEditMode={isEditMode} />
+        </Suspense>
+      </QueryErrorBoundary>
     </Wrapper>
   );
 }

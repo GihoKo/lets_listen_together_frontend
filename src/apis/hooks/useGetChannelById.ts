@@ -9,5 +9,6 @@ export default function useGetChannelById(channelId: string | undefined) {
   return useQuery<Channel, Error>({
     queryKey: queryKey,
     queryFn: () => getChannelById(channelId),
+    enabled: !!channelId,
   });
 }

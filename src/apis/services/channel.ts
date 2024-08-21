@@ -73,11 +73,15 @@ export const unsubscribeChannel = async (channelId: string, userId: string | und
 };
 
 export const getMusicsByChannelId = async (channelId: string | undefined) => {
+  if (!channelId) {
+    throw new Error('채널 ID가 없습니다.');
+  }
+
   try {
     const response = await axiosInstanceWithToken.get(`/channels/${channelId}/musics`);
     return response.data;
-  } catch (e) {
-    console.error(e);
+  } catch (error) {
+    throw new Error('음악 리스트를 불러오는데 실패했습니다. 재시도 해주세요.');
   }
 };
 

@@ -4,8 +4,15 @@ import App from './App';
 import { BrowserRouter } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
+import QueryErrorBoundary from './components/Molecules/QueryErrorBoundary';
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      throwOnError: true,
+    },
+  },
+});
 
 const rootElement = document.getElementById('root');
 if (rootElement) {
@@ -15,7 +22,9 @@ if (rootElement) {
     <React.StrictMode>
       <BrowserRouter>
         <QueryClientProvider client={queryClient}>
-          <App />
+          <QueryErrorBoundary>
+            <App />
+          </QueryErrorBoundary>
         </QueryClientProvider>
       </BrowserRouter>
     </React.StrictMode>,

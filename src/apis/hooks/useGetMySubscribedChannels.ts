@@ -9,5 +9,6 @@ export default function useGetMySubscribedChannels(userId: string | undefined) {
   return useQuery<Channel[], Error>({
     queryKey: queryKey,
     queryFn: () => getMySubscribedChannels(userId),
+    enabled: !!userId,
   });
 }

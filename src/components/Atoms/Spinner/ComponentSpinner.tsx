@@ -1,6 +1,6 @@
 import styled, { keyframes } from 'styled-components';
 
-export default function Spinner() {
+export default function ComponentSpinner() {
   return <Wrapper />;
 }
 

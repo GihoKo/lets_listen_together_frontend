@@ -5,13 +5,13 @@ import styled from 'styled-components';
 import useMusicPlayer from './MusicPlayer.hook';
 
 // utils
-import { formatTime } from '../../../../utils/formatNumber';
+import { formatTime } from '@/utils/formatTime';
 
 // images
-import mediaPlaySvg from '../../../../images/svg/media-play-black.svg';
-import mediaStopSvg from '../../../../images/svg/media-stop.svg';
-import previosMusicSvg from '../../../../images/svg/previous-music.svg';
-import nextMusicSvg from '../../../../images/svg/next-music.svg';
+import mediaPlaySvg from '@/images/svg/media-play-black.svg';
+import mediaStopSvg from '@/images/svg/media-stop.svg';
+import previosMusicSvg from '@/images/svg/previous-music.svg';
+import nextMusicSvg from '@/images/svg/next-music.svg';
 import mockImage from '@/images/dummyImage.png';
 
 export default function MusicPlayer() {

@@ -5,20 +5,20 @@ import styled from 'styled-components';
 import useMusicItem from './MusicItem.hook';
 
 // utils
-import { prefixZeroForNumber } from '../../../../utils/prefixZeroForNumber';
+import { prefixZeroForNumber } from '../../../utils/prefixZeroForNumber';
 
 // images
-import mediaPlayFocusedSvg from '../../../../images/svg/media-play-focused.svg';
-import editSvg from '../../../../images/svg/edit.svg';
-import editFocusedSvg from '../../../../images/svg/edit-focused.svg';
-import deleteSvg from '../../../../images/svg/delete.svg';
-import deleteFocusedSvg from '../../../../images/svg/delete-focused.svg';
+import mediaPlayFocusedSvg from '@/images/svg/media-play-focused.svg';
+import editSvg from '@/images/svg/edit.svg';
+import editFocusedSvg from '@/images/svg/edit-focused.svg';
+import deleteSvg from '@/images/svg/delete.svg';
+import deleteFocusedSvg from '@/images/svg/delete-focused.svg';
 import mockImage from '@/images/dummyImage.png';
 import upChevron from '@/images/svg/up-chevron.svg';
 import upChveronFocused from '@/images/svg/up-chevron-focused.svg';
 import downChevron from '@/images/svg/down-chevron.svg';
 import downChevronFocused from '@/images/svg/down-chevron-focused.svg';
-import mediaPlayGregSvg from '../../../../images/svg/media-play-grey.svg';
+import mediaPlayGregSvg from '@/images/svg/media-play-grey.svg';
 
 // types
 import { MusicItemProps } from './MusicItem.type';

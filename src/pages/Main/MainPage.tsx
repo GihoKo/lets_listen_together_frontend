@@ -1,12 +1,14 @@
 // libraries
 import styled from 'styled-components';
+import { lazy } from 'react';
 
 // components
 import Header from './_compoenets/Header/Header';
 import SideBar from './_compoenets/SiderBar/SideBar';
 import { Outlet } from 'react-router-dom';
-import MusicBar from './_compoenets/MusicBar/MusicBar';
-import YoutubeIframePlayer from './_compoenets/YoutubeIframePlayer/YoutubeIframePlayer';
+
+const MusicBar = lazy(() => import('./_compoenets/MusicBar/MusicBar'));
+const YoutubeIframePlayer = lazy(() => import('./_compoenets/YoutubeIframePlayer/YoutubeIframePlayer'));
 
 export default function MainPage() {
   // view

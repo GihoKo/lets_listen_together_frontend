@@ -1,11 +1,11 @@
 import styled from 'styled-components';
-import Spinner from '../Atoms/Spinner/Spinner';
+import PageSpinner from '../Atoms/Spinner/PageSpinner';
 
-export default function FallBack() {
+export default function PageFallBack() {
   // view
   return (
     <Wrapper>
-      <Spinner />
+      <PageSpinner />
     </Wrapper>
   );
 }
@@ -18,5 +18,5 @@ const Wrapper = styled.div`
   justify-content: center;
   align-items: center;
 
-  background-color: var(--grey-grey100);
+  background-color: 'transparent';
 `;

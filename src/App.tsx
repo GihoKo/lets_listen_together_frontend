@@ -11,7 +11,7 @@ import GlobalStyles from './styles/GlobalStyles';
 import useModalStore from './store/useModalStore';
 
 // hooks
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 // apis
 import { renewTokens } from './apis/services/auth';
@@ -20,10 +20,10 @@ import { renewTokens } from './apis/services/auth';
 import accessTokenManager from './authentication/accessTokenManager';
 
 export default function App() {
-  // 모달
   const { isOpen, component: ModalComponent } = useModalStore();
 
-  // 새로고침 시 엑세스 토큰 재발급
+  const [isTokenReady, setIsTokenReady] = useState(false);
+
   useEffect(() => {
     const isincludeMain = window.location.href.includes('main');
     const isHasAccessToken = accessTokenManager.hasAccessToken();
@@ -33,13 +33,20 @@ export default function App() {
         .then((newAccessToken) => {
           if (newAccessToken) {
             accessTokenManager.setAccessToken(newAccessToken);
+            setIsTokenReady(true);
           }
         })
         .catch((error) => {
           console.error(error);
         });
+    } else {
+      setIsTokenReady(true);
     }
   }, []);
+
+  if (!isTokenReady) {
+    return null;
+  }
 
   return (
     <>
