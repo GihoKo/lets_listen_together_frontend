@@ -5,28 +5,22 @@ import styled from 'styled-components';
 import useSideBar from './SideBar.hook';
 
 // components
-import SideBarToggleButton from './SideBarToggleButton';
-import CreateChannelButton from './CreateChannelButton';
-import CategoryName from './CategoryName';
-import NavigatorContainer from './NavigatorContainer';
-import ChannelContainer from './ChannelContainer';
-import { Music } from '@/types/music';
-
+import SideBarToggleButton from './SideBarToggleButton/SideBarToggleButton';
+import CreateChannelButton from './CreateChannelButton/CreateChannelButton';
+import CategoryName from './Category/CategoryName';
+import NavigatorContainer from './Navigator/NavigatorContainer';
 import QueryErrorBoundary from '@/components/Molecules/QueryErrorBoundary';
 import { Suspense } from 'react';
 import ComponentFallBack from '@/components/Molecules/ComponentFallBack';
+import MyChannelsContainer from './MyChannels/MyChannelsContainer';
+import SubscribedChannelsContainer from './SubscribedChannels/SubscribedChannelsContainer';
 
-import DataFetcher from './MyChannelsFetcher';
-import useGetMyOwnChannels from '@/apis/hooks/useGetMyOwnChannels';
-import { useUserStore } from '@/store/useUserStore';
-import { Channel } from '@/types/channel';
+// types
+import { Music } from '@/types/music';
 
 export default function SideBar() {
   // logics
   const { isOpen, currentMusic, handleToggle, handleCreateChannelModalOpenButtonClick, handleClose } = useSideBar();
-
-  const { user } = useUserStore();
-  const userId = user?.id;
 
   // view
 
@@ -45,17 +39,15 @@ export default function SideBar() {
           <CategoryName isOpen={isOpen}>MyChannels</CategoryName>
           <QueryErrorBoundary>
             <Suspense fallback={<ComponentFallBack />}>
-              <DataFetcher<Channel[], string | undefined>
-                fetchFunction={useGetMyOwnChannels}
-                params={userId}
-                render={(data: Channel[] | undefined) => <MyChannelsContainer isOpen={isOpen} data={data} />}
-              />
+              <MyChannelsContainer isOpen={isOpen} />
             </Suspense>
           </QueryErrorBoundary>
 
           <CategoryName isOpen={isOpen}>Subscribed</CategoryName>
           <QueryErrorBoundary>
-            <Suspense fallback={<ComponentFallBack />}>{/* <ChannelContainer isOpen={isOpen} /> */}</Suspense>
+            <Suspense fallback={<ComponentFallBack />}>
+              <SubscribedChannelsContainer isOpen={isOpen} />
+            </Suspense>
           </QueryErrorBoundary>
         </Wrapper>
       </BackGround>
@@ -137,5 +129,3 @@ const Dimmed = styled.div<{
     z-index: 10;
   }
 `;
-
-const MyChannelsContainer = styled(ChannelContainer)``;

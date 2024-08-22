@@ -2,15 +2,17 @@
 import styled from 'styled-components';
 
 // components
-import ChannelItem from './ChannelItem';
+import ChannelItem from '../Channel/ChannelItem';
 
 // types
-import { ChannelContainerProps } from './ChannelContainer.type';
-import { useParams } from 'react-router-dom';
+import { MyChannelsContainerProps } from './MyChannelsContainer.type';
 
-export default function ChannelContainer({ data: channelList, isOpen }: ChannelContainerProps) {
+// hooks
+import useMyChannelsContainer from './MyChannelsContainer.hook';
+
+export default function MyChannelsContainer({ isOpen }: MyChannelsContainerProps) {
   // logics
-  const { channelId } = useParams();
+  const { channelList, channelId } = useMyChannelsContainer();
 
   // view
   if (!channelList) return null;
