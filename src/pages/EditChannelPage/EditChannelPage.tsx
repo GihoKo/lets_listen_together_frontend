@@ -2,16 +2,16 @@
 import styled from 'styled-components';
 
 // components
-import MainTitle from '../../../components/Atoms/Text/MainTitle';
+import MainTitle from '../../components/Atoms/Text/MainTitle';
 import Description from '@/components/Molecules/Description/Description';
 
 // hooks
-import useEditChannels from './EditChannels.hook';
 import ChannelContainer from './_components/ChannelContainer';
+import useEditChannelPage from './EditChannelPage.hook';
 
-export default function EditChannels() {
+export default function EditChannelPage() {
   // logics
-  const { channels, isLoading, isError } = useEditChannels();
+  const { channels, isLoading, isError } = useEditChannelPage();
 
   // view
   if (isLoading) {

@@ -9,7 +9,7 @@ import ChannelPage from '@/pages/ChannelPage/ChannelPage';
 import PageFallBack from '@/components/Molecules/PageFallBack';
 
 const ProfilePage = lazy(() => import('@/pages/ProfilePage/ProfilePage'));
-const EditChannels = lazy(() => import('@/pages/MainPage/EditChannels/EditChannels'));
+const EditChannelPage = lazy(() => import('@/pages/EditChannelPage/EditChannelPage'));
 const NotFoundPage = lazy(() => import('@/pages/NotFoundPage/NotFoundPage'));
 
 export default function Router() {
@@ -23,7 +23,7 @@ export default function Router() {
           <Route path='/main' element={<ChannelContainer />} />
           <Route path='/main/channel/:channelId' element={<ChannelPage />} />
           <Route path='/main/Profile' element={<ProfilePage />} />
-          <Route path='/main/EditChannels' element={<EditChannels />} />
+          <Route path='/main/EditChannels' element={<EditChannelPage />} />
         </Route>
         <Route path='*' element={<NotFoundPage />} />
       </Routes>

@@ -2,7 +2,7 @@
 import useGetMyOwnChannels from '@/apis/hooks/useGetMyOwnChannels';
 import { useUserStore } from '@/store/useUserStore';
 
-export default function useEditChannels() {
+export default function useEditChannelPage() {
   const { user } = useUserStore();
   const userId = user?.id;
 
