@@ -18,5 +18,5 @@ const Wrapper = styled.div`
   justify-content: center;
   align-items: center;
 
-  background-color: 'transparent';
+  background-color: var(--grey-grey100);
 `;

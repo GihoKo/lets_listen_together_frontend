@@ -8,7 +8,7 @@ import ChannelItem from './ChannelItem';
 import { ChannelContainerProps } from './ChannelContainer.type';
 import { useParams } from 'react-router-dom';
 
-export default function ChannelContainer({ isOpen, channelList }: ChannelContainerProps) {
+export default function ChannelContainer({ data: channelList, isOpen }: ChannelContainerProps) {
   // logics
   const { channelId } = useParams();
 
