@@ -1,16 +1,16 @@
 // components
 import { lazy, Suspense } from 'react';
 import { Route, Routes } from 'react-router-dom';
-import LandingPage from '@/pages/Landing/LandingPage';
-import MainPage from '@/pages/Main/MainPage';
-import ChannelContainer from '@/pages/Main/_compoenets/Content/ChannelContainer';
-import SignInPage from '@/pages/Signin/SignInPage';
+import LandingPage from '@/pages/LandingPage/LandingPage';
+import MainPage from '@/pages/MainPage/MainPage';
+import ChannelContainer from '@/pages/MainPage/_compoenets/Content/ChannelContainer';
+import SignInPage from '@/pages/SigninPage/SignInPage';
 import ChannelPage from '@/pages/ChannelPage/ChannelPage';
 import PageFallBack from '@/components/Molecules/PageFallBack';
 
-const Profile = lazy(() => import('@/pages/Main/Profile/Profile'));
-const EditChannels = lazy(() => import('@/pages/Main/EditChannels/EditChannels'));
-const NotFoundPage = lazy(() => import('@/pages/NotFound/NotFoundPage'));
+const ProfilePage = lazy(() => import('@/pages/ProfilePage/ProfilePage'));
+const EditChannels = lazy(() => import('@/pages/MainPage/EditChannels/EditChannels'));
+const NotFoundPage = lazy(() => import('@/pages/NotFoundPage/NotFoundPage'));
 
 export default function Router() {
   // view
@@ -22,7 +22,7 @@ export default function Router() {
         <Route path='/main' element={<MainPage />}>
           <Route path='/main' element={<ChannelContainer />} />
           <Route path='/main/channel/:channelId' element={<ChannelPage />} />
-          <Route path='/main/Profile' element={<Profile />} />
+          <Route path='/main/Profile' element={<ProfilePage />} />
           <Route path='/main/EditChannels' element={<EditChannels />} />
         </Route>
         <Route path='*' element={<NotFoundPage />} />

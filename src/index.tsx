@@ -4,11 +4,11 @@ import App from './App';
 import { BrowserRouter } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
-import QueryErrorBoundary from './components/Molecules/QueryErrorBoundary';
 
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
+      // 에러 바운더리 사용시 필요한 옵션
       throwOnError: true,
     },
   },
@@ -22,9 +22,7 @@ if (rootElement) {
     <React.StrictMode>
       <BrowserRouter>
         <QueryClientProvider client={queryClient}>
-          <QueryErrorBoundary>
-            <App />
-          </QueryErrorBoundary>
+          <App />
         </QueryClientProvider>
       </BrowserRouter>
     </React.StrictMode>,

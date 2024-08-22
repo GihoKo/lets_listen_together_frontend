@@ -1,13 +1,15 @@
 // libraries
-import { Suspense } from 'react';
+import { lazy, Suspense } from 'react';
 import styled from 'styled-components';
 
 // components
-import MusicContainer from './MusicContainer';
+
 import SubscribeButton from './SubscribeButton/SubscribeButton';
 import EditButton from './EditButton/EditButton';
 import FallBack from '@/components/Molecules/ComponentFallBack';
 import QueryErrorBoundary from '@/components/Molecules/QueryErrorBoundary';
+
+const MusicContainer = lazy(() => import('./MusicContainer'));
 
 // images
 import addSquareSvg from '@/images/svg/add-square.svg';

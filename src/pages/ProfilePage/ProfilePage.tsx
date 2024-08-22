@@ -2,15 +2,15 @@
 import styled from 'styled-components';
 
 // hooks
-import useProfile from './Profile.hook';
+import useProfilePage from './ProfilePage.hook';
 
 // components
 import MainTitle from '@/components/Atoms/Text/MainTitle';
 import Description from '@/components/Molecules/Description/Description';
 
-export default function Profile() {
+export default function ProfilePage() {
   // logics
-  const { user } = useProfile();
+  const { user } = useProfilePage();
 
   // view
 
