@@ -1,6 +1,4 @@
 import axios, { AxiosError } from 'axios';
-import { handleAxiosError } from '../../utils/handleAxiosError';
-import { handleUnexpectedError } from '../../utils/handleUnexpectedError';
 import { renewTokens } from '../services/auth';
 import accessTokenManager from '@/authentication/accessTokenManager';
 
@@ -36,11 +34,15 @@ axiosInstanceWithToken.interceptors.request.use(
     }
     return AxiosRequestConfig;
   },
-  (error) => {
+  async (error) => {
     if (!axios.isAxiosError(error)) {
+      const { handleUnexpectedError } = await import('@/utils/handleUnexpectedError');
+
       handleUnexpectedError(error);
       return Promise.reject(error);
     }
+
+    const { handleAxiosError } = await import('@/utils/handleAxiosError');
 
     handleAxiosError(error);
     return Promise.reject(error);
@@ -51,6 +53,8 @@ axiosInstanceWithToken.interceptors.response.use(
   (response) => response,
   async (error: AxiosError) => {
     if (!axios.isAxiosError(error)) {
+      const { handleUnexpectedError } = await import('@/utils/handleUnexpectedError');
+
       handleUnexpectedError(error);
       return Promise.reject(error);
     }
@@ -78,10 +82,14 @@ axiosInstanceWithToken.interceptors.response.use(
       }
     } catch (error: unknown) {
       if (!axios.isAxiosError(error)) {
+        const { handleUnexpectedError } = await import('@/utils/handleUnexpectedError');
+
         handleUnexpectedError(error);
         return Promise.reject(error);
       }
     }
+
+    const { handleAxiosError } = await import('@/utils/handleAxiosError');
 
     handleAxiosError(error);
     return Promise.reject(error);
