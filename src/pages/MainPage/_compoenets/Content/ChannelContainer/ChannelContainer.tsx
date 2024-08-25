@@ -5,27 +5,21 @@ import styled from 'styled-components';
 import useChannelContainer from './ChannelContainer.hook';
 
 // components
-import ChannelItem from './ChannelItem';
+
 import MainTitle from '@/components/Atoms/Text/MainTitle';
 import { Music } from '@/types/music';
+import Channel from './Channel/Channel';
 
 export default function ChannelContainer() {
   // logics
-  const { channels, isLoading, isError, currentMusic } = useChannelContainer();
+  const { channels, currentMusic } = useChannelContainer();
 
   // view
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
-  if (isError) {
-    return <div>Error...</div>;
-  }
-
   return (
     <Wrapper>
       <MainTitle>Channel List</MainTitle>
       <Container $currentMusic={currentMusic}>
-        {channels?.map((channel) => <ChannelItem key={channel.id} channel={channel} />)}
+        {channels?.map((channel) => <Channel key={channel.id} channel={channel} />)}
       </Container>
     </Wrapper>
   );

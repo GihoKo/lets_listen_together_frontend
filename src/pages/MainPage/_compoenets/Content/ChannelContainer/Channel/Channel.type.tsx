@@ -1,5 +1,5 @@
 import { Channel } from '@/types/channel';
 
-export interface ChannelItemProps {
+export interface ChannelProps {
   channel: Channel;
 }

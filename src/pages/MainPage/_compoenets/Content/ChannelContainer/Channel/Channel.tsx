@@ -5,14 +5,14 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
 // types
-import { ChannelItemProps } from './ChannelItem.type';
+import { ChannelProps } from './Channel.type';
 
 // images
 import mockImage from '@/images/dummyImage.png';
 import personSvg from '@/images/svg/person.svg';
-import TagContainer from './TagContainer';
+import TagContainer from './TagContainer/TagContainer';
 
-export default function ChannelItem({ channel }: ChannelItemProps) {
+export default function Channel({ channel }: ChannelProps) {
   return (
     <Border>
       <Wrapper to={`/main/channel/${channel.id}`}>
