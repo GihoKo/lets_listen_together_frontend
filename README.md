@@ -6,6 +6,9 @@
 
 ## 소개
 
+![1](https://github.com/user-attachments/assets/367bc9f9-6178-47a1-a0ed-a12c297485b7)
+![dd](https://github.com/user-attachments/assets/feb3b5ad-9a37-434e-a971-6f3da23789b6)
+
 - 유튜브 기반 음악 플레이리스트 웹 어플리케이션
 - 1인 개발
 - 음악 들으면서 런닝 뛰는 것이 취미인데 유튜브 프리미엄을 구독할 여유가 없어서 직접 개발
