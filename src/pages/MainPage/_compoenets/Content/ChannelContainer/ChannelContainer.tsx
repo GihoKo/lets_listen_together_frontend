@@ -5,10 +5,11 @@ import styled from 'styled-components';
 import useChannelContainer from './ChannelContainer.hook';
 
 // components
-
 import MainTitle from '@/components/Atoms/Text/MainTitle';
-import { Music } from '@/types/music';
 import Channel from './Channel/Channel';
+
+// types
+import { Music } from '@/types/music';
 
 export default function ChannelContainer() {
   // logics

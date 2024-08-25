@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 // components
 import { Link } from 'react-router-dom';
+import TagContainer from './TagContainer/TagContainer';
 
 // types
 import { ChannelProps } from './Channel.type';
@@ -10,7 +11,6 @@ import { ChannelProps } from './Channel.type';
 // images
 import mockImage from '@/images/dummyImage.png';
 import personSvg from '@/images/svg/person.svg';
-import TagContainer from './TagContainer/TagContainer';
 
 export default function Channel({ channel }: ChannelProps) {
   return (
