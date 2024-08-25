@@ -17,6 +17,7 @@ import addSquareSvg from '@/images/svg/add-square.svg';
 // hooks
 import useMusicList from './MusicList.hook';
 import AddMusicGuide from './AddMusicGuide';
+import ComponentFallBack from '@/components/Molecules/ComponentFallBack';
 
 export default function MusicList() {
   // logics
@@ -28,7 +29,12 @@ export default function MusicList() {
     <Wrapper>
       <Header>
         <Left>
-          <SubscribeButton channelId={channelId} />
+          <QueryErrorBoundary>
+            <Suspense fallback={<ComponentFallBack />}>
+              <SubscribeButton channelId={channelId} />
+            </Suspense>
+          </QueryErrorBoundary>
+
           <EditButton
             isEditMode={isEditMode}
             handleEditConfirmButtonClick={handleEditConfirmButtonClick}

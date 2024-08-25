@@ -13,19 +13,21 @@ import { ModalType } from '@/types/enum';
 import { UseSubscribeButtonProps } from './SubscribeButton.type';
 
 export default function useSubscribeButton({ channelId }: UseSubscribeButtonProps) {
-  const [isSubscribed, setIsSubscribed] = useState(false);
-  const { openModal } = useModalStore();
-  const { data: channel, isLoading: isChannelLoading, isError: isChannelError } = useGetChannelById(channelId);
-  const { user } = useUserStore.getState();
+  const { user } = useUserStore();
   const userId = user?.id;
+  const { openModal } = useModalStore();
+  const [isSubscribed, setIsSubscribed] = useState(false);
   const [isOwnChannel, setIsOwnChannel] = useState(false);
+  const { data: channel } = useGetChannelById(channelId);
 
-  const handleSubscribeButtonClick = () => {
-    openModal(ModalType.SUBSCRBE_CHANNEL, <SubscribeChannelModal />, { channelId });
-  };
+  const handleSubscribeButtonClick = ({ actionType }: { actionType: 'subscribe' | 'unsubscribe' }) => {
+    if (actionType === 'subscribe') {
+      openModal(ModalType.SUBSCRBE_CHANNEL, <SubscribeChannelModal />, { channelId });
+    }
 
-  const handleUnsubscribeButtonClick = () => {
-    openModal(ModalType.UNSUBSCRIBE_CHANNEL, <UnSubscribeChannelModal />, { channelId });
+    if (actionType === 'unsubscribe') {
+      openModal(ModalType.UNSUBSCRIBE_CHANNEL, <UnSubscribeChannelModal />, { channelId });
+    }
   };
 
   const checkIsSubscribed = () => {
@@ -59,9 +61,6 @@ export default function useSubscribeButton({ channelId }: UseSubscribeButtonProp
   return {
     isOwnChannel,
     isSubscribed,
-    isChannelLoading,
-    isChannelError,
     handleSubscribeButtonClick,
-    handleUnsubscribeButtonClick,
   };
 }

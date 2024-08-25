@@ -14,30 +14,30 @@ import { SubscribeButtonProps } from './SubscribeButton.type';
 export default function SubscribeButton({ channelId }: SubscribeButtonProps) {
   // logics
 
-  const {
-    isOwnChannel,
-    isSubscribed,
-    isChannelLoading,
-    isChannelError,
-    handleSubscribeButtonClick,
-    handleUnsubscribeButtonClick,
-  } = useSubscribeButton({ channelId });
+  const { isOwnChannel, isSubscribed, handleSubscribeButtonClick } = useSubscribeButton({
+    channelId,
+  });
 
   // view
-  if (isChannelLoading) {
-    return null;
-  }
-
-  if (isChannelError) {
-    return null;
-  }
-
   if (isOwnChannel) {
     return null;
   }
 
   return (
-    <SubScribeButton type='button' onClick={isSubscribed ? handleUnsubscribeButtonClick : handleSubscribeButtonClick}>
+    <SubScribeButton
+      type='button'
+      onClick={
+        isSubscribed
+          ? () =>
+              handleSubscribeButtonClick({
+                actionType: 'unsubscribe',
+              })
+          : () =>
+              handleSubscribeButtonClick({
+                actionType: 'subscribe',
+              })
+      }
+    >
       <img src={isSubscribed ? subscribeOnSvg : subscribeOffSvg} alt='구독 버튼 이미지' />
     </SubScribeButton>
   );
