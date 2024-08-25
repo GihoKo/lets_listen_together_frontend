@@ -2,8 +2,8 @@
 import styled from 'styled-components';
 
 // components
-import MusicPlayer from './_components/MusicPlayer';
-import MusicList from './_components/MusicList';
+import MusicPlayer from './_components/MusicPlayer/MusicPlayer';
+import MusicList from './_components/MusicList/MusicList';
 
 // hooks
 import useChannelPage from './ChannelPage.hook';

@@ -2,10 +2,10 @@
 import styled from 'styled-components';
 
 // hooks
-import useMusicItem from './MusicItem.hook';
+import useMusicItem from './Music.hook';
 
 // utils
-import { prefixZeroForNumber } from '../../../utils/prefixZeroForNumber';
+import { prefixZeroForNumber } from '../../../../../../utils/prefixZeroForNumber';
 
 // images
 import mediaPlayFocusedSvg from '@/images/svg/media-play-focused.svg';
@@ -21,9 +21,9 @@ import downChevronFocused from '@/images/svg/down-chevron-focused.svg';
 import mediaPlayGregSvg from '@/images/svg/media-play-grey.svg';
 
 // types
-import { MusicItemProps } from './MusicItem.type';
+import { MusicProps } from './Music.type';
 
-export default function MusicItem({ music, index, isEditMode }: MusicItemProps) {
+export default function Music({ music, index, isEditMode }: MusicProps) {
   // logics
   const {
     isCurrentMusic,

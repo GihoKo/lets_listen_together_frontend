@@ -5,10 +5,12 @@ import styled from 'styled-components';
 import useMusicContainer from './MusicContainer.hook';
 
 // components
-import MusicItem from './MusicItem';
+import Music from './Music/Music';
 
 // images
 import upCircleSvg from '@/images/svg/up-circle.svg';
+
+// types
 import { MusicContainerProps } from './MusicContainer.type';
 
 export default function MusicContainer({ isEditMode }: MusicContainerProps) {
@@ -25,7 +27,7 @@ export default function MusicContainer({ isEditMode }: MusicContainerProps) {
     <>
       <Container ref={containerRef}>
         {musicList.map((music, index) => (
-          <MusicItem key={music.id} index={index} music={music} isEditMode={isEditMode} />
+          <Music key={music.id} index={index} music={music} isEditMode={isEditMode} />
         ))}
       </Container>
       <ScrollUpButton onClick={handleScrollUpButtonClick}>

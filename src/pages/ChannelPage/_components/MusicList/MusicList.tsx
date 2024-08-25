@@ -8,16 +8,16 @@ import SubscribeButton from './SubscribeButton/SubscribeButton';
 import EditButton from './EditButton/EditButton';
 import FallBack from '@/components/Molecules/ComponentFallBack';
 import QueryErrorBoundary from '@/components/Molecules/QueryErrorBoundary';
+import ComponentFallBack from '@/components/Molecules/ComponentFallBack';
+import AddMusicGuide from './AddMusicGuide/AddMusicGuide';
 
-const MusicContainer = lazy(() => import('./MusicContainer'));
+const MusicContainer = lazy(() => import('./MusicContainer/MusicContainer'));
 
 // images
 import addSquareSvg from '@/images/svg/add-square.svg';
 
 // hooks
 import useMusicList from './MusicList.hook';
-import AddMusicGuide from './AddMusicGuide';
-import ComponentFallBack from '@/components/Molecules/ComponentFallBack';
 
 export default function MusicList() {
   // logics

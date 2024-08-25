@@ -10,11 +10,11 @@ import useGetVideoData from '@/apis/hooks/useGetVideoData';
 
 // types
 import { ModalType } from '@/types/enum';
-import { UseMusicItemProps } from './MusicItem.type';
+import { UseMusicProps } from './Music.type';
 import { useParams } from 'react-router-dom';
 import { Music } from '@/types/music';
 
-export default function useMusicItem({ music }: UseMusicItemProps) {
+export default function useMusic({ music }: UseMusicProps) {
   const { channelId } = useParams();
   const { openModal } = useModalStore();
   const { music: currentMusic, setMusic } = useMusicStore();

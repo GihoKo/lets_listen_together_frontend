@@ -1,10 +1,10 @@
 import { Music } from '@/types/music';
 
-export interface UseMusicItemProps {
+export interface UseMusicProps {
   music: Music;
 }
 
-export interface MusicItemProps {
+export interface MusicProps {
   music: Music;
   index: number;
   isEditMode: boolean;
