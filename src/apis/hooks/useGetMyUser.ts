@@ -9,5 +9,6 @@ export default function useGetMyUser(userId: string) {
   return useQuery<User, Error>({
     queryKey: queryKey,
     queryFn: () => getMyUser(userId),
+    enabled: !!userId,
   });
 }

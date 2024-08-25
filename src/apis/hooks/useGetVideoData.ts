@@ -9,5 +9,6 @@ export default function useGetVideoData(musicUrl: string | undefined) {
   return useQuery<YouTubeVideo, Error>({
     queryKey: queryKey,
     queryFn: () => getVideoData(musicUrl),
+    enabled: !!musicUrl,
   });
 }

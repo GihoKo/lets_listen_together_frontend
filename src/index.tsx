@@ -5,7 +5,14 @@ import { BrowserRouter } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      // 에러 바운더리 사용시 필요한 옵션
+      throwOnError: true,
+    },
+  },
+});
 
 const rootElement = document.getElementById('root');
 if (rootElement) {
