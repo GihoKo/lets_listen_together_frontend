@@ -37,7 +37,12 @@ axiosInstanceWithToken.interceptors.request.use(
     return AxiosRequestConfig;
   },
   (error) => {
-    console.error(error);
+    if (!axios.isAxiosError(error)) {
+      handleUnexpectedError(error);
+      return Promise.reject(error);
+    }
+
+    handleAxiosError(error);
     return Promise.reject(error);
   },
 );

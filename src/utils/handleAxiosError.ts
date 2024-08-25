@@ -1,4 +1,5 @@
 import { AxiosError } from 'axios';
+import logger from './logger';
 
 export const handleAxiosError = (error: AxiosError) => {
   // status를 받기보다는 error 객체 자체를 받아서
@@ -18,19 +19,19 @@ export const handleAxiosError = (error: AxiosError) => {
   if (!error.response) return;
   switch (error.response.status) {
     case 400:
-      console.error(`클라이언트 요청 오류 : ${error.message}`);
+      logger({ error, context: 'Client Request Error' });
       break;
     case 404:
-      console.error(`리소스가 존재하지 않습니다. : ${error.message}`);
+      logger({ error, context: 'Resource Not Found' });
       break;
     case 500:
-      console.error(`서버 오류입니다. 잠시 후 다시 시도해주세요. : ${error.message}`);
+      logger({ error, context: 'Internal Server Error' });
       break;
     case 503:
-      console.error(`서비스 이용이 불가합니다. 잠시 후 다시 시도해주세요. : ${error.message}`);
+      logger({ error, context: 'Service Unavailable' });
       break;
     default:
-      console.error(`알 수 없는 오류입니다. : ${error.message}`);
+      logger({ error, context: 'Unknown Error' });
       break;
   }
 };

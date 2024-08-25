@@ -1,3 +1,4 @@
+import logger from '@/utils/logger';
 import { axiosInstance } from '../instances';
 import axios from 'axios';
 
@@ -8,9 +9,8 @@ export const renewTokens = async () => {
     return response.data.applicationAccessToken;
   } catch (error: unknown) {
     if (axios.isAxiosError(error)) {
-      console.error(error.response?.status);
+      logger({ error, context: 'renewTokens' });
       window.location.href = '/signIn';
-      throw new Error('토큰이 만료되었습니다. 다시 로그인해주세요.');
     }
     return null;
   }
