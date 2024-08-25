@@ -3,20 +3,16 @@ import useModalStore from '@/store/useModalStore';
 
 // components
 import DeleteChannelModal from '@/components/Organisms/Modal/DeleteChannelModal/DeleteChannelModal';
-
-// types
-import { Channel } from '@/types/channel';
-import { ModalType } from '@/types/enum';
 import EditChannelModal from '@/components/Organisms/Modal/EditChannelModal/EditChannelModal';
 
-interface ChannelItemProps {
-  channel: Channel;
-}
+// types
+import { ModalType } from '@/types/enum';
+import { useChannelProps } from './Channel.type';
 
-export default function useChannelItem({ channel }: ChannelItemProps) {
+export default function useChannel({ channel }: useChannelProps) {
   const { openModal } = useModalStore();
 
-  const handleDeleteModalButtonClick = () => {
+  const handleDeleteModalOpenButtonClick = () => {
     openModal(ModalType.DELETE_CHANNEL, <DeleteChannelModal />, {
       channelId: channel.id,
       channelName: channel.name,
@@ -24,7 +20,7 @@ export default function useChannelItem({ channel }: ChannelItemProps) {
     });
   };
 
-  const handleEditModalButtonClick = () => {
+  const handleEditModalOpenButtonClick = () => {
     openModal(ModalType.EDIT_CHANNEL, <EditChannelModal />, {
       channelId: channel.id,
       channelName: channel.name,
@@ -32,5 +28,5 @@ export default function useChannelItem({ channel }: ChannelItemProps) {
     });
   };
 
-  return { handleDeleteModalButtonClick, handleEditModalButtonClick };
+  return { handleDeleteModalOpenButtonClick, handleEditModalOpenButtonClick };
 }

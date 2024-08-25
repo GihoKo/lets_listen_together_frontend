@@ -7,14 +7,14 @@ import deleteSvg from '@/images/svg/delete.svg';
 import editSvg from '@/images/svg/edit.svg';
 
 // hooks
-import useChannelItem from './ChannelItem.hook';
+import useChannelItem from './Channel.hook';
 
 // types
-import { ChannelItemProps } from './ChannelItem.type';
+import { ChannelProps } from './Channel.type';
 
-export default function ChannelItem({ channel }: ChannelItemProps) {
+export default function Channel({ channel }: ChannelProps) {
   // logics
-  const { handleDeleteModalButtonClick, handleEditModalButtonClick } = useChannelItem({ channel });
+  const { handleDeleteModalOpenButtonClick, handleEditModalOpenButtonClick } = useChannelItem({ channel });
 
   // view
   return (
@@ -26,10 +26,10 @@ export default function ChannelItem({ channel }: ChannelItemProps) {
         <Name> {channel.name}</Name>
       </Left>
       <Right>
-        <IconButton type='button' onClick={handleEditModalButtonClick}>
+        <IconButton type='button' onClick={handleEditModalOpenButtonClick}>
           <img src={editSvg} alt='수정 아이콘 이미지' />
         </IconButton>
-        <IconButton type='button' onClick={handleDeleteModalButtonClick}>
+        <IconButton type='button' onClick={handleDeleteModalOpenButtonClick}>
           <img src={deleteSvg} alt='삭제 아이콘 이미지' />
         </IconButton>
       </Right>

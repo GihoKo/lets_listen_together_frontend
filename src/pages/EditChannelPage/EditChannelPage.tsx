@@ -4,30 +4,24 @@ import styled from 'styled-components';
 // components
 import MainTitle from '../../components/Atoms/Text/MainTitle';
 import Description from '@/components/Molecules/Description/Description';
-
-// hooks
 import ChannelContainer from './_components/ChannelContainer';
-import useEditChannelPage from './EditChannelPage.hook';
+import QueryErrorBoundary from '@/components/Molecules/QueryErrorBoundary';
+import { Suspense } from 'react';
+import ComponentFallBack from '@/components/Molecules/ComponentFallBack';
 
 export default function EditChannelPage() {
-  // logics
-  const { channels, isLoading, isError } = useEditChannelPage();
-
   // view
-  if (isLoading) {
-    return <div>loading...</div>;
-  }
-
-  if (isError) {
-    return <div>error...</div>;
-  }
-
   return (
     <Wrapper>
       <MainTitle>EditChannels</MainTitle>
       <Content>
         <Description title='Tip' text='채널 우측 버튼으로 수정, 삭제할 수 있습니다.' />
-        <ChannelContainer channels={channels} />
+
+        <QueryErrorBoundary>
+          <Suspense fallback={<ComponentFallBack />}>
+            <ChannelContainer />
+          </Suspense>
+        </QueryErrorBoundary>
       </Content>
     </Wrapper>
   );

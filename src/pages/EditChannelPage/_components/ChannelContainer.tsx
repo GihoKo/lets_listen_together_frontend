@@ -2,12 +2,13 @@
 import styled from 'styled-components';
 
 // components
-import ChannelItem from './ChannelItem';
+import useChannelContainer from './ChannelContainer.hook';
+import Channel from './Channel';
 
-// types
-import { ChannelContainerProps } from './ChannelContainer.type';
+export default function ChannelContainer() {
+  //logic
+  const { channels } = useChannelContainer();
 
-export default function ChannelContainer({ channels }: ChannelContainerProps) {
   // view
   return (
     <Container>
@@ -15,10 +16,10 @@ export default function ChannelContainer({ channels }: ChannelContainerProps) {
       {!channels || channels.length === 0 ? (
         <NoChannels>
           채널이 존재하지 않습니다.
-          <br /> 채널을 만들어주세요.
+          <br /> 채널을 생성해주세요.
         </NoChannels>
       ) : (
-        channels.map((channel) => <ChannelItem key={channel.id} channel={channel} />)
+        channels.map((channel) => <Channel key={channel.id} channel={channel} />)
       )}
     </Container>
   );
