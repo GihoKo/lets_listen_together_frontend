@@ -2,7 +2,6 @@
 import styled from 'styled-components';
 
 // types
-
 import useEditButton from './EditButton.hook';
 import { EditButtonProps } from './EditButton.type';
 
