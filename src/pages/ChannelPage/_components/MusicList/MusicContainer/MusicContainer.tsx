@@ -5,13 +5,14 @@ import styled from 'styled-components';
 import useMusicContainer from './MusicContainer.hook';
 
 // components
-import Music from './Music/Music';
+const Music = lazy(() => import('./Music/Music'));
 
 // images
 import upCircleSvg from '@/images/svg/up-circle.svg';
 
 // types
 import { MusicContainerProps } from './MusicContainer.type';
+import { lazy } from 'react';
 
 export default function MusicContainer({ isEditMode }: MusicContainerProps) {
   // logics

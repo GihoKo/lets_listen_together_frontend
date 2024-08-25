@@ -2,7 +2,7 @@
 import styled from 'styled-components';
 
 // components
-import ChannelItem from '../Channel/ChannelItem';
+import Channel from '../Channel/Channel';
 
 // types
 import { MyChannelsContainerProps } from './MyChannelsContainer.type';
@@ -20,7 +20,7 @@ export default function MyChannelsContainer({ isOpen }: MyChannelsContainerProps
   return (
     <Container>
       {channelList.map((channel) => (
-        <ChannelItem key={channel.id} channel={channel} isOpen={isOpen} isCurrentChannel={channelId === channel.id} />
+        <Channel key={channel.id} channel={channel} isOpen={isOpen} isCurrentChannel={channelId === channel.id} />
       ))}
     </Container>
   );

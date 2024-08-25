@@ -2,7 +2,7 @@
 import styled from 'styled-components';
 
 // components
-import ChannelItem from '../Channel/ChannelItem';
+import Channel from '../Channel/Channel';
 
 // types
 import useSubscribedChannelsContainer from './SubscribedChannelsContainer.hook';
@@ -18,7 +18,7 @@ export default function SubscribedChannelsContainer({ isOpen }: SubscribedChanne
   return (
     <Container>
       {channelList.map((channel) => (
-        <ChannelItem key={channel.id} channel={channel} isOpen={isOpen} isCurrentChannel={channelId === channel.id} />
+        <Channel key={channel.id} channel={channel} isOpen={isOpen} isCurrentChannel={channelId === channel.id} />
       ))}
     </Container>
   );

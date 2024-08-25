@@ -2,17 +2,17 @@
 import styled from 'styled-components';
 
 // hooks
-import useChannelItem from './ChannelItem.hook';
+import useChannel from './Channel.hook';
 
 // components
 import { Link } from 'react-router-dom';
 
 // types
-import { SideBarChannelItemProps } from './ChannelItem.type';
+import { SideBarChannelProps } from './Channel.type';
 
-export default function ChannelItem({ channel, isOpen, isCurrentChannel }: SideBarChannelItemProps) {
+export default function Channel({ channel, isOpen, isCurrentChannel }: SideBarChannelProps) {
   // logics
-  const { handleDefaultPlayListImageToggle } = useChannelItem({ isCurrentChannel });
+  const { handleDefaultPlayListImageToggle } = useChannel({ isCurrentChannel });
 
   // view
   return (

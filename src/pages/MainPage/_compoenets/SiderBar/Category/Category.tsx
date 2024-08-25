@@ -2,9 +2,9 @@
 import styled from 'styled-components';
 
 // types
-import { CategoryNameProps } from './CategoryName.type';
+import { CategoryProps } from './Category.type';
 
-export default function CategoryName({ children, isOpen }: CategoryNameProps) {
+export default function Category({ children, isOpen }: CategoryProps) {
   // view
   return <Wrapper $isOpen={isOpen}>{children}</Wrapper>;
 }

@@ -1,12 +1,14 @@
 // libraries
 import styled from 'styled-components';
+import { lazy } from 'react';
 
 // hooks
 import useChannelContainer from './ChannelContainer.hook';
 
 // components
 import MainTitle from '@/components/Atoms/Text/MainTitle';
-import Channel from './Channel/Channel';
+
+const Channel = lazy(() => import('./Channel/Channel'));
 
 // types
 import { Music } from '@/types/music';

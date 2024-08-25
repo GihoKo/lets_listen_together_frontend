@@ -1,13 +1,14 @@
 // libraries
 import styled from 'styled-components';
+import { lazy, Suspense } from 'react';
 
 // components
 import MainTitle from '../../components/Atoms/Text/MainTitle';
 import Description from '@/components/Molecules/Description/Description';
-import ChannelContainer from './_components/ChannelContainer';
-import QueryErrorBoundary from '@/components/Molecules/QueryErrorBoundary';
-import { Suspense } from 'react';
-import ComponentFallBack from '@/components/Molecules/ComponentFallBack';
+import QueryErrorBoundary from '@/components/Molecules/QueryErrorBoundary/QueryErrorBoundary';
+import PageFallBack from '@/components/Molecules/FallBack/PageFallBack';
+
+const ChannelContainer = lazy(() => import('./_components/ChannelConteiner/ChannelContainer'));
 
 export default function EditChannelPage() {
   // view
@@ -18,7 +19,7 @@ export default function EditChannelPage() {
         <Description title='Tip' text='채널 우측 버튼으로 수정, 삭제할 수 있습니다.' />
 
         <QueryErrorBoundary>
-          <Suspense fallback={<ComponentFallBack />}>
+          <Suspense fallback={<PageFallBack />}>
             <ChannelContainer />
           </Suspense>
         </QueryErrorBoundary>

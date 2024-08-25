@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import ComponentSpinner from '../Atoms/Spinner/ComponentSpinner';
+import ComponentSpinner from '../../Atoms/Spinner/ComponentSpinner';
 
 export default function ComponentFallBack() {
   // view

@@ -1,5 +1,6 @@
 // libraries
 import styled from 'styled-components';
+import { lazy, Suspense } from 'react';
 
 // hooks
 import useSideBar from './SideBar.hook';
@@ -7,20 +8,20 @@ import useSideBar from './SideBar.hook';
 // components
 import SideBarToggleButton from './SideBarToggleButton/SideBarToggleButton';
 import CreateChannelButton from './CreateChannelButton/CreateChannelButton';
-import CategoryName from './Category/CategoryName';
-import NavigatorContainer from './Navigator/NavigatorContainer';
-import QueryErrorBoundary from '@/components/Molecules/QueryErrorBoundary';
-import { Suspense } from 'react';
-import ComponentFallBack from '@/components/Molecules/ComponentFallBack';
-import MyChannelsContainer from './MyChannels/MyChannelsContainer';
-import SubscribedChannelsContainer from './SubscribedChannels/SubscribedChannelsContainer';
+import Category from './Category/Category';
+import NavigatorContainer from './NavigatorContainer/NavigatorContainer';
+import QueryErrorBoundary from '@/components/Molecules/QueryErrorBoundary/QueryErrorBoundary';
+
+const MyChannelsContainer = lazy(() => import('./MyChannels/MyChannelsContainer'));
+const SubscribedChannelsContainer = lazy(() => import('./SubscribedChannels/SubscribedChannelsContainer'));
 
 // types
 import { Music } from '@/types/music';
+import ChannelFallback from './Channel/ChannelFallback';
 
 export default function SideBar() {
   // logics
-  const { isOpen, currentMusic, handleToggle, handleCreateChannelModalOpenButtonClick, handleClose } = useSideBar();
+  const { isOpen, currentMusic, handleToggle, handleClose } = useSideBar();
 
   // view
 
@@ -30,22 +31,22 @@ export default function SideBar() {
         <Wrapper $isOpen={isOpen}>
           <Header>
             <SideBarToggleButton onClick={handleToggle} isOpen={isOpen} />
-            <CreateChannelButton isOpen={isOpen} onClick={handleCreateChannelModalOpenButtonClick} />
+            <CreateChannelButton isOpen={isOpen} />
           </Header>
 
-          <CategoryName isOpen={isOpen}>Navigator</CategoryName>
+          <Category isOpen={isOpen}>Navigator</Category>
           <NavigatorContainer isOpen={isOpen} />
 
-          <CategoryName isOpen={isOpen}>MyChannels</CategoryName>
+          <Category isOpen={isOpen}>MyChannels</Category>
           <QueryErrorBoundary>
-            <Suspense fallback={<ComponentFallBack />}>
+            <Suspense fallback={<ChannelFallback />}>
               <MyChannelsContainer isOpen={isOpen} />
             </Suspense>
           </QueryErrorBoundary>
 
-          <CategoryName isOpen={isOpen}>Subscribed</CategoryName>
+          <Category isOpen={isOpen}>Subscribed</Category>
           <QueryErrorBoundary>
-            <Suspense fallback={<ComponentFallBack />}>
+            <Suspense fallback={<ChannelFallback />}>
               <SubscribedChannelsContainer isOpen={isOpen} />
             </Suspense>
           </QueryErrorBoundary>

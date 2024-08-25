@@ -1,11 +1,11 @@
 // types
-import { useChannelItemProps } from './ChannelItem.type';
+import { useChannelProps } from './Channel.type';
 
 // images
 import playListSvg from '@/images/svg/playlist.svg';
 import playListFocusedSvg from '@/images/svg/playlist-focused.svg';
 
-export default function useChannelItem({ isCurrentChannel }: useChannelItemProps) {
+export default function useChannel({ isCurrentChannel }: useChannelProps) {
   const handleDefaultPlayListImageToggle = () => {
     if (isCurrentChannel) {
       return playListFocusedSvg;

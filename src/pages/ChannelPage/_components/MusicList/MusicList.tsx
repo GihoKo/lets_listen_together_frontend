@@ -3,13 +3,11 @@ import { lazy, Suspense } from 'react';
 import styled from 'styled-components';
 
 // components
-
-import SubscribeButton from './SubscribeButton/SubscribeButton';
 import EditButton from './EditButton/EditButton';
-import FallBack from '@/components/Molecules/ComponentFallBack';
-import QueryErrorBoundary from '@/components/Molecules/QueryErrorBoundary';
-import ComponentFallBack from '@/components/Molecules/ComponentFallBack';
+import FallBack from '@/components/Molecules/FallBack/ComponentFallBack';
+import QueryErrorBoundary from '@/components/Molecules/QueryErrorBoundary/QueryErrorBoundary';
 import AddMusicGuide from './AddMusicGuide/AddMusicGuide';
+import SubscribeButton from './SubscribeButton/SubscribeButton';
 
 const MusicContainer = lazy(() => import('./MusicContainer/MusicContainer'));
 
@@ -29,11 +27,7 @@ export default function MusicList() {
     <Wrapper>
       <Header>
         <Left>
-          <QueryErrorBoundary>
-            <Suspense fallback={<ComponentFallBack />}>
-              <SubscribeButton channelId={channelId} />
-            </Suspense>
-          </QueryErrorBoundary>
+          <SubscribeButton channelId={channelId} />
 
           <EditButton
             isEditMode={isEditMode}

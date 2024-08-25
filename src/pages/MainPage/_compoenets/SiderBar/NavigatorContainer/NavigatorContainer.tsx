@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import useNavigatorContainer from './NavigatorContainer.hook';
 
 // components
-import NavigatorItem from './NavigatorItem';
+import Navigator from './Navigator/Navigator';
 
 // types
 import { NavigatorContainerProps } from './NavigatorContainer.type';
@@ -22,7 +22,7 @@ export default function NavigatorContainer({ isOpen }: NavigatorContainerProps) 
       {SIDEBAR_NAVIGATORS.map((item) => {
         const isFocused = location.pathname === item.path;
         item.icon = isFocused ? item.icon[1] : item.icon[0];
-        return <NavigatorItem key={item.name} isOpen={isOpen} {...item} isFocused={isFocused} />;
+        return <Navigator key={item.name} isOpen={isOpen} {...item} isFocused={isFocused} />;
       })}
     </Container>
   );

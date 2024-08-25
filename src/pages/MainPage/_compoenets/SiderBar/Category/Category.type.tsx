@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 
-export interface CategoryNameProps {
+export interface CategoryProps {
   children: ReactNode;
   isOpen: boolean;
 }

@@ -7,9 +7,16 @@ import { CreateChannelButtonProps } from './CreateChannelButton.type';
 // images
 import addChannelSvg from '@/images/svg/add-square.svg';
 
-export default function CreateChannelButton({ isOpen, onClick }: CreateChannelButtonProps) {
+// hooks
+import useCreateChannelButton from './CreateChannelButton.hook';
+
+export default function CreateChannelButton({ isOpen }: CreateChannelButtonProps) {
+  // logics
+  const { handleClick } = useCreateChannelButton();
+
+  // view
   return (
-    <Button $isOpen={isOpen} onClick={onClick}>
+    <Button $isOpen={isOpen} onClick={handleClick}>
       <img src={addChannelSvg} alt='채널 추가 버튼' />
     </Button>
   );

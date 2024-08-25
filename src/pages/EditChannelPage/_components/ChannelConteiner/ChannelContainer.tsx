@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 // components
 import useChannelContainer from './ChannelContainer.hook';
-import Channel from './Channel';
+import Channel from './Channel/Channel';
 
 export default function ChannelContainer() {
   //logic

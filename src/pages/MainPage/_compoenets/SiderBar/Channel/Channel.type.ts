@@ -1,11 +1,11 @@
 import { Channel } from '@/types/channel';
 
-export interface SideBarChannelItemProps {
+export interface SideBarChannelProps {
   channel: Channel;
   isOpen: boolean;
   isCurrentChannel: boolean;
 }
 
-export interface useChannelItemProps {
+export interface useChannelProps {
   isCurrentChannel: boolean;
 }

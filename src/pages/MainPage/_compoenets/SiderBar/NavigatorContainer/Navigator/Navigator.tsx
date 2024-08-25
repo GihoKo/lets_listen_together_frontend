@@ -5,9 +5,9 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
 // types
-import { NavigatorItemProps } from './NavigatorItem.type';
+import { NavigatorProps } from './Navigator.type';
 
-export default function NavigatorItem({ isOpen, name, path, icon, isFocused }: NavigatorItemProps) {
+export default function Navigator({ isOpen, name, path, icon, isFocused }: NavigatorProps) {
   // view
   return (
     <Wrapper to={path} $isFocused={isFocused}>

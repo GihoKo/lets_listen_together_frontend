@@ -5,7 +5,7 @@ import LandingPage from '@/pages/LandingPage/LandingPage';
 import MainPage from '@/pages/MainPage/MainPage';
 import SignInPage from '@/pages/SigninPage/SignInPage';
 import ChannelPage from '@/pages/ChannelPage/ChannelPage';
-import PageFallBack from '@/components/Molecules/PageFallBack';
+import PageFallBack from '@/components/Molecules/FallBack/PageFallBack';
 import Content from '@/pages/MainPage/_compoenets/Content/Content';
 
 const ProfilePage = lazy(() => import('@/pages/ProfilePage/ProfilePage'));

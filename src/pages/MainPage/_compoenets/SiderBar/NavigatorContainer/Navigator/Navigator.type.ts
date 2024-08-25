@@ -1,4 +1,4 @@
-export interface NavigatorItemProps {
+export interface NavigatorProps {
   isOpen: boolean;
   name: string;
   path: string;
