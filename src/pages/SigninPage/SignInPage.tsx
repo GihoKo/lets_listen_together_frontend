@@ -5,8 +5,10 @@ import styled from 'styled-components';
 import useSignInPage from './SignInPage.hook';
 
 // components
-import { GoogleOAuthProvider } from '@react-oauth/google';
+
 import GoogleLoginButton from './_components/GoogleLoginButton';
+//import { GoogleOAuthProvider } from '@react-oauth/google';
+const GoogleOAuthProvider = await import('@react-oauth/google').then((module) => module.GoogleOAuthProvider);
 
 export default function SignInPage() {
   // logics
