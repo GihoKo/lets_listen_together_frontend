@@ -14,7 +14,14 @@ import previosMusicSvg from '@/images/svg/previous-music.svg';
 import nextMusicSvg from '@/images/svg/next-music.svg';
 import mockImage from '@/images/dummyImage.png';
 
-export default function MusicPlayer() {
+interface MusicPlayerProps {
+  zIndex: {
+    player: number;
+    musicList: number;
+  };
+}
+
+export default function MusicPlayer({ zIndex }: MusicPlayerProps) {
   // logics
   const {
     currentMusic,
@@ -31,11 +38,11 @@ export default function MusicPlayer() {
 
   // view
   if (!currentMusic) {
-    return <NoPlayer>음악을 선택해주세요!</NoPlayer>;
+    return <NoPlayer $zIndex={zIndex}>음악을 선택해주세요!</NoPlayer>;
   }
 
   return (
-    <Wrapper>
+    <Wrapper $zIndex={zIndex}>
       <ImageBox>
         <img src={videoData?.items[0].snippet.thumbnails.maxres?.url || mockImage} alt='음악 이미지' />
       </ImageBox>
@@ -65,7 +72,12 @@ export default function MusicPlayer() {
   );
 }
 
-const NoPlayer = styled.div`
+const NoPlayer = styled.div<{
+  $zIndex: {
+    player: number;
+    musicList: number;
+  };
+}>`
   width: 100%;
 
   display: flex;
@@ -79,10 +91,22 @@ const NoPlayer = styled.div`
 
   @media (max-width: 768px) {
     width: 100vw;
+    height: 100vh;
+
+    z-index: ${({ $zIndex }) => $zIndex.player};
+
+    position: absolute;
+    top: 0;
+    left: 0;
   }
 `;
 
-const Wrapper = styled.div`
+const Wrapper = styled.div<{
+  $zIndex: {
+    player: number;
+    musicList: number;
+  };
+}>`
   width: 100%;
   max-width: 480px;
 
@@ -94,13 +118,19 @@ const Wrapper = styled.div`
   background-color: var(--grey-grey100);
   padding: 48px 36px;
 
+  z-index: ${({ $zIndex }) => $zIndex.player};
+
   @media (max-width: 768px) {
     border-radius: 0;
     width: 100vw;
+    height: 100vh;
     max-width: none;
-    height: auto;
 
     gap: 0px;
+
+    position: absolute;
+    top: 0;
+    left: 0;
   }
 `;
 

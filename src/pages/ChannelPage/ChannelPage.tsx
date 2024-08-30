@@ -8,37 +8,114 @@ import MusicList from './_components/MusicList/MusicList';
 // hooks
 import useChannelPage from './ChannelPage.hook';
 
+// images
+import upChevronSvg from '@/images/svg/up-chevron.svg';
+import musicSvg from '@/images/svg/music.svg';
+import playlistSvg from '@/images/svg/playlist.svg';
+
 export default function ChannelPage() {
   // logics
-
-  const { personalTap, currentTapValue, handleTapChange } = useChannelPage();
+  const { isFocusedFloatingButton, zIndex, handleFloatingButtonClick, handleDimmedClick, handleUpdateLayer } =
+    useChannelPage();
 
   return (
     <>
-      <Content $currentTapValue={currentTapValue}>
-        <MusicPlayer />
-        <MusicList />
+      <Content>
+        <MusicPlayer zIndex={zIndex} />
+        <MusicList zIndex={zIndex} />
       </Content>
-      <TapContainer>
-        {personalTap.map((tap) => (
-          <TapButton
-            key={tap.value}
-            $currentTapValue={currentTapValue}
-            $tapValue={tap.value}
-            $isFocused={tap.isFocused}
-            onClick={() => handleTapChange(tap.value)}
-          >
-            {tap.name}
-          </TapButton>
-        ))}
-      </TapContainer>
+      <FloatingActionButton onClick={handleFloatingButtonClick}>
+        <img src={upChevronSvg} alt='플로팅 버튼 이미지' />
+      </FloatingActionButton>
+      {isFocusedFloatingButton && (
+        <FloatingActionButtonDimmed onClick={handleDimmedClick}>
+          <FloatingActionButtonContainer>
+            <FloatingActionButtonPlayerButton
+              onClick={() => {
+                handleUpdateLayer({
+                  layer: 'player',
+                });
+              }}
+            >
+              <img src={musicSvg} alt='음악 버튼 이미지' />
+            </FloatingActionButtonPlayerButton>
+            <FloatingActionButtonPlayListButton
+              onClick={() => {
+                handleUpdateLayer({
+                  layer: 'musicList',
+                });
+              }}
+            >
+              <img src={playlistSvg} alt='플레이리스트 버튼 이미지' />
+            </FloatingActionButtonPlayListButton>
+          </FloatingActionButtonContainer>
+        </FloatingActionButtonDimmed>
+      )}
     </>
   );
 }
 
-const Content = styled.div<{
-  $currentTapValue: number;
-}>`
+const FloatingActionButtonBluePrint = styled.button`
+  flex-shrink: 0;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--mint4);
+  box-shadow: 0 0 8px var(--mint4);
+
+  cursor: pointer;
+
+  z-index: 9999;
+
+  img {
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+  }
+`;
+
+const FloatingActionButtonDimmed = styled.div`
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 9990;
+`;
+
+const FloatingActionButtonContainer = styled.div`
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+  gap: 8px;
+  position: fixed;
+  bottom: 80px;
+  right: 24px;
+`;
+
+const FloatingActionButton = styled(FloatingActionButtonBluePrint)`
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+`;
+
+const FloatingActionButtonPlayerButton = styled(FloatingActionButtonBluePrint)`
+  position: relative;
+  bottom: 0px;
+  right: 0px;
+`;
+
+const FloatingActionButtonPlayListButton = styled(FloatingActionButtonBluePrint)`
+  position: relative;
+  bottom: 0px;
+  right: 0px;
+`;
+
+const Content = styled.div`
   width: 100%;
   height: 100%;
 
@@ -53,40 +130,6 @@ const Content = styled.div<{
     width: 200vw;
 
     gap: 0px;
-    padding: 0 0 52px 0;
-
-    transition: transform 0.3s;
-    transform: ${({ $currentTapValue }) => `translateX(-${$currentTapValue * 100}vw)`};
+    padding: 0px;
   }
-`;
-
-const TapContainer = styled.div`
-  border-top: 1px solid var(--grey-grey300);
-  display: none;
-
-  width: 100%;
-
-  background-color: var(--grey-grey100);
-
-  position: fixed;
-  bottom: 0;
-
-  @media (max-width: 768px) {
-    display: flex;
-  }
-`;
-
-const TapButton = styled.button<{
-  $currentTapValue: number;
-  $tapValue: number;
-  $isFocused: boolean;
-}>`
-  flex-grow: 1;
-
-  font-size: 16px;
-  padding: 16px 0;
-  cursor: pointer;
-
-  color: ${({ $isFocused }) => ($isFocused ? 'var(--mint9)' : 'var(--mint5)')};
-  background-color: ${({ $isFocused }) => ($isFocused ? 'var(--mint5)' : 'var(--grey-grey100)')};
 `;

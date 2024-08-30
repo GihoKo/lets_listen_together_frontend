@@ -17,14 +17,21 @@ import addSquareSvg from '@/images/svg/add-square.svg';
 // hooks
 import useMusicList from './MusicList.hook';
 
-export default function MusicList() {
+interface MusicListProps {
+  zIndex: {
+    player: number;
+    musicList: number;
+  };
+}
+
+export default function MusicList({ zIndex }: MusicListProps) {
   // logics
   const { isEditMode, channelId, setIsEditMode, handleCreateMusicButtonButtonClick, handleEditConfirmButtonClick } =
     useMusicList();
 
   // view
   return (
-    <Wrapper>
+    <Wrapper $zIndex={zIndex}>
       <Header>
         <Left>
           <SubscribeButton channelId={channelId} />
@@ -50,7 +57,12 @@ export default function MusicList() {
   );
 }
 
-const Wrapper = styled.div`
+const Wrapper = styled.div<{
+  $zIndex: {
+    player: number;
+    musicList: number;
+  };
+}>`
   border-radius: 12px;
   border: 1px solid var(--grey-grey300);
   width: 100%;
@@ -63,16 +75,22 @@ const Wrapper = styled.div`
   background-color: var(--grey-grey150);
   padding: 16px 32px;
 
+  z-index: ${({ $zIndex }) => $zIndex.musicList};
+
   @media (max-width: 768px) {
     border-radius: 0;
     width: 100vw;
-    height: auto;
+    height: 100vh;
 
     gap: 0px;
 
-    padding: 0 0 8px;
+    padding: 0;
 
     margin-top: 0;
+
+    position: absolute;
+    top: 0;
+    left: 0;
   }
 `;
 
