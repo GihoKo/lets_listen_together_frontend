@@ -1,6 +1,8 @@
 // hooks
 import { useState } from 'react';
 
+export type Layer = 'player' | 'musicList';
+
 export default function useChannelPage() {
   const [isFocusedFloatingButton, setIsFocusedFloatingButton] = useState(false);
 
@@ -20,8 +22,6 @@ export default function useChannelPage() {
     player: DEFAULT_Z_INDEX,
     musicList: SELECTED_Z_INDEX,
   });
-
-  type Layer = 'player' | 'musicList';
 
   const handleUpdateLayer = ({ layer }: { layer: Layer }) => {
     switch (layer) {
