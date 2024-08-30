@@ -1,28 +1,46 @@
 // hooks
 import { useState } from 'react';
 
-export default function useChannelPage() {
-  const [currentTapValue, setcurrentTapValue] = useState(1);
-  const [personalTap, setPersonalTap] = useState([
-    { name: 'Player', value: 0, isFocused: false },
-    { name: 'List', value: 1, isFocused: true },
-  ]);
+export type Layer = 'player' | 'musicList';
 
-  const handleTapChange = (tap: number) => {
-    setcurrentTapValue(tap);
-    setPersonalTap(
-      personalTap.map((item) => {
-        if (item.value === tap) {
-          return { ...item, isFocused: true };
-        }
-        return { ...item, isFocused: false };
-      }),
-    );
+export default function useChannelPage() {
+  const [isFocusedFloatingButton, setIsFocusedFloatingButton] = useState(false);
+
+  const handleFloatingButtonClick = () => {
+    setIsFocusedFloatingButton((prev) => !prev);
+  };
+
+  const handleDimmedClick = () => {
+    setIsFocusedFloatingButton(false);
+  };
+
+  const DEFAULT_Z_INDEX = 500;
+
+  const SELECTED_Z_INDEX = 501;
+
+  const [zIndex, setZIndex] = useState({
+    player: DEFAULT_Z_INDEX,
+    musicList: SELECTED_Z_INDEX,
+  });
+
+  const handleUpdateLayer = ({ layer }: { layer: Layer }) => {
+    switch (layer) {
+      case 'player':
+        setZIndex({ player: SELECTED_Z_INDEX, musicList: DEFAULT_Z_INDEX });
+        break;
+      case 'musicList':
+        setZIndex({ player: DEFAULT_Z_INDEX, musicList: SELECTED_Z_INDEX });
+        break;
+      default:
+        break;
+    }
   };
 
   return {
-    personalTap,
-    currentTapValue,
-    handleTapChange,
+    isFocusedFloatingButton,
+    zIndex,
+    handleFloatingButtonClick,
+    handleDimmedClick,
+    handleUpdateLayer,
   };
 }

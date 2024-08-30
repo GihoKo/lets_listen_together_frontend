@@ -40,6 +40,8 @@ const Wrapper = styled.div`
 const Main = styled.main`
   display: flex;
   overflow-y: hidden;
+
+  position: relative;
 `;
 
 const Right = styled.div`
