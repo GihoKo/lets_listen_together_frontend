@@ -5,6 +5,7 @@ import useEditChannelModal from './EditChannelModal.hook';
 
 // components
 import {
+  AddTagButton,
   ButtonWrapper,
   ChannelImageLabel,
   ChannelImageWrapper,
@@ -45,6 +46,7 @@ export default function EditChannelModal() {
     handleDeleteTag,
     handleSubmit,
     handleAddTagKeyDown,
+    handleAddTagButtonClick,
     handleChangeChannelData,
     closeModal,
   } = logics;
@@ -115,6 +117,7 @@ export default function EditChannelModal() {
               type='text'
               onKeyDown={handleAddTagKeyDown}
             />
+            <AddTagButton onClick={handleAddTagButtonClick}>추가</AddTagButton>
           </FormField>
 
           <FormField>

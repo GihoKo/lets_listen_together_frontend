@@ -75,6 +75,24 @@ export default function useEditChannelModal() {
     }
   };
 
+  const handleAddTagButtonClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    e.preventDefault();
+    if (
+      !validateTag({
+        tagValue,
+        channelData,
+        setErrorMessage,
+      })
+    )
+      return;
+
+    setChannelData({
+      ...channelData,
+      tags: [...channelData.tags, tagValue],
+    });
+    setTagValue('');
+  };
+
   const handleDeleteTag = (tag: string) => {
     setChannelData({
       ...channelData,
@@ -164,6 +182,7 @@ export default function useEditChannelModal() {
     handleDeleteTag,
     handleSubmit,
     handleAddTagKeyDown,
+    handleAddTagButtonClick,
     handleChangeChannelData,
     closeModal,
   };
