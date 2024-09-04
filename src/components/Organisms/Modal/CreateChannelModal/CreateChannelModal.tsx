@@ -20,6 +20,7 @@ import {
   EmptyImage,
   FileInput,
   ErrorMessage,
+  AddTagButton,
 } from '../../../Atoms/Modal/StyledComponents';
 
 export default function CreateChannelModal() {
@@ -40,6 +41,7 @@ export default function CreateChannelModal() {
     handleChangeChannelData,
     handleChangeTagValue,
     handleAddTagKeyDown,
+    handleAddTagButtonClick,
     handleDeleteTag,
     handleSubmit,
     closeModal,
@@ -108,6 +110,7 @@ export default function CreateChannelModal() {
               type='text'
               onKeyDown={handleAddTagKeyDown}
             />
+            <AddTagButton onClick={handleAddTagButtonClick}>추가</AddTagButton>
           </FormField>
 
           <FormField>

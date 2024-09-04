@@ -71,9 +71,9 @@ const BackGround = styled.nav<{
 
     padding: 0;
 
-    position: absolute;
-    bottom: 0;
-    z-index: 100;
+    position: fixed;
+    top: 0;
+    z-index: 1000;
   }
 `;
 

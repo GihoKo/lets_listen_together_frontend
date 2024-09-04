@@ -76,6 +76,8 @@ export const FormField = styled.div`
   flex-direction: column;
   gap: 8px;
 
+  position: relative;
+
   &:focus-within {
     label {
       color: var(--mint5);
@@ -84,6 +86,23 @@ export const FormField = styled.div`
 
   @media (max-width: 768px) {
     gap: 4px;
+  }
+`;
+
+export const AddTagButton = styled.button`
+  border-radius: 8px;
+
+  display: none;
+  background-color: var(--mint6);
+  color: var(--grey-grey150);
+  font-size: 14px;
+  font-weight: 600;
+  padding: 8px;
+
+  cursor: pointer;
+
+  @media (max-width: 768px) {
+    display: block;
   }
 `;
 
