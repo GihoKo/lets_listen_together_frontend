@@ -30,3 +30,10 @@ export enum ErrorMessagesType {
   MUSIC_URL_EMPTY = '음악 URL을 입력해주세요.',
   MUSIC_URL_UNVALID = '유효하지 않은 URL입니다.',
 }
+
+export enum zIndex {
+  MODAL = 1000,
+  MODAL_DIMMED = 999,
+  MODAL_CONTENT = 998,
+  SIDEBAR = 100,
+}
