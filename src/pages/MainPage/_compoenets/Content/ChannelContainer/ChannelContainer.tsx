@@ -15,15 +15,25 @@ import { Music } from '@/types/music';
 
 export default function ChannelContainer() {
   // logics
-  const { channels, currentMusic } = useChannelContainer();
+  const { channels, currentMusic, fetchNextPage } = useChannelContainer();
 
   // view
   return (
     <Wrapper>
       <MainTitle>Channel List</MainTitle>
+
       <Container $currentMusic={currentMusic}>
-        {channels?.map((channel) => <Channel key={channel.id} channel={channel} />)}
+        {channels?.pages.map((page) => page.channels?.map((channel) => <Channel key={channel.id} channel={channel} />))}
       </Container>
+
+      <button
+        onClick={() => {
+          fetchNextPage();
+          console.log('fetchNextPage :', channels);
+        }}
+      >
+        fetchNextPage
+      </button>
     </Wrapper>
   );
 }
