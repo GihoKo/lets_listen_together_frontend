@@ -18,6 +18,8 @@ export default function useGetChannelByPageParam(): UseInfiniteQueryResult<UseGe
     queryKey: queryKey,
     queryFn: getChannelsByPageParam, // pageParam을 올바르게 사용
     initialPageParam: 0,
-    getNextPageParam: (lastPage) => lastPage.nextCursor, // nextCursor가 없으면 undefined 반환
+    getNextPageParam: (lastPage) => {
+      return lastPage?.nextCursor !== null ? lastPage.nextCursor : undefined; // nextCursor가 null인 경우 undefined 반환
+    },
   });
 }

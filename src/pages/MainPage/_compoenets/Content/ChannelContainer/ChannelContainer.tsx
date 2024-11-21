@@ -16,7 +16,7 @@ import { Music } from '@/types/music';
 
 export default function ChannelContainer() {
   // logics
-  const { channels, currentMusic, InfinifeScrollTriggerRef } = useChannelContainer();
+  const { channels, hasNextPage, currentMusic, InfinifeScrollTriggerRef } = useChannelContainer();
 
   // view
   return (
@@ -27,9 +27,11 @@ export default function ChannelContainer() {
         {channels?.pages.map((page) => page.channels?.map((channel) => <Channel key={channel.id} channel={channel} />))}
       </Container>
 
-      <InfiniteScrollTrigger ref={InfinifeScrollTriggerRef}>
-        <Spinner />
-      </InfiniteScrollTrigger>
+      {hasNextPage ? (
+        <InfiniteScrollTrigger ref={InfinifeScrollTriggerRef}>
+          <Spinner />
+        </InfiniteScrollTrigger>
+      ) : null}
     </Wrapper>
   );
 }

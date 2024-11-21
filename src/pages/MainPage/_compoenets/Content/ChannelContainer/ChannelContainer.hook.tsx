@@ -3,7 +3,7 @@ import useMusicStore from '@/store/useMusicStore';
 import { useEffect, useRef } from 'react';
 
 export default function useChannelContainer() {
-  const { data: channels, fetchNextPage } = useGetChannelByPageParam();
+  const { data: channels, hasNextPage, fetchNextPage } = useGetChannelByPageParam();
   const { music: currentMusic } = useMusicStore();
   const InfinifeScrollTriggerRef = useRef<HTMLDivElement | null>(null);
 
@@ -17,7 +17,7 @@ export default function useChannelContainer() {
             }
           });
         },
-        { threshold: 1 },
+        { threshold: 0.7 },
       );
 
       io.observe(InfinifeScrollTriggerRef.current);
@@ -26,10 +26,11 @@ export default function useChannelContainer() {
 
   useEffect(() => {
     infiniteScroll();
-  }, []);
+  }, [hasNextPage]);
 
   return {
     channels,
+    hasNextPage,
     currentMusic,
     InfinifeScrollTriggerRef,
   };
