@@ -3,7 +3,7 @@ import useMusicStore from '@/store/useMusicStore';
 import { useEffect, useRef } from 'react';
 
 export default function useChannelContainer() {
-  const { data: channels, hasNextPage, fetchNextPage } = useGetChannelByPageParam();
+  const { data: channels, hasNextPage, isFetchingNextPage, fetchNextPage } = useGetChannelByPageParam();
   const { music: currentMusic } = useMusicStore();
   const InfinifeScrollTriggerRef = useRef<HTMLDivElement | null>(null);
 
@@ -12,7 +12,7 @@ export default function useChannelContainer() {
       const io = new IntersectionObserver(
         (entries) => {
           entries.forEach(async (entry) => {
-            if (entry.isIntersecting && InfinifeScrollTriggerRef.current) {
+            if (entry.isIntersecting && InfinifeScrollTriggerRef.current && hasNextPage && !isFetchingNextPage) {
               fetchNextPage();
             }
           });
