@@ -4,13 +4,11 @@ import styled from 'styled-components';
 // components
 import MusicPlayer from './_components/MusicPlayer/MusicPlayer';
 import MusicList from './_components/MusicList/MusicList';
+import FloatingActionButton from './_components/FloatingActionButton/FloatingActionButton';
+import ActionMenuContainer from './_components/FloatingActionButton/ActionMenuContainer';
 
 // hooks
 import useChannelPage from './ChannelPage.hook';
-
-// images
-import FloatingActionButton from './_components/FloatingActionButton/FloatingActionButton';
-import ActionMenuContainer from './_components/FloatingActionButton/ActionMenuContainer';
 
 export default function ChannelPage() {
   // logics
@@ -25,8 +23,10 @@ export default function ChannelPage() {
       </Content>
       <WrapperForHorizontallyCentered>
         <FloatingActionButton handleFloatingButtonClick={handleFloatingButtonClick} />
+        {isFocusedFloatingButton ? (
+          <ActionMenuContainer handleDimmedClick={handleDimmedClick} handleUpdateLayer={handleUpdateLayer} />
+        ) : null}
       </WrapperForHorizontallyCentered>
-      {isFocusedFloatingButton && ActionMenuContainer({ handleDimmedClick, handleUpdateLayer })}
     </>
   );
 }
