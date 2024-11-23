@@ -38,12 +38,11 @@ const FloatingActionButtonContainer = styled.div`
   width: 100%;
 
   display: flex;
-  flex-direction: column;
-  align-items: end;
-  gap: 8px;
+  justify-content: center;
+
+  gap: 16px;
   position: fixed;
   bottom: 80px;
-  right: 24px;
 `;
 
 const PlayerButton = styled(ButtonBluePrint)`

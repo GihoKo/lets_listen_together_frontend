@@ -18,12 +18,13 @@ export default function FloatingActionButton({ handleFloatingButtonClick }: Floa
   );
 }
 
+//  //#CAFDD9
+
 const Wrapper = styled(ButtonBluePrint)`
   display: none;
 
   position: fixed;
   bottom: 24px;
-  right: 24px;
 
   @media (max-width: 768px) {
     display: block;

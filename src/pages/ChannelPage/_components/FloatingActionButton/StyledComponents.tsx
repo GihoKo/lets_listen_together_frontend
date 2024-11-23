@@ -9,12 +9,18 @@ export const ButtonBluePrint = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: var(--mint4);
-  box-shadow: 0 0 8px var(--mint4);
+  background-color: var(--mint7);
+  box-shadow: 0 0 10px var(--mint7);
+
+  transition: all 0.3s;
 
   cursor: pointer;
 
   z-index: 9999;
+
+  &:hover {
+    transform: scale(1.1);
+  }
 
   img {
     width: 100%;

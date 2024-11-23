@@ -4,13 +4,11 @@ import styled from 'styled-components';
 // components
 import MusicPlayer from './_components/MusicPlayer/MusicPlayer';
 import MusicList from './_components/MusicList/MusicList';
+import FloatingActionButton from './_components/FloatingActionButton/FloatingActionButton';
+import ActionMenuContainer from './_components/FloatingActionButton/ActionMenuContainer';
 
 // hooks
 import useChannelPage from './ChannelPage.hook';
-
-// images
-import FloatingActionButton from './_components/FloatingActionButton/FloatingActionButton';
-import ActionMenuContainer from './_components/FloatingActionButton/ActionMenuContainer';
 
 export default function ChannelPage() {
   // logics
@@ -23,8 +21,12 @@ export default function ChannelPage() {
         <MusicPlayer zIndex={zIndex} />
         <MusicList zIndex={zIndex} />
       </Content>
-      <FloatingActionButton handleFloatingButtonClick={handleFloatingButtonClick} />
-      {isFocusedFloatingButton && ActionMenuContainer({ handleDimmedClick, handleUpdateLayer })}
+      <WrapperForHorizontallyCentered>
+        <FloatingActionButton handleFloatingButtonClick={handleFloatingButtonClick} />
+        {isFocusedFloatingButton ? (
+          <ActionMenuContainer handleDimmedClick={handleDimmedClick} handleUpdateLayer={handleUpdateLayer} />
+        ) : null}
+      </WrapperForHorizontallyCentered>
     </>
   );
 }
@@ -46,4 +48,11 @@ const Content = styled.div`
     gap: 0px;
     padding: 0px;
   }
+`;
+
+const WrapperForHorizontallyCentered = styled.div`
+  width: 100%;
+
+  display: flex;
+  justify-content: center;
 `;
