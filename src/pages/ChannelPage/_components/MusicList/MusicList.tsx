@@ -80,17 +80,10 @@ const Wrapper = styled.div<{
   @media (max-width: 768px) {
     border-radius: 0;
     width: 100vw;
-    height: 100vh;
 
     gap: 0px;
 
     padding: 0;
-
-    margin-top: 0;
-
-    position: absolute;
-    top: 0;
-    left: 0;
   }
 `;
 
