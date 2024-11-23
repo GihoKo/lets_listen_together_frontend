@@ -17,6 +17,8 @@ export default function useGetChannelByPageParam(): UseInfiniteQueryResult<UseGe
   return useInfiniteQuery({
     queryKey: queryKey,
     queryFn: getChannelsByPageParam, // pageParam을 올바르게 사용
+    staleTime: 1 * 60 * 1000, // 1분
+    gcTime: 60 * 60 * 1000, // 60분
     initialPageParam: 0,
     getNextPageParam: (lastPage) => {
       return lastPage?.nextCursor !== null ? lastPage.nextCursor : undefined; // nextCursor가 null인 경우 undefined 반환

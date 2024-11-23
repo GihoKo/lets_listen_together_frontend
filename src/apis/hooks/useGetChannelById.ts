@@ -9,6 +9,8 @@ export default function useGetChannelById(channelId: string | undefined) {
   return useQuery<Channel, Error>({
     queryKey: queryKey,
     queryFn: () => getChannelById(channelId),
+    staleTime: 1 * 60 * 1000, // 1분
+    gcTime: 5 * 60 * 1000, // 10분
     enabled: !!channelId,
   });
 }

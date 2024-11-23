@@ -9,5 +9,7 @@ export default function useGetMySubscribedChannels(userId: string | undefined) {
   return useSuspenseQuery<Channel[], Error>({
     queryKey: queryKey,
     queryFn: () => getMySubscribedChannels(userId),
+    staleTime: 1 * 60 * 1000, // 1분
+    gcTime: 5 * 60 * 1000, // 5분
   });
 }
