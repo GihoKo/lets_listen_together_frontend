@@ -23,7 +23,9 @@ export default function ChannelPage() {
         <MusicPlayer zIndex={zIndex} />
         <MusicList zIndex={zIndex} />
       </Content>
-      <FloatingActionButton handleFloatingButtonClick={handleFloatingButtonClick} />
+      <WrapperForHorizontallyCentered>
+        <FloatingActionButton handleFloatingButtonClick={handleFloatingButtonClick} />
+      </WrapperForHorizontallyCentered>
       {isFocusedFloatingButton && ActionMenuContainer({ handleDimmedClick, handleUpdateLayer })}
     </>
   );
@@ -46,4 +48,11 @@ const Content = styled.div`
     gap: 0px;
     padding: 0px;
   }
+`;
+
+const WrapperForHorizontallyCentered = styled.div`
+  width: 100%;
+
+  display: flex;
+  justify-content: center;
 `;
