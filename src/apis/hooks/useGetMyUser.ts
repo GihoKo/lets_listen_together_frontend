@@ -9,6 +9,7 @@ export default function useGetMyUser(userId: string) {
   return useQuery<User, Error>({
     queryKey: queryKey,
     queryFn: () => getMyUser(userId),
+    gcTime: 0,
     enabled: !!userId,
   });
 }
