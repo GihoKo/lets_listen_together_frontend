@@ -22,6 +22,7 @@ export const getChannelsByPageParam = async ({ pageParam = 0 }: { pageParam: num
 export const getChannelById = async (channelId: string | undefined) => {
   try {
     const response = await axiosInstanceWithToken.get(`/channels/${channelId}`);
+    console.log(response);
     return response.data;
   } catch (error) {
     console.error(error);

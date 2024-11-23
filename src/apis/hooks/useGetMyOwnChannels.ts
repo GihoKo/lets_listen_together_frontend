@@ -9,5 +9,7 @@ export default function useGetMyOwnChannels(userId: string | undefined) {
   return useSuspenseQuery<Channel[], Error>({
     queryKey: queryKey,
     queryFn: () => getMyOwnChannels(userId),
+    staleTime: 1 * 60 * 1000, // 1분
+    gcTime: 5 * 60 * 1000, // 5분
   });
 }

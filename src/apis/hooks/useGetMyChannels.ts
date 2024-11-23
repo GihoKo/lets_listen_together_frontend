@@ -10,5 +10,7 @@ export default function useGetMyChannels(userId: string | undefined) {
     queryKey: queryKey,
     queryFn: () => getMyChannelList(userId),
     enabled: !!userId,
+    staleTime: 0,
+    gcTime: 5 * 60 * 1000,
   });
 }
