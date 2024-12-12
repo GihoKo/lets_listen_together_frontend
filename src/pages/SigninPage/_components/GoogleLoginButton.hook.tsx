@@ -9,6 +9,7 @@ import { useUserStore } from '../../../store/useUserStore';
 
 // token
 import accessTokenManager from '@/authentication/accessTokenManager';
+import getLastVisitedPage from '@/utils/getLastVisitedPage';
 
 export default function useGoogleLoginButton() {
   const navigate = useNavigate();
@@ -25,12 +26,9 @@ export default function useGoogleLoginButton() {
         });
 
         if (accessTokenManager.hasAccessToken()) {
-          const lastVisitedPage = localStorage.getItem('lastVisitedPage');
-          if (lastVisitedPage) {
-            navigate(lastVisitedPage);
-          } else {
-            navigate('/main');
-          }
+          const lastVisitedPage = getLastVisitedPage();
+
+          navigate(lastVisitedPage);
         }
       } catch (error) {
         console.error(error);
