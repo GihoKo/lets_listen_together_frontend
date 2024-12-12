@@ -16,6 +16,7 @@ const queryClient = new QueryClient({
   },
 });
 
+// 로컬 스토리지 저장을 위한 설정
 const persister = createSyncStoragePersister({
   storage: window.localStorage,
   key: 'react-query-persist-local-storage',
@@ -24,12 +25,15 @@ const persister = createSyncStoragePersister({
   deserialize: (value) => JSON.parse(value),
 });
 
-const maxAge = 1 * 60 * 3000; // 1분
+// 쿼리 저장 시간
+const maxAge = 1 * 60 * 3000;
 
 // 특정 쿼리 키의 값만 로컬스토리지에 저장
 const storedQueryKeys = ['musicList', 'myOwnChannels', 'mySubscribedChannels'];
 
+// dehydrate(저장) 옵션
 const dehydrateOptions = {
+  // 특정 쿼리 키값들만 저장한다.
   shouldDehydrateQuery: (query: Query) => {
     for (const storedQueryKey of storedQueryKeys) {
       if (query.queryKey.includes(storedQueryKey)) {
