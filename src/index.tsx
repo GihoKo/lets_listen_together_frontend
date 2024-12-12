@@ -20,14 +20,14 @@ if (rootElement) {
   const root = ReactDOM.createRoot(rootElement);
 
   root.render(
-    <React.StrictMode>
-      <BrowserRouter>
-        <QueryClientProvider client={queryClient}>
-          <App />
-          <ReactQueryDevtools initialIsOpen={false} position='left' />
-        </QueryClientProvider>
-      </BrowserRouter>
-    </React.StrictMode>,
+    // <React.StrictMode>
+    <BrowserRouter>
+      <QueryClientProvider client={queryClient}>
+        <App />
+        <ReactQueryDevtools initialIsOpen={false} position='left' />
+      </QueryClientProvider>
+    </BrowserRouter>,
+    // </React.StrictMode>,
   );
 }
 
