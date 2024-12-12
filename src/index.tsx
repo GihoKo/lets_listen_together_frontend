@@ -24,11 +24,20 @@ const persister = createSyncStoragePersister({
   deserialize: (value) => JSON.parse(value),
 });
 
-const maxAge = 3 * 60 * 3000; // 3분
+const maxAge = 1 * 60 * 3000; // 1분
 
 // 특정 쿼리 키의 값만 로컬스토리지에 저장
+const storedQueryKeys = ['musicList', 'myOwnChannels', 'mySubscribedChannels'];
+
 const dehydrateOptions = {
-  shouldDehydrateQuery: (query: Query) => query.queryKey.includes('musicList'),
+  shouldDehydrateQuery: (query: Query) => {
+    for (const storedQueryKey of storedQueryKeys) {
+      if (query.queryKey.includes(storedQueryKey)) {
+        return true;
+      }
+    }
+    return false;
+  },
 };
 
 const persistOptions = { persister, maxAge, dehydrateOptions };
