@@ -25,7 +25,12 @@ export default function useGoogleLoginButton() {
         });
 
         if (accessTokenManager.hasAccessToken()) {
-          navigate('/main');
+          const lastVisitedPage = localStorage.getItem('lastVisitedPage');
+          if (lastVisitedPage) {
+            navigate(lastVisitedPage);
+          } else {
+            navigate('/main');
+          }
         }
       } catch (error) {
         console.error(error);
