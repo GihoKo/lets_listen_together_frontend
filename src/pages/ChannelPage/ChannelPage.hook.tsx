@@ -1,9 +1,14 @@
 // hooks
 import { useState } from 'react';
+import { useParams } from 'react-router-dom';
 
 export type Layer = 'player' | 'musicList';
 
 export default function useChannelPage() {
+  // 마지막 방문한 페이지 저장
+  const { channelId } = useParams<{ channelId: string }>();
+  localStorage.setItem('lastVisitedPage', `/main/channel/${channelId}`);
+
   const [isFocusedFloatingButton, setIsFocusedFloatingButton] = useState(false);
 
   const handleFloatingButtonClick = () => {
