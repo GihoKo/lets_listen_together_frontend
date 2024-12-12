@@ -24,10 +24,14 @@ const persister = createSyncStoragePersister({
   deserialize: (value) => JSON.parse(value),
 });
 
+const maxAge = 3 * 60 * 3000; // 3분
+
 // 특정 쿼리 키의 값만 로컬스토리지에 저장
 const dehydrateOptions = {
   shouldDehydrateQuery: (query: Query) => query.queryKey.includes('musicList'),
 };
+
+const persistOptions = { persister, maxAge, dehydrateOptions };
 
 const rootElement = document.getElementById('root');
 if (rootElement) {
@@ -36,7 +40,7 @@ if (rootElement) {
   root.render(
     // <React.StrictMode>
     <BrowserRouter>
-      <PersistQueryClientProvider client={queryClient} persistOptions={{ persister, dehydrateOptions }}>
+      <PersistQueryClientProvider client={queryClient} persistOptions={persistOptions}>
         <App />
         <ReactQueryDevtools initialIsOpen={false} position='left' />
       </PersistQueryClientProvider>

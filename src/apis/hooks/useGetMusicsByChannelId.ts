@@ -9,7 +9,7 @@ export default function useGetMusicsByChannelId(channelId: string | undefined) {
   return useSuspenseQuery<Music[], Error>({
     queryKey: queryKey,
     queryFn: () => getMusicsByChannelId(channelId),
-    staleTime: 1 * 60 * 1000, // 1분
+    staleTime: 3 * 60 * 3000, // 1분
     gcTime: 5 * 60 * 1000, // 5분
   });
 }

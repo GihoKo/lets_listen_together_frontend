@@ -8,12 +8,12 @@ import { useParams } from 'react-router-dom';
 export default function useMusicContainer() {
   const { channelId } = useParams<{ channelId: string }>();
   const { musicList, setMusicList } = useMusicListStore();
-  const { data: fetchedMusicList, refetch } = useGetMusicsByChannelId(channelId);
+  const { data: fetchedMusicList, isStale, refetch } = useGetMusicsByChannelId(channelId);
 
   apiCallCounter.increment();
 
   useEffect(() => {
-    if (channelId) {
+    if (channelId && isStale) {
       refetch();
     }
   }, [refetch, channelId]);
