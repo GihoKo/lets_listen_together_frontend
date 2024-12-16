@@ -37,3 +37,13 @@ export enum zIndex {
   MODAL_CONTENT = 998,
   SIDEBAR = 100,
 }
+
+export enum LastVisitedPageType {
+  MAIN = '/main',
+  CHANNEL = '/main/channel',
+  CHANNEL_CREATE = '/main/channel/create',
+  CHANNEL_EDIT = '/main/channel/edit',
+  MUSIC_LIST = '/main/channel/:channelId/musics',
+  MUSIC_DETAIL = '/main/channel/:channelId/musics/:musicId',
+  CACHE_TIME = 1 * 60 * 1000, // 1분
+}

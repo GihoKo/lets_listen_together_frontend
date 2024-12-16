@@ -2,6 +2,7 @@ import { useInfiniteQuery, UseInfiniteQueryResult } from '@tanstack/react-query'
 import { getChannelsByPageParam } from '../services/channel';
 import queryKeys from '../queryKey';
 import { Channel } from '@/types/channel';
+import apiCallCounter from '@/testUtils/ApiCallCounter';
 
 interface UseGetChannelByPageParamResponse {
   pageParams: number[];
@@ -13,6 +14,9 @@ interface UseGetChannelByPageParamResponse {
 
 export default function useGetChannelByPageParam(): UseInfiniteQueryResult<UseGetChannelByPageParamResponse, Error> {
   const queryKey = queryKeys.channels.allChannels;
+
+  apiCallCounter.increment();
+  console.log('메인 페이지 채널 조회', apiCallCounter.getCount());
 
   return useInfiniteQuery({
     queryKey: queryKey,

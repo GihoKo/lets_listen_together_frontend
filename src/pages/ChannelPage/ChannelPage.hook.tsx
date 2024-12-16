@@ -1,9 +1,18 @@
+// utils
+import setLastVisitedPage from '@/utils/setLastVisitedPage';
+
 // hooks
 import { useState } from 'react';
+import { useLocation } from 'react-router-dom';
 
 export type Layer = 'player' | 'musicList';
 
 export default function useChannelPage() {
+  // 마지막 방문한 페이지 저장
+  const lastVisitedPage = useLocation().pathname;
+
+  setLastVisitedPage(lastVisitedPage);
+
   const [isFocusedFloatingButton, setIsFocusedFloatingButton] = useState(false);
 
   const handleFloatingButtonClick = () => {
