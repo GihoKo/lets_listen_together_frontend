@@ -58,27 +58,4 @@ npm run dev
 
 ## 문제 및 해결
 
-**문제 정의**
 
-- 사용자의 인증을 관리하는 과정에서 **RefreshToken**과 **AccessToken**의 저장 및 관리 방식에 대해 고민하게 됨.
-
-**원인 분석**
-
-- **로컬 스토리지**와 **세션 스토리지**는 자바스크립트를 통해 접근이 가능해 XSS 공격에 취약함.
-- **쿠키**는 XSS와 CSRF 공격에 대해 HttpOnly, Secure, SameSite 등의 속성을 통해 어느 정도 방어할 수 있지만, 여전히 위험성이 존재함. 특히 **AccessToken**이 탈취될 경우 보안에 큰 위협이 됨.
-- **클로저**를 사용하면 내부 상태에 직접 접근할 수 없도록 하여 쿠키보다 노출 가능성이 적음. 그러나 RefreshToken을 클로저에 저장할 경우, 새로고침 시 데이터가 사라져 다시 로그인을 해야 하는 문제가 발생함.
-
-**해결 과정**
-
-1. **RefreshToken**
-   - **쿠키**에 저장하여 새로고침 시에도 유지되도록 하고, HttpOnly, Secure, SameSite 속성으로 보안을 강화함.
-2. **AccessToken**
-   - **클로저**에 저장하여 외부에서 접근할 수 없도록 보호함. 새로고침 시에는 **RefreshToken**을 이용해 **AccessToken**을 다시 발급받음.
-   - 클로저를 구현 코드
-   - ![끌로저](https://github.com/user-attachments/assets/1543033b-9d6a-4d65-83ac-b29754e5befd)
-   - 새로 고침시 재발급 받는 코드
-   - ![woqkfrmq](https://github.com/user-attachments/assets/f62c94ee-56e0-4f1e-b927-98230e0905db)
-
-**결론**
-
-- RefreshToken은 쿠키에, AccessToken은 클로저에 관리함으로써 보안성을 높이고, 실용적인 인증 관리 방식을 구현함.
