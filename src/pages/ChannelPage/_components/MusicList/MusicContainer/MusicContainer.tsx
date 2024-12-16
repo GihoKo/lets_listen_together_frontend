@@ -7,16 +7,13 @@ import useMusicContainer from './MusicContainer.hook';
 // components
 const Music = lazy(() => import('./Music/Music'));
 
-// images
-import upCircleSvg from '@/images/svg/up-circle.svg';
-
 // types
 import { MusicContainerProps } from './MusicContainer.type';
 import { lazy } from 'react';
 
 export default function MusicContainer({ isEditMode }: MusicContainerProps) {
   // logics
-  const { musicList, containerRef, handleScrollUpButtonClick } = useMusicContainer();
+  const { musicList } = useMusicContainer();
 
   // view
 
@@ -26,14 +23,11 @@ export default function MusicContainer({ isEditMode }: MusicContainerProps) {
 
   return (
     <>
-      <Container ref={containerRef}>
+      <Container>
         {musicList.map((music, index) => (
           <Music key={music.id} index={index} music={music} isEditMode={isEditMode} />
         ))}
       </Container>
-      <ScrollUpButton onClick={handleScrollUpButtonClick}>
-        <img src={upCircleSvg} alt='위로 스크롤 버튼 이미지' />
-      </ScrollUpButton>
     </>
   );
 }
@@ -55,6 +49,7 @@ const NoMusic = styled.div`
 `;
 
 const Container = styled.div`
+  flex-shrink: 0;
   border-bottom: 1px solid var(--grey-grey300);
   width: 100%;
   height: 1px;
@@ -71,32 +66,5 @@ const Container = styled.div`
 
   @media (max-width: 768px) {
     gap: 0px;
-  }
-`;
-
-const ScrollUpButton = styled.button`
-  width: 48px;
-  height: 48px;
-
-  transition: all 0.3s;
-
-  cursor: pointer;
-
-  img {
-    width: 100%;
-    height: 100%;
-
-    cursor: pointer;
-  }
-
-  &:hover {
-    transform: scale(1.2);
-  }
-
-  @media (max-width: 768px) {
-    width: 40px;
-    height: 40px;
-
-    margin-top: 8px;
   }
 `;

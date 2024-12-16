@@ -10,6 +10,15 @@ export const getAllchannelLists = async () => {
   }
 };
 
+export const getChannelsByPageParam = async ({ pageParam = 0 }: { pageParam: number }) => {
+  try {
+    const response = await axiosInstanceWithToken.get(`/channels?cursor=${pageParam}`);
+    return response.data;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 export const getChannelById = async (channelId: string | undefined) => {
   try {
     const response = await axiosInstanceWithToken.get(`/channels/${channelId}`);

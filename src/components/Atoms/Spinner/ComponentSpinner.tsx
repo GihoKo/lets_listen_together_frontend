@@ -1,7 +1,7 @@
 import styled, { keyframes } from 'styled-components';
 
 export default function ComponentSpinner() {
-  return <Wrapper />;
+  return <Spinner />;
 }
 
 const spin = keyframes`
@@ -9,7 +9,7 @@ const spin = keyframes`
   100% { transform: rotate(360deg); }
 `;
 
-const Wrapper = styled.div`
+export const Spinner = styled.div`
   border: 16px solid var(--grey-grey990);
   border-top: 16px solid var(--mint5);
   border-radius: 50%;

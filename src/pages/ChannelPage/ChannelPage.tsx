@@ -4,41 +4,34 @@ import styled from 'styled-components';
 // components
 import MusicPlayer from './_components/MusicPlayer/MusicPlayer';
 import MusicList from './_components/MusicList/MusicList';
+import FloatingActionButton from './_components/FloatingActionButton/FloatingActionButton';
+import ActionMenuContainer from './_components/FloatingActionButton/ActionMenuContainer';
 
 // hooks
 import useChannelPage from './ChannelPage.hook';
 
 export default function ChannelPage() {
   // logics
-
-  const { personalTap, currentTapValue, handleTapChange } = useChannelPage();
+  const { isFocusedFloatingButton, zIndex, handleFloatingButtonClick, handleDimmedClick, handleUpdateLayer } =
+    useChannelPage();
 
   return (
     <>
-      <Content $currentTapValue={currentTapValue}>
-        <MusicPlayer />
-        <MusicList />
+      <Content>
+        <MusicPlayer zIndex={zIndex} />
+        <MusicList zIndex={zIndex} />
       </Content>
-      <TapContainer>
-        {personalTap.map((tap) => (
-          <TapButton
-            key={tap.value}
-            $currentTapValue={currentTapValue}
-            $tapValue={tap.value}
-            $isFocused={tap.isFocused}
-            onClick={() => handleTapChange(tap.value)}
-          >
-            {tap.name}
-          </TapButton>
-        ))}
-      </TapContainer>
+      <WrapperForHorizontallyCentered>
+        <FloatingActionButton handleFloatingButtonClick={handleFloatingButtonClick} />
+        {isFocusedFloatingButton ? (
+          <ActionMenuContainer handleDimmedClick={handleDimmedClick} handleUpdateLayer={handleUpdateLayer} />
+        ) : null}
+      </WrapperForHorizontallyCentered>
     </>
   );
 }
 
-const Content = styled.div<{
-  $currentTapValue: number;
-}>`
+const Content = styled.div`
   width: 100%;
   height: 100%;
 
@@ -53,40 +46,13 @@ const Content = styled.div<{
     width: 200vw;
 
     gap: 0px;
-    padding: 0 0 52px 0;
-
-    transition: transform 0.3s;
-    transform: ${({ $currentTapValue }) => `translateX(-${$currentTapValue * 100}vw)`};
+    padding: 0px;
   }
 `;
 
-const TapContainer = styled.div`
-  border-top: 1px solid var(--grey-grey300);
-  display: none;
-
+const WrapperForHorizontallyCentered = styled.div`
   width: 100%;
 
-  background-color: var(--grey-grey100);
-
-  position: fixed;
-  bottom: 0;
-
-  @media (max-width: 768px) {
-    display: flex;
-  }
-`;
-
-const TapButton = styled.button<{
-  $currentTapValue: number;
-  $tapValue: number;
-  $isFocused: boolean;
-}>`
-  flex-grow: 1;
-
-  font-size: 16px;
-  padding: 16px 0;
-  cursor: pointer;
-
-  color: ${({ $isFocused }) => ($isFocused ? 'var(--mint9)' : 'var(--mint5)')};
-  background-color: ${({ $isFocused }) => ($isFocused ? 'var(--mint5)' : 'var(--grey-grey100)')};
+  display: flex;
+  justify-content: center;
 `;

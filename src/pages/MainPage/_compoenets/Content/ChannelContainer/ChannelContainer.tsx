@@ -7,6 +7,7 @@ import useChannelContainer from './ChannelContainer.hook';
 
 // components
 import MainTitle from '@/components/Atoms/Text/MainTitle';
+import { Spinner } from '@/components/Atoms/Spinner/ComponentSpinner';
 
 const Channel = lazy(() => import('./Channel/Channel'));
 
@@ -15,15 +16,22 @@ import { Music } from '@/types/music';
 
 export default function ChannelContainer() {
   // logics
-  const { channels, currentMusic } = useChannelContainer();
+  const { channels, hasNextPage, currentMusic, InfinifeScrollTriggerRef } = useChannelContainer();
 
   // view
   return (
     <Wrapper>
       <MainTitle>Channel List</MainTitle>
+
       <Container $currentMusic={currentMusic}>
-        {channels?.map((channel) => <Channel key={channel.id} channel={channel} />)}
+        {channels?.pages.map((page) => page.channels?.map((channel) => <Channel key={channel.id} channel={channel} />))}
       </Container>
+
+      {hasNextPage ? (
+        <InfiniteScrollTrigger ref={InfinifeScrollTriggerRef}>
+          <Spinner />
+        </InfiniteScrollTrigger>
+      ) : null}
     </Wrapper>
   );
 }
@@ -63,4 +71,12 @@ const Container = styled.ul<{
   @media (max-width: 768px) {
     grid-template-columns: repeat(1, 1fr);
   }
+`;
+
+const InfiniteScrollTrigger = styled.div`
+  width: 100%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;

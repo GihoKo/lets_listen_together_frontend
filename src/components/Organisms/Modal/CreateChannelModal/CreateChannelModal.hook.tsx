@@ -70,6 +70,24 @@ export default function useCreateChannelModal() {
     }
   };
 
+  const handleAddTagButtonClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    e.preventDefault();
+    if (
+      !validateTag({
+        tagValue,
+        channelData,
+        setErrorMessage,
+      })
+    )
+      return;
+
+    setChannelData({
+      ...channelData,
+      tags: [...channelData.tags, tagValue],
+    });
+    setTagValue('');
+  };
+
   const handleDeleteTag = (tag: string) => {
     setChannelData({
       ...channelData,
@@ -128,6 +146,7 @@ export default function useCreateChannelModal() {
     handleChannelImageClick,
     handleFileChange,
     handleAddTagKeyDown,
+    handleAddTagButtonClick,
     handleDeleteTag,
     handleSubmit,
     closeModal,

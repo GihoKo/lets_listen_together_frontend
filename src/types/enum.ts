@@ -30,3 +30,20 @@ export enum ErrorMessagesType {
   MUSIC_URL_EMPTY = '음악 URL을 입력해주세요.',
   MUSIC_URL_UNVALID = '유효하지 않은 URL입니다.',
 }
+
+export enum zIndex {
+  MODAL = 1000,
+  MODAL_DIMMED = 999,
+  MODAL_CONTENT = 998,
+  SIDEBAR = 100,
+}
+
+export enum LastVisitedPageType {
+  MAIN = '/main',
+  CHANNEL = '/main/channel',
+  CHANNEL_CREATE = '/main/channel/create',
+  CHANNEL_EDIT = '/main/channel/edit',
+  MUSIC_LIST = '/main/channel/:channelId/musics',
+  MUSIC_DETAIL = '/main/channel/:channelId/musics/:musicId',
+  CACHE_TIME = 1 * 60 * 1000, // 1분
+}

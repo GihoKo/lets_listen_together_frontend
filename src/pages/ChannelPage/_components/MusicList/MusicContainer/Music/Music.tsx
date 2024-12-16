@@ -94,7 +94,6 @@ const Wrapper = styled.div<{ $isCurrentMusic: boolean }>`
   border: ${({ $isCurrentMusic }) => ($isCurrentMusic ? '2px solid var(--mint5)' : '1px solid var(--grey-grey300)')};
   min-width: 300px;
   width: 100%;
-  height: 72px;
 
   display: flex;
   align-items: center;

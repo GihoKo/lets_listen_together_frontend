@@ -1,23 +1,19 @@
 // hooks
 import useGetMusicsByChannelId from '@/apis/hooks/useGetMusicsByChannelId';
 import useMusicListStore from '@/store/useMusicListStore';
-import { useEffect, useRef } from 'react';
+import apiCallCounter from '@/testUtils/ApiCallCounter';
+import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
 export default function useMusicContainer() {
   const { channelId } = useParams<{ channelId: string }>();
   const { musicList, setMusicList } = useMusicListStore();
-  const { data: fetchedMusicList, refetch } = useGetMusicsByChannelId(channelId);
-  const containerRef = useRef<HTMLDivElement>(null);
+  const { data: fetchedMusicList, isStale, refetch } = useGetMusicsByChannelId(channelId);
 
-  const handleScrollUpButtonClick = () => {
-    if (containerRef.current) {
-      containerRef.current.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-  };
+  apiCallCounter.increment();
 
   useEffect(() => {
-    if (channelId) {
+    if (channelId && isStale) {
       refetch();
     }
   }, [refetch, channelId]);
@@ -28,5 +24,5 @@ export default function useMusicContainer() {
     }
   }, [fetchedMusicList]);
 
-  return { musicList, containerRef, handleScrollUpButtonClick };
+  return { musicList };
 }
